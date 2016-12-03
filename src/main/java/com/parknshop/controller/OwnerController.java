@@ -91,6 +91,13 @@ public class OwnerController {
         return mGson.toJson(responseBean);
     }
 
+
+    @RequestMapping(value = "/loginout",method = RequestMethod.POST)
+    public @ResponseBody String loginout(){
+        mService.loginOut();
+        return "";
+    }
+
     /**
      * 处理卖家注册
      * @param registerInfo
@@ -126,6 +133,9 @@ public class OwnerController {
         return mGson.toJson(responseBean);
 
     }
+
+
+
 
     /**
      * 检查参数是否为空
