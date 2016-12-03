@@ -2,11 +2,9 @@ package com.parknshop.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.parknshop.bean.LoginRequestBean;
-import com.parknshop.bean.OwnerLoginResponseBean;
-import com.parknshop.bean.RegisterRequestBean;
-import com.parknshop.bean.RegisterResponseBean;
+import com.parknshop.bean.*;
 import com.parknshop.entity.OwnerEntity;
+import com.parknshop.service.IOwnerService;
 import com.parknshop.service.IUserBuilder;
 import com.parknshop.service.IUserService;
 import com.parknshop.service.baseImpl.IDefineString;
@@ -37,15 +35,17 @@ public class OwnerController {
     IUserService mService;
     final
     IUserBuilder mUserBuilder;
+    final IOwnerService mOwnerService;
 
     Gson mGson = new GsonBuilder()
             .setDateFormat(DateFormat.getDateFormat())
             .create();
 
     @Autowired
-    public OwnerController(IUserService mService, OwnerBuilder mUserBuilder) {
+    public OwnerController(IUserService mService, OwnerBuilder mUserBuilder, IOwnerService ownerService) {
         this.mService = mService;
         this.mUserBuilder = mUserBuilder;
+        mOwnerService = ownerService;
     }
 
     /**
@@ -155,6 +155,61 @@ public class OwnerController {
      */
     public @ResponseBody String updateInfo(@RequestBody byte[] registerInfo) {
      return "";
+    }
+
+
+    private static final String MSG_STATE_ELSE = "Unknown error";
+    private static final String MSG_STATE_NOSHOP = "The shop don't exists";
+    private static final String MSG_STATE_DELETE = "The shop has been deleted";
+    private static final String MSG_STATE_REJECT = "The shop Apply has been rejected ";
+    private static final String MSG_STATE_CHECKING = "The shop is applying";
+    private static final String MSG_STATE_BLACK = "The shop is in blacklist";
+    private static final String MSG_STATE_USING = "The shop has been admitted,business is normal";
+    /**
+     * 检查当前用户是否已经开店
+     * @return
+     */
+    @RequestMapping(value = "/applycheck",method = RequestMethod.POST)
+    public @ResponseBody String applyCheck(HttpSession session){
+        OwnerEntity owner = (OwnerEntity) session.getAttribute(IDefineString.SESSION_USER);
+        ShopCheckBean response = new ShopCheckBean();
+        if (null == owner){
+            response.setError(true);
+            return mGson.toJson(response);
+        }
+        int state = mOwnerService.isHasShop(owner);
+        String msg = MSG_STATE_ELSE;
+        int status = 1;
+        switch (state){
+            case IOwnerService.SHOP_STATE_NOSHOP:
+                msg = MSG_STATE_NOSHOP;
+                status = 0;
+                break;
+            case IOwnerService.SHOP_STATE_DELETE:
+                msg = MSG_STATE_DELETE;
+                status = 1;
+                break;
+            case IOwnerService.SHOP_STATE_CHECKING:
+                msg = MSG_STATE_CHECKING;
+                status = 1;
+                break;
+            case IOwnerService.SHOP_STATE_BLAKE:
+                msg = MSG_STATE_BLACK;
+                state = 1;
+                break;
+            case IOwnerService.SHOP_STATE_USING:
+                msg = MSG_STATE_USING;
+                state = 1;
+                break;
+            default:
+                msg = MSG_STATE_ELSE;
+                status = 1;
+                break;
+        }
+        response.setError(false);
+        response.setStatus(status);
+        response.setMessage(msg);
+        return mGson.toJson(response);
     }
 
 }
