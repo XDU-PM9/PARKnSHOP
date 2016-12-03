@@ -1,0 +1,191 @@
+<!--导航-->
+<nav class="navbar navbar-default">
+    <div class="container">
+        <!--小屏幕导航按钮和logo-->
+        <div class="navbar-header">
+            <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <img id="logo" src="../../resources/images/ico/banner.jpg" alt="">
+        </div>
+        <!--小屏幕导航按钮和logo-->
+        <!--导航-->
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <form class="navbar-form navbar-left" role="search">
+                    <div class="form-group form-serch">
+                        <input type="text" class="form-control" placeholder="Search">
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#askModal">Search
+                        </button>
+                    </div>
+                </form>
+                <li><a href="#/customer/login">Customer </a></li>
+                <li><a href="#/owner/login">Owner </a></li>
+            </ul>
+        </div>
+        <!--导航-->
+
+    </div>
+</nav>
+<!--导航-->
+<!--内容-->
+<div class="container">
+    <div class="row">
+        <!--左边栏-->
+        <div class="col-md-2">
+            <div class="list-group">
+                <div class="panel-heading">Product Categories</div>
+                <a href="customer/home.html" class="list-group-item">TV& Home Theater</a>
+                <a href="customer/home.html" class="list-group-item">Computers & Tablets</a>
+                <a href="customer/home.html" class="list-group-item">Customer Electronics</a>
+                <a href="customer/home.html" class="list-group-item">Cell Phones</a>
+                <a href="customer/home.html" class="list-group-item">Cameras & Camcorders</a>
+                <a href="customer/home.html" class="list-group-item">Audio</a>
+                <a href="customer/home.html" class="list-group-item">Car Electronics & GPS</a>
+                <a href="customer/home.html" class="list-group-item">Video, Games, Movies & Music</a>
+                <a href="customer/home.html" class="list-group-item">Health, Fitness & Sports</a>
+                <a href="customer/home.html" class="list-group-item">Home & Office</a>
+            </div>
+        </div>
+        <!--左边栏-->
+
+        <!--中间栏-->
+        <div class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div id="myCarousel" class="carousel slide col-md-12">
+                        <!-- 轮播（Carousel）指标 -->
+                        <ol class="carousel-indicators">
+                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#myCarousel" data-slide-to="1"></li>
+                            <li data-target="#myCarousel" data-slide-to="2"></li>
+                        </ol>
+                        <!-- 轮播（Carousel）项目 -->
+                        <div class="carousel-inner">
+                            <div class="item active">
+                                <img src="../../resources/images/slides/1.jpg" alt="First slide">
+                            </div>
+                            <div class="item">
+                                <img src="../../resources/images/slides/2.png" alt="Second slide">
+                            </div>
+                            <div class="item">
+                                <img src="../../resources/images/slides/3.jpg" alt="Third slide">
+                            </div>
+                        </div>
+                        <!-- 轮播（Carousel）导航 -->
+                        <a class="carousel-control left" href="#myCarousel"
+                           data-slide="prev">&lsaquo;</a>
+                        <a class="carousel-control right" href="#myCarousel"
+                           data-slide="next">&rsaquo;</a>
+                    </div>
+                    <div class="media well col-md-6">
+                        <div class="media-left">
+                            <a href="#">
+                                <img class="media-object wh64" src="../../resources/images/goods/1.png">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <div class=" ">
+                                <h4 class="media-heading">K8-M116 Ultrabook Tablet </h4>
+                                <p>really fancy</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="media well col-md-6">
+                        <div class="media-left">
+                            <a href="#">
+                                <img class="media-object wh64" src="../../resources/images/goods/2.png">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <div class=" ">
+                                <h4 class="media-heading">CUBE i7 Stylus 10.6" Wind</h4>
+                                <p>really fancy</p>
+                            </div>
+                        </div>
+                    </div>
+                    <nav class=" " style="text-align:center">
+                        <ul class="pagination">
+                            <li class="disabled"><a href="#" aria-label="Previous"><span
+                                    aria-hidden="true">&laquo;</span></a>
+                            </li>
+                            <li class="active"><a href="#">1</a></li>
+                            <li><a href="#">2 </a></li>
+                            <li><a href="#">3 </a></li>
+                            <li><a href="#">4 </a></li>
+                            <li><a href="#">5 </a></li>
+                            <li><a href="#">6 </a></li>
+                            <li><a href="#"><span aria-hidden="true">&raquo;</span></a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+        </div>
+        <!--中间栏-->
+
+        <!--右边栏-->
+        <div class="col-md-2 pull-right">
+            <div class="media well ">
+                <div class="media-top">
+                    <a href="#">
+                        <img class="media-object wh64" src="../../resources/images/goods/2.png">
+                    </a>
+                </div>
+                <div class="media-body">
+                    <div class=" ">
+                        <h4 class="media-heading">CUBE i7 Stylus 10.6" Wind</h4>
+                        <p>really fancy</p>
+                    </div>
+                </div>
+            </div>
+            <div class="media well ">
+                <div class="media-top">
+                    <a href="#">
+                        <img class="media-object wh64" src="../../resources/images/goods/2.png">
+                    </a>
+                </div>
+                <div class="media-body">
+                    <div class=" ">
+                        <h4 class="media-heading">CUBE i7 Stylus 10.6" Wind</h4>
+                        <p>really fancy</p>
+                    </div>
+                </div>
+            </div>
+            <div class="media well ">
+                <div class="media-top">
+                    <a href="#">
+                        <img class="media-object wh64" src="../../resources/images/goods/1.png">
+                    </a>
+                </div>
+                <div class="media-body">
+                    <div class=" ">
+                        <h4 class="media-heading">K8-M116 Ultrabook Tablet </h4>
+                        <p>really fancy</p>
+                    </div>
+                </div>
+            </div>
+            <div class="media well ">
+                <div class="media-top">
+                    <a href="#">
+                        <img class="media-object wh64" src="../../resources/images/goods/2.png">
+                    </a>
+                </div>
+                <div class="media-body">
+                    <div class=" ">
+                        <h4 class="media-heading">CUBE i7 Stylus 10.6" Wind</h4>
+                        <p>really fancy</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--右边栏-->
+
+    </div>
+</div>
+<!--内容-->
+

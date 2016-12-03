@@ -1,0 +1,128 @@
+<!--导航-->
+<nav class="navbar navbar-default">
+    <div class="container">
+        <!--小屏幕导航按钮和logo-->
+        <div class="navbar-header">
+            <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <img id="logo" src="../../resources/images/ico/banner.jpg" alt="">
+        </div>
+        <!--小屏幕导航按钮和logo-->
+        <!--导航-->
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right" id="portrait">
+                <li><img  ng-src="{{$root.user.image}}" alt="">{{$root.user.userName}}</li>
+                <li><a href="javascript:void(0);" ng-click="console.log('hello')"><span class="glyphicon glyphicon-off"></span>&nbsp;&nbsp;退出</a></li>
+                <button ng-click="console.log('hello')">hellp</button>
+            </ul>
+        </div>
+        <!--导航-->
+    </div>
+</nav>
+<!--导航-->
+
+<!--内容-->
+<div class="container">
+    <div class="row">
+        <!--左边栏-->
+        <div class="col-md-2">
+            <div class="list-group">
+                <a href="home.html" class="list-group-item active">主页</a>
+                <a href="javascript:void(0)" class="list-group-item" data-toggle="modal" data-target="#myModal">申请开店</a>
+                <a href="home.html" class="list-group-item ">申请进度</a>
+            </div>
+
+            <div class="list-group">
+                <div class="panel-heading">商店管理</div>
+                <a href="home.html" class="list-group-item">商品管理</a>
+                <a href="../../search.html" class="list-group-item">广告管理</a>
+                <a href="home.html" class="list-group-item">商店信息</a>
+                <a href="home.html" class="list-group-item">订单管理</a>
+                <a href="home.html" class="list-group-item">销售记录</a>
+            </div>
+        </div>
+        <!--左边栏-->
+
+        <!--右边栏-->
+
+        <div class="col-md-10">
+            <div class="panel panel-default">
+                <div class="panel-heading">我的店铺</div>
+                <div class="panel-body">
+                    <table class="table table-hover">
+                        <tr>
+                            <div class="media well">
+                                <div class="media-left">
+                                    <a href="#">
+                                        <img class="media-object wh64" src="../../../resources/images/a.png">
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <div class="pull-left">
+                                        <h4 class="media-heading">店铺名称</h4>
+                                        <p>xxxxxxxxxxxxx</p>
+                                        <p>
+                                            <a href="">xxxxxx</a> | <a href="">xxxxxxxx</a>
+                                        </p>
+                                    </div>
+                                    <button class="btn btn-default pull-right">xxxxxxxxx</button>
+                                </div>
+                            </div>
+                        </tr>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!--右边栏-->
+    </div>
+</div>
+<!--内容-->
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">添加用户</h4>
+            </div>
+            <div class="modal-body">
+                <form action="#">
+                    <div class="form-group">
+                        <label for="ID">ID</label>
+                        <input type="text" id="ID" ng-model="ID" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="realName">real name</label>
+                        <input type="text" id="realName" ng-model="realName" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="realImg">real photo</label>
+                        <input type="text" id="realImg" ng-model="realImg" class="form-control" >
+                    </div>
+                    <div class="form-group">
+                        <label for="shopName">商店名称</label>
+                        <input type="text" id="shopName" ng-model="shopName" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="shopImg">商店logo</label>
+                        <input type="text" id="shopImg" ng-model="shopImg" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="shopDesc">shop description</label>
+                        <input type="text" id="shopDesc" ng-model="shopDesc" class="form-control">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button  ng-click="application();"   type="button" class="btn btn-primary">提交</button>
+            </div>
+        </div>
+    </div>
+</div>

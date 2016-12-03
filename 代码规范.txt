@@ -1,0 +1,36 @@
+﻿为了让你写的代码能让你自己看懂且别人也能看懂，请遵守以下规范：
+1.采用驼峰命名法。
+2.Class类名首字母大写。
+3.方法名和变量名首字母小写。
+4.普通成员变量以m开头，静态成员变量以s开头，静态常量按照C宏定义命名。
+例子：
+class People{
+  int mWeight;
+  static int sHeight;
+  final static String GENDER = "女";
+
+  /**
+  *@author:songzhenteng
+  *say something
+  */
+  String say(String words){
+    String addition = "."
+    return (words + addition);
+  }
+}
+
+5.缩减为2个空格（一个Tab）
+6.重要函数必须加备注
+7.命名英文且不冗余，见名知意
+8.{行尾开始，}独立行结束
+9.除非特别原因，异常必须自己捕获，不得向上抛出。向上抛出的异常，必须注释说明
+10.字节流或字符流必须外套一个buffer，如InputStream用BufferedInputStream包装
+11.每个代码文件，必须标明作者，作用，时间。
+12.不允许强制合并git
+13.代码推送保证先拉后推的原则。
+14.Git提交必须加入 -m选项，且记录格式为：[你名字拼音]：[内容描述]，如：git commit -m “songzhengtneg：add code specification”
+15.[待补充]
+
+
+
+1223

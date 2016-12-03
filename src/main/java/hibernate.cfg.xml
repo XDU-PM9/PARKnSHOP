@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="connection.url">jdbc:mysql://localhost:3306/parknshop</property>
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="connection.username">root</property>
+        <property name="connection.password">song</property>
+        <mapping class="com.parknshop.entity.CartEntity"/>
+
+        <mapping class="com.parknshop.entity.CollectionEntity"/>
+
+        <mapping class="com.parknshop.entity.CollectshopEntity"/>
+
+        <mapping class="com.parknshop.entity.CommissionEntity"/>
+        <mapping class="com.parknshop.entity.GoodsEntity"/>
+
+        <mapping class="com.parknshop.entity.OrdersEntity"/>
+        <mapping class="com.parknshop.entity.OwnerEntity"/>
+
+        <mapping class="com.parknshop.entity.PhotoEntity"/>
+        <mapping class="com.parknshop.entity.RoleEntity"/>
+
+        <mapping class="com.parknshop.entity.ShopEntity"/>
+        <mapping class="com.parknshop.entity.SinglegoodEntity"/>
+
+        <mapping class="com.parknshop.entity.UserEntity"/>
+        <mapping class="com.parknshop.entity.AdminEntity"/>
+
+        <mapping class="com.parknshop.entity.AddressEntity"/>
+
+
+        <mapping class="com.parknshop.entity.AdvertEntity"/>
+        <!-- DB schema will be updated if needed -->
+        <!-- <property name="hbm2ddl.auto">update</property> -->
+    </session-factory>
+</hibernate-configuration>

@@ -1,0 +1,26 @@
+#logo{
+    padding-top: 5px;
+    padding-right: 10px;
+    width: 200px;
+}
+#portrait li img{
+    height: 40px;
+    margin: 5px;
+}
+
+body{
+    min-height: 100vh;
+    position: relative;
+}
+
+.navbar{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    z-index: 10;
+}
+
+div[ng-view]{
+    margin-top:77px;
+}

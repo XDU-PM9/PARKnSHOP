@@ -1,0 +1,4 @@
+tips ：不会qq找我 by 何伟南
+1.hibernate.cfg.xml 里面修改账号密码数据库
+2.idea 连接上数据库
+3.还是不行参照 上面提示

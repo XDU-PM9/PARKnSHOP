@@ -1,0 +1,340 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.parknshop.entity.AddressEntity" table="address" schema="parknshop">
+        <id name="addressId">
+            <column name="addressId" sql-type="int(11)"/>
+        </id>
+        <property name="province">
+            <column name="province" sql-type="varchar(255)" not-null="true"/>
+        </property>
+        <property name="country">
+            <column name="country" sql-type="varchar(255)" not-null="true"/>
+        </property>
+        <property name="others">
+            <column name="others" sql-type="varchar(255)" not-null="true"/>
+        </property>
+        <property name="phone">
+            <column name="phone" sql-type="bigint(11)" not-null="true"/>
+        </property>
+        <property name="name">
+            <column name="name" sql-type="varchar(150)" length="150" not-null="true"/>
+        </property>
+        <property name="postcode">
+            <column name="postcode" sql-type="int(6)" not-null="true"/>
+        </property>
+    </class>
+    <class name="com.parknshop.entity.AdminEntity" table="admin" schema="parknshop">
+        <id name="adminId">
+            <column name="adminId" sql-type="int(11)"/>
+        </id>
+        <property name="username">
+            <column name="username" sql-type="varchar(50)" length="50" not-null="true"/>
+        </property>
+        <property name="password">
+            <column name="password" sql-type="varchar(50)" length="50" not-null="true"/>
+        </property>
+    </class>
+    <class name="com.parknshop.entity.AdvertEntity" table="advert" schema="parknshop">
+        <id name="advertId">
+            <column name="advertId" sql-type="int(11)"/>
+        </id>
+        <property name="type">
+            <column name="type" sql-type="int(11)"/>
+        </property>
+        <property name="userId">
+            <column name="userId" sql-type="int(11)" not-null="true"/>
+        </property>
+        <property name="typeId">
+            <column name="typeId" sql-type="int(11)"/>
+        </property>
+        <property name="startTime">
+            <column name="startTime" sql-type="time"/>
+        </property>
+        <property name="endTime">
+            <column name="endTime" sql-type="time"/>
+        </property>
+        <property name="startDate">
+            <column name="startDate" sql-type="date"/>
+        </property>
+        <property name="endDate">
+            <column name="endDate" sql-type="date"/>
+        </property>
+        <property name="position">
+            <column name="position" sql-type="int(11)"/>
+        </property>
+        <property name="price">
+            <column name="price" sql-type="float(20,2)" precision="20" scale="2"/>
+        </property>
+        <property name="state">
+            <column name="state" sql-type="int(11)"/>
+        </property>
+    </class>
+    <class name="com.parknshop.entity.CartEntity" table="cart" schema="parknshop">
+        <id name="cartId">
+            <column name="cartId" sql-type="int(11)"/>
+        </id>
+        <property name="goodsId">
+            <column name="goodsId" sql-type="int(11)"/>
+        </property>
+        <property name="singleGoodId">
+            <column name="singleGoodId" sql-type="int(11)"/>
+        </property>
+        <property name="amount">
+            <column name="amount" sql-type="int(11)"/>
+        </property>
+        <property name="createTime">
+            <column name="createTime" sql-type="datetime"/>
+        </property>
+    </class>
+    <class name="com.parknshop.entity.CollectionEntity" table="collection" schema="parknshop">
+        <id name="collectionId">
+            <column name="collectionId" sql-type="int(11)"/>
+        </id>
+        <property name="createTime">
+            <column name="createTime" sql-type="datetime" not-null="true"/>
+        </property>
+        <property name="state">
+            <column name="state" sql-type="int(11)" not-null="true"/>
+        </property>
+    </class>
+    <class name="com.parknshop.entity.CollectshopEntity" table="collectshop" schema="parknshop">
+        <id name="scollectId">
+            <column name="scollectId" sql-type="int(11)"/>
+        </id>
+        <property name="createTime">
+            <column name="createTime" sql-type="datetime" not-null="true"/>
+        </property>
+        <property name="state">
+            <column name="state" sql-type="int(11)" not-null="true"/>
+        </property>
+    </class>
+    <class name="com.parknshop.entity.CommissionEntity" table="commission" schema="parknshop">
+        <id name="commissionId">
+            <column name="commissionId" sql-type="int(11)"/>
+        </id>
+        <property name="rate">
+            <column name="rate" sql-type="float(20,2)" precision="20" scale="2"/>
+        </property>
+    </class>
+    <class name="com.parknshop.entity.GoodsEntity" table="goods" schema="parknshop">
+        <id name="goodsId">
+            <column name="goodsId" sql-type="int(11)"/>
+        </id>
+        <property name="goodsName">
+            <column name="goodsName" sql-type="varchar(50)" length="50"/>
+        </property>
+        <property name="introduction">
+            <column name="introduction" sql-type="varchar(500)" length="500"/>
+        </property>
+        <property name="price">
+            <column name="price" sql-type="float(20,2)" precision="20" scale="2"/>
+        </property>
+        <property name="discount">
+            <column name="discount" sql-type="float(20,2)" precision="20" scale="2" not-null="true"/>
+        </property>
+        <property name="inventory">
+            <column name="inventory" sql-type="int(11)"/>
+        </property>
+        <property name="photoGroup">
+            <column name="photoGroup" sql-type="varchar(50)" length="50" not-null="true"/>
+        </property>
+        <property name="createTime">
+            <column name="createTime" sql-type="datetime"/>
+        </property>
+        <property name="views">
+            <column name="views" sql-type="int(11)"/>
+        </property>
+        <property name="state">
+            <column name="state" sql-type="int(11)"/>
+        </property>
+    </class>
+    <class name="com.parknshop.entity.OrdersEntity" table="orders" schema="parknshop">
+        <id name="ordersId">
+            <column name="ordersId" sql-type="int(11)"/>
+        </id>
+        <property name="orderNumber">
+            <column name="orderNumber" sql-type="varchar(100)" length="100"/>
+        </property>
+        <property name="singleGoodId">
+            <column name="singleGoodId" sql-type="int(11)" not-null="true"/>
+        </property>
+        <property name="photo">
+            <column name="photo" sql-type="varchar(200)" length="200"/>
+        </property>
+        <property name="goodsName">
+            <column name="goodsName" sql-type="varchar(100)" length="100" not-null="true"/>
+        </property>
+        <property name="goodsDescribe">
+            <column name="goodsDescribe" sql-type="varchar(200)" length="200" not-null="true"/>
+        </property>
+        <property name="amount">
+            <column name="amount" sql-type="int(11)"/>
+        </property>
+        <property name="createTime">
+            <column name="createTime" sql-type="datetime"/>
+        </property>
+        <property name="paidTime">
+            <column name="paidTime" sql-type="datetime" not-null="true"/>
+        </property>
+        <property name="price">
+            <column name="price" sql-type="float(20,2)" precision="20" scale="2"/>
+        </property>
+        <property name="commission">
+            <column name="commission" sql-type="float(20,2)" precision="20" scale="2"/>
+        </property>
+        <property name="commissionRate">
+            <column name="commissionRate" sql-type="float(20,2)" precision="20" scale="2"/>
+        </property>
+        <property name="comment">
+            <column name="comment" sql-type="varchar(300)" length="300" not-null="true"/>
+        </property>
+        <property name="commentTime">
+            <column name="commentTime" sql-type="datetime" not-null="true"/>
+        </property>
+        <property name="state">
+            <column name="state" sql-type="int(11)"/>
+        </property>
+        <many-to-one name="goodsByGoodsId" class="com.parknshop.entity.GoodsEntity">
+            <column name="goodsId"/>
+        </many-to-one>
+        <many-to-one name="addressByAddressId" class="com.parknshop.entity.AddressEntity">
+            <column name="addressId"/>
+        </many-to-one>
+    </class>
+    <class name="com.parknshop.entity.OwnerEntity" table="owner" schema="parknshop">
+        <id name="ownerId">
+            <column name="ownerId" sql-type="int(11)"/>
+        </id>
+        <property name="username">
+            <column name="username" sql-type="varchar(50)" length="50" not-null="true"/>
+        </property>
+        <property name="phone">
+            <column name="phone" sql-type="varchar(50)" length="50"/>
+        </property>
+        <property name="password">
+            <column name="password" sql-type="varchar(50)" length="50"/>
+        </property>
+        <property name="email">
+            <column name="email" sql-type="varchar(50)" length="50" not-null="true"/>
+        </property>
+        <property name="address">
+            <column name="address" sql-type="varchar(50)" length="50" not-null="true"/>
+        </property>
+        <property name="identityId">
+            <column name="identityId" sql-type="varchar(50)" length="50" not-null="true"/>
+        </property>
+        <property name="picture">
+            <column name="picture" sql-type="varchar(100)" length="100" not-null="true"/>
+        </property>
+        <property name="balance">
+            <column name="balance" sql-type="float(20,2)" precision="20" scale="2"/>
+        </property>
+        <property name="confirm">
+            <column name="confirm" sql-type="varchar(50)" length="50" not-null="true"/>
+        </property>
+        <property name="state">
+            <column name="state" sql-type="int(11)" not-null="true"/>
+        </property>
+    </class>
+    <class name="com.parknshop.entity.PhotoEntity" table="photo" schema="parknshop">
+        <id name="photoId">
+            <column name="photoId" sql-type="int(11)"/>
+        </id>
+        <property name="photoGroup">
+            <column name="photoGroup" sql-type="varchar(50)" length="50"/>
+        </property>
+        <property name="photoName">
+            <column name="photoName" sql-type="varchar(100)" length="100" not-null="true"/>
+        </property>
+        <property name="address">
+            <column name="address" sql-type="varchar(200)" length="200"/>
+        </property>
+    </class>
+    <class name="com.parknshop.entity.RoleEntity" table="role" schema="parknshop">
+        <id name="roleId">
+            <column name="roleId" sql-type="int(11)"/>
+        </id>
+        <property name="describes">
+            <column name="describes" sql-type="varchar(50)" length="50" not-null="true"/>
+        </property>
+    </class>
+    <class name="com.parknshop.entity.ShopEntity" table="shop" schema="parknshop">
+        <id name="shopId">
+            <column name="shopId" sql-type="int(11)"/>
+        </id>
+        <property name="shopName">
+            <column name="shopName" sql-type="varchar(50)" length="50"/>
+        </property>
+        <property name="introduction">
+            <column name="introduction" sql-type="varchar(1000)" length="1000" not-null="true"/>
+        </property>
+        <property name="photoGroup">
+            <column name="photoGroup" sql-type="varchar(100)" length="100"/>
+        </property>
+        <property name="views">
+            <column name="views" sql-type="int(11)"/>
+        </property>
+        <property name="logo">
+            <column name="logo" sql-type="varchar(100)" length="100" not-null="true"/>
+        </property>
+        <property name="createTime">
+            <column name="createTime" sql-type="datetime"/>
+        </property>
+        <property name="state">
+            <column name="state" sql-type="int(11)"/>
+        </property>
+        <many-to-one name="ownerByOwnerId" class="com.parknshop.entity.OwnerEntity">
+            <column name="ownerId" not-null="true"/>
+        </many-to-one>
+    </class>
+    <class name="com.parknshop.entity.SinglegoodEntity" table="singlegood" schema="parknshop">
+        <id name="singleGoodId">
+            <column name="singleGoodId" sql-type="int(11)"/>
+        </id>
+        <property name="typeDescribe">
+            <column name="typeDescribe" sql-type="varchar(50)" length="50" not-null="true"/>
+        </property>
+        <property name="inventory">
+            <column name="inventory" sql-type="int(11)" not-null="true"/>
+        </property>
+        <property name="state">
+            <column name="state" sql-type="int(11)" not-null="true"/>
+        </property>
+        <many-to-one name="goodsByGoodsId" class="com.parknshop.entity.GoodsEntity">
+            <column name="goodsId" not-null="true"/>
+        </many-to-one>
+    </class>
+    <class name="com.parknshop.entity.UserEntity" table="user" schema="parknshop">
+        <id name="userId">
+            <column name="userId" sql-type="int(11)"/>
+        </id>
+        <property name="username">
+            <column name="username" sql-type="varchar(50)" length="50" not-null="true"/>
+        </property>
+        <property name="phone">
+            <column name="phone" sql-type="varchar(50)" length="50"/>
+        </property>
+        <property name="password">
+            <column name="password" sql-type="varchar(50)" length="50"/>
+        </property>
+        <property name="email">
+            <column name="email" sql-type="varchar(50)" length="50" not-null="true"/>
+        </property>
+        <property name="balance">
+            <column name="balance" sql-type="float(20,2)" precision="20" scale="2"/>
+        </property>
+        <property name="confirm">
+            <column name="confirm" sql-type="varchar(50)" length="50" not-null="true"/>
+        </property>
+        <property name="state">
+            <column name="state" sql-type="int(11)" not-null="true"/>
+        </property>
+        <many-to-one name="roleByRoleId" class="com.parknshop.entity.RoleEntity">
+            <column name="roleId"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>

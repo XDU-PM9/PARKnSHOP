@@ -1,0 +1,96 @@
+<!--导航-->
+<nav class="navbar navbar-default" ng-controller="NavCtrl">
+    <div class="container">
+        <!--小屏幕导航按钮和logo-->
+        <div class="navbar-header">
+            <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <img id="logo" src="../../resources/images/ico/banner.jpg" alt="">
+        </div>
+        <!--小屏幕导航按钮和logo-->
+        <!--导航-->
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="navbar-form navbar-left" role="search">
+                    <div class="form-group form-serch">
+                        <input type="text" class="form-control" placeholder="search">
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#askModal">
+                            search
+                        </button>
+                    </div>
+                </li>
+                <li><a href="#bbs">please login</a></li>
+            </ul>
+        </div>
+        <!--导航-->
+    </div>
+</nav>
+<!--导航-->
+
+<!--内容-->
+<div class="container">
+    <div class="row">
+
+        <!--右边栏-->
+        <div class="col-md-6 col-md-push-3">
+            <div class="alert alert-danger alert-dismissible fade in" role="alert" ng-show="err_message">
+                <h4>{{err_message}}</h4>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2>login</h2>
+                </div>
+                <div class="panel-body">
+
+
+                    <form name="loginForm" novalidate>
+
+                        <div id="name-group">
+                            <label for="login-name">username：</label> <input type="text"
+                                                                        class="form-control" name="name"
+                                                                        id="login-name" ng-model="username"
+                                                                        placeholder="please input username..." required>
+                            <p>
+                    <span style="color: red" ng-show="loginForm.name.$invalid">
+                        <span ng-show="loginForm.name.$error.required">*please input username</span>
+                    </span>
+                            </p>
+                        </div>
+
+                        <div id="password-group">
+                            <label for="login-pass">password：</label> <input type="password"
+                                                                             class="form-control" ng-model="password"
+                                                                             ng-minlength="6"
+                                                                             ng-maxlength="20" name="password"
+                                                                             id="login-pass"
+                                                                             ng-model="password"
+                                                                             placeholder="please inputpassword..." required>
+                            <p>
+                    <span style="color: red" ng-show="loginForm.password.$invalid">
+                        <span ng-show="loginForm.password.$error.minlength">*Password length not less than 6 </span>
+                        <span ng-show="loginForm.password.$error.maxlength">*password长度不超过20</span>
+                    </span>
+                            </p>
+                        </div>
+
+                        <button id='login-button' type="submit" class="btn btn-success"
+                                ng-disabled="loginForm.name.$invalid || loginForm.password.$invalid">
+                            submit<span class="fa fa-arrow-right"></span>
+                        </button>
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+
+        <!--右边栏-->
+    </div>
+</div>
+<!--内容-->

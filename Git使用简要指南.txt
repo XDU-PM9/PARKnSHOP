@@ -1,0 +1,32 @@
+﻿一、Github账户信息：
+	项目网址:	https://github.com/PMGroup9/PARKnSHOP
+	账号:		[需要的找我要，防止恶意删除]
+	密码:		[需要的找我要，防止恶意删除]
+
+二、Git安装及使用简要指南
+（1）安装Git客户端，网址：https://git-scm.com/，下载你符合你系统的版本。
+（2）配置你的Git，首先將Git安装目录配置到系统Path变量中。其次在cmd 输入以下内容配置git
+	git config --global user.name "[name]"
+	git config --global user.email "[email]"
+（3）生成电脑的ssh秘钥
+	ssh-keygen -t rsa -C "[email]"
+（4）將生成的秘钥的公钥(id_rsa.pub，只要这一个文件！！)文件复制一份，发到邮箱：fallblank525@gmail.com,邮件里说明你的姓名。注：一般秘钥生成在Users/[用户名]/.ssh/中
+
+
+
+三、Git的拉与推
+
+（1）从Github下载项目代码：
+	git clone git@github.com:PMGroup9/PARKnSHOP.git
+（2）拉取最新代码：
+	git pull origin master
+（3）提交你写的代码：
+	git add .|[具体文件]
+	git commit -m “你的名字拼音:功能描述”
+（4）推送你写的代码到Github：
+	git push -u origin master（第一次，后面直接git push）
+（5）更多命令见搜索引擎
+
+四、Github协助测试
+---宋正腾	ok	testing   拉啦啦
+
