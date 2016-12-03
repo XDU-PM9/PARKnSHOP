@@ -52,6 +52,20 @@ email：邮箱
   }
 }
 
+## 检查是否开店
+请求地址：/owner/applycheck
+方法：POST
+参数：无（空POST请求）
+
+响应格式：json
+参数描述：
+{
+  “error”:false,          //只有当用户没登录时才会返回true
+  "status":0/1,             //0没有申请过店铺，1申请过店铺
+  “message”:"审核中"  //该地段显示店铺状态，为1时可以方便前端直接使用
+}
+
+
 ## 申请开店
 当Owner登录成功后，可以申请开店，开店需要提交的表单内容如下：
 ID:身份证号
@@ -65,30 +79,7 @@ shopDesc：商店描述
 方法：POST
 
 响应格式：json
-响应描述：{"error":false,}
-
-
-@XDU-PM9, PARKnSHOP 2016
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+响应描述：{
+  "error":false,
+  "status":""
+}
