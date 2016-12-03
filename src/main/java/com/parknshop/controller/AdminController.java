@@ -65,7 +65,7 @@ public class AdminController {
     }
 
     /**
-     * 店家的申请管理
+     * 店家的申请展示
      * @param info
      * @return
      */
@@ -85,7 +85,7 @@ public class AdminController {
             for (ShopAndOwnerDbBean entity:dataList.getShopList()){
                 ApplyResponseBean.ApplyEntity applyEntity = new ApplyResponseBean.ApplyEntity();
                 applyEntity.setOwnerName(entity.getUsername());
-                //数据库数据不对，待修改
+
             }
 
         }else {
@@ -93,5 +93,13 @@ public class AdminController {
         }
         return "";
     }
+    @RequestMapping(value = "agree",method = RequestMethod.POST)
+    public @ResponseBody String agree(@RequestBody byte[] info,HttpSession session){
+        return "";
+    }
 
+    @RequestMapping(value = "disagree",method = RequestMethod.POST)
+    public @ResponseBody String disagree(@RequestBody byte[] info,HttpSession session){
+        return "";
+    }
 }
