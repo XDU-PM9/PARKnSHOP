@@ -13,7 +13,7 @@
 hs_err_pid*
 
 #忽略数据库配置文件
-#hibernate.cfg.xml
+hibernate.cfg.xml
 
 #忽略提交IDEA的配置文件
 parknshop.iml
