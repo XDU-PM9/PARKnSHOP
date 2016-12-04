@@ -15,7 +15,7 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right" id="portrait">
                 <li><img  ng-src="{{$root.user.image}}" alt="">{{$root.user.userName}}</li>
-                <li><a href="javascript:void(0);" ng-click="logout()"><span class="glyphicon glyphicon-off"></span>&nbsp;&nbsp;退出</a></li>
+                <li><a href="javascript:void(0);" ng-click="logout()"><span class="glyphicon glyphicon-off"></span>&nbsp;&nbsp;Logout</a></li>
             </ul>
         </div>
         <!--导航-->
@@ -29,20 +29,20 @@
         <!--左边栏-->
         <div class="col-md-2">
             <div class="list-group">
-                <a href="home.html" class="list-group-item active">主页</a>
+                <a href="home.html" class="list-group-item active">HOME</a>
                 <a href="javascript:void(0)" class="list-group-item" data-toggle="modal" data-target="#applyModel"
-                   ng-hide="($root.user.shop.state == 1)||($root.user.shop.state == 3)">申请开店</a>
+                   ng-hide="($root.user.shop.state == 1)||($root.user.shop.state == 3)">Apply for open a shop</a>
                 <a href="javascript:void(0)" class="list-group-item" data-toggle="modal" data-target="#stateModel"
-                   ng-show="$root.user.shop.state == 1">申请进度</a>
+                   ng-show="$root.user.shop.state == 1">Application status</a>
             </div>
 
             <div class="list-group">
-                <div class="panel-heading">商店管理</div>
-                <a href="home.html" class="list-group-item">商品管理</a>
-                <a href="../../search.html" class="list-group-item">广告管理</a>
-                <a href="home.html" class="list-group-item">商店信息</a>
-                <a href="home.html" class="list-group-item">订单管理</a>
-                <a href="home.html" class="list-group-item">销售记录</a>
+                <div class="panel-heading">Shop management</div>
+                <a href="home.html" class="list-group-item">Commodity management</a>
+                <a href="../../search.html" class="list-group-item">Advertising management</a>
+                <a href="home.html" class="list-group-item">Shop information</a>
+                <a href="home.html" class="list-group-item">Order management</a>
+                <a href="home.html" class="list-group-item">Sales record</a>
             </div>
         </div>
         <!--左边栏-->
@@ -51,7 +51,7 @@
 
         <div class="col-md-10">
             <div class="panel panel-default">
-                <div class="panel-heading">我的店铺</div>
+                <div class="panel-heading">My shop</div>
                 <div class="panel-body">
                     <table class="table table-hover">
                         <tr>
@@ -63,7 +63,7 @@
                                 </div>
                                 <div class="media-body">
                                     <div class="pull-left">
-                                        <h4 class="media-heading">店铺名称</h4>
+                                        <h4 class="media-heading">Shop name</h4>
                                         <p>xxxxxxxxxxxxx</p>
                                         <p>
                                             <a href="">xxxxxx</a> | <a href="">xxxxxxxx</a>
@@ -91,7 +91,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="applyModelLabel">添加用户</h4>
+                <h4 class="modal-title" id="applyModelLabel">Add user</h4>
             </div>
             <div class="modal-body">
                 <form action="#">
@@ -108,11 +108,11 @@
                         <input type="file" id="realImg" ng-model="realImg" class="form-control" >
                     </div>
                     <div class="form-group">
-                        <label for="shopName">商店名称</label>
+                        <label for="shopName">Shop name</label>
                         <input type="text" id="shopName" ng-model="shopName" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="shopImg">商店logo</label>
+                        <label for="shopImg">Shop logo</label>
                         <input type="file" id="shopImg" ng-model="shopImg" class="form-control">
                     </div>
                     <div class="form-group">
@@ -122,7 +122,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button  ng-click="apply();"   type="button" class="btn btn-primary">提交</button>
+                <button  ng-click="apply();"   type="button" class="btn btn-primary">Submit</button>
             </div>
         </div>
     </div>
@@ -134,7 +134,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="stateModelLabel">当前状态:{{$root.user.shop.msg}}</h4>
+                <h4 class="modal-title" id="stateModelLabel">current state:{{$root.user.shop.msg}}</h4>
             </div>
 
         </div>
