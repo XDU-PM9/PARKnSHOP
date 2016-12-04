@@ -11,13 +11,13 @@ public class ApplyResponseBean {
      * error : false
      * total : 9
      * realSize : 5
-     * data : [{"ownerName":"注册名","ownerImg":"头像url","ownerEmail":"注册邮箱","realName":"真实名字","realImg":"正面带身份证照片的url","shopName":"店名","shopImg":"店的图标url","shopDesc":"店的描述"}]
+     * data : [{"ownerName":"注册名","ownerImg":"头像url","ownerEmail":"注册邮箱","realName":"真实名字","realImg":"正面带身份证照片的url","shopId":"shopId","shopName":"店名","shopImg":"店的logo url","shopDesc":"店的描述"}]
      */
 
     private boolean error;
     private int total;
     private int realSize;
-    private List<ApplyEntity> data;
+    private List<DataBean> data;
 
     public boolean isError() {
         return error;
@@ -43,23 +43,24 @@ public class ApplyResponseBean {
         this.realSize = realSize;
     }
 
-    public List<ApplyEntity> getData() {
+    public List<DataBean> getData() {
         return data;
     }
 
-    public void setData(List<ApplyEntity> data) {
+    public void setData(List<DataBean> data) {
         this.data = data;
     }
 
-    public static class ApplyEntity {
+    public static class DataBean {
         /**
          * ownerName : 注册名
          * ownerImg : 头像url
          * ownerEmail : 注册邮箱
          * realName : 真实名字
          * realImg : 正面带身份证照片的url
+         * shopId : shopId
          * shopName : 店名
-         * shopImg : 店的图标url
+         * shopImg : 店的logo url
          * shopDesc : 店的描述
          */
 
@@ -68,6 +69,7 @@ public class ApplyResponseBean {
         private String ownerEmail;
         private String realName;
         private String realImg;
+        private String shopId;
         private String shopName;
         private String shopImg;
         private String shopDesc;
@@ -110,6 +112,14 @@ public class ApplyResponseBean {
 
         public void setRealImg(String realImg) {
             this.realImg = realImg;
+        }
+
+        public String getShopId() {
+            return shopId;
+        }
+
+        public void setShopId(String shopId) {
+            this.shopId = shopId;
         }
 
         public String getShopName() {
