@@ -13,6 +13,17 @@
         <!--小屏幕导航按钮和logo-->
         <!--导航-->
         <div class="navbar-collapse collapse">
+
+            <ul class="nav navbar-nav navbar-right" ng-hide="$root.group">
+                <li><a href="#/customer/login">Customer </a></li>
+                <li><a href="#/owner/login">Owner </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" id="portrait" ng-show="$root.group == 'customer'">
+                <li><img  ng-src="{{$root.user.image}}" alt="">{{$root.user.userName}}</li>
+                <li><a href="javascript:void(0);" ng-click="logout();"><span class="glyphicon glyphicon-off"></span>&nbsp;&nbsp;退出</a></li>
+
+            </ul>
+
             <ul class="nav navbar-nav navbar-right">
                 <form class="navbar-form navbar-left" role="search">
                     <div class="form-group form-serch">
@@ -23,8 +34,6 @@
                         </button>
                     </div>
                 </form>
-                <li><a href="#/customer/login">Customer </a></li>
-                <li><a href="#/owner/login">Owner </a></li>
             </ul>
         </div>
         <!--导航-->

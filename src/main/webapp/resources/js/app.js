@@ -29,6 +29,14 @@ PNS.config(['$routeProvider',
                     controller: 'OwnerCtrl',
                     templateUrl: '../../resources/view/owner/regist.html'
                 })
+                .when('/customer/index', {
+                    controller: 'CustomerCtrl',
+                    templateUrl: '../../resources/view/customer/index.html'
+                })
+                .when('/customer/home', {
+                    controller: 'CustomerCtrl',
+                    templateUrl: '../../resources/view/customer/home.html'
+                })
                 .when('/customer/login', {
                     controller: 'CustomerCtrl',
                     templateUrl: '../../resources/view/customer/login.html'
@@ -36,6 +44,10 @@ PNS.config(['$routeProvider',
                 .when('/customer/regist', {
                     controller: 'CustomerCtrl',
                     templateUrl: '../../resources/view/customer/regist.html'
+                })
+                .when('/admin/home', {
+                    controller: 'AdminCtrl',
+                    templateUrl: '../../resources/view/admin/home.html'
                 })
                 .when('/admin/login', {
                     controller: 'AdminCtrl',
@@ -50,12 +62,8 @@ PNS.config(['$routeProvider',
                     templateUrl: '../../resources/view/owner/progress.html'
                 })
                 .when('/owner/home', {
-                    controller: 'HomeCtrl',
+                    controller: 'OwnerCtrl',
                     templateUrl: '../../resources/view/owner/home.html'
-                })
-                .when('/customer/index', {
-                    controller: 'HomeCtrl',
-                    templateUrl: '../../resources/view/customer/index.html'
                 })
                 .otherwise({redirectTo: '/customer/index'});
         }])

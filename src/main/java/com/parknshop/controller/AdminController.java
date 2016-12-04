@@ -44,6 +44,7 @@ public class AdminController {
 
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     public @ResponseBody String login(@RequestBody byte[] info, HttpSession session){
+        mService.loginOut();
         String infoStr = new String(info);
         System.out.println(infoStr);
         LoginRequestBean requestBean = mGson.fromJson(infoStr,LoginRequestBean.class);
@@ -65,11 +66,11 @@ public class AdminController {
     }
 
     /**
-     * 店家的申请管理
+     * 店家的申请展示
      * @param info
      * @return
      */
-    @RequestMapping(value = "apply",method = RequestMethod.POST)
+    @RequestMapping(value = "/apply",method = RequestMethod.POST)
     public @ResponseBody String apply(@RequestBody byte[] info,HttpSession session){
         boolean login = mService.isLogin();
         ApplyResponseBean response = new ApplyResponseBean();
@@ -81,17 +82,58 @@ public class AdminController {
                     mAdminService.getApplyShop(request.getIndex(),request.getIndex());
             long total = dataList.getMaxPages();
             long size = dataList.getNumer();
-            List<ApplyResponseBean.ApplyEntity> data= new ArrayList<>();
+            List<ApplyResponseBean.DataBean> data= new ArrayList<>();
             for (ShopAndOwnerDbBean entity:dataList.getShopList()){
-                ApplyResponseBean.ApplyEntity applyEntity = new ApplyResponseBean.ApplyEntity();
+                ApplyResponseBean.DataBean applyEntity = new ApplyResponseBean.DataBean();
                 applyEntity.setOwnerName(entity.getUsername());
-                //数据库数据不对，待修改
+                applyEntity.setOwnerImg(entity.getPicture());
+                applyEntity.setOwnerEmail(entity.getEmail());
+                applyEntity.setRealName(entity.getRealname());
+                applyEntity.setRealImg(entity.getUserImage());
+                applyEntity.setShopId(entity.getShopId());
+                applyEntity.setShopName(entity.getShopName());
+                applyEntity.setShopImg(entity.getLogo());
+                applyEntity.setShopDesc(entity.getIntroduction());
+                data.add(applyEntity);
             }
-
+            response.setTotal((int)total);
+            response.setRealSize((int)size);
+            response.setData(data);
         }else {
             response.setError(true);
         }
-        return "";
+        return mGson.toJson(response);
+    }
+    @RequestMapping(value = "/reply",method = RequestMethod.POST)
+    public @ResponseBody String agree(@RequestBody byte[] info,HttpSession session){
+        boolean islogin = mService.isLogin();
+        ShopCheckBean shopCheckBean = new ShopCheckBean();
+        ReplyReponseBean replyReponseBean = new ReplyReponseBean();
+        /*islogin=true;*/
+        /*postman测试时取消上面注释,默认是登录状态*/
+        if (islogin){
+            String infoStr = new String(info);
+            ReplyRequestBean requestBean=mGson.fromJson(infoStr,ReplyRequestBean.class);
+            if(0!=requestBean.getResult()){
+               boolean state = mAdminService.suggestShop(requestBean.getShopId());
+                if (state)
+                replyReponseBean.setError(false);
+                else
+                    replyReponseBean.setError(true);
+
+            }
+            else {
+                boolean state=mAdminService.rejectShop(requestBean.getShopId());
+                if (state)
+                replyReponseBean.setError(true);
+                else
+                    replyReponseBean.setError(false);
+            }
+
+        }
+        else
+        replyReponseBean.setError(true);
+        return mGson.toJson(replyReponseBean);
     }
 
 }
