@@ -58,12 +58,12 @@ public class OwnerController {
     public @ResponseBody
     String login(@RequestBody byte[] ownerInfo,HttpSession session){
         String ownerJson = new String(ownerInfo);
-        LoginRequestBean ownerLoginBean = mGson.fromJson(ownerJson,LoginRequestBean.class);
-        System.out.println(ownerLoginBean);
+        LoginRequestBean request = mGson.fromJson(ownerJson,LoginRequestBean.class);
+        System.out.println(request);
         mService.loginOut();
         int stateCode;
-        if (checkValid(ownerLoginBean.getUserName(),ownerLoginBean.getPassword())){
-            stateCode =  mService.loginAsOwner(ownerLoginBean.getUserName(),ownerLoginBean.getPassword());
+        if (checkValid(request.getUserName(),request.getPassword())){
+            stateCode =  mService.loginAsOwner(request.getUserName(),request.getPassword());
         }else {
             stateCode = IUserService.LOGIN_ELSE;
         }
@@ -79,6 +79,8 @@ public class OwnerController {
                 data.setUserName(ownerEntity.getUsername());
                 data.setImage(ownerEntity.getPicture());
                 responseBean.setData(data);
+                //查询店铺信息
+                queryShopInfo(request.getUserName(),responseBean);
                 break;
             case IUserService.LOGIN_NOACTIVE:
                 responseBean.setError(true);
@@ -92,8 +94,13 @@ public class OwnerController {
         return mGson.toJson(responseBean);
     }
 
+    //未完
+    private void queryShopInfo(String username,OwnerLoginResponseBean responseBean){
 
-    @RequestMapping(value = "/loginout",method = RequestMethod.POST)
+        return;
+    }
+
+    @RequestMapping(value = "/logout",method = RequestMethod.POST)
     public @ResponseBody String loginout(){
         System.out.println("loginout");
         mService.loginOut();
@@ -149,15 +156,6 @@ public class OwnerController {
         return !(name.equals(null)||password.equals(null));
     }
 
-
-    /**
-     * 店家更新个人信息
-     * @param registerInfo
-     * @return
-     */
-    public @ResponseBody String updateInfo(@RequestBody byte[] registerInfo) {
-     return "";
-    }
 
 
     private static final String MSG_STATE_ELSE = "Unknown error";
