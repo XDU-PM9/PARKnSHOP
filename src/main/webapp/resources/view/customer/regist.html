@@ -1,5 +1,5 @@
 <!--导航-->
-<nav class="navbar navbar-default" ng-controller="NavCtrl">
+<nav class="navbar navbar-default" >
     <div class="container">
         <!--小屏幕导航按钮和logo-->
         <div class="navbar-header">
@@ -44,7 +44,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <ul class="nav nav-pills nav-justified">
-                        <li><a href="#/owner/login">login</a></li>
+                        <li><a href="#/customer/login">login</a></li>
                         <li class="active"><a href="#">regist</a></li>
                     </ul>
                 </div>
@@ -107,7 +107,7 @@
                             </p>
                         </div>
 
-                        <button id='regist-button' type="submit" class="btn btn-success"
+                        <button ng-click="regist()" type="submit" class="btn btn-success"
                                 ng-disabled="registerForm.email.$invalid || registerForm.name.$invalid || registerForm.password.$invalid || password != passwordagain">
                             submit<span class="fa fa-arrow-right"></span>
                         </button>
