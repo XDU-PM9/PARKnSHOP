@@ -4,13 +4,11 @@ package com.parknshop.bean;
  * Created by niewenzhi on 2016/12/4.
  */
 public class ReplyReponseBean {
-    private String error;
+    private Boolean error;
 
-    public void setError(String error){
-        this.error=error;
-    }
+    public void setError(Boolean error){this.error=error;}
 
-    public String getError(){
+    public Boolean getError(){
         return this.error;
     }
 }

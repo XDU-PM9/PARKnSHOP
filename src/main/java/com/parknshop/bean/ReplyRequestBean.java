@@ -4,24 +4,28 @@ package com.parknshop.bean;
  * Created by niewenzhi on 2016/12/4.
  */
 public class ReplyRequestBean {
-/** "ownerName":"店家注册名"，
-  *  "result":"0/1"    //0代表拒绝请求，1代表允许请求
- */
-    private String ownerName;
+
+    /**
+     * shopId : 1234
+     * result : 1
+     */
+
+    private int shopId;
     private int result;
 
-    public void setOwnerName(String ownerName){
-        this.ownerName=ownerName;
-    }
-    public void setResult(int result){
-        this.result=result;
+    public int getShopId() {
+        return shopId;
     }
 
-    public String getOwnerName(){
-        return this.ownerName;
+    public void setShopId(int shopId) {
+        this.shopId = shopId;
     }
 
-    public int getResult(){
-        return this.result;
+    public int getResult() {
+        return result;
+    }
+
+    public void setResult(int result) {
+        this.result = result;
     }
 }

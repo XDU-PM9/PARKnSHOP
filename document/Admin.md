@@ -43,7 +43,7 @@ index：按照size分页后的数据第index页
 数据格式：json
 参数描述：
 {
-  "shopId":"shopId"，
+  "shopId":12345，
   "result":0/1    //0代表拒绝请求，1代表允许请求
 }
 

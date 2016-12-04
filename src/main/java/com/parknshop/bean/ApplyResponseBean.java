@@ -11,7 +11,7 @@ public class ApplyResponseBean {
      * error : false
      * total : 9
      * realSize : 5
-     * data : [{"ownerName":"注册名","ownerImg":"头像url","ownerEmail":"注册邮箱","realName":"真实名字","realImg":"正面带身份证照片的url","shopId":"shopId","shopName":"店名","shopImg":"店的logo url","shopDesc":"店的描述"}]
+     * data : [{"ownerName":"注册名","ownerImg":"头像url","ownerEmail":"注册邮箱","realName":"真实名字","realImg":"正面带身份证照片的url","shopId":123456,"shopName":"店名","shopImg":"店的logo url","shopDesc":"店的描述"}]
      */
 
     private boolean error;
@@ -58,7 +58,7 @@ public class ApplyResponseBean {
          * ownerEmail : 注册邮箱
          * realName : 真实名字
          * realImg : 正面带身份证照片的url
-         * shopId : shopId
+         * shopId : 123456
          * shopName : 店名
          * shopImg : 店的logo url
          * shopDesc : 店的描述
@@ -69,7 +69,7 @@ public class ApplyResponseBean {
         private String ownerEmail;
         private String realName;
         private String realImg;
-        private String shopId;
+        private int shopId;
         private String shopName;
         private String shopImg;
         private String shopDesc;
@@ -114,11 +114,11 @@ public class ApplyResponseBean {
             this.realImg = realImg;
         }
 
-        public String getShopId() {
+        public int getShopId() {
             return shopId;
         }
 
-        public void setShopId(String shopId) {
+        public void setShopId(int shopId) {
             this.shopId = shopId;
         }
 
