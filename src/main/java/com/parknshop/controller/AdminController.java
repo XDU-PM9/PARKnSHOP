@@ -135,5 +135,11 @@ public class AdminController {
         replyReponseBean.setError(true);
         return mGson.toJson(replyReponseBean);
     }
+    @RequestMapping(value = "/logout",method = RequestMethod.POST)
+    public @ResponseBody String loginout(){
+        System.out.println("logout");
+        mService.loginOut();
+        return "";
+    }
 
 }
