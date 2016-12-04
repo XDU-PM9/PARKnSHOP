@@ -15,6 +15,7 @@ public interface IListBean<T> {
      * @param lines  多少行
      */
     void init(int page,int lines);
+    void init(Object object,int page,int lines);
     /**
      * 获取   商店 详细内容列表
      * @return 返回内容

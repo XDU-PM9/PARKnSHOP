@@ -5,6 +5,7 @@ import com.parknshop.dao.IBaseDao;
 import com.parknshop.dao.daoImpl.BaseDao;
 import com.parknshop.service.IListBean;
 import com.parknshop.service.IOwnerService;
+import com.parknshop.service.serviceAbstract.AbstractListBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -16,13 +17,8 @@ import java.util.List;
  */
 @Scope(value = "prototype")
 @Component
-public class ShopListBean  implements IListBean<ShopAndOwnerDbBean>{
-    private List<ShopAndOwnerDbBean> listBean;
-    private long currentPage;
-    private long maxPage;
-    private long currentLines;
-    private long maxNumber;
-
+public class ShopListBean  extends AbstractListBean{
+    //管理员查看所有请求商铺
     final
     IBaseDao<ShopAndOwnerDbBean> mDao;
 
@@ -33,51 +29,22 @@ public class ShopListBean  implements IListBean<ShopAndOwnerDbBean>{
 
     @Override
     public void init(int page, int lines) {
-        //获取数量
-        maxNumber =count();
-        listBean=null;
-        currentLines =0;
-        maxPage=0;
-        currentPage=page;
-        //测试是否超过
-        if((page-1)*lines>maxPage){//如果超了就退出
-            return;
-        }
-        //计算最大页面
-        if (maxNumber % lines == 0) {
-            maxPage = maxNumber/lines;
-        } else {
-            maxPage = maxNumber/lines+1;
-        }
-        listBean = initList(page,lines);
-        currentLines = listBean.size();
+        super.init(page,lines);
     }
 
     @Override
-    public List<ShopAndOwnerDbBean> getShopList() {
-        return null;
+    public void init(Object object, int page, int lines) {
+        super.init(object,page,lines);
     }
 
     @Override
-    public long getCurrentPage() {
-        return this.currentPage;
-    }
-
-    @Override
-    public long getMaxPages() {
-        return this.maxPage;
-    }
-
-    @Override
-    public long getNumer() {
-        return this.currentLines;
-    }
-    private long count(){
+    protected long count(){
         String hql ="select count(*) from ShopEntity where state =?";
         Object[] param = {IOwnerService.SHOP_STATE_CHECKING};
         return mDao.count(hql,param);
     }
-    private List<ShopAndOwnerDbBean> initList(int page,int lines){
+    @Override
+    protected List<ShopAndOwnerDbBean> initList(int page, int lines){
         String hql ="select new com.parknshop.bean.ShopAndOwnerDbBean "+//
                 "(o.ownerId,o.username,o.realname,o.userImage,o.phone,o.email,o.address,o.identityId,o.picture,o.balance,o.state,"+//
                  "s.shopId,s.shopName,s.introduction,s.photoGroup,s.views,s.logo,s.state,s.createTime)"+//
@@ -85,12 +52,17 @@ public class ShopListBean  implements IListBean<ShopAndOwnerDbBean>{
                 " and s.state = ?"+//
                  " order by s.shopId desc ";
         Object[] param = {IOwnerService.SHOP_STATE_CHECKING};
+
         return  mDao.find(hql,param,page,lines);
     }
+
+
+
     public static void main(String[] args){
         ShopListBean shopListBean = new ShopListBean(new BaseDao<>());
         try{
-            shopListBean.initList(1,1);
+            shopListBean.init(1,4);
+//            shopListBean.initList(1,1);
             System.out.print("成功");
         }catch (Exception e){
             e.printStackTrace();
