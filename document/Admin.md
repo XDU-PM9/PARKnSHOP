@@ -2,7 +2,7 @@
 
 #管理登录模块
 
-请求地址：/admin
+请求地址：/admin/login
 方法:POST
 请求数据格式：json
 参数描述：
