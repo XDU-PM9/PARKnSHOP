@@ -82,8 +82,8 @@ public class OwnerService implements IOwnerService {
     }
 
     @Override
-    public IListBean<ShopAndOwnerDbBean> getMyShop(int page, int lines) {
-        listBean.init(page,lines);
+    public IListBean<ShopAndOwnerDbBean> getMyShop(OwnerEntity entity,int page, int lines) {
+        listBean.init(entity,page,lines);
         return listBean;
     }
 

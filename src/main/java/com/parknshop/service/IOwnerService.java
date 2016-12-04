@@ -56,5 +56,5 @@ public interface IOwnerService {
      * @return 返回一个存放了数据的 bean 接口 查看 service.IShopListBean
      *          页数不对，返回null
      */
-    IListBean<ShopAndOwnerDbBean> getMyShop(int page, int lines);
+    IListBean<ShopAndOwnerDbBean> getMyShop(OwnerEntity entity,int page, int lines);
 }
