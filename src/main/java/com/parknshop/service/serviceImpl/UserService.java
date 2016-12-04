@@ -56,9 +56,14 @@ public class UserService implements IUserService{
     }
 
     synchronized private int login(LoginTypeEnum loginTypeEnum, String userName, String password) {
+        //
+
         if(isLogin()){
-            //如果用户已经登录，禁止访问登录
-            return  LOGIN_HASLOGIN;
+//            //如果用户已经登录，禁止访问登录
+//            return  LOGIN_HASLOGIN;
+            //蜜汁修改 如果用户已经登录，帮他退出
+            loginOut();
+
         }
         //检测输入是否为空
         if((null == userName || userName.equals("")) || (null == password || password.equals(""))){
