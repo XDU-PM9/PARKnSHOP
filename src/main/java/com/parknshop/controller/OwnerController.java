@@ -56,10 +56,11 @@ public class OwnerController {
      */
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     public @ResponseBody
-    String loginResponse(@RequestBody byte[] ownerInfo,HttpSession session){
+    String login(@RequestBody byte[] ownerInfo,HttpSession session){
         String ownerJson = new String(ownerInfo);
         LoginRequestBean ownerLoginBean = mGson.fromJson(ownerJson,LoginRequestBean.class);
         System.out.println(ownerLoginBean);
+        mService.loginOut();
         int stateCode;
         if (checkValid(ownerLoginBean.getUserName(),ownerLoginBean.getPassword())){
             stateCode =  mService.loginAsOwner(ownerLoginBean.getUserName(),ownerLoginBean.getPassword());
@@ -94,6 +95,7 @@ public class OwnerController {
 
     @RequestMapping(value = "/loginout",method = RequestMethod.POST)
     public @ResponseBody String loginout(){
+        System.out.println("loginout");
         mService.loginOut();
         return "";
     }
