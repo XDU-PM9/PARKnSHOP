@@ -1,11 +1,13 @@
 package com.parknshop.service.serviceImpl;
 
+import com.parknshop.bean.ShopAndOwnerDbBean;
 import com.parknshop.dao.IBaseDao;
 import com.parknshop.dao.daoImpl.BaseDao;
 import com.parknshop.entity.OwnerEntity;
 import com.parknshop.entity.PhotoEntity;
 import com.parknshop.entity.RoleEntity;
 import com.parknshop.entity.ShopEntity;
+import com.parknshop.service.IListBean;
 import com.parknshop.service.IOwnerService;
 import com.parknshop.service.baseImpl.IUploadPictures;
 import org.omg.Messaging.SYNC_WITH_TRANSPORT;
@@ -28,12 +30,15 @@ public class OwnerService implements IOwnerService {
     IBaseDao<ShopEntity> mDaoShop;
     final
     IBaseDao<PhotoEntity> mDaoPhoto;
+    final
+    IListBean listBean;
 
     @Autowired
-    public OwnerService(IBaseDao<OwnerEntity> mDao, IBaseDao<ShopEntity> mDaoShop, IBaseDao<PhotoEntity> mDaoPhoto) {
+    public OwnerService(IBaseDao<OwnerEntity> mDao, IBaseDao<ShopEntity> mDaoShop, IBaseDao<PhotoEntity> mDaoPhoto, PersonShopListBean listBean) {
         this.mDao = mDao;
         this.mDaoShop = mDaoShop;
         this.mDaoPhoto = mDaoPhoto;
+        this.listBean = listBean;
     }
 
     //更新用户
@@ -76,7 +81,11 @@ public class OwnerService implements IOwnerService {
         }
     }
 
-
+    @Override
+    public IListBean<ShopAndOwnerDbBean> getMyShop(int page, int lines) {
+        listBean.init(page,lines);
+        return listBean;
+    }
 
 
     @Override
@@ -132,7 +141,7 @@ public class OwnerService implements IOwnerService {
     }
 
     public static  void main(String[] args){
-        OwnerService ownerService = new OwnerService(new BaseDao<>(),new BaseDao<>(),new BaseDao<>());
+//        OwnerService ownerService = new OwnerService(new BaseDao<>(),new BaseDao<>(),new BaseDao<>());
 //        OwnerEntity entity = new OwnerEntity();
 //        RoleEntity roleEntity = new RoleEntity();
 //        roleEntity.setRoleId(2);
@@ -146,8 +155,8 @@ public class OwnerService implements IOwnerService {
 //                return list;
 //            }
 //        }));
-        OwnerEntity entity = new OwnerEntity();
-        entity.setOwnerId(5);
-        System.out.println(ownerService.isHasShop(entity));
+//        OwnerEntity entity = new OwnerEntity();
+//        entity.setOwnerId(5);
+//        System.out.println(ownerService.isHasShop(entity));
     }
 }
