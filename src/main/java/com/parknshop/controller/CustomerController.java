@@ -119,7 +119,7 @@ public class CustomerController{
             response.put("message","Register success");
             Map<String,String> data=new HashMap<String,String>();
             data.put("userName", (String) request.get("userName"));
-            data.put("imge",((UserEntity)session.getAttribute(IDefineString.SESSION_USER)).getUserImage());
+            data.put("imge","/resources/images/a.png");
             response.put("data",data);
         }else {
             response.put("error", "true");
