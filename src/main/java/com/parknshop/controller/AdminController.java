@@ -72,7 +72,6 @@ public class AdminController {
      */
     @RequestMapping(value = "/apply",method = RequestMethod.POST)
     public @ResponseBody String apply(@RequestBody byte[] info,HttpSession session){
-        mService.loginOut();
         boolean login = mService.isLogin();
         ApplyResponseBean response = new ApplyResponseBean();
         if (login) {
