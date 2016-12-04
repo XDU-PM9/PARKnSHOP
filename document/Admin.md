@@ -1,7 +1,30 @@
 //建议写后台的在IDEA中装一个GsonFormat插件，用来直接生成json对于的bean对象。
+
+#管理登录模块
+
+请求地址：/admin
+方法:POST
+请求数据格式：json
+参数描述：
+{
+"userName":"userName", "password":"password"
+}
+响应数据格式:jason
+响应参数描述:
+{
+      error : "true/false"         //true为登录失败，错误信息在message字段中，false为登录成功
+      message : "login message"  //登录的错误信息或者成功的信息
+      date : “[响应的时间，格式为：YYYY-MM-dd HH：mm：ss]”
+      data : {"userName":"管理员名字"}
+}
+
+
+
+
+
 # 管理店家申请模块
 
-请求地址：/amin/apply
+请求地址：/admin/apply
 方法：POST
 请求数据格式：json
 参数描述：
