@@ -69,8 +69,9 @@ public class AdminController {
      * @param info
      * @return
      */
-    @RequestMapping(value = "apply",method = RequestMethod.POST)
+    @RequestMapping(value = "/apply",method = RequestMethod.POST)
     public @ResponseBody String apply(@RequestBody byte[] info,HttpSession session){
+        mService.loginOut();
         boolean login = mService.isLogin();
         ApplyResponseBean response = new ApplyResponseBean();
         if (login) {
@@ -85,21 +86,32 @@ public class AdminController {
             for (ShopAndOwnerDbBean entity:dataList.getShopList()){
                 ApplyResponseBean.ApplyEntity applyEntity = new ApplyResponseBean.ApplyEntity();
                 applyEntity.setOwnerName(entity.getUsername());
-
+                applyEntity.setOwnerImg(entity.getPicture());
+                applyEntity.setOwnerEmail(entity.getEmail());
+                applyEntity.setRealName(entity.getRealname());
+                applyEntity.setRealImg(entity.getUserImage());
+                applyEntity.setShopName(entity.getShopName());
+                applyEntity.setShopImg(entity.getLogo());
+                applyEntity.setShopDesc(entity.getIntroduction());
+                data.add(applyEntity);
             }
-
+            response.setTotal((int)total);
+            response.setRealSize((int)size);
+            response.setData(data);
         }else {
             response.setError(true);
         }
-        return "";
+        return mGson.toJson(response);
     }
-    @RequestMapping(value = "agree",method = RequestMethod.POST)
+    @RequestMapping(value = "/reply",method = RequestMethod.POST)
     public @ResponseBody String agree(@RequestBody byte[] info,HttpSession session){
+        boolean islogin = mService.isLogin();
+        ShopCheckBean shopCheckBean = new ShopCheckBean();
+        if (islogin){
+            String infoStr = new String(info);
+
+        }
         return "";
     }
 
-    @RequestMapping(value = "disagree",method = RequestMethod.POST)
-    public @ResponseBody String disagree(@RequestBody byte[] info,HttpSession session){
-        return "";
-    }
 }
