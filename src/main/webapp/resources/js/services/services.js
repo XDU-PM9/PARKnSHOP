@@ -1,42 +1,36 @@
 angular.module('PNS.services', [])
     .factory('OwnerService', function ($http, $rootScope, $q, URLbase) {
 
-        function application(ID, realName, realImg, shopName, shopImg, shopDesc) {
-            var applicationURL = URLbase + '/owner/apply';
+        function apply(data) {
+            var applicationURL = URLbase + 'owner/apply';
             var deferred = $q.defer();
 
             $http({
                 method: 'POST',
                 url: applicationURL,
-                data: {
-                    ID: ID,
-                    realName: realName,
-                    realImg: realImg,
-                    shopName: shopName,
-                    shopImg: shopImg,
-                    shopDesc: shopDesc
-                }
-            }).success(function (data, status, headers) {
+                data: data,
+                withCredentials: true,
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity
 
-                console.log("user data=" + "");
+            }).success(function (data, status, headers) {
                 console.log(data);
-                if (data.error == false) {
-                    deferred.resolve(data);
-                    $rootScope.user = data.data;
-                    $rootScope.user.image = '../..' + data.data.imge;
-                    $rootScope.loged = true;
+                if (data.error) {
+                    deferred.reject(data);
                 } else {
-                    alert(data.message)
+                    deferred.resolve(data);
+                    $rootScope.user.shop.state = 1;
+                    $rootScope.user.shop.msg = '商店正在申请';
                 }
             }).error(function (data, statue, headers) {
-                deferred.reject(data)
+                deferred.reject(data);
             });
 
             return deferred.promise;
         }
 
         return {
-            application: application
+            apply: apply
         };
     })
     .factory('CustomerService', function ($http, $rootScope, $q, URLbase) {
