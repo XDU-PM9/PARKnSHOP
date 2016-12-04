@@ -25,7 +25,7 @@ public interface IHtmlContext {
             "\t\t\t\t<table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\" style=\"border: 1px solid #cccccc; border-collapse: collapse;\">\n"+
             "\t\t\t\t\t<tr>\n"+
             "\t\t\t\t\t\t<td align=\"center\" bgcolor=\"#70bbd9\" style=\"padding: 40px 0 30px 0; color: #153643; font-size: 28px; font-weight: bold; font-family: Arial, sans-serif;\">\n"+
-            "\t\t\t\t\t\t\t<img src=\"../../resources/Image/img/h1.gif\" alt=\"Creating Email Magic\" width=\"300\" height=\"230\" style=\"display: block;\" />\n"+
+            "\t\t\t\t\t\t\t<img src=\"http://miss-rabbit.cc/h1.gif\" alt=\"Creating Email Magic\" width=\"300\" height=\"230\" style=\"display: block;\" />\n"+
             "\t\t\t\t\t\t</td>\n"+
             "\t\t\t\t\t</tr>\n"+
             "\t\t\t\t\t<tr>\n"+
