@@ -33,6 +33,10 @@ PNS.config(['$routeProvider',
                     controller: 'CustomerCtrl',
                     templateUrl: '../../resources/view/customer/index.html'
                 })
+                .when('/customer/home', {
+                    controller: 'CustomerCtrl',
+                    templateUrl: '../../resources/view/customer/home.html'
+                })
                 .when('/customer/login', {
                     controller: 'CustomerCtrl',
                     templateUrl: '../../resources/view/customer/login.html'

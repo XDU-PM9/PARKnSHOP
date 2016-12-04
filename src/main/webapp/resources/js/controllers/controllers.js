@@ -63,7 +63,7 @@ angular.module('PNS.controllers', ['PNS.services'])
         $scope.err_message = null;
         $scope.login = function () {
             LoginService.login(group, $scope.username, $scope.password).then(function (data) {
-                $location.path('/' + group + '/index');
+                $location.path('/' + group + '/home');
             }, function (data) {
                 console.log("user data=" + "");
                 console.log(data)
