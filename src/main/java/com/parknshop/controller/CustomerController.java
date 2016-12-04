@@ -49,7 +49,7 @@ public class CustomerController{
         int status=userService.loginAsUser((String)request.get("userName"),(String)request.get("password"));
         if(LOGIN_SUCCESS==status){
             response.put("error","false");
-            response.put("message","登录成功");
+            response.put("message","login success");
             Map<String,String> data=new HashMap<String,String>();
             data.put("userName", (String) request.get("userName"));
             //TODO:用户头像网址
@@ -58,7 +58,7 @@ public class CustomerController{
         }else {
             response.put("error", "true");
             switch (status) {
-                case IUserService.LOGIN_ERRO:response.put("message", "Login fail");break;
+                case IUserService.LOGIN_ERRO:response.put("message", "Login fail,please check your username or password");break;
                 case IUserService.LOGIN_HASDELETE:response.put("message","Account has been frozen");break;
                 case IUserService.LOGIN_HASLOGIN:response.put("message","You have login the account");break;
                 case IUserService.LOGIN_NOACTIVE:response.put("message","You account not activated");break;
@@ -99,7 +99,8 @@ public class CustomerController{
     public @ResponseBody Map customerRegister(@RequestBody Map request)throws Exception{
         userBuilder.clear();
         userBuilder.setUserName((String)request.get("userName")).setPassWord((String)request.get("password"))
-                .setPhone((String)request.get("phone")).setEmail((String)request.get("email"));
+                //.setPhone((String)request.get("phone"))
+                .setEmail((String)request.get("email"));
         int status=userService.registerByUser(userBuilder);
         Map response=new HashMap<String,String>();
         if(IUserService.SUCCESS==status){
@@ -124,6 +125,12 @@ public class CustomerController{
             }
         }
         response.put("date",new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+        return response;
+    }
+
+    @RequestMapping(value = "/customer/information",method = RequestMethod.POST)
+    public @ResponseBody Map customerInformation(@RequestBody Map request){
+        Map response=new HashMap();
         return response;
     }
 }
