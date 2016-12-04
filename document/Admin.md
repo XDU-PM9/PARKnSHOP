@@ -25,6 +25,7 @@ index：按照size分页后的数据第index页
           "ownerEmail":"注册邮箱",
           "realName":"真实名字",
           "realImg":"正面带身份证照片的url",
+          "shopId":"shopId",
           "shopName":"店名",
           "shopImg":"店的logo url",
           "shopDesc":"店的描述"
@@ -42,8 +43,8 @@ index：按照size分页后的数据第index页
 数据格式：json
 参数描述：
 {
-  "ownerName":"店家注册名"，
-  "result":"0/1"    //0代表拒绝请求，1代表允许请求
+  "shopId":"shopId"，
+  "result":0/1    //0代表拒绝请求，1代表允许请求
 }
 
 响应格式：json
