@@ -14,8 +14,8 @@ import java.lang.Exception;
  * Created by H on 2016/11/30.
  */
 @Transactional
-@Service("CartService")
-public class CartServiceImpl implements ICartService {
+@Service
+public class CartService implements ICartService {
 
     @Resource
     BaseDao<CartEntity>   cartEntityDao;
