@@ -10,10 +10,10 @@ import java.sql.Timestamp;
  */
 @Entity
 @Repository
-@Table(name = "cart", schema = "parknshop", catalog = "")
+@Table(name = "cart", schema = "parknshop")
 public class CartEntity {
     private Integer cartId;
-    private Integer goodsId;
+    private GoodsEntity goodsEntity;
     private Integer singleGoodId;
     private Integer amount;
     private Timestamp createTime;
@@ -31,17 +31,7 @@ public class CartEntity {
     }
 
     @Basic
-    @Column(name = "goodsId", nullable = false)
-    public Integer getGoodsId() {
-        return goodsId;
-    }
-
-    public void setGoodsId(Integer goodsId) {
-        this.goodsId = goodsId;
-    }
-
-    @Basic
-    @Column(name = "singleGoodId", nullable = false)
+    @Column(name = "singleGoodId", nullable = true)
     public Integer getSingleGoodId() {
         return singleGoodId;
     }
@@ -78,7 +68,6 @@ public class CartEntity {
         CartEntity that = (CartEntity) o;
 
         if (cartId != null ? !cartId.equals(that.cartId) : that.cartId != null) return false;
-        if (goodsId != null ? !goodsId.equals(that.goodsId) : that.goodsId != null) return false;
         if (singleGoodId != null ? !singleGoodId.equals(that.singleGoodId) : that.singleGoodId != null) return false;
         if (amount != null ? !amount.equals(that.amount) : that.amount != null) return false;
         if (createTime != null ? !createTime.equals(that.createTime) : that.createTime != null) return false;
@@ -89,7 +78,6 @@ public class CartEntity {
     @Override
     public int hashCode() {
         int result = cartId != null ? cartId.hashCode() : 0;
-        result = 31 * result + (goodsId != null ? goodsId.hashCode() : 0);
         result = 31 * result + (singleGoodId != null ? singleGoodId.hashCode() : 0);
         result = 31 * result + (amount != null ? amount.hashCode() : 0);
         result = 31 * result + (createTime != null ? createTime.hashCode() : 0);
@@ -104,5 +92,15 @@ public class CartEntity {
 
     public void setUserByUserId(UserEntity userByUserId) {
         this.userByUserId = userByUserId;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "goodsId", referencedColumnName = "goodsId", nullable = false)
+    public GoodsEntity getGoodsEntity() {
+        return goodsEntity;
+    }
+
+    public void setGoodsEntity(GoodsEntity userByUserId) {
+        this.goodsEntity = userByUserId;
     }
 }
