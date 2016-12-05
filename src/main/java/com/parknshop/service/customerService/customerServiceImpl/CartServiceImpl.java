@@ -3,21 +3,19 @@ package com.parknshop.service.customerService.customerServiceImpl;
 import com.parknshop.dao.daoImpl.BaseDao;
 import com.parknshop.entity.CartEntity;
 import com.parknshop.entity.UserEntity;
-import com.parknshop.service.customerService.CartService;
-import org.springframework.stereotype.Repository;
+import com.parknshop.service.customerService.ICartService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.util.List;
 import java.lang.Exception;
-import java.util.Objects;
 
 /**
  * Created by H on 2016/11/30.
  */
 @Transactional
 @Service("CartService")
-public class CartServiceImpl implements CartService {
+public class CartServiceImpl implements ICartService {
 
     @Resource
     BaseDao<CartEntity>   cartEntityDao;
