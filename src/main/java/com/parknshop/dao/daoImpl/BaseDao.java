@@ -87,6 +87,31 @@ public class BaseDao<T> implements IBaseDao<T> {
         this.getCurrentSession().delete(o);
     }
 
+    @Override
+    public void insert(String sql, Object[] params) {
+        Session session=this.getCurrentSession();
+        Query query=session.createSQLQuery(sql);
+
+        for(int i=0;i<params.length;i++)
+        {
+            query.setParameter(i,params[i]);
+        }
+        query.executeUpdate();
+        session.close();
+    }
+
+    @Override
+    public void delete(String sql,Integer id) {
+         Session session=this.getCurrentSession();
+         session.createSQLQuery(sql).setInteger(0,id).executeUpdate();
+         session.close();
+    }
+
+    @Override
+    public void update(String sql, Object[] params) {
+       insert(sql,params);
+    }
+
     public void update(T o) throws Exception {
         Session session = null;
         try {

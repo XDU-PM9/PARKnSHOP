@@ -7,13 +7,15 @@ import java.util.List;
  */
 public interface IAddressService {
 
-    public  List<AddressEntity>    getAllAddressByUserId(Integer userId);
+    public  List<AddressEntity>    getAllAddressByUserId(int userId);
 
-    public  AddressEntity           getByAddressId(Integer addressId);
+    public  AddressEntity           getByAddressId(int addressId);
 
-    public   void                 insertAddressEntity(AddressEntity addressEntity);
+    public   void                 updateAddressEntity(int addressId,String  province,String country,String  others,String  name,long phone,int zip,int userId);
 
-    public   void                 deleteAddressEntity(Integer addressId);
+    public   void                 insertAddressEntity(String  province,String country,String  others,String  name,long phone,int zip,int userId);
+
+    public   void                 deleteAddressEntity(int addressId);
 
     public  void                    updateAddressEntity(AddressEntity addressEntity);
 
