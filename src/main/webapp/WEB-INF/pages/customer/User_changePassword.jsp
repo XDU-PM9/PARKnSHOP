@@ -30,7 +30,7 @@
        <div class="change_Password">
        	<form  action="changePassword" method="post">
        		<input type="hidden" name="userId" value="6"/>
-           <div class="title_Section"><span>修改密码</span></div>
+           <div class="title_Section"><span  class="title_ASD">修改密码</span></div>
            <ul class="p_modify">
               <div class="Note">暂只支持原密码修改，不支持邮箱电话验证密码修改</div>
               <li><label>原密码</label><input name="password" type="password"  class="text_Password"/></li>

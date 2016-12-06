@@ -30,7 +30,8 @@
         <div class="info_content">
             <!--地址管理样式-->
             <div class="adderss_style">
-                <div class="title_name"><span>收货地址管理</span></div>
+
+                <div class="title_Section"><span  class="title_ASD">收货地址管理</span></div>
                 <div class="adderss_list">
                     <!--地址列表-->
                     <div class="Address_List clearfix">

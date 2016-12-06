@@ -25,7 +25,7 @@
 	    <div class="info_content">
 	     <!--个人信息-->
 	      <div class="Personal_info" id="Personal">
-	         <div class="title_Section"><span>个人信息</span></div>
+	         <div class="title_Section"><span class="title_ASD">个人信息</span></div>
 	         <ul class="xinxi">
 				 <li><label>Name：</label> <span><input name="name" type="text" value="${user.getUsername()}"  class="text"  disabled="disabled"/></span></li>
 				 <li><label>Email：</label>  <span>${user.getEmail()}</span></li>

@@ -3,6 +3,7 @@ package com.parknshop.service.customerService.customerServiceImpl;
 import com.parknshop.dao.daoImpl.BaseDao;
 import com.parknshop.entity.CollectionEntity;
 import com.parknshop.entity.CollectshopEntity;
+import com.parknshop.entity.GoodsEntity;
 import com.parknshop.entity.UserEntity;
 import com.parknshop.service.customerService.ICustomerService;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,8 @@ public class CustomerService  implements ICustomerService {
     @Resource
     private  BaseDao<CollectshopEntity>  collectshopEntityBaseDao;
 
+    @Resource
+    private BaseDao<GoodsEntity> goodsEntityBaseDao;
 
     @Override
     public List<UserEntity> getAllCustomer()
@@ -87,18 +90,43 @@ public class CustomerService  implements ICustomerService {
         userEntityBaseDao.insert("update user set url=? where userId=?",params);
     }
 
+
     @Override
-    public List<CollectionEntity> queryAllCollect(Integer userId) {
-        return null;
+    public List<CollectionEntity> queryAllCollect(Integer userId,int page) {
+        Object[] params=new Object[1];
+         params[0]=userEntityBaseDao.get("from UserEntity where userId=?",new Object[]{userId});
+        return collectionEntityBaseDao.find("from CollectionEntity  where  userByUserId=? order by createTime desc",params,page,8);
+    }
+
+    @Override
+    public int querySize(int userId) {
+        Object[] params=new Object[1];
+        params[0]=userEntityBaseDao.get("from UserEntity where userId=?",new Object[]{userId});
+        return collectionEntityBaseDao.find("from CollectionEntity  where  userByUserId=? ",params).size();
     }
 
     @Override
     public void insertCollect(Integer id, Integer userId) {
-         Object[] parans=new Object[3];
-         parans[0]=id;
-         parans[1]=userId;
-         parans[2]=new Timestamp(System.currentTimeMillis());
-            collectionEntityBaseDao.insert("insert into collection(goodsId,userId,createTime) values(?,?,?)",parans);
+        Object[] params=new Object[2];
+        params[0]=userEntityBaseDao.get("from UserEntity where userId=?",new Object[]{userId});
+        params[1]=goodsEntityBaseDao.get("from GoodsEntity where goodsId=?",new Object[]{id});
+
+        List<CollectionEntity> ces= collectionEntityBaseDao.find("from CollectionEntity where ce.userByUserId=? and ce.goodsByGoodsId=?",params);
+         if(ces.size()==0) {
+             Object[] parans=new Object[3];
+             parans[0] = id;
+             parans[1] = userId;
+             parans[2] = new Timestamp(System.currentTimeMillis());
+             collectionEntityBaseDao.insert("insert into collection(goodsId,userId,createTime) values(?,?,?)", parans);
+         }
+         else
+         {
+               Object[] parans=new Object[2];
+              parans[0]=new Timestamp(System.currentTimeMillis());
+              parans[1]=ces.get(0).getCollectionId();
+              collectionEntityBaseDao.insert("update collection set createTime=? where collectionId=?",parans);
+         }
+
     }
 
     @Override

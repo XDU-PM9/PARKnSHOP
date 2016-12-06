@@ -28,7 +28,9 @@ public interface ICustomerService {
     public  void      changeUserImage(String url,int userId);
 
 //此处为收藏的商品
-    public  List<CollectionEntity>  queryAllCollect(Integer userId);
+    public  List<CollectionEntity>  queryAllCollect(Integer userId,int page);
+
+    public int   querySize(int userId);
 
     public void  insertCollect(Integer id,Integer userId);
 
