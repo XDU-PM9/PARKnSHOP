@@ -1,6 +1,7 @@
 package com.parknshop.controller;
 
 import com.parknshop.entity.CollectionEntity;
+import com.parknshop.entity.CollectshopEntity;
 import com.parknshop.entity.UserEntity;
 import com.parknshop.service.customerService.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,6 +70,30 @@ public class UserCenterController {
         return "customer/User_Collect.jsp";
     }
 
+    @RequestMapping(value="/listCollectShop",method = RequestMethod.GET)
+    public String listCollectShop(@RequestParam int userId,
+                              @RequestParam int requestPage,
+                              Model  model)
+    {
+        int size=customerService.queryShopsize(new Integer(userId));
+        double d=size/8;
+        double  sina=Math.ceil(d);
+        List<CollectshopEntity>  collectionEntities=customerService.queryAllShop(new Integer(userId),requestPage);
+        model.addAttribute("Collects",collectionEntities);
+        model.addAttribute("currentPage",requestPage);
+        model.addAttribute("maxSize",size);
+        model.addAttribute("sina",sina);
+        return "customer/User_CollectShop.jsp";
+    }
+
+    @RequestMapping(value="/insertCollectShop",method = RequestMethod.GET)
+    public String  insertCollectShop(@RequestParam int userId,
+                                 @RequestParam int  shopId)
+    {
+        customerService.insertShop(shopId,userId);
+        return "redirect:listCollectShop?userId=6&requestPage=1";
+    }
+
     @RequestMapping(value="/insertCollect",method = RequestMethod.GET)
     public String  insertCollect(@RequestParam int userId,
                                  @RequestParam int  goodsId)
@@ -82,6 +107,13 @@ public class UserCenterController {
     {
         customerService.removeCollect(new Integer(collectionId));
             return "redirect:listCollect?userId=6&requestPage=1";
+    }
+
+    @RequestMapping(value="/removeCollectShop",method = RequestMethod.GET)
+    public String removeCollectShop(@RequestParam int shopId)
+    {
+        customerService.removeShop(new Integer(shopId));
+        return "redirect:listCollectShop?userId=6&requestPage=1";
     }
 
 }

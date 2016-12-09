@@ -41,8 +41,8 @@
                         <dt class="transaction_manage"><em class="icon_4"></em>My Collection</dt>
                         <dd>
                             <ul>
-                                <li> <a href="#"> Collect Shop</a></li>
-                                <li> <a href="/listAddress?userId=6"> Collect  Product</a></li>
+                                <li> <a href="/listCollectShop?userId=6&requestPage=1"> Collect Shop</a></li>
+                                <li> <a href="/listCollect?userId=6&requestPage=1"> Collect  Product</a></li>
                             </ul>
                         </dd>
                     </dl>

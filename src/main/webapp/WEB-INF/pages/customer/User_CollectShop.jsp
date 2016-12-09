@@ -28,6 +28,7 @@
          <div class="collect">
               <ul class="Quantity"><li>已藏量：
              ${maxSize}
+
               	条</li><li></li></ul>
           <div class="collect_list">
       <ul>
@@ -35,22 +36,21 @@
       <c:forEach var="c" items="${Collects}">
       	
 		       <li class="collect_p">
-		        <a href="removeCollect?collectionId=${c.getCollectionId()}">
+		        <a href="/removeCollectShop?shopId=${c.getScollectId()}">
 		        <em class="iconfont icon-close2 delete"></em>
 		        </a>
 		         <a href="#" class="buy_btn">立即购买</a>
-
-
 		       <div class="collect_info">
-
 		        <div class="img_link">
-		         <a href="#" class="center "><!--<img src="${c.getGoodsByGoodsId().getIntroduction()}"/>-->
-		         ${c.getGoodsByGoodsId().getIntroduction()}
+		         <a href="#" class="center ">
+					 <!--<img src=""/>-->
+		         ${c.getShopByShopId().getShopName()}
 				 </a>
+		         
 		        </div>
 		        <dl class="xinxi">
-		         <dt><a href="#" class="name">${c.getGoodsByGoodsId().getGoodsName()}</a></dt>
-		         <dd><span class="Price"><b>￥</b>${c.getGoodsByGoodsId().getPrice() }</span><span class="collect_Amount"><i class="iconfont icon-shoucang"></i>13</span></dd>
+		         <dt><a href="#" class="name">${c.getShopByShopId().getShopName()}</a></dt>
+		         <dd><span class="Price"><b>￥</b>${c.getShopByShopId().getIntroduction() }</span><span class="collect_Amount"><i class="iconfont icon-shoucang"></i>13</span></dd>
 		        </dl>
 		        </div>
 		       </li>
@@ -61,13 +61,13 @@
 			     <div class="Paging">
 					    <div class="Pagination">
 							<c:choose>
-								<c:when test="${currentPage>1}"><a href="/listCollect?userId=6&requestPage=${currentPage-1}" class="pn-prev disabled">&lt;Previous</a></c:when>
+								<c:when test="${currentPage>1}"><a href="/listCollectShop?userId=6&requestPage=${currentPage-1}" class="pn-prev disabled">&lt;Previous</a></c:when>
 							</c:choose>
 							<c:forEach begin="1" end="${sina+1}" step="1" var="cs">
-								<a href="/listCollect?userId=6&requestPage=${cs}" class="on">${cs}Page</a>
+								<a href="/listCollectShop?userId=6&requestPage=${cs}" class="on">${cs}Page</a>
 							</c:forEach>
 							<c:if test="${currentPage<=sina}">
-								<a href="/listCollect?userId=6&requestPage=${currentPage+1}">
+								<a href="/listCollectShop?userId=6&requestPage=${currentPage+1}">
 									Next&gt;
 								</a>
 							</c:if>

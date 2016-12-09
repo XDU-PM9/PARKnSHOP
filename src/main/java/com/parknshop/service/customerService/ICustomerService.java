@@ -39,7 +39,9 @@ public interface ICustomerService {
     //*****************************************************************
  //此处为收藏的店铺
 
-    public  List<CollectshopEntity>   queryAllShop(Integer userId);
+    public  List<CollectshopEntity>   queryAllShop(Integer userId,int page);
+
+    public int                        queryShopsize(Integer userId);
 
     public  void                      insertShop(Integer id,Integer userId);
 

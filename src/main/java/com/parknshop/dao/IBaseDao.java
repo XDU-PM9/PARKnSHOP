@@ -11,9 +11,9 @@ public interface IBaseDao<T> {
     Serializable save(T o) throws Exception;
     public Serializable save(List<T> o)throws  Exception;
     void delete(T o);//此功能尚未完成
-    public  void insert(String sql,Object[] params);
-    public void  delete(String sql,Integer id);
-    public  void update(String sql,Object[] params);
+    public  boolean insert(String sql,Object[] params);
+    public boolean  delete(String sql,Integer id);
+    public  boolean update(String sql,Object[] params);
     void update(T o) throws Exception;
 
     void saveOrUpdate(T o);//此功能尚未完成
