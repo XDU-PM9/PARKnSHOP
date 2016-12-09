@@ -14,11 +14,12 @@ import java.sql.Timestamp;
 public class CartEntity {
     private Integer cartId;
     private GoodsEntity goodsEntity;
+//    private Integer goodsId;
     private Integer singleGoodId;
     private Integer amount;
     private Timestamp createTime;
     private UserEntity userByUserId;
-
+//    private Integer userId;
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "cartId", nullable = false)
@@ -103,4 +104,21 @@ public class CartEntity {
     public void setGoodsEntity(GoodsEntity userByUserId) {
         this.goodsEntity = userByUserId;
     }
+//    @Column(name="userId",nullable = false)
+//    public Integer getUserId(){
+//        return this.userId;
+//    }
+//
+//    public void setUserId(Integer userId){
+//        this.userId=userId;
+//    }
+//
+//    @Column(name = "goodsId",nullable = false)
+//    public Integer getGoodsId(){
+//        return this.goodsId;
+//    }
+//
+//    public void setGoodsId(Integer goodsId){
+//        this.goodsId=goodsId;
+//    }
 }
