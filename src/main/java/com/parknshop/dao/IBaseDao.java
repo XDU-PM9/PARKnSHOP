@@ -26,6 +26,10 @@ public interface IBaseDao<T> {
 
     List<T> find(String hql, Object[] param, Integer page, Integer rows);
 
+    List<T> findNumberRows(String hql, Object[] param, Integer first, Integer max);
+
+    List<T> findNumberRows(String hql, List param, Integer first, Integer max);
+
     List<T> find(String hql, List<Object> param, Integer page, Integer rows);
 
     T get(Class<T> c, Serializable id);
