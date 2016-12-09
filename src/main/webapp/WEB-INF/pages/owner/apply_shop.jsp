@@ -22,6 +22,11 @@
         </div>
 
         <div>
+            <input type="text" name="phone" id="phone">
+        </div>
+
+
+        <div>
             <input type="file" name="person" id="person" />
         </div>
 
@@ -37,6 +42,9 @@
             <input type="file" name="logo" id="logo" />
         </div>
 
+        <div>
+            <input type="file" name="theme" id="theme" />
+        </div>
 
 
         <div>

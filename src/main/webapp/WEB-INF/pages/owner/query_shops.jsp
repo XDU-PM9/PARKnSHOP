@@ -13,10 +13,13 @@
 <body>
 
     <%
-        String listStr = (String) request.getAttribute("shopList");
+        String listStr = (String) request.getAttribute("shops");
         String msg = (String) request.getAttribute("msg");
-        if (null != msg){
-            out.println("<a href=\"/owner/register\">Click here to apply a new shop</a>");
+        System.out.println(msg);
+        if (msg.equals("1")){
+            out.println("<a href=\"/owner/apply\">Click here to apply a new shop</a>");
+        }else {
+            out.println("<p></p>");
         }
         if (null == listStr){
             out.println("<p>no records</p>");
