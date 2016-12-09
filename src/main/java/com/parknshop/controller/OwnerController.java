@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.parknshop.bean.*;
 import com.parknshop.entity.OwnerEntity;
+import com.parknshop.service.IListBean;
 import com.parknshop.service.IOwnerService;
 import com.parknshop.service.IUserBuilder;
 import com.parknshop.service.IUserService;
@@ -19,7 +20,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by fallblank on 16-11-28.
@@ -30,8 +33,9 @@ public class OwnerController {
     private static final String REQ_METHOD_GET = "GET";
     private static final String REQ_METHOD_POST = "POST";
 
-    private static final String MSG = "msg";
-    private static final String EMAIL = "email";
+    public static final String MSG = "msg";
+    public static final String EMAIL = "email";
+    public static final String SHOPS = "shops";
 
     final
     IUserService mService;
@@ -137,4 +141,87 @@ public class OwnerController {
         }
     }
 
+
+    /**
+     * 查询开店情况
+     * @return 根据用户信息返回具体页面
+     */
+    @RequestMapping("/query")
+    public String query(HttpSession session,HttpServletRequest request){
+        //处理未登陆的意外情况
+        if (!mService.isLogin()){
+            return "redirect:/owner/login";
+        }
+        //处理登陆用户不是owner的情况
+        OwnerEntity entity;
+        try {
+            entity = (OwnerEntity) session.getAttribute(IDefineString.SESSION_USER);
+            if (null == entity){
+                throw new Exception("未登陆");
+            }
+        }catch (Exception e){
+            return "redirect:/owner/login";
+        }
+
+        int state = mOwnerService.isHasShop(entity);
+        if (canApply(entity)){
+            request.setAttribute(MSG,"");
+        }else {
+            IListBean<ShopAndOwnerDbBean> temp = mOwnerService.getMyShop(entity,1,10000);
+            int count = (int) temp.getNumer();
+            List<ShopAndOwnerDbBean> list = temp.getShopList();
+            ShopBean shopBean = new ShopBean();
+            shopBean.setCount(count);
+            List<ShopBean.Shop> shopList = new ArrayList<>();
+            for (ShopAndOwnerDbBean item : list){
+                ShopBean.Shop shop = new ShopBean.Shop();
+                shop.setName(item.getShopName());
+                shop.setDesc(item.getIntroduction());
+                shop.setLogo(item.getLogo());
+                shop.setState(item.getShopState());
+                shopList.add(shop);
+            }
+            request.setAttribute(SHOPS,mGson.toJson(shopBean));
+        }
+        return "owner/query_shops.jsp";
+    }
+
+    @RequestMapping("/apply")
+    public String apply(HttpSession session,HttpServletRequest request){
+        //处理未登陆的意外情况
+        if (!mService.isLogin()){
+            return "redirect:/owner/login";
+        }
+        //处理登陆用户不是owner的情况
+        OwnerEntity entity;
+        try {
+            entity = (OwnerEntity) session.getAttribute(IDefineString.SESSION_USER);
+            if (null == entity){
+                throw new Exception("未登陆");
+            }
+        }catch (Exception e){
+            return "redirect:/owner/login";
+        }
+        if (request.getMethod() == REQ_METHOD_GET){
+            return "owner/apply_shop.jsp";
+        }
+        String realName = request.getParameter("realName");
+        String id = request.getParameter("idNumber");
+        String shopName = request.getParameter("shopName");
+        String shopDesc = request.getParameter("shopDesc");
+        System.out.println(realName+":"+id+"\n"+shopName+":"+shopDesc);
+        return "owner/apply_shop.jsp";
+
+    }
+
+    /**
+     * 检查是否能开店
+     */
+    private boolean canApply(OwnerEntity entity){
+        int state = mOwnerService.isHasShop(entity);
+        if (state == IOwnerService.SHOP_STATE_NOSHOP || state == IOwnerService.SHOP_STATE_REJECT){
+            return true;
+        }
+        return false;
+    }
 }

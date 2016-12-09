@@ -8,7 +8,7 @@
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="connection.username">root</property>
 
-        <property name="connection.password">asd87060</property>
+        <property name="connection.password">song</property>
 
         <mapping class="com.parknshop.entity.CartEntity"/>
 

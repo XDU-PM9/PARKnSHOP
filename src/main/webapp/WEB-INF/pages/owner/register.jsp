@@ -40,7 +40,7 @@
         <p><%=msg%></p>
         <ul class="formInfor">
             <li>
-                <input placeholder="Please input your email" name="text" type="email" id="e-mail" size="18" required onblur="checkEmail()"/>
+                <input placeholder="Please input your email" name="e-mail" type="text" id="e-mail" size="18" required onblur="checkEmail()"/>
                 <a href="#" class="icon ticker"> </a>
                 <div class="clear"> </div>
             </li>
