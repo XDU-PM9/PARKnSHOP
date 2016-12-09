@@ -75,5 +75,10 @@ public class ShopBean {
         public void setState(int state) {
             this.state = state;
         }
+
+        @Override
+        public String toString() {
+            return "name:"+name+" Desc:"+desc+" logo:"+logo+"   state:"+state;
+        }
     }
 }
