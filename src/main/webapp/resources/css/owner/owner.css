@@ -1,0 +1,125 @@
+/* reset */
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,dl,dt,dd,ol,nav ul,nav li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline;}
+article, aside, details, figcaption, figure,footer, header,  menu, nav, section {display: block;}
+ol,ul{list-style:none;margin:0px;padding:0px;}
+blockquote,q{quotes:none;}
+blockquote:before,blockquote:after,q:before,q:after{content:'';content:none;}
+table{border-collapse:collapse;border-spacing:0;}
+/* start editing from here */
+a{text-decoration:none;}
+.txt-rt{text-align:right;}/* text align right */
+.txt-lt{text-align:left;}/* text align left */
+.txt-center{text-align:center;}/* text align center */
+.float-rt{float:right;}/* float right */
+.float-lt{float:left;}/* float left */
+.clear{clear:both;}/* clear float */
+.pos-relative{position:relative;}/* Position Relative */
+.pos-absolute{position:absolute;}/* Position Absolute */
+.vertical-base{	vertical-align:baseline;}/* vertical align baseline */
+.vertical-top{	vertical-align:top;}/* vertical align top */
+nav.vertical ul li{	display:block;}/* vertical menu */
+nav.horizontal ul li{	display: inline-block;}/* horizontal menu */
+img{max-width:100%;}
+/*end reset*/
+/****-----start-body----****/
+body{
+    background:#eee;
+    font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+#icoHead{
+    margin-top: 20px;
+    margin-left:10px;
+    position: relative;
+}
+.main{
+    margin:1em auto 0;
+    width:80%;
+    background: #fff;
+    padding: 0 0 10px 0;
+}
+.header {
+    text-align:center;
+    padding:1.3em;
+}
+.header h1 {
+    color:#272727;
+    font-weight:700;
+    font-size:22px;
+}
+.main p{
+    text-align: center;
+    font-size:15px;
+    font-weight:600;
+    color:#383737;
+    padding: 20px 30px;
+    border-bottom: 1px solid #E7E0E0;
+    margin-top: -13px;
+}
+.main h2,.main h3{
+    text-align:left;
+    font-size:17px;
+    font-weight:600;
+    margin:15px 3px 0 10em;
+    color:#3F3D3D;
+}
+form{
+    padding-bottom: 2em;
+}
+.formInfor{
+    margin: 22px 28px 0 18em;
+    width: 60%;
+}
+.formInfor input[type=text],.formInfor input[type=email],.formInfor input[type=password] {
+    font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    width:80%;
+    padding: 0.7em 2em 0.7em 1em;
+    border:none;
+    color: #000;
+    font-size:15px;
+    outline: none;
+}
+.formInfor li{
+    display:block;
+    color:#4D4949;
+    border:1px solid #EBEBEB;
+    border-radius: 0.3em;
+    -webkit-border-radius:0.3em;
+    -moz-border-radius:0.3em;
+    -o-border-radius:0.3em;
+    margin-bottom: 14px;
+}
+#registerBtn,#loginBtn{
+    padding:10px 19px;
+    border-radius:0.3em;
+    -webkit-border-radius:0.3em;
+    -moz-border-radius:0.3em;
+    -o-border-radius:0.3em;
+    color:#4D4949;
+    background:#F3F3F3;
+    border:1px solid #EBEBEB;
+    font-weight:bold;
+    font-size:15px;
+    outline:none;
+    transition: all 0.5s ease-out;
+    -webkit-transition: all 0.5s ease-out;
+    -moz-transition: all 0.5s ease-out;
+    -ms-transition: all 0.5s ease-out;
+    -o-transition: all 0.5s ease-out;
+    margin-top:15px;
+    cursor: pointer;
+}
+#registerBtn:hover,#loginBtn:hover{
+    background:#2E2D2D;
+    color:#fff;
+}
+.forAndRe{
+    position: relative;
+    margin: 10px 10px 80px 18em;
+}
+.forAndRe>a{
+    margin: 10px 10px 20px 0;
+    font-size: 19px;
+    color: #313131;
+    text-decoration: underline;
+}
+
