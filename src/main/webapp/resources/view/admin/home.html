@@ -1,0 +1,48 @@
+<!--导航-->
+<nav class="navbar navbar-default">
+    <div class="container">
+        <!--小屏幕导航按钮和logo-->
+        <div class="navbar-header">
+            <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="#/customer/index"><img id="logo" src="../../resources/images/ico/banner.jpg" alt=""></a>
+        </div>
+        <!--小屏幕导航按钮和logo-->
+        <!--导航-->
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right" id="portrait">
+                <li><img  ng-src="{{$root.user.image}}" alt="">{{$root.user.userName}}</li>
+                <li><a href="javascript:void(0);" ng-click="logout()"><span class="glyphicon glyphicon-off"></span>&nbsp;&nbsp;Logout</a></li>
+            </ul>
+        </div>
+        <!--导航-->
+    </div>
+</nav>
+<!--导航-->
+
+
+<!--内容-->
+<div class="container">
+    <div class="row">
+        <!--左边栏-->
+        <div class="col-md-2">
+            <div class="list-group">
+                <div class="panel-heading">Managing</div>
+                <a href="home.html" class="list-group-item">Manage apply</a>
+                <a href="home.html" class="list-group-item">Manage Shop Owner</a>
+                <a href="home.html" class="list-group-item">Manage Customer</a>
+                <a href="..       " class="list-group-item">Manage Advertisement</a>
+                <a href="home.html" class="list-group-item">Backup Database</a>
+                <a href="home.html" class="list-group-item">View Sales Histor</a>
+                <a href="home.html" class="list-group-item">Calculate Income</a>
+                <a href="home.html" class="list-group-item">Manage Commission</a>
+                <a href="home.html" class="list-group-item">Search Order by OrderID</a>
+            </div>
+        </div>
+        <!--左边栏-->
+    </div>
+</div>
+<!--内容-->

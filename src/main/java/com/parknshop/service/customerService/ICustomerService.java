@@ -23,16 +23,16 @@ public interface ICustomerService {
     //逻辑删除用户
     public  void      deleteCustomer(Integer id);
 
-    public  void      changePassword(String password);
+    public  void      changePassword(String password,int userId);
 
-    public  void      changeUserImage(String url);
+    public  void      changeUserImage(String url,int userId);
 
 //此处为收藏的商品
     public  List<CollectionEntity>  queryAllCollect(Integer userId);
 
     public void  insertCollect(Integer id,Integer userId);
 
-    public void  removeCollect(Integer id,Integer userId);
+    public void  removeCollect(Integer id);
 
     //*****************************************************************
  //此处为收藏的店铺
@@ -41,7 +41,7 @@ public interface ICustomerService {
 
     public  void                      insertShop(Integer id,Integer userId);
 
-    public   void                     removeShop(Integer id,Integer userId);
+    public   void                     removeShop(Integer id);
 
 
     //*****************************************************************

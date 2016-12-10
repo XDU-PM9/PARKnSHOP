@@ -1,5 +1,6 @@
 package com.parknshop.service;
 
+import com.parknshop.bean.ShopAndOwnerDbBean;
 import com.parknshop.entity.OwnerEntity;
 import com.parknshop.entity.ShopEntity;
 import com.parknshop.service.baseImpl.IUploadPictures;
@@ -14,7 +15,7 @@ public interface IOwnerService {
      */
     int SHOP_STATE_ELSE = -3;//其他错误
     int SHOP_STATE_NOSHOP =-2;//没有商店
-    int SHOP_STATE_DELETE = -1;//商店已被删除删除
+    int SHOP_STATE_DELETE = -1;//商店已被删除
     int SHOP_STATE_REJECT = 0;//商店被拒绝
     int SHOP_STATE_CHECKING =1;//商店申请
     int SHOP_STATE_BLAKE = 2;//商店被拉黑
@@ -48,5 +49,12 @@ public interface IOwnerService {
 
     int newShop(OwnerEntity ownerEntity, ShopEntity shopEntity, IUploadPictures pictures);
 
-
+    /**
+     * 获取 申请商店 的列表
+     * @param page  请求第几页
+     * @param  lines  请求多少条
+     * @return 返回一个存放了数据的 bean 接口 查看 service.IShopListBean
+     *          页数不对，返回null
+     */
+    IListBean<ShopAndOwnerDbBean> getMyShop(OwnerEntity entity,int page, int lines);
 }

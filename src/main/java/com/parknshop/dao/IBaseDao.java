@@ -11,7 +11,9 @@ public interface IBaseDao<T> {
     Serializable save(T o) throws Exception;
     public Serializable save(List<T> o)throws  Exception;
     void delete(T o);//此功能尚未完成
-
+    public  void insert(String sql,Object[] params);
+    public void  delete(String sql,Integer id);
+    public  void update(String sql,Object[] params);
     void update(T o) throws Exception;
 
     void saveOrUpdate(T o);//此功能尚未完成
@@ -23,6 +25,10 @@ public interface IBaseDao<T> {
     List<T> find(String hql, List<Object> param);
 
     List<T> find(String hql, Object[] param, Integer page, Integer rows);
+
+    List<T> findNumberRows(String hql, Object[] param, Integer first, Integer max);
+
+    List<T> findNumberRows(String hql, List param, Integer first, Integer max);
 
     List<T> find(String hql, List<Object> param, Integer page, Integer rows);
 

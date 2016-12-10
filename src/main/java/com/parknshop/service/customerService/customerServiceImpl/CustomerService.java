@@ -9,13 +9,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by H on 2016/12/5.
  */
 @Transactional
-@Service("CustomerService")
+@Service
 public class CustomerService  implements ICustomerService {
 
     @Resource
@@ -29,23 +32,31 @@ public class CustomerService  implements ICustomerService {
 
 
     @Override
-    public List<UserEntity> getAllCustomer() {
-        return null;
+    public List<UserEntity> getAllCustomer()
+    {
+        Object[] objects=null;
+        return userEntityBaseDao.find("from UserEntity",objects,10,8);
     }
 
     @Override
     public void setBlackList(Integer userId) {
-
+        Object[] params=new Object[1];
+        params[0]=userId;
+            userEntityBaseDao.insert("update user set state=2 where userId=?",params);
     }
 
     @Override
     public void resetBlackList(Integer userId) {
-
+        Object[] params=new Object[1];
+        params[0]=userId;
+        userEntityBaseDao.insert("update user set state=1 where userId=?",params);
     }
 
     @Override
     public UserEntity getCustomerById(Integer id) {
-        return null;
+        Object[] params=new Object[1];
+        params[0]=id;
+        return userEntityBaseDao.get("from UserEntity ue where ue.userId=?",params);
     }
 
     @Override
@@ -55,17 +66,25 @@ public class CustomerService  implements ICustomerService {
 
     @Override
     public void deleteCustomer(Integer id) {
-
+        Object[] params=new Object[1];
+        params[0]=id;
+        userEntityBaseDao.insert("update user set state=0 where userId=?",params);
     }
 
     @Override
-    public void changePassword(String password) {
-
+    public void changePassword(String password,int userId) {
+        Object[] params=new Object[2];
+        params[0]=password;
+        params[1]=userId;
+        userEntityBaseDao.insert("update user set password=? where userId=?",params);
     }
 
     @Override
-    public void changeUserImage(String url) {
-
+    public void changeUserImage(String url,int userId) {
+        Object[] params=new Object[2];
+        params[0]=url;
+        params[1]=userId;
+        userEntityBaseDao.insert("update user set url=? where userId=?",params);
     }
 
     @Override
@@ -75,12 +94,16 @@ public class CustomerService  implements ICustomerService {
 
     @Override
     public void insertCollect(Integer id, Integer userId) {
-
+         Object[] parans=new Object[3];
+         parans[0]=id;
+         parans[1]=userId;
+         parans[2]=new Timestamp(System.currentTimeMillis());
+            collectionEntityBaseDao.insert("insert into collection(goodsId,userId,createTime) values(?,?,?)",parans);
     }
 
     @Override
-    public void removeCollect(Integer id, Integer userId) {
-
+    public void removeCollect(Integer id) {
+            collectionEntityBaseDao.delete("delete from collection where collectionId=?",id);
     }
 
     @Override
@@ -90,11 +113,15 @@ public class CustomerService  implements ICustomerService {
 
     @Override
     public void insertShop(Integer id, Integer userId) {
-
+        Object[] parans=new Object[3];
+        parans[0]=id;
+        parans[1]=userId;
+        parans[2]=new Timestamp(System.currentTimeMillis());
+        collectshopEntityBaseDao.insert("insert into collectShop(shopId,userId,createTime) values(?,?,?)",parans);
     }
 
     @Override
-    public void removeShop(Integer id, Integer userId) {
-
+    public void removeShop(Integer id) {
+              collectshopEntityBaseDao.delete("delete from collection where scollectId=?",id);
     }
 }

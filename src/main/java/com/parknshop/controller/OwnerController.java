@@ -2,25 +2,31 @@ package com.parknshop.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.parknshop.bean.LoginRequestBean;
-import com.parknshop.bean.OwnerLoginResponseBean;
-import com.parknshop.bean.RegisterRequestBean;
-import com.parknshop.bean.RegisterResponseBean;
+import com.parknshop.bean.*;
 import com.parknshop.entity.OwnerEntity;
+import com.parknshop.entity.ShopEntity;
+import com.parknshop.service.IListBean;
+import com.parknshop.service.IOwnerService;
 import com.parknshop.service.IUserBuilder;
 import com.parknshop.service.IUserService;
 import com.parknshop.service.baseImpl.IDefineString;
+import com.parknshop.service.baseImpl.IUploadPictures;
 import com.parknshop.service.serviceImpl.OwnerBuilder;
 import com.parknshop.utils.DateFormat;
+import com.parknshop.utils.OwnerFileSaver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.mail.Multipart;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by fallblank on 16-11-28.
@@ -28,133 +34,244 @@ import java.util.Date;
 @Controller
 @RequestMapping("/owner")
 public class OwnerController {
+    private static final String REQ_METHOD_GET = "GET";
+    private static final String REQ_METHOD_POST = "POST";
 
-    public final static String LOGIN_SUCCESS = "Login successfully";
-    public final static String LOGIN_FAILED = "Login failed,error parameter";
-    public final static String LOGIN_ACCOUNT_UNACTIVATED = "Account has not been activated";
+    public static final String MSG = "msg";
+    public static final String EMAIL = "email";
+    public static final String SHOPS = "shops";
 
     final
     IUserService mService;
     final
     IUserBuilder mUserBuilder;
+    final IOwnerService mOwnerService;
 
     Gson mGson = new GsonBuilder()
             .setDateFormat(DateFormat.getDateFormat())
             .create();
 
     @Autowired
-    public OwnerController(IUserService mService, OwnerBuilder mUserBuilder) {
+    public OwnerController(IUserService mService, OwnerBuilder mUserBuilder, IOwnerService ownerService) {
         this.mService = mService;
         this.mUserBuilder = mUserBuilder;
+        mOwnerService = ownerService;
     }
 
-    /**
-     * 处理卖家登录
-     * @param ownerInfo post发送过来的json
-     * @param session   后端生产的session
-     * @return  结果数据，json格式
-     */
-    @RequestMapping(value = "/login",method = RequestMethod.POST)
-    public @ResponseBody
-    String loginResponse(@RequestBody byte[] ownerInfo,HttpSession session){
-        String ownerJson = new String(ownerInfo);
-        LoginRequestBean ownerLoginBean = mGson.fromJson(ownerJson,LoginRequestBean.class);
-        System.out.println(ownerLoginBean);
-        int stateCode;
-        if (checkValid(ownerLoginBean.getUserName(),ownerLoginBean.getPassword())){
-            stateCode =  mService.loginAsOwner(ownerLoginBean.getUserName(),ownerLoginBean.getPassword());
-        }else {
-            stateCode = IUserService.LOGIN_ELSE;
+    @RequestMapping("/index")
+    public String index(HttpSession session) {
+        if (!checkLogin(session)) {
+            return "redirect:/owner/login";
         }
-        OwnerLoginResponseBean responseBean = new OwnerLoginResponseBean();
-        responseBean.setDate(new Date());
-        switch (stateCode){
-            case IUserService.LOGIN_SUCCESS:
-                responseBean.setError(false);
-                responseBean.setMessage(LOGIN_SUCCESS);
-                System.out.println(mGson.toJson(responseBean));
-                OwnerEntity ownerEntity = (OwnerEntity) session.getAttribute(IDefineString.SESSION_USER);
-                OwnerLoginResponseBean.DataBean data = new OwnerLoginResponseBean.DataBean();
-                data.setUserName(ownerEntity.getUsername());
-                data.setImage(ownerEntity.getPicture());
-                responseBean.setData(data);
-                break;
-            case IUserService.LOGIN_NOACTIVE:
-                responseBean.setError(true);
-                responseBean.setMessage(LOGIN_ACCOUNT_UNACTIVATED);
-                break;
+        return "owner/index.jsp";
+    }
+
+    @RequestMapping("/login")
+    public String login(HttpServletRequest request) {
+        String method = request.getMethod();
+        switch (method) {
+            case REQ_METHOD_GET:
+                return "owner/login.jsp";
+            case REQ_METHOD_POST:
+                String username = (String) request.getParameter("username");
+                String password = (String) request.getParameter("password");
+                mService.loginOut();//注销session
+                int state = mService.loginAsOwner(username, password);
+                if (state == IUserService.LOGIN_SUCCESS) {
+                    return "redirect:/owner/index";
+                } else if (state == IUserService.LOGIN_ERRO) {
+                    request.setAttribute(MSG, "Login failed");
+                } else if (state == IUserService.LOGIN_HASDELETE) {
+                    request.setAttribute(MSG, "Account has been Suspended");
+                } else if (state == IUserService.LOGIN_HASLOGIN) {
+                    request.setAttribute(MSG, "Account has been logined");
+                } else if (state == IUserService.LOGIN_NOACTIVE) {
+                    request.setAttribute(MSG, "Account has not been activated");
+                } else if (state == IUserService.LOGIN_ERROPARAM) {
+                    request.setAttribute(MSG, "Error in username or password");
+                } else {
+                    request.setAttribute(MSG, "Unknown error");
+                }
+                return "owner/login.jsp";
             default:
-                responseBean.setError(true);
-                responseBean.setMessage(LOGIN_FAILED);
-                break;
+                return "owner/login.jsp";
         }
-        return mGson.toJson(responseBean);
     }
 
-
-    @RequestMapping(value = "/loginout",method = RequestMethod.POST)
-    public @ResponseBody String loginout(){
+    @RequestMapping("logout")
+    public String logout() {
         mService.loginOut();
-        return "";
+        return "redirect:/owner/login";
     }
 
-    /**
-     * 处理卖家注册
-     * @param registerInfo
-     * @return
-     */
-    @RequestMapping(value ="/register",method = RequestMethod.POST)
-    public @ResponseBody String register(@RequestBody byte[] registerInfo){
-        String registerStr = new String(registerInfo);
-        System.out.println(registerStr);
-        RegisterRequestBean registerBean = mGson.fromJson(registerStr, RegisterRequestBean.class);
-        mUserBuilder.clear();
-        mUserBuilder.setUserName(registerBean.getUserName());
-        mUserBuilder.setPassWord(registerBean.getPassword());
-        mUserBuilder.setEmail(registerBean.getEmail());
-        int state = mService.registerByOwner(mUserBuilder);
-        System.out.println("state:"+state);
-        RegisterResponseBean responseBean = new RegisterResponseBean();
-        responseBean.setDate(new Date());
-        switch (state){
-            case IUserService.SUCCESS:
-                responseBean.setError(false);
-                responseBean.setMessage("register successfully");
-                RegisterResponseBean.DataBean dataBean = new RegisterResponseBean.DataBean();
-                dataBean.setUserName(registerBean.getUserName());
-                dataBean.setImge("/resources/images/a.png");
-                responseBean.setData(dataBean);
-                break;
+    @RequestMapping("/register")
+    public String regist(HttpServletRequest request) {
+        String method = request.getMethod();
+        switch (method) {
+            case REQ_METHOD_GET:
+                return "owner/register.jsp";
+            case REQ_METHOD_POST:
+                String email = request.getParameter("e-mail");
+                String username = request.getParameter("username");
+                String password = request.getParameter("password");
+                mUserBuilder.clear();
+                mUserBuilder.setEmail(email);
+                mUserBuilder.setUserName(username);
+                mUserBuilder.setPassWord(password);
+                int state = mService.registerByOwner(mUserBuilder);
+                if (state == IUserService.SUCCESS) {
+                    request.setAttribute(EMAIL, email);
+                    return "owner/registerSuccess.jsp";
+                } else if (state == IUserService.ERRO_EMPTYEMAIL) {
+                    request.setAttribute(MSG, "Empty e-mail");
+                } else if (state == IUserService.ERRO_EMiAL) {
+                    request.setAttribute(MSG, "E-mail address has been registed");
+                } else if (state == IUserService.ERRO_PHONE) {
+                    request.setAttribute(MSG, "Phone number has been registed");
+                } else if (state == IUserService.ERRO_NAME) {
+                    request.setAttribute(MSG, "Username has been registed");
+                } else {
+                    request.setAttribute(MSG, "Unknown Error");
+                }
+                return "owner/register.jsp";
             default:
-                responseBean.setError(true);
-                responseBean.setMessage("register failed");
-                responseBean.setData(null);
+                return "owner/register.jsp";
         }
-        return mGson.toJson(responseBean);
-
-    }
-
-
-
-
-    /**
-     * 检查参数是否为空
-     * @param name  username
-     * @param password  密码
-     * @return  false：无效    true：有效
-     */
-    boolean checkValid(String name,String password){
-        return !(name.equals(null)||password.equals(null));
     }
 
 
     /**
-     * 店家更新个人信息
-     * @param registerInfo
-     * @return
+     * 查询开店情况
+     *
+     * @return 根据用户信息返回具体页面
      */
-    public @ResponseBody String updateInfo(@RequestBody byte[] registerInfo) {
-     return "";
+    @RequestMapping("/query")
+    public String query(HttpSession session, HttpServletRequest request) {
+        if (!checkLogin(session)) {
+            return "redirect:/owner/login";
+        }
+        OwnerEntity entity = (OwnerEntity) session.getAttribute(IDefineString.SESSION_USER);
+
+        if (canApply(entity)) {
+            request.setAttribute(MSG, "1");
+        } else {
+            request.setAttribute(MSG, "0");
+        }
+        IListBean<ShopAndOwnerDbBean> temp = mOwnerService.getMyShop(entity, 1, 10000);
+        int count = (int) temp.getNumer();
+        System.out.println("count:"+count);
+        List<ShopAndOwnerDbBean> list = temp.getShopList();
+        ShopBean shopBean = new ShopBean();
+        shopBean.setCount(count);
+        List<ShopBean.Shop> shopList = new ArrayList<>();
+        for (ShopAndOwnerDbBean item : list) {
+            ShopBean.Shop shop = new ShopBean.Shop();
+            shop.setName(item.getShopName());
+            shop.setDesc(item.getIntroduction());
+            shop.setLogo(item.getLogo());
+            shop.setState(item.getShopState());
+            shopList.add(shop);
+        }
+        shopBean.setShops(shopList);
+        System.out.println(mGson.toJson(shopBean));
+        request.setAttribute(SHOPS, mGson.toJson(shopBean));
+
+        return "owner/query_shops.jsp";
     }
 
+    @RequestMapping(value = "/apply", method = RequestMethod.GET)
+    public String applyGet(HttpSession session) {
+        //处理未登陆的意外情况
+        if (!checkLogin(session)) {
+            return "redirect:/owner/login";
+        }
+        return "owner/apply_shop.jsp";
+    }
+
+
+    @RequestMapping(value = "/apply", method = RequestMethod.POST)
+    public String applyPost(HttpSession session,
+                            @RequestParam(value = "person") MultipartFile personImage,
+                            @RequestParam(value = "logo") MultipartFile logoImage,
+                            @RequestParam(value = "theme") MultipartFile themeImage,
+                            @RequestParam(value = "realName") String realName,
+                            @RequestParam(value = "idNumber") String idNumber,
+                            @RequestParam(value = "phone") String phone,
+                            @RequestParam(value = "shopName") String shopName,
+                            @RequestParam(value = "shopDesc") String shopDesc) {
+        if (!checkLogin(session)) {
+            return "redirect:/owner/login";
+        }
+
+        String contextPath = session.getServletContext().getRealPath("/");
+        String person, logo, theme;
+        try {
+            person = OwnerFileSaver.saveOwnerImage(personImage, contextPath);
+            logo = OwnerFileSaver.saveOwnerImage(logoImage, contextPath);
+            theme = OwnerFileSaver.saveOwnerImage(themeImage, contextPath);
+        } catch (Exception e) {
+            //服务器存储错误
+            return "redirect:/";
+        }
+        OwnerEntity ownerEntity = (OwnerEntity) session.getAttribute(IDefineString.SESSION_USER);
+        ownerEntity.setRealname(realName);
+        ownerEntity.setIdentityId(idNumber);
+        ownerEntity.setPhone(phone);
+        mOwnerService.updateOwner(ownerEntity);
+
+        ShopEntity shopEntity = new ShopEntity();
+        shopEntity.setShopName(shopName);
+        shopEntity.setIntroduction(shopDesc);
+        shopEntity.setLogo(logo);
+
+        IUploadPictures callback = new IUploadPictures() {
+            @Override
+            public List<String> getPicturePaths() {
+                List<String> list = new ArrayList<>();
+                list.add(theme);
+                return list;
+            }
+        };
+        int state = mOwnerService.newShop(ownerEntity, shopEntity, callback);
+        if (state == IOwnerService.NEW_SUCCESS) {
+            return "owner/apply_shop_success.jsp";
+        } else {
+            return "owner/apply_shop_fail.jsp";
+        }
+    }
+
+
+    /**
+     * 检查是否能开店
+     */
+    private boolean canApply(OwnerEntity entity) {
+        int state = mOwnerService.isHasShop(entity);
+        if (state == IOwnerService.SHOP_STATE_NOSHOP || state == IOwnerService.SHOP_STATE_REJECT) {
+            return true;
+        }
+        return false;
+    }
+
+
+    /**
+     * 检查是否登陆
+     *
+     * @param session 请求携带的session
+     * @return false未登陆，true已登录
+     */
+    private boolean checkLogin(HttpSession session) {
+        if (!mService.isLogin()) {
+            return false;
+        }
+        //防止不同类型用户的登陆影响
+        try {
+            OwnerEntity entity = (OwnerEntity) session.getAttribute(IDefineString.SESSION_USER);
+            if (null == entity) {
+                throw new Exception("未登陆");
+            }
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
 }

@@ -1,7 +1,9 @@
 package com.parknshop.controller;
 
+import com.parknshop.entity.UserEntity;
 import com.parknshop.service.IUserBuilder;
 import com.parknshop.service.IUserService;
+import com.parknshop.service.baseImpl.IDefineString;
 import com.parknshop.service.enumStatic.LoginTypeEnum;
 import com.parknshop.service.serviceImpl.UserBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -26,6 +29,9 @@ import static com.parknshop.service.IUserService.LOGIN_SUCCESS;
 public class CustomerController{
     private final IUserService userService;
     private final IUserBuilder userBuilder;
+
+    //返回时间格式
+    private final static SimpleDateFormat timeformat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     @Autowired
     public CustomerController(IUserService userService, UserBuilder userBuilder) {
@@ -44,21 +50,25 @@ public class CustomerController{
      */
     @RequestMapping(value = "/customer/login",method = RequestMethod.POST)
     public @ResponseBody Map customerLogin(@RequestBody Map request //映射为Map
+                                           ,HttpSession session
                                 )throws Exception{
         Map response=new HashMap<String,Object>();
+        //登录返回状态码
         int status=userService.loginAsUser((String)request.get("userName"),(String)request.get("password"));
         if(LOGIN_SUCCESS==status){
+            //登录成功
             response.put("error","false");
-            response.put("message","登录成功");
+            response.put("message","login success");
+            //使用嵌套map来实现嵌套json
             Map<String,String> data=new HashMap<String,String>();
             data.put("userName", (String) request.get("userName"));
-            //TODO:用户头像网址
-            data.put("imge","picture");
+            data.put("imge",((UserEntity)session.getAttribute(IDefineString.SESSION_USER)).getUserImage());
             response.put("data",data);
         }else {
+            //登录失败
             response.put("error", "true");
             switch (status) {
-                case IUserService.LOGIN_ERRO:response.put("message", "Login fail");break;
+                case IUserService.LOGIN_ERRO:response.put("message", "Login fail,please check your username or password");break;
                 case IUserService.LOGIN_HASDELETE:response.put("message","Account has been frozen");break;
                 case IUserService.LOGIN_HASLOGIN:response.put("message","You have login the account");break;
                 case IUserService.LOGIN_NOACTIVE:response.put("message","You account not activated");break;
@@ -67,7 +77,8 @@ public class CustomerController{
                 default:response.put("message","Other Error");break;
             }
         }
-        response.put("date",new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+        //加入时间
+        response.put("date",timeformat.format(new Date()));
         return response;    //自动转化为json
     }
 
@@ -96,10 +107,11 @@ public class CustomerController{
      * @throws Exception
      */
     @RequestMapping(value = "/customer/register",method = RequestMethod.POST)
-    public @ResponseBody Map customerRegister(@RequestBody Map request)throws Exception{
+    public @ResponseBody Map customerRegister(@RequestBody Map request, HttpSession session)throws Exception{
         userBuilder.clear();
         userBuilder.setUserName((String)request.get("userName")).setPassWord((String)request.get("password"))
-                .setPhone((String)request.get("phone")).setEmail((String)request.get("email"));
+                //.setPhone((String)request.get("phone"))
+                .setEmail((String)request.get("email"));
         int status=userService.registerByUser(userBuilder);
         Map response=new HashMap<String,String>();
         if(IUserService.SUCCESS==status){
@@ -107,8 +119,7 @@ public class CustomerController{
             response.put("message","Register success");
             Map<String,String> data=new HashMap<String,String>();
             data.put("userName", (String) request.get("userName"));
-            //TODO:用户头像网址
-            data.put("imge","picture");
+            data.put("imge","/resources/images/a.png");
             response.put("data",data);
         }else {
             response.put("error", "true");
@@ -123,7 +134,29 @@ public class CustomerController{
                 default:response.put("message","Unknown error");break;
             }
         }
-        response.put("date",new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+        response.put("date",timeformat.format(new Date()));
+        return response;
+    }
+
+    /**
+     * 注销
+     * @return
+     */
+    @RequestMapping(value = "/customer/logout",method = RequestMethod.POST)
+    public @ResponseBody String loginout(){
+        userService.loginOut();
+        return "";
+    }
+
+    /**
+     * 个人中心
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/customer/information",method = RequestMethod.POST)
+    public @ResponseBody Map customerInformation(@RequestBody Map request){
+        //todo:个人中心
+        Map response=new HashMap();
         return response;
     }
 }

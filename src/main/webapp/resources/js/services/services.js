@@ -1,42 +1,36 @@
 angular.module('PNS.services', [])
     .factory('OwnerService', function ($http, $rootScope, $q, URLbase) {
 
-        function application(ID, realName, realImg, shopName, shopImg, shopDesc) {
-            var applicationURL = URLbase + '/owner/apply';
+        function apply(data) {
+            var applicationURL = URLbase + 'owner/apply';
             var deferred = $q.defer();
 
             $http({
                 method: 'POST',
                 url: applicationURL,
-                data: {
-                    ID: ID,
-                    realName: realName,
-                    realImg: realImg,
-                    shopName: shopName,
-                    shopImg: shopImg,
-                    shopDesc: shopDesc
-                }
-            }).success(function (data, status, headers) {
+                data: data,
+                withCredentials: true,
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity
 
-                console.log("user data=" + "");
+            }).success(function (data, status, headers) {
                 console.log(data);
-                if (data.error == false) {
-                    deferred.resolve(data);
-                    $rootScope.user = data.data;
-                    $rootScope.user.image = '../..' + data.data.image;
-                    $rootScope.loged = true;
+                if (data.error) {
+                    deferred.reject(data);
                 } else {
-                    alert(data.message)
+                    deferred.resolve(data);
+                    $rootScope.user.shop.state = 1;
+                    $rootScope.user.shop.msg = '商店正在申请';
                 }
             }).error(function (data, statue, headers) {
-                deferred.reject(data)
+                deferred.reject(data);
             });
 
             return deferred.promise;
         }
 
         return {
-            application: application
+            apply: apply
         };
     })
     .factory('CustomerService', function ($http, $rootScope, $q, URLbase) {
@@ -62,7 +56,7 @@ angular.module('PNS.services', [])
                 if (data.error == false) {
                     deferred.resolve(data);
                     $rootScope.user = data.data;
-                    $rootScope.user.image = '../..' + data.data.image;
+                    $rootScope.user.image = '../..' + data.data.imge;
                     $rootScope.loged = true;
                 } else {
                     alert(data.message)
@@ -90,7 +84,7 @@ angular.module('PNS.services', [])
                 if (data.error == false) {
                     deferred.resolve(data);
                     $rootScope.user = data.data;
-                    $rootScope.user.image = '../..' + data.data.image;
+                    $rootScope.user.image = '../..' + data.data.imge;
                     $rootScope.loged = true;
                 } else {
                     alert(data.message)
@@ -149,7 +143,7 @@ angular.module('PNS.services', [])
                 if (data.error == false) {
                     deferred.resolve(data);
                     $rootScope.user = data.data;
-                    $rootScope.user.image = '../..' + data.data.image;
+                    $rootScope.user.image = '../..' + data.data.imge;
                     $rootScope.loged = true;
                 } else {
                     alert(data.message)
@@ -178,7 +172,7 @@ angular.module('PNS.services', [])
                 if (data.error == false) {
                     deferred.resolve(data);
                     $rootScope.user = data.data;
-                    $rootScope.user.image = '../..' + data.data.image;
+                    $rootScope.user.image = '../..' + data.data.imge;
                     $rootScope.loged = true;
                 } else {
                     alert(data.message)
@@ -236,8 +230,9 @@ angular.module('PNS.services', [])
                 if (data.error == false) {
                     deferred.resolve(data);
                     $rootScope.user = data.data;
-                    $rootScope.user.image = '../..' + data.data.image;
+                    $rootScope.user.image = '../..' + data.data.imge;
                     $rootScope.loged = true;
+                    $rootScope.group = group;
                 } else {
                     alert(data.message)
                 }
@@ -265,8 +260,9 @@ angular.module('PNS.services', [])
                 if (data.error == false) {
                     deferred.resolve(data);
                     $rootScope.user = data.data;
-                    $rootScope.user.image = '../..' + data.data.image;
+                    $rootScope.user.image = '../..' + data.data.imge;
                     $rootScope.loged = true;
+                    $rootScope.group = group;
                 } else {
                     alert(data.message)
                 }
@@ -286,9 +282,9 @@ angular.module('PNS.services', [])
             }).success(function (data, status, headers) {
                 deferred.resolve(data);
                 $rootScope.user = null;
-                $rootScope.user.image = null;
                 $rootScope.loged = false;
-
+                $rootScope.group = null;
+                console.log('succeed');
             }).error(function (data, statue, headers) {
                 deferred.reject(data)
             });
@@ -299,156 +295,5 @@ angular.module('PNS.services', [])
             regist: regist,
             login: login,
             logout: logout
-        };
-    })
-
-    .factory('EmpService', ['$http', 'CustomerService', function ($http, CustomerService) {
-        var rentInfo = [{
-            toolID: 1,
-            toolName: 1,
-            num: 1,
-            time: 1231232132
-        }, {
-            toolID: 1,
-            toolName: 1,
-            num: 1,
-            time: 1231232132
-        }, {
-            toolID: 1,
-            toolName: 1,
-            num: 1,
-            time: 1231232132
-        }]
-        return {
-            getRentInfo: function () {
-                return rentInfo;
-            },
-            returnTool: function (tool) {
-                var userID = CustomerService.getUser().userID;
-                var toolID = tool.toolID;
-            }
-        };
-    }])
-    .factory('ToolService', function ($http, $rootScope, $q) {
-        var toolURL = 'http://localhost:4000/tool';
-
-        var getAllTools = function () {
-            var deferred = $q.defer();
-
-            $http({
-                method: 'GET',
-                url: toolURL
-            }).success(function (data, status, headers) {
-
-                console.log("tools data=" + "");
-                console.log(data);
-
-                deferred.resolve(data);
-
-            }).error(function (data, statue, headers) {
-                deferred.reject(data)
-            });
-
-            return deferred.promise;
-        };
-
-        var findRentsByUserId = function (user_id) {
-            var deferred = $q.defer();
-
-            $http({
-                method: 'POST',
-                url: toolURL + '/rent/find',
-                data: {
-                    user_id: user_id
-                }
-            }).success(function (data, status, headers) {
-
-                console.log("rents data=" + "");
-                console.log(data);
-
-                deferred.resolve(data);
-
-            }).error(function (data, statue, headers) {
-                deferred.reject(data)
-            });
-
-            return deferred.promise;
-        };
-        var getAllRentsAdmin = function () {
-            var deferred = $q.defer();
-
-            $http({
-                method: 'GET',
-                url: toolURL + '/rent'
-            }).success(function (data, status, headers) {
-
-                console.log("rents data=" + "");
-                console.log(data);
-
-                deferred.resolve(data);
-
-            }).error(function (data, statue, headers) {
-                deferred.reject(data)
-            });
-
-            return deferred.promise;
-        };
-        var rent = function (user_id, tool_id, rent_num) {
-            var deferred = $q.defer();
-
-            $http({
-                method: 'POST',
-                url: toolURL + '/rent',
-                data: {
-                    user_id: user_id,
-                    tool_id: tool_id,
-                    rent_num: rent_num
-                }
-            }).success(function (data, status, headers) {
-
-                console.log("rent data=" + "");
-                console.log(data);
-                if (data.message == "ok") {
-                    deferred.resolve(data);
-
-                } else {
-                    alert(data + "")
-                }
-            }).error(function (data, statue, headers) {
-                deferred.reject(data)
-            });
-            return deferred.promise;
-        }
-        var returnTool = function (rent_id) {
-            var deferred = $q.defer();
-
-            $http({
-                method: 'POST',
-                url: toolURL + '/rent/return',
-                data: {
-                    rent_id: rent_id
-                }
-            }).success(function (data, status, headers) {
-
-                console.log("return data=" + "");
-                console.log(data);
-                if (data.message == "ok") {
-                    deferred.resolve(data);
-
-
-                } else {
-                    alert(data + "")
-                }
-            }).error(function (data, statue, headers) {
-                deferred.reject(data)
-            });
-            return deferred.promise;
-        }
-        return {
-            getAllTools: getAllTools,
-            findRentsByUserId: findRentsByUserId,
-            rent: rent,
-            returnTool: returnTool,
-            getAllRentsAdmin: getAllRentsAdmin
         };
     })
