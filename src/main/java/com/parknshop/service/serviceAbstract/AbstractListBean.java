@@ -8,8 +8,8 @@ import java.util.List;
 /**
  * Created by weina on 2016/12/4.
  */
-public abstract class  AbstractListBean implements IListBean<ShopAndOwnerDbBean> {
-    private List<ShopAndOwnerDbBean> listBean;
+public abstract class  AbstractListBean<T> implements IListBean<T> {
+    private List<T> listBean;
     private long currentPage;
     private long maxPage;
     private long currentLines;
@@ -51,11 +51,11 @@ public abstract class  AbstractListBean implements IListBean<ShopAndOwnerDbBean>
 
     }
 
-    protected abstract List<ShopAndOwnerDbBean> initList(int page,int lines);
+    protected abstract List<T> initList(int page,int lines);
     protected abstract long count();
 
     @Override
-    public List<ShopAndOwnerDbBean> getShopList() {
+    public List<T> getShopList() {
         return this.listBean;
     }
 
