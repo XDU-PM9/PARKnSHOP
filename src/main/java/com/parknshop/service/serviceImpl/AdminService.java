@@ -31,13 +31,17 @@ public class AdminService  implements IAdminService{
      * @return
      */
     final private IListBean listBean;
+    private final IListBean userList;
+    private final IListBean ownerList;
 
     @Autowired
-    public AdminService(ShopListBean listBean, IBaseDao<ShopEntity> mDao, IBaseDao<ShopAndOwnerDbBean> shopDao,IBaseDao<Object> objectDao) {
+    public AdminService(ShopListBean listBean, IBaseDao<ShopEntity> mDao, IBaseDao<ShopAndOwnerDbBean> shopDao, IBaseDao<Object> objectDao, UserListBean userList, OwnerListBean ownerList) {
         this.listBean = listBean;
         this.mDao = mDao;
         this.shopDao =shopDao;
         this.objectDao =objectDao;
+        this.userList = userList;
+        this.ownerList = ownerList;
     }
 
     @Override
@@ -94,6 +98,12 @@ public class AdminService  implements IAdminService{
     }
 
     @Override
+    public IListBean<UserEntity> getUserList(int page, int lines) {
+        userList.init(page,lines);
+        return userList;
+    }
+
+    @Override
     public boolean blackUser(int userId) {
         return updateUserSate(IUserService.STATE_BLAKENAME,userId);
     }
@@ -106,6 +116,12 @@ public class AdminService  implements IAdminService{
     @Override
     public boolean deleteUser(int userId) {
         return updateUserSate(IUserService.STATE_DELETE,userId);
+    }
+
+    @Override
+    public IListBean<OwnerEntity> getOwnerList(int page, int lines) {
+        ownerList.init(page,lines);
+        return ownerList;
     }
 
     @Override

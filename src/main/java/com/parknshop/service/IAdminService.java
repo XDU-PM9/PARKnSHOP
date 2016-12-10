@@ -79,15 +79,16 @@ public interface IAdminService {
     /** ----------------------------------------管理用户
      * 参数什么的同上
      */
-
-    boolean blackUser(int userId);
-    boolean whiteUser(int userId);
-    boolean deleteUser(int userId);
+    IListBean<UserEntity> getUserList(int page, int lines);
+    boolean blackUser(int userId);//拉黑
+    boolean whiteUser(int userId);//取消拉黑
+    boolean deleteUser(int userId);//删除
 
     /** ----------------------------------------管理商家
      * 参数什么的同上
      */
-    boolean blackOwner(int ownerId);
-    boolean whiteOwner(int ownerId);
-    boolean deleteOwner(int ownerId);
+    IListBean<OwnerEntity> getOwnerList(int page, int lines);
+    boolean blackOwner(int ownerId);//拉黑
+    boolean whiteOwner(int ownerId);//取消拉黑
+    boolean deleteOwner(int ownerId);//删除
 }
