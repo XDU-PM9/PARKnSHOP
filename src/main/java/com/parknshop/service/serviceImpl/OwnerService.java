@@ -71,7 +71,7 @@ public class OwnerService implements IOwnerService {
         shopEntity.setState(SHOP_STATE_CHECKING);//正在申请状态
         shopEntity.setViews(0);//访问量0
         try{
-            mDao.save(ownerEntity);
+            mDao.update(ownerEntity);
             mDaoShop.save(shopEntity);
             return NEW_SUCCESS;
 
