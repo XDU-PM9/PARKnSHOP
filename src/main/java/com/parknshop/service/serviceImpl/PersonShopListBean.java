@@ -18,6 +18,11 @@ import java.util.List;
 @Scope(value = "prototype")
 @Component
 public class PersonShopListBean extends AbstractListBean<ShopAndOwnerDbBean>{
+    //根据用户名字搜索商铺
+    final static public String hql ="select new com.parknshop.bean.ShopAndOwnerDbBean " +//
+            "(o.ownerId,o.username,o.realname,o.userImage,o.phone,o.email,o.address,o.identityId,o.picture,o.balance,o.state," +//
+            "s.shopId,s.shopName,s.introduction,s.photoGroup,s.views,s.logo,s.state,s.createTime)" +//
+            " from OwnerEntity as o,ShopEntity as s where o.ownerId = s.ownerByOwnerId.ownerId ";
     //商家查看自己的 商铺
     final
     IBaseDao<ShopAndOwnerDbBean> mDao;
@@ -33,10 +38,8 @@ public class PersonShopListBean extends AbstractListBean<ShopAndOwnerDbBean>{
         }
         try {
             OwnerEntity entity = (OwnerEntity) getObject();
-            String hql = "select new com.parknshop.bean.ShopAndOwnerDbBean " +//
-                    "(o.ownerId,o.username,o.realname,o.userImage,o.phone,o.email,o.address,o.identityId,o.picture,o.balance,o.state," +//
-                    "s.shopId,s.shopName,s.introduction,s.photoGroup,s.views,s.logo,s.state,s.createTime)" +//
-                    " from OwnerEntity as o,ShopEntity as s where o.ownerId = s.ownerByOwnerId.ownerId " +//
+            // 使用 常量 hql 语句 根据名字搜索
+            String hql = this.hql + //
                     " and o.username = ?" +//
                     " order by s.shopId desc ";
             Object[] param = {entity.getUsername()};

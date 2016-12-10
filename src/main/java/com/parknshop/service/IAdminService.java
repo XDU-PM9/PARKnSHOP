@@ -1,13 +1,16 @@
 package com.parknshop.service;
 
 import com.parknshop.bean.ShopAndOwnerDbBean;
+import com.parknshop.entity.OwnerEntity;
+import com.parknshop.entity.UserEntity;
+import com.parknshop.service.serviceImpl.OwnerBuilder;
 
 /**
  * Created by weina on 2016/12/2.
  */
 public interface IAdminService {
 
-    /**
+    /** ----------------------------------------管理商店
      * 获取 申请商店 的列表
      * @param page  请求第几页
      * @param  lines  请求多少条
@@ -29,4 +32,62 @@ public interface IAdminService {
      * @return 处理成功 true 不成功 false
      */
     boolean rejectShop(int shopId);
+
+    /**
+     * 拉黑商店
+     * @param shopId 商店id
+     * @return 处理成功 true 不成功 false
+     */
+    boolean blackShop(int shopId);
+
+    /**
+     * 取消拉黑商店
+     * @param shopId 商店id
+     * @return 处理成功 true 不成功 false
+     */
+    boolean whiteShop(int shopId);
+
+    /**
+     * 删除商店
+     * @param shopId 商店id
+     * @return 处理成功 true 不成功 false
+     */
+    boolean deleteShop(int shopId);
+
+    /**
+     * 获取 商店 所有信息包括 用户
+     * @param shopId 商店id
+     * @return 成功商店 失败null
+     */
+
+    ShopAndOwnerDbBean getShopById(int shopId);
+
+    /**
+     * 根据 ownerId 获取owner
+     * @param ownerId  ownerId
+     * @return  成功返回实体，失败null
+     */
+    OwnerEntity getOwnerById(int ownerId);
+
+    /**
+     * 根据 userId 获取user
+     * @param userId  userId
+     * @return 成功返回实体，失败null
+     */
+    UserEntity getUserById(int userId);
+
+    /** ----------------------------------------管理用户
+     * 参数什么的同上
+     */
+
+    boolean blackUser(int userId);
+    boolean whiteUser(int userId);
+    boolean deleteUser(int userId);
+
+    /** ----------------------------------------管理商家
+     * 参数什么的同上
+     */
+    boolean blackOwner(int ownerId);
+    boolean whiteOwner(int ownerId);
+    boolean deleteOwner(int ownerId);
 }

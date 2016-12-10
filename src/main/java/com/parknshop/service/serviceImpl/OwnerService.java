@@ -2,7 +2,9 @@ package com.parknshop.service.serviceImpl;
 
 import com.parknshop.bean.ShopAndOwnerDbBean;
 import com.parknshop.dao.IBaseDao;
+import com.parknshop.dao.IPictureDao;
 import com.parknshop.dao.daoImpl.BaseDao;
+import com.parknshop.dao.daoImpl.PitureDao;
 import com.parknshop.entity.OwnerEntity;
 import com.parknshop.entity.PhotoEntity;
 import com.parknshop.entity.RoleEntity;
@@ -29,12 +31,12 @@ public class OwnerService implements IOwnerService {
     final
     IBaseDao<ShopEntity> mDaoShop;
     final
-    IBaseDao<PhotoEntity> mDaoPhoto;
+    IPictureDao mDaoPhoto;
     final
     IListBean listBean;
 
     @Autowired
-    public OwnerService(IBaseDao<OwnerEntity> mDao, IBaseDao<ShopEntity> mDaoShop, IBaseDao<PhotoEntity> mDaoPhoto, PersonShopListBean listBean) {
+    public OwnerService(IBaseDao<OwnerEntity> mDao, IBaseDao<ShopEntity> mDaoShop, PitureDao mDaoPhoto, PersonShopListBean listBean) {
         this.mDao = mDao;
         this.mDaoShop = mDaoShop;
         this.mDaoPhoto = mDaoPhoto;
@@ -62,7 +64,7 @@ public class OwnerService implements IOwnerService {
         //生成 photoGroup
         String photoGroup = String.valueOf(ownerEntity.getOwnerId())+String.valueOf(System.currentTimeMillis());
 
-        if(!savePicture(listPath,photoGroup)){
+        if(!mDaoPhoto.savePicture(listPath,photoGroup)){
             //保存图片错误
             return NEW_ERROPICTURE;
         }else {//保存图片
@@ -122,23 +124,7 @@ public class OwnerService implements IOwnerService {
         }
 
     }
-    private boolean savePicture(List<String> list ,String photoGroup){
-        try{
-            //这里使用new 防止出问题
-            List<PhotoEntity> photoList = new ArrayList<>();
-            for(String path:list){//添加数据
-                PhotoEntity photoEntity = new PhotoEntity();
-                photoEntity.setPhotoGroup(photoGroup);
-                photoEntity.setAddress(path);
-                photoList.add(photoEntity);
-            }
-            mDaoPhoto.save(photoList);
-            return true;
-        }catch (Exception e){
-            e.printStackTrace();
-            return false;
-        }
-    }
+
 
     public static  void main(String[] args){
 //        OwnerService ownerService = new OwnerService(new BaseDao<>(),new BaseDao<>(),new BaseDao<>());
