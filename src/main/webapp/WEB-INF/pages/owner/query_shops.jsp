@@ -15,7 +15,6 @@
     <%
         String listStr = (String) request.getAttribute("shops");
         String msg = (String) request.getAttribute("msg");
-        System.out.println(msg);
         if (msg.equals("1")){
             out.println("<a href=\"/owner/apply\">Click here to apply a new shop</a>");
         }else {
@@ -27,7 +26,12 @@
             ShopBean shopList = mGson.fromJson(listStr, ShopBean.class);
             out.println("<ul>");
             for (ShopBean.Shop item : shopList.getShops()) {
-                out.println("<li>" + item.getName() + "</li>");
+                out.println("<li>");
+                out.println("<p>"+item.getName()+"</p>");
+                out.println("<p>"+item.getDesc()+"</p>");
+                out.println("<p>"+item.getLogo()+"</p>");
+                out.println("<p>"+item.getState()+"</p>");
+                out.println("</li>");
             }
             out.println("</ul>");
         }

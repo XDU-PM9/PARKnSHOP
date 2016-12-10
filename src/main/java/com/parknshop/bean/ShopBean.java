@@ -42,7 +42,7 @@ public class ShopBean {
         private String name;
         private String desc;
         private String logo;
-        private int state;
+        private String state;
 
         public String getName() {
             return name;
@@ -68,11 +68,11 @@ public class ShopBean {
             this.logo = logo;
         }
 
-        public int getState() {
+        public String getState() {
             return state;
         }
 
-        public void setState(int state) {
+        public void setState(String state) {
             this.state = state;
         }
 
