@@ -4,6 +4,7 @@ import com.parknshop.service.customerService.IGetProductList;
 import com.parknshop.service.customerService.ISearchProducts;
 import com.parknshop.service.customerService.Product;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.Map;
 /**
  * Created by wei on 16-12-9.
  */
+@Controller
 public class SearchController {
     @Autowired
     ISearchProducts searchProducts;
@@ -63,8 +65,10 @@ public class SearchController {
         try {
             return ProductList.getProducts(searchProducts.searchProductsByMap(request));
         }catch (NumberFormatException e){
+            e.printStackTrace();
             return null;
         }catch (NullPointerException e){
+            e.printStackTrace();
             return null;
         }
     }

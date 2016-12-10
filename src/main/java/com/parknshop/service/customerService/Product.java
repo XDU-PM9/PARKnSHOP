@@ -85,12 +85,33 @@ public class Product {
         return this;
     }
 
+    public int getView() {
+        return view;
+    }
+
+    public Product setView(int view) {
+        this.view = view;
+        return this;
+    }
+
+    public int getSales() {
+        return sales;
+    }
+
+    public Product setSales(int sales) {
+        this.sales = sales;
+        return this;
+    }
+
+
     int goodsId;
     String goodsName;
     double price;
     double discount;
     String goodsIntroduction;
     String picture;
+    int view;
+    int sales;
     String shopName;
     int shopId;
     String tips = "";

@@ -39,4 +39,13 @@ public interface ISearchProducts {
     public List<GoodsEntity> searchProductsByMap(Map map);
     //根据商品ID搜索商品
     public GoodsEntity searchProductsById(int id);
+
+    //设置搜索内容，设置完后调用getCount()得到数量或调用search()得到结果(注意设置规则以及规则重置）
+    public ISearchProducts setGoodsName(String productName);
+    public ISearchProducts setGoodsId(int goodsId);
+    public ISearchProducts setGoodsType(String type);
+    public ISearchProducts setShopId(int shopId);
+    public ISearchProducts setScope(int start,int count);
+    public long getCount();
+    public List<GoodsEntity> search();
 }

@@ -63,7 +63,12 @@ public class CartController {
 
     @RequestMapping(value = "/addProduct",method = RequestMethod.POST)
     public @ResponseBody String addCart(@RequestParam int goodsId,@RequestParam int amount,HttpSession session){
-        return String.valueOf(cartService.addProduct(getUserId(session),goodsId,amount));
+        int userId=getUserId(session);
+        userId=12;
+        if(userId<1){
+            return "please login";
+        }
+        return String.valueOf(cartService.addProduct(userId,goodsId,amount));
     }
 
     @RequestMapping(value = "/removeProduct",method = RequestMethod.POST)
@@ -72,6 +77,10 @@ public class CartController {
     }
 
     private int getUserId(HttpSession session){
-        return ((UserEntity)session.getAttribute(IDefineString.SESSION_USER)).getUserId();
+        try {
+            return ((UserEntity) session.getAttribute(IDefineString.SESSION_USER)).getUserId();
+        }catch (Exception e){
+            return -1;
+        }
     }
 }

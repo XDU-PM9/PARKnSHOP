@@ -56,6 +56,8 @@ public class GetProductList implements IGetProductList {
                 .setDiscount(goodsEntity.getDiscount())
                 .setGoodsIntroduction(goodsEntity.getIntroduction())
                 .setPicture(getPhoto(goodsEntity.getPhotoGroup()))
+                .setView(goodsEntity.getViews())
+                .setSales(goodsEntity.getSales())
                 .setShopId(goodsEntity.getShopByShopId().getShopId())
                 .setShopName(goodsEntity.getShopByShopId().getShopName())
                 .setTips(String.valueOf(goodsEntity.getState()));
@@ -72,6 +74,9 @@ public class GetProductList implements IGetProductList {
 
     //获取该商品的第一张图片
     private String getPhoto(String photoGroup) throws NullPointerException{
+        if(null==photoGroup||"".equals(photoGroup)){
+            return "";
+        }
         try{
             Session session = new Configuration().configure().buildSessionFactory().getCurrentSession();
             Query query=session.createQuery("select address from PhotoEntity where photoGroup = ? order by photoId desc ");
