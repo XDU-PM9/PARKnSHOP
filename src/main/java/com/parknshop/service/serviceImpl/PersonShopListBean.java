@@ -17,7 +17,7 @@ import java.util.List;
  */
 @Scope(value = "prototype")
 @Component
-public class PersonShopListBean extends AbstractListBean{
+public class PersonShopListBean extends AbstractListBean<ShopAndOwnerDbBean>{
     //商家查看自己的 商铺
     final
     IBaseDao<ShopAndOwnerDbBean> mDao;
