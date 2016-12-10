@@ -159,7 +159,6 @@ public class OwnerController {
         }
         IListBean<ShopAndOwnerDbBean> temp = mOwnerService.getMyShop(entity, 1, 10000);
         int count = (int) temp.getNumer();
-        System.out.println("count:"+count);
         List<ShopAndOwnerDbBean> list = temp.getShopList();
         ShopBean shopBean = new ShopBean();
         shopBean.setCount(count);
@@ -169,11 +168,32 @@ public class OwnerController {
             shop.setName(item.getShopName());
             shop.setDesc(item.getIntroduction());
             shop.setLogo(item.getLogo());
-            shop.setState(item.getShopState());
+            switch (item.getShopState()){
+                case IOwnerService.SHOP_STATE_USING:
+                    shop.setState("Normal");
+                    break;
+                case IOwnerService.SHOP_STATE_BLAKE:
+                    shop.setState("Blacklist");
+                    break;
+                case IOwnerService.SHOP_STATE_CHECKING:
+                    shop.setState("Applying");
+                    break;
+                case IOwnerService.SHOP_STATE_REJECT:
+                    shop.setState("Rejected");
+                    break;
+                case IOwnerService.SHOP_STATE_DELETE:
+                    shop.setState("Deleted");
+                    break;
+                case IOwnerService.SHOP_STATE_NOSHOP:
+                    shop.setState("No shop");
+                    break;
+                default:
+                    shop.setState("Unknown error");
+                    break;
+            }
             shopList.add(shop);
         }
         shopBean.setShops(shopList);
-        System.out.println(mGson.toJson(shopBean));
         request.setAttribute(SHOPS, mGson.toJson(shopBean));
 
         return "owner/query_shops.jsp";
@@ -185,7 +205,7 @@ public class OwnerController {
         if (!checkLogin(session)) {
             return "redirect:/owner/login";
         }
-        return "owner/apply_shop.jsp";
+        return "owner/apply_shop.html";
     }
 
 
@@ -246,6 +266,7 @@ public class OwnerController {
      */
     private boolean canApply(OwnerEntity entity) {
         int state = mOwnerService.isHasShop(entity);
+        System.out.println("state:"+state);
         if (state == IOwnerService.SHOP_STATE_NOSHOP || state == IOwnerService.SHOP_STATE_REJECT) {
             return true;
         }
