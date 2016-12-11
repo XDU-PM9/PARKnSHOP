@@ -88,7 +88,7 @@ public class BaseDao<T> implements IBaseDao<T> {
     }
 
     @Override
-    public void insert(String sql, Object[] params) {
+    public boolean insert(String sql, Object[] params) {
         Session session=this.getCurrentSession();
         Query query=session.createSQLQuery(sql);
 
@@ -96,20 +96,35 @@ public class BaseDao<T> implements IBaseDao<T> {
         {
             query.setParameter(i,params[i]);
         }
-        query.executeUpdate();
-        session.close();
+        if(query.executeUpdate()>0) {
+            session.close();
+            return true;
+        }
+        else {
+            session.close();
+            return false;
+        }
     }
 
     @Override
-    public void delete(String sql,Integer id) {
+    public boolean delete(String sql,Integer id) {
          Session session=this.getCurrentSession();
-         session.createSQLQuery(sql).setInteger(0,id).executeUpdate();
-         session.close();
+        Query query=session.createSQLQuery(sql);
+        query.setInteger(0,id);
+        if(query.executeUpdate()==1) {
+            session.close();
+            return true;
+        }
+        else
+        {
+            session.close();
+            return false;
+        }
     }
 
     @Override
-    public void update(String sql, Object[] params) {
-       insert(sql,params);
+    public boolean update(String sql, Object[] params) {
+       return insert(sql,params);
     }
 
     public void update(T o) throws Exception {

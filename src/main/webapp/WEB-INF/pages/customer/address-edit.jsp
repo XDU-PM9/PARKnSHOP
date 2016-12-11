@@ -31,24 +31,24 @@
          <form action="/updateAddress" method="post">
          <input type="hidden" name="addressId" value="${addressEntity.getAddressId()}"/>
          <input type="hidden" name="userId" value="6"/>
-             <div class="title_name"><i></i>修改地址</div>
+             <div class="title_name"><i></i>Modification Address</div>
              <table>
               <tbody><tr>
-               <td class="label_name">收货区域</td>
+               <td class="label_name">Receiving Area</td>
 				
                <td colspan="3" class="select">
                
-                <label> 省份 </label><select name="province" onChange = "hw_select()"></select>
-                <label> 市/县 </label><select name="country" onChange = "hw_select()"></select>
+                <label> Province </label><select name="province" onChange = "hw_select()"></select>
+                <label> Country </label><select name="country" onChange = "hw_select()"></select>
          
                </td>
                </tr>
                
-               <tr><td class="label_name">详细地址</td><td><input name="others" type="text"  value="${addressEntity.getOthers()}" class="Add-text"><i>（必填）</i></td>
-                <td class="label_name">Zip Code</td><td><input name="zip"  value="${addressEntity.getPostcode()}"  type="text" class="Add-text"><i>（必填）</i></td></tr>
+               <tr><td class="label_name">Detailed Address</td><td><input name="others" type="text"  value="${addressEntity.getOthers()}" class="Add-text">[not null]</td>
+                <td class="label_name">Zip Code</td><td><input name="zip"  value="${addressEntity.getPostcode()}"  type="text" class="Add-text">[not null]</td></tr>
               <tr>
-              <td class="label_name">收件人姓名</td><td><input name="name" value="${addressEntity.getName()}"  type="text" class="Add-text"><i>（必填）</i></td>
-              <td class="label_name">Phone Num</td><td><input name="phoneNum"  value="${address.getPhone()}"  type="text" class="Add-text"><i>（必填）</i></td>
+              <td class="label_name">User Name</td><td><input name="name" value="${addressEntity.getName()}"  type="text" class="Add-text">[not null]</td>
+              <td class="label_name">Phone Num</td><td><input name="phoneNum"  value="${address.getPhone()}"  type="text" class="Add-text">[not null]</td>
               </tr>
                 
              </tbody>

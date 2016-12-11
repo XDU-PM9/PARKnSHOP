@@ -10,13 +10,14 @@ import java.sql.Timestamp;
  */
 @Entity
 @Repository
-@Table(name = "collection", schema = "parknshop", catalog = "")
+@Table(name = "collection", schema = "parknshop")
 public class CollectionEntity {
     private Integer collectionId;
     private Timestamp createTime;
     private Integer state;
     private UserEntity userByUserId;
     private GoodsEntity goodsByGoodsId;
+    private String    picture;
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -47,6 +48,17 @@ public class CollectionEntity {
 
     public void setState(Integer state) {
         this.state = state;
+    }
+
+
+    @Basic
+    @Column(name = "picture", nullable = true)
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 
     @Override
@@ -90,4 +102,6 @@ public class CollectionEntity {
     public void setGoodsByGoodsId(GoodsEntity goodsByGoodsId) {
         this.goodsByGoodsId = goodsByGoodsId;
     }
+
+
 }
