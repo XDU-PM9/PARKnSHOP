@@ -1,6 +1,8 @@
 package com.parknshop.controller;
 
 import com.parknshop.entity.AddressEntity;
+import com.parknshop.entity.UserEntity;
+import com.parknshop.service.baseImpl.IDefineString;
 import com.parknshop.service.customerService.IAddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.servlet.http.HttpSession;
 import java.util.List;
 /**
  * Created by H on 2016/12/5.
@@ -19,11 +23,19 @@ public class AddressController {
     private IAddressService addressService;
 
     @RequestMapping(value = "/listAddress",method = RequestMethod.GET)
-    public String  listAddress(@RequestParam int userId,Model model)
+    public String  listAddress(Model model, HttpSession session)
     {
-        List<AddressEntity>   addressEntityList=addressService.getAllAddressByUserId(userId);
-        model.addAttribute("addressEntityList", addressEntityList);
-        return "customer/User_Address.jsp";
+
+        UserEntity userEntity=(UserEntity)session.getAttribute(IDefineString.SESSION_USER);
+        if(userEntity!=null) {
+            List<AddressEntity> addressEntityList = addressService.getAllAddressByUserId(userEntity.getUserId());
+            model.addAttribute("addressEntityList", addressEntityList);
+            return "customer/User_Address.jsp";
+        }
+        else
+        {
+            return "redirect:customer/login";
+        }
     }
 
     @RequestMapping(value = "/editAddress",method = RequestMethod.GET)
@@ -36,46 +48,58 @@ public class AddressController {
 
     @RequestMapping(value = "/updateAddress",method = RequestMethod.POST)
     public String  updateAddress(@RequestParam int addressId,
-                                 @RequestParam int userId,
                                 // @RequestParam String  province,
                                  //@RequestParam String  country,
                                  @RequestParam String  others,
                                  @RequestParam String   name,
                                  @RequestParam int zip,
                                  @RequestParam long phoneNum,
-                                 Model model)
+                                 HttpSession session)
     {
-        ///
-        String  province,country;
-        province=null;
-        country=null;
-        addressService.updateAddressEntity(addressId,province,country,others,name,phoneNum,zip,userId);
-        return  "redirect:listAddress?userId=6";
+        UserEntity userEntity=(UserEntity)session.getAttribute(IDefineString.SESSION_USER);
+        if(userEntity!=null) {
+            ///
+            String province, country;
+            province = null;
+            country = null;
+            addressService.updateAddressEntity(addressId, province, country, others, name, phoneNum, zip, userEntity.getUserId());
+            return "redirect:listAddress";
+        }
+        else
+        {
+            return "redirect:customer/login";
+        }
     }
 
     @RequestMapping(value = "/saveAddress",method = RequestMethod.POST)
-    public String  saveAddress(@RequestParam int userId,
-                                 // @RequestParam String  province,
+    public String  saveAddress( // @RequestParam String  province,
                                  //@RequestParam String  country,
                                  @RequestParam String  others,
                                  @RequestParam String   name,
                                  @RequestParam int zip,
                                  @RequestParam long phoneNum,
-                                 Model model)
+                                 HttpSession session)
     {
-        ///
-        String  province,country;
-        province=null;
-        country=null;
-        addressService.insertAddressEntity(province,country,others,name,phoneNum,zip,userId);
-        return  "redirect:listAddress?userId=6";
+        UserEntity userEntity=(UserEntity)session.getAttribute(IDefineString.SESSION_USER);
+        if(userEntity!=null) {
+            ///
+            String province, country;
+            province = null;
+            country = null;
+            addressService.insertAddressEntity(province, country, others, name, phoneNum, zip, userEntity.getUserId());
+            return "redirect:listAddress";
+        }
+        else
+        {
+            return "redirect:customer/login";
+        }
     }
 
     @RequestMapping(value = "/deleteAddress",method = RequestMethod.GET)
     public String  deleteAddress(@RequestParam int addressId)
     {
         addressService.deleteAddressEntity(addressId);
-        return "redirect:listAddress?userId=6";
+        return "redirect:listAddress";
     }
 
 }

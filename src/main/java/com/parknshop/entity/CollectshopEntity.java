@@ -10,14 +10,14 @@ import java.sql.Timestamp;
  */
 @Entity
 @Repository
-@Table(name = "collectshop", schema = "parknshop", catalog = "")
+@Table(name = "collectshop", schema = "parknshop")
 public class CollectshopEntity {
     private Integer scollectId;
     private Timestamp createTime;
     private Integer state;
     private UserEntity userByUserId;
     private ShopEntity shopByShopId;
-
+    private String     picture;
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "scollectId", nullable = false)
@@ -47,6 +47,17 @@ public class CollectshopEntity {
 
     public void setState(Integer state) {
         this.state = state;
+    }
+
+
+    @Basic
+    @Column(name = "picture", nullable = true)
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 
     @Override

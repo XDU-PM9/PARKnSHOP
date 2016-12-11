@@ -33,21 +33,28 @@ public class AdminService  implements IAdminService{
     final private IListBean listBean;
     private final IListBean userList;
     private final IListBean ownerList;
-
+    private final IListBean allShopList;
     @Autowired
-    public AdminService(ShopListBean listBean, IBaseDao<ShopEntity> mDao, IBaseDao<ShopAndOwnerDbBean> shopDao, IBaseDao<Object> objectDao, UserListBean userList, OwnerListBean ownerList) {
+    public AdminService(ShopListBean listBean, IBaseDao<ShopEntity> mDao, IBaseDao<ShopAndOwnerDbBean> shopDao, IBaseDao<Object> objectDao, UserListBean userList, OwnerListBean ownerList, AllShopListBean allShopList) {
         this.listBean = listBean;
         this.mDao = mDao;
         this.shopDao =shopDao;
         this.objectDao =objectDao;
         this.userList = userList;
         this.ownerList = ownerList;
+        this.allShopList = allShopList;
     }
 
     @Override
     public IListBean<ShopAndOwnerDbBean> getApplyShop(int page, int lines) {
         listBean.init(page,lines);
         return listBean;
+    }
+
+    @Override
+    public IListBean<ShopAndOwnerDbBean> getAllShop(int page, int lines) {
+        allShopList.init(page,lines);
+        return allShopList;
     }
 
     @Override
