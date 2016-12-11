@@ -18,7 +18,7 @@
     <script src="/resources/customer/jquery.reveal.js" type="text/javascript"></script>
 
 
-<title>资金管理</title>
+<title></title>
 </head>
 
 <body>
@@ -31,17 +31,17 @@
             <!--地址管理样式-->
             <div class="adderss_style">
 
-                <div class="title_Section"><span  class="title_ASD">收货地址管理</span></div>
+                <div class="title_Section"><span  class="title_ASD">Shipping address management</span></div>
                 <div class="adderss_list">
                     <!--地址列表-->
                     <div class="Address_List clearfix">
                         <!--地址类表-->
 
                         <c:forEach var="addr" items="${addressEntityList}">
-                            <ul class="Address_info">
+                            <ul class="Address_info" style="width: 400px">
                                 <div class="address_title">
                                     <a href="editAddress?addressId=${addr.getAddressId()}" class="modify iconfont icon-fankui btn btn-primary" title="修改信息"  id="purebox">
-                                    </a> 地址信息
+                                    </a> Address Information
                                     <a href="/deleteAddress?addressId=${addr.getAddressId()}" class="delete">
                                         <i class="iconfont icon-close2"></i>
                                     </a>
@@ -58,28 +58,28 @@
                 <form action="/saveAddress" method="post">
                     <input type="hidden" name="userId" value="6"/>
                     <div class="Add_Addresss">
-                        <div class="title_name"><i></i>添加地址</div>
+                        <div class="title_name"><i></i>Add a Address</div>
                         <table>
                             <tbody><tr>
-                                <td class="label_name">收货区域</td>
+                                <td class="label_name">Receiving Area</td>
                                 <td colspan="3" class="select">
 
-                                    <label> 省份 </label>  <select name="province" onChange = "hw_select()"></select>
-                                    <label> 市/县 </label>   <select name="country" onChange = "hw_select()"></select>
+                                    <label> Province </label>  <select name="province" onChange = "hw_select()"></select>
+                                    <label> country</label>   <select name="country" onChange = "hw_select()"></select>
                                 </td>
                             </tr>
-                            <tr><td class="label_name">详细地址</td><td><input name="others" type="text" class="Add-text"><i>（必填）</i></td>
-                                <td class="label_name">收件人姓名</td><td><input name="name" type="text" class="Add-text"><i>（必填）</i></td>
+                            <tr><td class="label_name">Detailed Address</td><td><input name="others" type="text" class="Add-text">[not null]</td>
+                                <td class="label_name">User Name</td><td><input name="name" type="text" class="Add-text">[not null]</td>
 
                             </tr>
                             <tr>
-                                <td class="label_name">Zip Code</td><td><input name="zip" type="text" class="Add-text"><i>（必填）</i></td>
-                                <td class="label_name">Phone </td><td><input name="phoneNum" type="text" class="Add-text"><i>（必填）</i></td>
+                                <td class="label_name">Zip Code</td><td><input name="zip" type="text" class="Add-text">[not null]</td>
+                                <td class="label_name">Phone </td><td><input name="phoneNum" type="text" class="Add-text">[not null]</td>
                             </tr>
 
                             </tbody></table>
-                        <div class="address_Note"><span>注：</span>只能添加3个收货地址信息。请乎使用假名填写地址，如造成损失由收货人自己承担。</div>
-                        <div class="btn"><input name="1" type="submit" value="添加地址" class="Add_btn"></div>
+                        <div class="address_Note"><span>Attention：</span>Do not use false information to fill in address.If causing losses,the losses shall be borne by the consignee yourself.</div>
+                        <div class="btn"><input name="1" type="submit" value="Add a Address" class="Add_btn"></div>
 
                     </div>
                 </form>

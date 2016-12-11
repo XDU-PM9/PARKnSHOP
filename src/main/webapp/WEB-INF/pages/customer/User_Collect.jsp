@@ -24,11 +24,11 @@
      <div class="right_style">
     <div class="info_content">
        <div class="collect_style r_user_style">
-        <div class="title_Section"><span>用户收藏</span></div>
+        <div class="title_Section"><span  class="title_ASD">User Collect Product</span></div>
          <div class="collect">
-              <ul class="Quantity"><li>已藏量：
+              <ul class="Quantity"><li> collection's Num：
              ${maxSize}
-              	条</li><li></li></ul>
+              	items</li><li></li></ul>
           <div class="collect_list">
       <ul>
       	
@@ -38,13 +38,14 @@
 		        <a href="removeCollect?collectionId=${c.getCollectionId()}">
 		        <em class="iconfont icon-close2 delete"></em>
 		        </a>
-		         <a href="#" class="buy_btn">立即购买</a>
+		         <a href="#" class="buy_btn">Buy Away</a>
 
 
 		       <div class="collect_info">
 
 		        <div class="img_link">
-		         <a href="#" class="center "><!--<img src="${c.getGoodsByGoodsId().getIntroduction()}"/>-->
+		         <a href="#" class="center ">
+					 <img src="${c.getPicture()}"/>
 		         ${c.getGoodsByGoodsId().getIntroduction()}
 				 </a>
 		        </div>
@@ -61,13 +62,19 @@
 			     <div class="Paging">
 					    <div class="Pagination">
 							<c:choose>
-								<c:when test="${currentPage>1}"><a href="/listCollect?userId=6&requestPage=${currentPage-1}" class="pn-prev disabled">&lt;Previous</a></c:when>
+								<c:when test="${currentPage==1}"><a class="pn-prev disabled">&lt;Previous</a></c:when>
+								<c:when test="${currentPage>1}"><a href="/listCollect?requestPage=${currentPage-1}" class="pn-prev disabled">&lt;Previous</a></c:when>
 							</c:choose>
 							<c:forEach begin="1" end="${sina+1}" step="1" var="cs">
-								<a href="/listCollect?userId=6&requestPage=${cs}" class="on">${cs}Page</a>
+								<a href="/listCollect?requestPage=${cs}" class="on">${cs}Page</a>
 							</c:forEach>
+							<c:if test="${currentPage==sina+1}">
+								<a  class="pn-prev disabled">
+									Next&gt;
+								</a>
+							</c:if>
 							<c:if test="${currentPage<=sina}">
-								<a href="/listCollect?userId=6&requestPage=${currentPage+1}">
+								<a href="/listCollect?requestPage=${currentPage+1}">
 									Next&gt;
 								</a>
 							</c:if>

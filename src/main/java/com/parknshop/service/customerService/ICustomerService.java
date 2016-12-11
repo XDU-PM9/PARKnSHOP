@@ -18,6 +18,7 @@ public interface ICustomerService {
 
     public UserEntity getCustomerById(Integer id);
 
+    public  UserEntity getCustomerByName(String name,String password);
     public  void      updateCustomerEntity(UserEntity userEntity);
 
     //逻辑删除用户

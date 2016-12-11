@@ -29,25 +29,24 @@
       <!--修改密码样式-->
        <div class="change_Password">
        	<form  action="changePassword" method="post">
-       		<input type="hidden" name="userId" value="6"/>
-           <div class="title_Section"><span  class="title_ASD">修改密码</span></div>
+           <div class="title_Section"><span  class="title_ASD">Change Password</span></div>
            <ul class="p_modify">
-              <div class="Note">暂只支持原密码修改，不支持邮箱电话验证密码修改</div>
-              <li><label>原密码</label><input name="password" type="password"  class="text_Password"/></li>
+              <!--<div class="Note">暂只支持原密码修改，不支持邮箱电话验证密码修改</div>-->
+              <li><label   style="margin-left: -160px;width:140px;">Old Password</label><input name="password" type="password"  class="text_Password"/></li>
               <li class="new_password">
-                 <label>新密码</label>
+                 <label  style="margin-left: -160px;width:140px;">New Password</label>
                	 <div class="ywz_zhuce_xiaoxiaobao">
 				  <div class="ywz_zhuce_kuangzi" style="margin-left:-11px;"><input name="pass" type="password" id="tbPassword" class="ywz_zhuce_kuangwenzi1 text_Password"></div>
-						<div class="ywz_zhuce_huixian" id="pwdLevel_1">弱 </div>
-						<div class="ywz_zhuce_huixian" id="pwdLevel_2">中 </div>
-						<div class="ywz_zhuce_huixian" id="pwdLevel_3">强 </div>
+						<div class="ywz_zhuce_huixian" id="pwdLevel_1">week </div>
+						<div class="ywz_zhuce_huixian" id="pwdLevel_2">medium </div>
+						<div class="ywz_zhuce_huixian" id="pwdLevel_3">strong </div>
 			     </div>
-           		 <div class="ywz_zhuce_yongyu1">
+           		<!-- <div class="ywz_zhuce_yongyu1">
             	<span id="pwd_err" style="color: rgb(255, 0, 0)">6-16位，由字母（区分大小写）、数字、符号组成</span>
-		     </div>
+		     </div>-->
               </li>            
-              <li><label>确认密码</label><input name="pass1" type="password"  class="text_Password"/></li>
-              <li><input  type="submit" class="bnt_blue_1" style="border:none;" value="确认修改"></li>
+              <li><label  style="margin-left: -160px;width:140px;">Confirm Password</label><input name="pass1" type="password"  class="text_Password"/></li>
+              <li><input  type="submit" class="bnt_blue_1" style="border:none;margin-left: 5px;" value="Confirm the Change"></li>
            </ul>
            </form>
        </div>

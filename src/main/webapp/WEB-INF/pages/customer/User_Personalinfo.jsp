@@ -25,15 +25,20 @@
 	    <div class="info_content">
 	     <!--个人信息-->
 	      <div class="Personal_info" id="Personal">
-	         <div class="title_Section"><span class="title_ASD">个人信息</span></div>
+	         <div class="title_Section"><span class="title_ASD">Personal Information</span></div>
+
 	         <ul class="xinxi">
 				 <li><label>Name：</label> <span><input name="name" type="text" value="${user.getUsername()}"  class="text"  disabled="disabled"/></span></li>
 				 <li><label>Email：</label>  <span>${user.getEmail()}</span></li>
 				 <li><label>Phone：</label>  <span>${user.getPhone()}</span></li>
+				 <li><label>Balance：</label>  <span>${user.getBalance()}</span></li>
+				 <!--
 	          <div class="bottom">
-				  <input name="" type="submit" value="修改信息"  class="modify"/>
-				  <input name="" type="submit" value="确认修改"  class="confirm"/></div>
+				  <input name="" type="submit" style="width: 200px" value="Change Information"  class="modify"/>
+				  <input name="" type="submit"  style="width: 200px" value="Confirm Change"  class="confirm"/></div></-->
 	         </ul>
+
+			  <!--
 	          <form action="" method="post">
 	         <ul class="Head_portrait">
 
@@ -42,7 +47,8 @@
 
 	          		<li><input name="name" type="submit" value="上传头像"  class="submit"/></li>
 	         </ul>
-	          </form> 
+	          </form>
+	          </-->
 	      </div>
 	    </div>
 	    </div>

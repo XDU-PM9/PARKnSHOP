@@ -11,6 +11,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Objects;
+import java.util.StringJoiner;
 
 /**
  * Created by H on 2016/12/5.
@@ -33,6 +34,10 @@ public class CustomerService  implements ICustomerService {
 
     @Resource
     private  BaseDao<ShopEntity> shopEntityBaseDao;
+
+    @Resource
+    private BaseDao<PhotoEntity> photoEntityBaseDao;
+
     @Override
     public List<UserEntity> getAllCustomer()
     {
@@ -59,6 +64,11 @@ public class CustomerService  implements ICustomerService {
         Object[] params=new Object[1];
         params[0]=id;
         return userEntityBaseDao.get("from UserEntity ue where ue.userId=?",params);
+    }
+
+    @Override
+    public UserEntity getCustomerByName(String name,String password) {
+        return userEntityBaseDao.get("from UserEntity ue where (ue.username=? or ue.phone=? or ue.email=?) and ue.password=?",new Object[]{name,name,name,password});
     }
 
     @Override
@@ -94,7 +104,7 @@ public class CustomerService  implements ICustomerService {
     public List<CollectionEntity> queryAllCollect(Integer userId,int page) {
         Object[] params=new Object[1];
          params[0]=userEntityBaseDao.get("from UserEntity where userId=?",new Object[]{userId});
-        return collectionEntityBaseDao.find("from CollectionEntity  where  userByUserId=? order by createTime desc",params,page,8);
+        return collectionEntityBaseDao.find("from CollectionEntity  where  userByUserId=? order by createTime desc",params,page,4);
     }
 
     @Override
@@ -104,18 +114,32 @@ public class CustomerService  implements ICustomerService {
         return collectionEntityBaseDao.find("from CollectionEntity  where  userByUserId=? ",params).size();
     }
 
+    private  String   getPictureLocation(String  photogroup)
+    {
+            if(photogroup!=null) {
+              return   photoEntityBaseDao.find("from PhotoEntity where photoGroup=?",new Object[]{photogroup}).get(0).getAddress();
+            }
+            else
+            {
+                return  null;
+            }
+    }
+
     @Override
     public void insertCollect(Integer id, Integer userId) {
         Object[] params=new Object[2];
         params[0]=userEntityBaseDao.get("from UserEntity where userId=?",new Object[]{userId});
-        params[1]=goodsEntityBaseDao.get("from GoodsEntity where goodsId=?",new Object[]{id});
+        GoodsEntity goodsEntity=goodsEntityBaseDao.get("from GoodsEntity where goodsId=?",new Object[]{id});
+        params[1]=goodsEntity;
+
         List<CollectionEntity> ces= collectionEntityBaseDao.find("from CollectionEntity  ce  where ce.userByUserId=? and ce.goodsByGoodsId=?",params);
          if(ces.size()==0) {
              Object[] parans=new Object[3];
              parans[0] = id;
              parans[1] = userId;
              parans[2] = new Timestamp(System.currentTimeMillis());
-             collectionEntityBaseDao.insert("insert into collection(goodsId,userId,createTime) values(?,?,?)", parans);
+             parans[3]=getPictureLocation(goodsEntity.getPhotoGroup());
+             collectionEntityBaseDao.insert("insert into collection(goodsId,userId,createTime,picture) values(?,?,?,?)", parans);
          }
          else
          {
@@ -137,7 +161,7 @@ public class CustomerService  implements ICustomerService {
     {
         Object[] params=new Object[1];
         params[0]=userEntityBaseDao.get("from UserEntity where userId=?",new Object[]{userId});
-        return collectshopEntityBaseDao.find("from CollectshopEntity  where  userByUserId=? order by createTime desc",params,page,8);
+        return collectshopEntityBaseDao.find("from CollectshopEntity  where  userByUserId=? order by createTime desc",params,page,4);
     }
 
     @Override
@@ -151,7 +175,8 @@ public class CustomerService  implements ICustomerService {
     public void insertShop(Integer id, Integer userId) {
         Object[] params=new Object[2];
         params[0]=userEntityBaseDao.get("from UserEntity where userId=?",new Object[]{userId});
-        params[1]=shopEntityBaseDao.get("from ShopEntity where shopId=?",new Object[]{id});
+        ShopEntity shopEntity=shopEntityBaseDao.get("from ShopEntity where shopId=?",new Object[]{id});
+        params[1]=shopEntity;
         List<CollectshopEntity> ces= collectshopEntityBaseDao.find("from CollectshopEntity ce  where ce.userByUserId=? and ce.shopByShopId=?",params);
         if(ces.size()==0)
         {
@@ -159,21 +184,16 @@ public class CustomerService  implements ICustomerService {
             parans[0]=id;
             parans[1]=userId;
             parans[2]=new Timestamp(System.currentTimeMillis());
+            parans[3]=getPictureLocation(shopEntity.getPhotoGroup());
             collectshopEntityBaseDao.insert("insert into collectShop(shopId,userId,createTime) values(?,?,?)",parans);
         }
         else
         {
-            /*Object[] parans=new Object[2];
+            Object[] parans=new Object[2];
             parans[0]=new Timestamp(System.currentTimeMillis());
             parans[1]=ces.get(0).getScollectId();
             collectshopEntityBaseDao.insert("update collectshop set createTime=? where scollectId=?",parans);
-        */
 
-            Object[] parans=new Object[3];
-            parans[0]=id;
-            parans[1]=userId;
-            parans[2]=new Timestamp(System.currentTimeMillis());
-            collectshopEntityBaseDao.insert("insert into collectShop(shopId,userId,createTime) values(?,?,?)",parans);
         }
 
     }
