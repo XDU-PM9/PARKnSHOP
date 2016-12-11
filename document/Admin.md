@@ -33,9 +33,6 @@
 {"size":5,"index":1}
 size:请求数据的分页量
 index：按照size分页后的数据第index页
-
-
-
 响应数据格式：json
 响应参数描述：
 {
@@ -76,4 +73,274 @@ index：按照size分页后的数据第index页
 参数描述：
 {
   “error”:true/false  //false：请求已经响应且处理成功，true：请求处理失败
+}
+
+
+#搜索店主模块
+
+请求地址：/admin/serachowner
+方法:POST
+请求数据格式：json
+参数描述：
+{
+"ownerId":"ownerid"
+}
+响应数据格式:jason
+响应参数描述:
+{
+    "error": "true/false",//搜索成功或失败
+    "data": {
+        "ownerId": 123,
+        "username": "String",
+        "userImage": "String",
+        "realname": "String",
+        "phone": "String",
+        "email": "String",
+        "address": "String"
+		"state":	"int"
+		}
+}
+
+#拉黑店主模块
+
+请求地址:/admin/blackowner
+方法：POST
+请求数据格式：json
+参数描述：
+{
+"ownerId":"ownerid"
+}
+
+响应参数描述：
+{
+	"error":boolean
+}
+
+#恢复店主模块
+
+请求地址:/admin/whiteowner
+方法：POST
+请求数据格式：json
+参数描述：
+{
+"ownerId":"ownerid"
+}
+
+响应参数描述：
+{
+	"error":boolean
+}
+
+#删除店主模块
+
+请求地址:/admin/deleteowner
+方法：POST
+请求数据格式：json
+参数描述：
+{
+"ownerId":"ownerid"
+}
+
+响应参数描述：
+{
+	"error":boolean
+}
+
+#搜索店铺
+
+请求地址 /admin/searchshop
+方法:POST
+请求格式：JSON
+参数描述：{
+"shopid":"shopid"
+}
+
+响应参数描述：
+{
+	"error":boolean,
+	"data":{
+	"shopId":"int",
+	"shopName":"String",
+	"introduction":"String",
+	"photoGroup":	"String",
+	"views":	"int",
+	"logo":		"String",
+	"state":	"int"
+	"ownerId"	:"int"//通过shopentity.getownerbyownerid.getownerid（）拿到
+	}
+}
+
+#拉黑店铺
+
+请求地址: /admin/blackshop
+方法：POST
+请求格式：JSON
+参数描述：{
+"shopid":"shopid"
+}
+响应参数描述：
+{
+	"error":boolean
+}
+
+
+#恢复店铺
+
+请求地址: /admin/whiteshop
+方法：POST
+请求格式：JSON
+参数描述：{
+"shopid":"shopid"
+}
+响应参数描述：
+{
+	"error":boolean
+}
+
+#删除店铺
+
+请求地址: /admin/deleteshop
+方法：POST
+请求格式：JSON
+参数描述：{
+"shopid":"shopid"
+}
+响应参数描述：
+{
+	"error":boolean
+}
+
+
+
+
+
+#请求所有卖家列表
+请求地址：/admin/applyallowner
+方法:POST
+请求格式:JSON
+参数描述：{
+”size：5，
+”index“:1
+}
+响应参数描述：
+{
+"error":boolean,
+"total":9,
+"realSize":5,
+"data":[ {
+        "ownerId": 123,
+        "username": "String",
+        "userImage": "String",
+        "realname": "String",
+        "phone": "String",
+        "email": "String",
+        "address": "String"
+		"state":	"int"
+		}]//注意  这个data是个list  参照ApplyResposeBean.data
+}
+
+
+
+#请求所有店铺列表//这个接口还没写好，getApplyShop拿到的是开店申请 不是店铺
+请求地址：/admin/applyallshop
+方法：POST
+请求格式：JSON
+参数描述：{
+”size：5，
+”index“:1
+}
+
+
+
+响应参数描述：
+{
+"error":boolean,
+"total":9,
+"realSize":5,
+"data":[{
+	"shopId":"int",
+	"shopName":"String",
+	"introduction":"String",
+	"photoGroup":	"String",
+	"views":	"int",
+	"logo":		"String",
+	"state":	"int"
+	"ownerId"	:"int"//通过shopentity.getownerbyownerid.getownerid（）拿到
+	}]//注意  这个data是个list  参照ApplyResposeBean.data
+}
+
+
+
+
+
+#请求所有顾客列表
+请求地址：/admin/applyalluser
+方法：POST
+请求格式：JSON
+参数描述：{
+”size：5，
+”index“:1
+}
+
+
+
+响应参数描述：
+{
+"error":boolean,
+"total":9,
+"realSize":5,
+"data":[{
+	"userId":"int",
+	"username":"String",
+	"phone":	"String",
+	"email":	String",
+	"userImage":"String",
+	"state":	"int"
+	}]//注意  这个data是个list  参照ApplyResposeBean.data
+}
+
+
+
+
+#拉黑顾客
+请求地址/admin/blackuser
+方法：POST
+请求格式：JSON
+参数描述：{
+"userId":"userId"
+}
+响应参数描述：
+{
+	"error":boolean
+}
+
+
+
+#恢复顾客
+
+请求地址: /admin/whiteuser
+方法：POST
+请求格式：JSON
+参数描述：{
+"userId":"userId"
+}
+响应参数描述：
+{
+	"error":boolean
+}
+
+
+
+
+#删除店铺
+
+请求地址: /admin/deleteuser
+方法：POST
+请求格式：JSON
+参数描述：{
+"userId":"userId"
+}
+响应参数描述：
+{
+	"error":boolean
 }
