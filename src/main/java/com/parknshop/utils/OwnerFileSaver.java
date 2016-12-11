@@ -12,14 +12,11 @@ public class OwnerFileSaver {
 
 
     public static String saveOwnerImage(MultipartFile multipartFile,String context) throws IOException {
-        System.out.println("----------------------------");
-        System.out.println("context:"+context);
         File root = new File(context);
         String[] splitFile = multipartFile.getOriginalFilename().split("\\.");
         String fileSuffix = splitFile[splitFile.length-1];
         String pathPrefix = "resources/images/owner/";
         String fileName = pathPrefix+UUID.randomUUID().toString()+"."+fileSuffix;
-        System.out.println(fileName);
 
         File file = new File(root,fileName);
         if (!file.getParentFile().exists()){

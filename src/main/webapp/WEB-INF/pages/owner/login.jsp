@@ -27,7 +27,6 @@
     <div class="header">
         <h1>Welcome to PARKnSHOP !</h1>
     </div>
-    <p>Now,Please login your account.If you don't have an account.Please <a href="register.jsp" style="color: red">Click here</a> to register</p>
     <form name="form1" method="post" action="/owner/login">
         <ul class="formInfor">
             <li>
@@ -48,7 +47,7 @@
     <p><%=msg%></p>
 
     <div class="forAndRe">
-        <a href="">Forget your account or password</a>
+        <a href="">Forget your account or password</a><br>
         <a href="/owner/register">Click here to register a new account</a>
     </div>
 </div>

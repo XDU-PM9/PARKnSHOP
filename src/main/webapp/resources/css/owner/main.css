@@ -1,0 +1,57 @@
+/*reset start*/
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td { margin:0; padding:0; }
+/*body, button, input, select, textarea { font:12px/1.5tahoma, arial, \5b8b\4f53;}*/
+h1, h2, h3, h4, h5, h6{ font-size:100%; }
+address, cite, dfn, em, var { font-style:normal; }
+code, kbd, pre, samp { font-family:couriernew, courier, monospace; }
+small{ font-size:12px; }
+ul, ol { list-style:none; }
+a { text-decoration:none; }
+a:hover { text-decoration:underline; }
+sup { vertical-align:text-top; }
+sub{ vertical-align:text-bottom; }
+legend { color:#000; }
+fieldset, img { border:0; }
+button, input, select, textarea { font-size:100%; }
+table { border-collapse:collapse; border-spacing:0; }
+/*reset over*/
+/*query-shops start*/
+table{
+    margin: 0;
+    width: 100%;
+}
+.queryHead{
+    border: 1px solid white;
+    background: lightblue;
+    position: relative;
+    height: 60px;
+    left: 40px;
+}
+.queryHead>th{
+    display: inline-block;
+    padding: 20px;
+}
+.logoHead,.shopName,.shopState{
+    width: 150px;
+}
+.shopDes{
+    width: 300px;
+}
+.shopLogo{
+    width: 100px;
+
+}
+#addBtn{
+    padding-left:40px ;
+}
+.shopInfor{
+    margin: 0;
+    width: 100%;
+    border-bottom:1px solid white;
+}
+.shopDes,.logoHead,.shopName,.shopState{
+    display: inline-block;
+    padding:10px 20px 10px 20px;
+    text-align: center;
+    vertical-align: middle;
+}
