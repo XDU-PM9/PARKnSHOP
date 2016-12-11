@@ -10,6 +10,7 @@ import com.parknshop.service.IAdminService;
 import com.parknshop.service.IListBean;
 import com.parknshop.service.IUserService;
 import com.parknshop.service.baseImpl.IDefineString;
+import com.parknshop.service.serviceImpl.AllShopListBean;
 import com.parknshop.utils.DateFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -76,6 +77,7 @@ public class AdminController {
     public @ResponseBody String apply(@RequestBody byte[] info,HttpSession session){
         boolean login = mService.isLogin();
         ApplyResponseBean response = new ApplyResponseBean();
+//        login = true;
         if (login) {
             String infoStr = new String(info);
             System.out.println(infoStr);
@@ -84,23 +86,27 @@ public class AdminController {
                     mAdminService.getApplyShop(request.getIndex(),request.getSize());
             long total = dataList.getMaxPages();
             long size = dataList.getNumer();
-            List<ApplyResponseBean.DataBean> data= new ArrayList<>();
-            for (ShopAndOwnerDbBean entity:dataList.getShopList()){
-                ApplyResponseBean.DataBean applyEntity = new ApplyResponseBean.DataBean();
-                applyEntity.setOwnerName(entity.getUsername());
-                applyEntity.setOwnerImg(entity.getPicture());
-                applyEntity.setOwnerEmail(entity.getEmail());
-                applyEntity.setRealName(entity.getRealname());
-                applyEntity.setRealImg(entity.getUserImage());
-                applyEntity.setShopId(entity.getShopId());
-                applyEntity.setShopName(entity.getShopName());
-                applyEntity.setShopImg(entity.getLogo());
-                applyEntity.setShopDesc(entity.getIntroduction());
-                data.add(applyEntity);
+            if(request.getIndex()>total){//如果请求的页面大于实际的总页面数
+                response.setError(true);
+            }else {
+                List<ApplyResponseBean.DataBean> data = new ArrayList<>();
+                for (ShopAndOwnerDbBean entity : dataList.getShopList()) {
+                    ApplyResponseBean.DataBean applyEntity = new ApplyResponseBean.DataBean();
+                    applyEntity.setOwnerName(entity.getUsername());
+                    applyEntity.setOwnerImg(entity.getPicture());
+                    applyEntity.setOwnerEmail(entity.getEmail());
+                    applyEntity.setRealName(entity.getRealname());
+                    applyEntity.setRealImg(entity.getUserImage());
+                    applyEntity.setShopId(entity.getShopId());
+                    applyEntity.setShopName(entity.getShopName());
+                    applyEntity.setShopImg(entity.getLogo());
+                    applyEntity.setShopDesc(entity.getIntroduction());
+                    data.add(applyEntity);
+                }
+                response.setTotal((int) total);
+                response.setRealSize((int) size);
+                response.setData(data);
             }
-            response.setTotal((int)total);
-            response.setRealSize((int)size);
-            response.setData(data);
         }else {
             response.setError(true);
         }
@@ -160,23 +166,27 @@ public class AdminController {
                     mAdminService.getOwnerList(requestBean.getIndex(),requestBean.getSize());
             long total = dataList.getMaxPages();
             long size = dataList.getNumer();
-            List<ApplyAllOwnerResponseBean.DataBean> data= new ArrayList<>();
-            for (OwnerEntity entity:dataList.getShopList()){
-                ApplyAllOwnerResponseBean.DataBean ownerListBean = new ApplyAllOwnerResponseBean.DataBean();
-                ownerListBean.setOwnerId(entity.getOwnerId());
-                ownerListBean.setUsername(entity.getUsername());
-                ownerListBean.setUserImage(entity.getUserImage());
-                ownerListBean.setRealname(entity.getRealname());
-                ownerListBean.setPhone(entity.getPhone());
-                ownerListBean.setEmail(entity.getEmail());
-                ownerListBean.setAddress(entity.getAddress());
-                ownerListBean.setState(entity.getState());
-                data.add(ownerListBean);
+            if(requestBean.getIndex()>total){
+                responseBean.setError(true);
+            }else {
+                List<ApplyAllOwnerResponseBean.DataBean> data = new ArrayList<>();
+                for (OwnerEntity entity : dataList.getShopList()) {
+                    ApplyAllOwnerResponseBean.DataBean ownerListBean = new ApplyAllOwnerResponseBean.DataBean();
+                    ownerListBean.setOwnerId(entity.getOwnerId());
+                    ownerListBean.setUsername(entity.getUsername());
+                    ownerListBean.setUserImage(entity.getUserImage());
+                    ownerListBean.setRealname(entity.getRealname());
+                    ownerListBean.setPhone(entity.getPhone());
+                    ownerListBean.setEmail(entity.getEmail());
+                    ownerListBean.setAddress(entity.getAddress());
+                    ownerListBean.setState(entity.getState());
+                    data.add(ownerListBean);
+                }
+                responseBean.setError(false);
+                responseBean.setTotal((int) total);
+                responseBean.setRealSize((int) size);
+                responseBean.setData(data);
             }
-            responseBean.setError(false);
-            responseBean.setTotal((int)total);
-            responseBean.setRealSize((int)size);
-            responseBean.setData(data);
         }else {
             responseBean.setError(true);
         }
@@ -198,21 +208,25 @@ public class AdminController {
                     mAdminService.getUserList(requestBean.getIndex(),requestBean.getSize());
             long total = dataList.getMaxPages();
             long size = dataList.getNumer();
-            List<ApplyAllUserResponseBean.DataBean> data= new ArrayList<>();
-            for (UserEntity entity:dataList.getShopList()){
-                ApplyAllUserResponseBean.DataBean userListBean = new ApplyAllUserResponseBean.DataBean();
-                userListBean.setUserId(entity.getUserId());
-                userListBean.setUsername(entity.getUsername());
-                userListBean.setUserImage(entity.getUserImage());
-                userListBean.setPhone(entity.getPhone());
-                userListBean.setEmail(entity.getEmail());
-                userListBean.setState(entity.getState());
-                data.add(userListBean);
+            if(requestBean.getIndex()>total){
+                responseBean.setError(true);
+            }else {
+                List<ApplyAllUserResponseBean.DataBean> data = new ArrayList<>();
+                for (UserEntity entity : dataList.getShopList()) {
+                    ApplyAllUserResponseBean.DataBean userListBean = new ApplyAllUserResponseBean.DataBean();
+                    userListBean.setUserId(entity.getUserId());
+                    userListBean.setUsername(entity.getUsername());
+                    userListBean.setUserImage(entity.getUserImage());
+                    userListBean.setPhone(entity.getPhone());
+                    userListBean.setEmail(entity.getEmail());
+                    userListBean.setState(entity.getState());
+                    data.add(userListBean);
+                }
+                responseBean.setError(false);
+                responseBean.setTotal((int) total);
+                responseBean.setRealSize((int) size);
+                responseBean.setData(data);
             }
-            responseBean.setError(false);
-            responseBean.setTotal((int)total);
-            responseBean.setRealSize((int)size);
-            responseBean.setData(data);
         }else {
             responseBean.setError(true);
         }
@@ -222,38 +236,45 @@ public class AdminController {
     /**
      * 获取shop列表
      * */
-//    @RequestMapping(value = "/applyallshop",method = RequestMethod.POST)
-//    public @ResponseBody String applyAllShop(@RequestBody byte[] info,HttpSession session){
-//        boolean isLogin = mService.isLogin();
-//        ApplyAllShopResponseBean responseBean = new ApplyAllShopResponseBean();
+    @RequestMapping(value = "/applyallshop",method = RequestMethod.POST)
+    public @ResponseBody String applyAllShop(@RequestBody byte[] info,HttpSession session){
+        boolean isLogin = mService.isLogin();
+        ApplyAllShopResponseBean responseBean = new ApplyAllShopResponseBean();
 //        isLogin = true;
-//        if(isLogin){
-//            String infoStr = new String(info);
-//            ApplyAllRequestBean requestBean = mGson.fromJson(infoStr,ApplyAllRequestBean.class);
-//            IListBean<ShopEntity> dataList =
-//                    mAdminService.getShopList(requestBean.getIndex(),requestBean.getSize());
-//            long total = dataList.getMaxPages();
-//            long size = dataList.getNumer();
-//            List<ApplyAllShopResponseBean.DataBean> data= new ArrayList<>();
-//            for (ShopEntity entity:dataList.getShopList()){
-//                ApplyAllShopResponseBean.DataBean shopListBean = new ApplyAllShopResponseBean.DataBean();
-//                shopListBean.setShopId(entity.getUserId());
-//                shopListBean.setUsername(entity.getUsername());
-//                shopListBean.setUserImage(entity.getUserImage());
-//                shopListBean.setPhone(entity.getPhone());
-//                shopListBean.setEmail(entity.getEmail());
-//                shopListBean.setState(entity.getState());
-//                data.add(userListBean);
-//            }
-//            responseBean.setError(false);
-//            responseBean.setTotal((int)total);
-//            responseBean.setRealSize((int)size);
-//            responseBean.setData(data);
-//        }else {
-//            responseBean.setError(true);
-//        }
-//        return mGson.toJson(responseBean);
-//    }
+        if(isLogin){
+            String infoStr = new String(info);
+            ApplyAllRequestBean requestBean = mGson.fromJson(infoStr,ApplyAllRequestBean.class);
+            IListBean<ShopAndOwnerDbBean> dataList =
+                    mAdminService.getAllShop(requestBean.getIndex(),requestBean.getSize());
+            long total = dataList.getMaxPages();
+            long size = dataList.getNumer();
+            if(requestBean.getIndex()>total){
+                responseBean.setError(true);
+            }else {
+                System.out.println("total:" + total + ",size:" + size);
+                List<ApplyAllShopResponseBean.DataBean> data = new ArrayList<>();
+                for (ShopAndOwnerDbBean bean : dataList.getShopList()) {
+                    ApplyAllShopResponseBean.DataBean shopListBean = new ApplyAllShopResponseBean.DataBean();
+                    shopListBean.setShopId(bean.getShopId());
+                    shopListBean.setShopName(bean.getShopName());
+                    shopListBean.setIntroduction(bean.getIntroduction());
+                    shopListBean.setPhotoGroup(bean.getPhotoGroup());
+                    shopListBean.setViews(bean.getViews());
+                    shopListBean.setLogo(bean.getLogo());
+                    shopListBean.setState(bean.getShopState());
+                    shopListBean.setOwnerId(bean.getOwnerId());
+                    data.add(shopListBean);
+                }
+                responseBean.setError(false);
+                responseBean.setTotal((int) total);
+                responseBean.setRealSize((int) size);
+                responseBean.setData(data);
+            }
+        }else {
+            responseBean.setError(true);
+        }
+        return mGson.toJson(responseBean);
+    }
 
     /**
      * 管理店主
