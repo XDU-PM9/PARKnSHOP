@@ -3,12 +3,11 @@ package com.parknshop.controller;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.parknshop.bean.*;
+import com.parknshop.entity.GoodsEntity;
 import com.parknshop.entity.OwnerEntity;
+import com.parknshop.entity.PhotoEntity;
 import com.parknshop.entity.ShopEntity;
-import com.parknshop.service.IListBean;
-import com.parknshop.service.IOwnerService;
-import com.parknshop.service.IUserBuilder;
-import com.parknshop.service.IUserService;
+import com.parknshop.service.*;
 import com.parknshop.service.baseImpl.IDefineString;
 import com.parknshop.service.baseImpl.IUploadPictures;
 import com.parknshop.service.serviceImpl.OwnerBuilder;
@@ -36,22 +35,23 @@ public class OwnerController {
     public static final String MSG = "msg";
     public static final String EMAIL = "email";
     public static final String SHOPS = "shops";
+    public static final String GOODS = "goods";
 
-    final
-    IUserService mService;
-    final
-    IUserBuilder mUserBuilder;
+    final IUserService mUserService;
+    final IUserBuilder mUserBuilder;
     final IOwnerService mOwnerService;
+    final IGoodsBuilder mGoodsBuilder;
 
     Gson mGson = new GsonBuilder()
             .setDateFormat(DateFormat.getDateFormat())
             .create();
 
     @Autowired
-    public OwnerController(IUserService mService, OwnerBuilder mUserBuilder, IOwnerService ownerService) {
-        this.mService = mService;
+    public OwnerController(IUserService mUserService, OwnerBuilder mUserBuilder, IOwnerService ownerService, IGoodsBuilder mGoodsBuilder) {
+        this.mUserService = mUserService;
         this.mUserBuilder = mUserBuilder;
         mOwnerService = ownerService;
+        this.mGoodsBuilder = mGoodsBuilder;
     }
 
     @RequestMapping("")
@@ -76,8 +76,8 @@ public class OwnerController {
             case REQ_METHOD_POST:
                 String username = (String) request.getParameter("username");
                 String password = (String) request.getParameter("password");
-                mService.loginOut();//注销session
-                int state = mService.loginAsOwner(username, password);
+                mUserService.loginOut();//注销session
+                int state = mUserService.loginAsOwner(username, password);
                 if (state == IUserService.LOGIN_SUCCESS) {
                     return "redirect:/owner/index";
                 } else if (state == IUserService.LOGIN_ERRO) {
@@ -101,7 +101,7 @@ public class OwnerController {
 
     @RequestMapping("logout")
     public String logout() {
-        mService.loginOut();
+        mUserService.loginOut();
         return "redirect:/owner/login";
     }
 
@@ -119,7 +119,7 @@ public class OwnerController {
                 mUserBuilder.setEmail(email);
                 mUserBuilder.setUserName(username);
                 mUserBuilder.setPassWord(password);
-                int state = mService.registerByOwner(mUserBuilder);
+                int state = mUserService.registerByOwner(mUserBuilder);
                 if (state == IUserService.SUCCESS) {
                     request.setAttribute(EMAIL, email);
                     return "owner/registerSuccess.jsp";
@@ -330,6 +330,108 @@ public class OwnerController {
     }
 
 
+    /**
+     * 返回商品列表
+     * @param session
+     * @return
+     */
+    //未完成
+    @RequestMapping("/goods")
+    public String listGoods(HttpServletRequest request,HttpSession session){
+        if (!checkLogin(session)){
+            return "redirect:/owner/login";
+        }
+
+        int page = 1;//Integer.parseInt(request.getParameter("page"));
+        int lines = 10;//Integer.parseInt(request.getParameter("lines"));
+
+        ShopEntity entity = getShop(session);
+        IListBean<GoodsDbBean> data = mOwnerService.getMyGoods(entity,page,lines);
+
+        GoodsListBean goodsList = new GoodsListBean();
+        goodsList.setCurrent((int) data.getCurrentPage());
+        goodsList.setTotal((int) data.getMaxPages());
+        goodsList.setCount((int) data.getNumer());
+        List<GoodsListBean.DataBean> list = new ArrayList<>();
+        for (GoodsDbBean item : data.getShopList()){
+            GoodsListBean.DataBean goods = new GoodsListBean.DataBean();
+            goods.setId(item.getGoodsId());
+            goods.setName(item.getGoodsName());
+            goods.setDesc(item.getIntroduction());
+            goods.setPrice(item.getPrice());
+            goods.setDiscount(item.getDiscount());
+            goods.setCreateTime(item.getCreateTime());
+            goods.setViews(item.getViews());
+            goods.setState(item.getState());
+
+            int count = item.getPicturePath().size();
+            String[] photos = new String[count];
+            List<PhotoEntity> photoEntities = item.getPicturePath();
+            for (int i = 0;i<count;i++){
+                photos[i] = photoEntities.get(i).getAddress();
+            }
+            goods.setPhotos(photos);
+
+            list.add(goods);
+        }
+        String temp = mGson.toJson(list);
+        System.out.println(temp);
+        request.setAttribute(GOODS,mGson.toJson(list));
+
+        return "redirect:/owner/index";
+    }
+
+    @RequestMapping(value = "/addGoods",method = RequestMethod.GET)
+    public String addGoodsGet(HttpSession session){
+        if (!checkLogin(session)){
+            return "redirect:/owner/login";
+        }
+        return "owner/add_goods.jsp";
+    }
+
+
+    @RequestMapping(value = "/addGoods",method = RequestMethod.POST)
+    public String addGoodsPost(HttpSession session,
+                           @RequestParam("name")String name,
+                           @RequestParam("desc")String desc,
+                           @RequestParam("price")double price,
+                           @RequestParam("inventory")int inventory,
+                           @RequestParam("photo")MultipartFile photo){
+        if (!checkLogin(session)){
+            return "redirect:/owner/login";
+        }
+        String contextPath = session.getServletContext().getRealPath("/");
+        String photoPath;
+        try {
+            photoPath = OwnerFileSaver.saveOwnerImage(photo, contextPath);
+        } catch (Exception e) {
+            //服务器存储错误
+            return "redirect:/";
+        }
+        OwnerEntity entity = (OwnerEntity) session.getAttribute(IDefineString.SESSION_USER);
+        mGoodsBuilder.clear();
+        mGoodsBuilder
+                    .setOwnerId(entity.getOwnerId())
+                    .setGoodsName(name)
+                    .setIntroduction(desc)
+                    .setPrice(price)
+                    .setInventory(inventory);
+        IUploadPictures callback = new IUploadPictures() {
+            @Override
+            public List<String> getPicturePaths() {
+                List<String> photos = new ArrayList<>();
+                photos.add(photoPath);
+                return photos;
+            }
+        };
+        int state = mOwnerService.newGoods(mGoodsBuilder,callback);
+        if (state == IOwnerService.NEW_SUCCESS){
+            return "owner/add_goods_success.jsp";
+        }
+
+        return "owner/add_goods_fail.jsp";
+    }
+
 
     /**
      * 检查是否能开店
@@ -350,7 +452,7 @@ public class OwnerController {
      * @return false未登陆，true已登录
      */
     private boolean checkLogin(HttpSession session) {
-        if (!mService.isLogin()) {
+        if (!mUserService.isLogin()) {
             return false;
         }
         //防止不同类型用户的登陆影响
@@ -364,4 +466,25 @@ public class OwnerController {
         }
         return true;
     }
+
+
+    private ShopEntity getShop(HttpSession session){
+        OwnerEntity ownerEntity = (OwnerEntity) session.getAttribute(IDefineString.SESSION_USER);
+        IListBean<ShopAndOwnerDbBean> data = mOwnerService.getMyShop(ownerEntity,1,1000);
+        List<ShopAndOwnerDbBean> shops = data.getShopList();
+        if (shops == null){
+            return null;
+        }
+        ShopEntity entity;
+        for (ShopAndOwnerDbBean item : shops){
+            int state = item.getShopState();
+            if (state == IOwnerService.SHOP_STATE_USING){
+                entity = new ShopEntity();
+                entity.setShopId(item.getShopId());
+                return entity;
+            }
+        }
+        return null;
+    }
+
 }
