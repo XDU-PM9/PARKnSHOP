@@ -5,12 +5,14 @@ import com.parknshop.entity.UserEntity;
 import com.parknshop.service.IUserService;
 import com.parknshop.service.serviceAbstract.AbstractListBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * Created by weina on 2016/12/10.
  */
+@Repository
 public class UserListBean extends AbstractListBean<UserEntity>{
     final
     IBaseDao<UserEntity> mDao;
