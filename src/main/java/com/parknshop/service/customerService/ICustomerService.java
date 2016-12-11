@@ -18,6 +18,7 @@ public interface ICustomerService {
 
     public UserEntity getCustomerById(Integer id);
 
+    public  UserEntity getCustomerByName(String name,String password);
     public  void      updateCustomerEntity(UserEntity userEntity);
 
     //逻辑删除用户
@@ -28,7 +29,9 @@ public interface ICustomerService {
     public  void      changeUserImage(String url,int userId);
 
 //此处为收藏的商品
-    public  List<CollectionEntity>  queryAllCollect(Integer userId);
+    public  List<CollectionEntity>  queryAllCollect(Integer userId,int page);
+
+    public int   querySize(int userId);
 
     public void  insertCollect(Integer id,Integer userId);
 
@@ -37,7 +40,9 @@ public interface ICustomerService {
     //*****************************************************************
  //此处为收藏的店铺
 
-    public  List<CollectshopEntity>   queryAllShop(Integer userId);
+    public  List<CollectshopEntity>   queryAllShop(Integer userId,int page);
+
+    public int                        queryShopsize(Integer userId);
 
     public  void                      insertShop(Integer id,Integer userId);
 

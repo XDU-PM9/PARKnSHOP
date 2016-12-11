@@ -4,8 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.parknshop.bean.*;
 import com.parknshop.entity.OwnerEntity;
-import com.parknshop.entity.PhotoEntity;
-import com.parknshop.entity.ShopEntity;
 import com.parknshop.entity.ShopEntity;
 import com.parknshop.service.IListBean;
 import com.parknshop.service.IOwnerService;
@@ -14,9 +12,6 @@ import com.parknshop.service.IUserService;
 import com.parknshop.service.baseImpl.IDefineString;
 import com.parknshop.service.baseImpl.IUploadPictures;
 import com.parknshop.service.serviceImpl.OwnerBuilder;
-import com.parknshop.service.serviceImpl.OwnerService;
-import com.parknshop.service.serviceImpl.PersonShopListBean;
-import com.parknshop.service.serviceImpl.UserService;
 import com.parknshop.utils.DateFormat;
 import com.parknshop.utils.OwnerFileSaver;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +19,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.mail.Multipart;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -61,6 +52,11 @@ public class OwnerController {
         this.mService = mService;
         this.mUserBuilder = mUserBuilder;
         mOwnerService = ownerService;
+    }
+
+    @RequestMapping("")
+    public String dispatcher(){
+        return "redirect:/owner/index";
     }
 
     @RequestMapping("/index")
@@ -145,7 +141,7 @@ public class OwnerController {
     }
 
     @RequestMapping("/OwnerInformation")
-    public String OwnerInfo(HttpServletRequest request) {
+    public String OwnerInfo() {
         return "owner/OwnerInformation.jsp";
     }
 
@@ -337,7 +333,6 @@ public class OwnerController {
      */
     private boolean canApply(OwnerEntity entity) {
         int state = mOwnerService.isHasShop(entity);
-        System.out.println("state:"+state);
         if (state == IOwnerService.SHOP_STATE_NOSHOP || state == IOwnerService.SHOP_STATE_REJECT) {
             return true;
         }
