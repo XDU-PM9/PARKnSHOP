@@ -24,7 +24,7 @@
   </tr>
   <tr>
     
-    <td height="35"><a href="Test2.jsp" target="mainFrame" class="cray">Register New Shop</a></td>
+    <td height="35"><a href="/owner/query" target="mainFrame" class="cray">Register New Shop</a></td>
   </tr>
   
   <tr>

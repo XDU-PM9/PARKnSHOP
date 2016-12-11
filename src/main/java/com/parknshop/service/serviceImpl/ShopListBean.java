@@ -17,7 +17,7 @@ import java.util.List;
  */
 @Scope(value = "prototype")
 @Component
-public class ShopListBean  extends AbstractListBean{
+public class ShopListBean  extends AbstractListBean<ShopAndOwnerDbBean>{
     //管理员查看所有请求商铺
     final
     IBaseDao<ShopAndOwnerDbBean> mDao;
@@ -45,10 +45,7 @@ public class ShopListBean  extends AbstractListBean{
     }
     @Override
     protected List<ShopAndOwnerDbBean> initList(int page, int lines){
-        String hql ="select new com.parknshop.bean.ShopAndOwnerDbBean "+//
-                "(o.ownerId,o.username,o.realname,o.userImage,o.phone,o.email,o.address,o.identityId,o.picture,o.balance,o.state,"+//
-                 "s.shopId,s.shopName,s.introduction,s.photoGroup,s.views,s.logo,s.state,s.createTime)"+//
-                " from OwnerEntity as o,ShopEntity as s where o.ownerId = s.ownerByOwnerId.ownerId "+//
+        String hql =PersonShopListBean.hql+
                 " and s.state = ?"+//
                  " order by s.shopId desc ";
         Object[] param = {IOwnerService.SHOP_STATE_CHECKING};

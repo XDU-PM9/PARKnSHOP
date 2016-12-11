@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Title</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1 , user-scalable=no">
+    <link rel="stylesheet" href="/resources/css/owner/owner.css">
+</head>
+<body>
+    <div class="main">
+        <div class="header">
+            <h1>Please complete the information of your shop</h1>
+            <p></p>
+        </div>
+        <form action="/owner/apply" enctype="multipart/form-data" method="post">
+            <ul class="formInfor">
+                <li>
+                    <input type="text" name="realName" id="realName" placeholder="Please input your reaname" required/>
+                </li>
+                <li>
+                    <input type="text" name="idNumber" id="idNumber" placeholder="Please input your id number" required>
+                </li>
+                <li>
+                    <input type="text" name="phone" id="phone" placeholder="Please input your phone number" required>
+                </li>
+
+                <li>
+                    <input type="text" name="shopName" id="shopName" placeholder="Please input your shop name" required>
+                </li>
+                <li>
+                    <input type="text" name="shopDesc" id="shopDesc" placeholder="Please descrip your shop simply" required/>
+                </li>
+                <div style="margin: 10px 0 10px 0">
+                    <label for="person">Please Upload your photo:&nbsp;</label>
+                    <input type="file" name="person" id="person"/>
+                </div>
+
+                <div style="margin: 10px 0 10px 0">
+                    <label for="logo">Please Upload the logo of your shop:&nbsp;</label>
+                    <input type="file" name="logo" id="logo" />
+                </div>
+                <div style="margin: 10px 0 10px 0">
+                    <label for="theme">Please Upload the theme of your shop:&nbsp;</label>
+                    <input type="file" name="theme" id="theme" />
+                </div>
+
+                <input type="submit" value="Submit" id="inforSub"/>
+            </ul>
+        </form>
+    </div>
+</body>
+</html>

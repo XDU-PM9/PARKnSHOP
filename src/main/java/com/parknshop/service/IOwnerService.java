@@ -15,7 +15,7 @@ public interface IOwnerService {
      */
     int SHOP_STATE_ELSE = -3;//其他错误
     int SHOP_STATE_NOSHOP =-2;//没有商店
-    int SHOP_STATE_DELETE = -1;//商店已被删除删除
+    int SHOP_STATE_DELETE = -1;//商店已被删除
     int SHOP_STATE_REJECT = 0;//商店被拒绝
     int SHOP_STATE_CHECKING =1;//商店申请
     int SHOP_STATE_BLAKE = 2;//商店被拉黑

@@ -23,7 +23,7 @@ PNS.config(['$routeProvider',
                 })
                 .when('/owner/login', {
                     controller: 'OwnerCtrl',
-                    templateUrl: '../../resources/view/owner/login.html'
+                    templateUrl: '../../resources/view/owner/login.jsp'
                 })
                 .when('/owner/regist', {
                     controller: 'OwnerCtrl',
@@ -39,7 +39,7 @@ PNS.config(['$routeProvider',
                 })
                 .when('/customer/login', {
                     controller: 'CustomerCtrl',
-                    templateUrl: '../../resources/view/customer/login.html'
+                    templateUrl: '../../resources/view/customer/login.jsp'
                 })
                 .when('/customer/regist', {
                     controller: 'CustomerCtrl',
@@ -51,7 +51,7 @@ PNS.config(['$routeProvider',
                 })
                 .when('/admin/login', {
                     controller: 'AdminCtrl',
-                    templateUrl: '../../resources/view/admin/login.html'
+                    templateUrl: '../../resources/view/admin/login.jsp'
                 })
                 .when('/admin/regist', {
                     controller: 'AdminCtrl',

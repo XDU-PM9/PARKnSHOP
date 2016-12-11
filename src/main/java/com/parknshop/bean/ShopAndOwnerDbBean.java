@@ -1,5 +1,11 @@
 package com.parknshop.bean;
 
+import com.parknshop.dao.IBaseDao;
+import com.parknshop.dao.IPictureDao;
+import com.parknshop.dao.daoImpl.BaseDao;
+import com.parknshop.dao.daoImpl.PitureDao;
+import com.parknshop.entity.PhotoEntity;
+
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -34,7 +40,7 @@ public class ShopAndOwnerDbBean {
     private Date timestamp;
     private int shopState;
 
-    private List<String> picturePath;//图片组地址
+    private List<PhotoEntity> picturePath;//图片组地址
 
     public String getRealname() {
         return realname;
@@ -94,24 +100,13 @@ public class ShopAndOwnerDbBean {
         this.logo = logo;
         this.timestamp =timestamp;
         this.shopState = shopState;
+        //初始化 图片列表
+        initPhotoList();
     }
-    public ShopAndOwnerDbBean(int ownerId, String username, String phone, String email, String address, String identityId, String picture, Double balance, int ownerState) {
-        this.ownerId = ownerId;
-        this.username = username;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        this.identityId = identityId;
-        this.picture = picture;
-        this.balance = balance;
-        this.ownerState = ownerState;
-        this.shopName = shopName;
-        this.introduction = introduction;
-        this.photoGroup = photoGroup;
-        this.views = views;
-        this.logo = logo;
-
-        this.shopState = shopState;
+    private void initPhotoList(){
+        IBaseDao<PhotoEntity> pDao = new BaseDao<>();
+        IPictureDao dao = new PitureDao( pDao);
+        this.picturePath = dao.getPictures(this.photoGroup);
     }
 
     public String getUsername() {
@@ -234,11 +229,11 @@ public class ShopAndOwnerDbBean {
         this.shopState = shopState;
     }
 
-    public List<String> getPicturePath() {
+    public List<PhotoEntity> getPicturePath() {
         return picturePath;
     }
 
-    public void setPicturePath(List<String> picturePath) {
+    public void setPicturePath(List<PhotoEntity> picturePath) {
         this.picturePath = picturePath;
     }
 
