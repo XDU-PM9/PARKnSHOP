@@ -43,6 +43,10 @@ public class AdminController {
     public String logon() {
         return "/admin/login.jsp";
     }
+    @RequestMapping(value = "test", method = RequestMethod.GET)
+    public String test() {
+        return "/admin/manageowner.jsp";
+    }
     @RequestMapping(value = "index", method = RequestMethod.GET)
     public String index() {
         return "/admin/index.jsp";
@@ -80,6 +84,7 @@ public class AdminController {
     public @ResponseBody String apply(@RequestBody byte[] info,HttpSession session){
         boolean login = mService.isLogin();
         ApplyResponseBean response = new ApplyResponseBean();
+        login=true;//测试时打开注释
         if (login) {
             String infoStr = new String(info);
             System.out.println(infoStr);
@@ -116,8 +121,8 @@ public class AdminController {
         boolean islogin = mService.isLogin();
         ShopCheckBean shopCheckBean = new ShopCheckBean();
         ReplyReponseBean replyReponseBean = new ReplyReponseBean();
-        /*islogin=true;*/
-        /*postman测试时取消上面注释,默认是登录状态*/
+        islogin=true;
+        //postman测试时取消上面注释,默认是登录状态
         if (islogin){
             String infoStr = new String(info);
             ReplyRequestBean requestBean=mGson.fromJson(infoStr,ReplyRequestBean.class);

@@ -9,7 +9,7 @@
         <property name="connection.username">root</property>
 
 
-        <property name="connection.password">123456</property>
+        <property name="connection.password">8023</property>
 
         <mapping class="com.parknshop.entity.CartEntity"/>
 

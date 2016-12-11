@@ -20,7 +20,7 @@
   </tr>
   <tr>
     
-    <td height="35"><a href="/owner/OwnerInformation" target="mainFrame" class="cray">Personal Information</a></td>
+    <td height="35"><a href="/owner/applyall" target="mainFrame" class="cray">Personal Information</a></td>
   </tr>
   <tr>
     
