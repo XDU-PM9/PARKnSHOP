@@ -145,7 +145,7 @@ public class OwnerService implements IOwnerService {
                     goodsEntity.setPhotoGroup(photoGroup);
                 }
                 //保存
-                goodDao.save(goodsEntity);
+                goodDao.update(goodsEntity);
                 return true;
             }
         }catch (Exception e){
