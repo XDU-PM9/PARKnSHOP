@@ -34,6 +34,7 @@ public class CartService implements ICartService {
         try {
             cartEntityDao.update(ce);
         } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
         return true;
@@ -53,10 +54,6 @@ public class CartService implements ICartService {
     }
 
     public List<CartEntity> getProducts(int userId, int first, int count) {
-//        Object[] o=new Object[1];
-//        UserEntity userEntity=userEntityDao.get("from UserEntity user ",o);
-//        o[0]=userId;
-//        return  cartEntityDao.find("from CartEntity ce where ce.userId=?",o);
         try {
             return cartEntityDao.findNumberRows("from CartEntity where userEntity = ?", new Object[]{getUserEntity(userId)}, first, count);
         } catch (Exception e) {
@@ -77,9 +74,11 @@ public class CartService implements ICartService {
                 // cartEntity.setUserId(userId);
                 cartEntity.setGoodsEntity(getGoodsEntity(goodsId));
                 cartEntity.setUserByUserId(getUserEntity(userId));
-                cartEntityDao.saveOrUpdate(cartEntity);
+                cartEntity.setSingleGoodId(0);
+                cartEntityDao.save(cartEntity);
                 return true;
             } catch (Exception e) {
+                e.printStackTrace();
                 return false;
             }
         } else {
@@ -92,6 +91,7 @@ public class CartService implements ICartService {
             //若成功执行且影响的行数大于0,返回true，否则返回false
             return cartEntityDao.executeHql("delete from CartEntity where cartId = ?", new Object[]{cartId}) > 0 ? true : false;
         } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
     }
@@ -102,6 +102,7 @@ public class CartService implements ICartService {
             //若成功执行且影响的行数大于0,返回true，否则返回false
             return cartEntityDao.executeHql("delete from CartEntity where userByUserId = ? and goodsEntity = ", new Object[]{getUserEntity(userId), getGoodsEntity(goodsId)}) > 0 ? true : false;
         } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
     }
@@ -110,6 +111,7 @@ public class CartService implements ICartService {
         try {
             return cartEntityDao.get("from CartEntity where cartId=?", new Object[]{cartId});
         } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
     }
@@ -117,18 +119,38 @@ public class CartService implements ICartService {
     @Override
     public CartEntity getCart(int userId, int goodsId) {
         try {
-            //若成功执行且影响的行数大于0,返回true，否则返回false
             return cartEntityDao.get("from CartEntity where userByUserId = ? and goodsEntity = ", new Object[]{getUserEntity(userId), getGoodsEntity(goodsId)});
         } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
     }
 
+    @Override
+    public long getCount(int userId) {
+        try{
+            return cartEntityDao.count("from CartEntity where userByUserId = ?",new Object[]{getUserEntity(userId)});
+        }catch (Exception e){
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
     private UserEntity getUserEntity(int userId) {
-        return userEntityDao.get("from UserByUserId where userId = ?", new Object[]{userId});
+        try {
+            return userEntityDao.get("from UserEntity where userId = ?", new Object[]{userId});
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
     private GoodsEntity getGoodsEntity(int goodsId) {
-        return goodsEntityBaseDao.get("from GoodsEntity where goodsId = ?", new Object[]{goodsId});
+        try {
+            return goodsEntityBaseDao.get("from GoodsEntity where goodsId = ?", new Object[]{goodsId});
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 }

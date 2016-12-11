@@ -4,8 +4,9 @@ import com.parknshop.entity.CartEntity;
 import com.parknshop.entity.GoodsEntity;
 import com.parknshop.entity.ShopEntity;
 import com.parknshop.service.customerService.Cart;
-import com.parknshop.service.customerService.IGetProductList;
+import com.parknshop.service.customerService.IGetList;
 import com.parknshop.service.customerService.Product;
+import com.parknshop.service.customerService.Shop;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.cfg.Configuration;
@@ -18,7 +19,7 @@ import java.util.List;
  * Created by wei on 16-12-9.
  */
 @Service
-public class GetProductList implements IGetProductList {
+public class GetList implements IGetList {
 
     @Override
     public Cart getCart(CartEntity cartEntity) throws NullPointerException{
@@ -56,6 +57,8 @@ public class GetProductList implements IGetProductList {
                 .setDiscount(goodsEntity.getDiscount())
                 .setGoodsIntroduction(goodsEntity.getIntroduction())
                 .setPicture(getPhoto(goodsEntity.getPhotoGroup()))
+                .setView(goodsEntity.getViews())
+                .setSales(goodsEntity.getSales())
                 .setShopId(goodsEntity.getShopByShopId().getShopId())
                 .setShopName(goodsEntity.getShopByShopId().getShopName())
                 .setTips(String.valueOf(goodsEntity.getState()));
@@ -70,8 +73,25 @@ public class GetProductList implements IGetProductList {
         return products;
     }
 
+    @Override
+    public Shop getShop(ShopEntity shopEntity) {
+        return new Shop(shopEntity.getShopId(),shopEntity.getShopName(),shopEntity.getIntroduction(),shopEntity.getLogo(),shopEntity.getViews());
+    }
+
+    @Override
+    public List<Shop> getShops(List<ShopEntity> shopEntityList) {
+        List shops=new ArrayList<Shop>();
+        for(ShopEntity shopEntity:shopEntityList){
+            shops.add(getShop(shopEntity));
+        }
+        return shops;
+    }
+
     //获取该商品的第一张图片
     private String getPhoto(String photoGroup) throws NullPointerException{
+        if(null==photoGroup||"".equals(photoGroup)){
+            return "";
+        }
         try{
             Session session = new Configuration().configure().buildSessionFactory().getCurrentSession();
             Query query=session.createQuery("select address from PhotoEntity where photoGroup = ? order by photoId desc ");
