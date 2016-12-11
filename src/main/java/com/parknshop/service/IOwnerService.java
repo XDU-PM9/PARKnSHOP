@@ -1,5 +1,6 @@
 package com.parknshop.service;
 
+import com.parknshop.bean.GoodsDbBean;
 import com.parknshop.bean.ShopAndOwnerDbBean;
 import com.parknshop.entity.GoodsEntity;
 import com.parknshop.entity.OwnerEntity;
@@ -67,7 +68,7 @@ public interface IOwnerService {
      * @return 返回一个存放了数据的 bean 接口 查看 service.IShopListBean
      *          页数不对，返回null
      */
-    IListBean<ShopAndOwnerDbBean> getMyGoods(ShopEntity entity,int page, int lines);
+    IListBean<GoodsDbBean> getMyGoods(ShopEntity entity, int page, int lines);
     /**
      * 创建新商品
      * @param goodsBuilder 记得设置 ownerId的值 ，理论上所有set 都设值

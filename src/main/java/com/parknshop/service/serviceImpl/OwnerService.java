@@ -1,5 +1,6 @@
 package com.parknshop.service.serviceImpl;
 
+import com.parknshop.bean.GoodsDbBean;
 import com.parknshop.bean.ShopAndOwnerDbBean;
 import com.parknshop.dao.IBaseDao;
 import com.parknshop.dao.IPictureDao;
@@ -92,7 +93,7 @@ public class OwnerService implements IOwnerService {
     }
 
     @Override
-    public IListBean<ShopAndOwnerDbBean> getMyGoods(ShopEntity entity, int page, int lines) {
+    public IListBean<GoodsDbBean> getMyGoods(ShopEntity entity, int page, int lines) {
         goodsList.init(entity,page,lines);
         return goodsList;
     }
