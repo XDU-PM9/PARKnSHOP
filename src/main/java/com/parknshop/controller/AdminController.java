@@ -39,15 +39,19 @@ public class AdminController {
             .create();
 
     @RequestMapping(value = "", method = RequestMethod.GET)
+    public String logon() {
+        return "/admin/login.jsp";
+    }
+    @RequestMapping(value = "index", method = RequestMethod.GET)
     public String index() {
-        return "redirect:/#/admin/login";
+        return "/admin/index.jsp";
     }
 
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     public @ResponseBody String login(@RequestBody byte[] info, HttpSession session){
         mService.loginOut();
         String infoStr = new String(info);
-        System.out.println(infoStr);
+        System.out.println(infoStr+"1");
         LoginRequestBean requestBean = mGson.fromJson(infoStr,LoginRequestBean.class);
         int state = mService.loginAsAdmin(requestBean.getUserName(),requestBean.getPassword());
         AdminLoginResponseBean responseBean = new AdminLoginResponseBean();
@@ -62,8 +66,8 @@ public class AdminController {
             responseBean.setError(true);
             responseBean.setMessage("Login failed");
         }
-        responseBean.setData(data);
         return mGson.toJson(responseBean);
+
     }
 
     /**
