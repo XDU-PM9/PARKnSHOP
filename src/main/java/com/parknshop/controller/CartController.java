@@ -4,7 +4,7 @@ import com.parknshop.entity.CartEntity;
 import com.parknshop.entity.UserEntity;
 import com.parknshop.service.baseImpl.IDefineString;
 import com.parknshop.service.customerService.ICartService;
-import com.parknshop.service.customerService.IGetProductList;
+import com.parknshop.service.customerService.IGetList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +24,7 @@ public class CartController {
     @Autowired
     ICartService cartService;
     @Autowired
-    IGetProductList productsList;
+    IGetList productsList;
 
 //    @RequestMapping(value = "/changeAmount",method = RequestMethod.POST)
 //    public @ResponseBody String changeAmount(HttpServletRequest request, HttpSession session)
@@ -64,7 +64,7 @@ public class CartController {
     @RequestMapping(value = "/addProduct",method = RequestMethod.POST)
     public @ResponseBody String addCart(@RequestParam int goodsId,@RequestParam int amount,HttpSession session){
         int userId=getUserId(session);
-        userId=12;
+//        userId=12;
         if(userId<1){
             return "please login";
         }
