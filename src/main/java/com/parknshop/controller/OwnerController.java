@@ -190,6 +190,9 @@ public class OwnerController {
                 } else if (!newPassword.equals(confirmpwd)) {
                     request.setAttribute(MSG, "The passing words you entered must be the same in the latest two times");
                     return "owner/ownerPassword_Edit.jsp";
+                } else if(newPassword.equals(user.getPassword())){
+                    request.setAttribute(MSG,"The new password is the same as old password");
+                    return "owner/ownerPassword_Edit.jsp";
                 } else {
                     user.setPassword(newPassword);
                     int state = mOwnerService.updateOwner(user);
