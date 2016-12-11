@@ -26,4 +26,6 @@ public interface ICartService {
     public CartEntity  getCartById(int cartId);
 
     public CartEntity getCart(int userId,int goodsId);
+
+    public long getCount(int userID);
 }
