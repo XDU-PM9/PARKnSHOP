@@ -23,11 +23,32 @@ public class GoodsEntity {
     private Timestamp createTime;
     private Integer views;
     private Integer state;
+    private String type;
+    private int sales;
     private Collection<CollectionEntity> collectionsByGoodsId;
     private ShopEntity shopByShopId;
     private Collection<OrdersEntity> orderssByGoodsId;
     private Collection<SinglegoodEntity> singlegoodsByGoodsId;
 
+    @Basic
+    @Column(name ="sales",nullable = false,columnDefinition = "int DEFAULT 0")
+    public int getSales() {
+        return sales;
+    }
+
+    public void setSales(int sales) {
+        this.sales = sales;
+    }
+
+    @Basic
+    @Column(name = "type",nullable = false,columnDefinition = "varchar(50) DEFAULT other")
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "goodsId", nullable = false)

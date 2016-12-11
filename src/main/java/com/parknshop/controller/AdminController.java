@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.parknshop.bean.*;
 import com.parknshop.entity.AdminEntity;
+import com.parknshop.entity.OwnerEntity;
 import com.parknshop.service.IAdminService;
 import com.parknshop.service.IListBean;
 import com.parknshop.service.IUserService;
@@ -142,4 +143,179 @@ public class AdminController {
         return "";
     }
 
+    /**
+     * 管理店主
+     * */
+    @RequestMapping(value = "/searchowner",method = RequestMethod.POST)
+    public @ResponseBody String SearchOwner(@RequestBody byte[] info, HttpSession session){
+        boolean isLogin = mService.isLogin();
+        SearchOwnerResponseBean responseBean = new SearchOwnerResponseBean();
+        SearchOwnerResponseBean.DataBean dataBean = new SearchOwnerResponseBean.DataBean();
+        isLogin=true;
+        if (isLogin){
+            String infoStr = new String(info);
+            SearchOwnerRequestBean requestBean = mGson.fromJson(infoStr,SearchOwnerRequestBean.class);
+            OwnerEntity ownerEntity = mAdminService.getOwnerById(requestBean.getOwnerId());
+            if(ownerEntity != null){
+                responseBean.setError(false);
+                dataBean.setOwnerId(ownerEntity.getOwnerId());
+                dataBean.setUsername(ownerEntity.getUsername());
+                dataBean.setUserImage(ownerEntity.getUserImage());
+                dataBean.setRealname(ownerEntity.getRealname());
+                dataBean.setPhone(ownerEntity.getPhone());
+                dataBean.setEmail(ownerEntity.getEmail());
+                dataBean.setAddress(ownerEntity.getAddress());
+                dataBean.setState(ownerEntity.getState());
+            }else{
+                responseBean.setError(true);
+            }
+        }else {
+            responseBean.setError(true);
+        }
+        if(responseBean.isError() == true){//如果response的error=true，给dataBean赋一组明显错误的值
+            dataBean.setOwnerId(-11111);
+            dataBean.setUsername("--");
+            dataBean.setUserImage("--");
+            dataBean.setRealname("--");
+            dataBean.setPhone("--");
+            dataBean.setEmail("--");
+            dataBean.setAddress("--");
+            dataBean.setState(-11111);
+        }
+        responseBean.setData(dataBean);
+        return mGson.toJson(responseBean);
+    }
+
+    @RequestMapping(value = "/blackowner",method = RequestMethod.POST)
+    public @ResponseBody String BlackOwner(@RequestBody byte[] info, HttpSession session){
+        boolean isLogin = mService.isLogin();
+        BlackorWhiteorDeleteResponseBean responseBean = new BlackorWhiteorDeleteResponseBean();
+//        isLogin=true;
+        if(isLogin){
+            String infoStr = new String(info);
+            BlackorWhiteorDeleteOwnerRequestBean requestBean = mGson.fromJson(infoStr,BlackorWhiteorDeleteOwnerRequestBean.class);
+            responseBean.setError(!mAdminService.blackOwner(requestBean.getOwnerId()));
+        }else{
+            responseBean.setError(true);
+        }
+        return mGson.toJson(responseBean);
+    }
+
+    @RequestMapping(value = "/whiteowner",method = RequestMethod.POST)
+    public @ResponseBody String WhiteOwner(@RequestBody byte[] info, HttpSession session){
+        boolean isLogin = mService.isLogin();
+        BlackorWhiteorDeleteResponseBean responseBean = new BlackorWhiteorDeleteResponseBean();
+//        isLogin=true;
+        if(isLogin){
+            String infoStr = new String(info);
+            BlackorWhiteorDeleteOwnerRequestBean requestBean = mGson.fromJson(infoStr,BlackorWhiteorDeleteOwnerRequestBean.class);
+            responseBean.setError(!mAdminService.whiteOwner(requestBean.getOwnerId()));
+        }else{
+            responseBean.setError(true);
+        }
+        return mGson.toJson(responseBean);
+    }
+
+    @RequestMapping(value = "/deleteowner",method = RequestMethod.POST)
+    public @ResponseBody String DeleteOwner(@RequestBody byte[] info, HttpSession session){
+        boolean isLogin = mService.isLogin();
+        BlackorWhiteorDeleteResponseBean responseBean = new BlackorWhiteorDeleteResponseBean();
+//        isLogin=true;
+        if(isLogin){
+            String infoStr = new String(info);
+            BlackorWhiteorDeleteOwnerRequestBean requestBean = mGson.fromJson(infoStr,BlackorWhiteorDeleteOwnerRequestBean.class);
+            responseBean.setError(!mAdminService.deleteOwner(requestBean.getOwnerId()));
+        }else{
+            responseBean.setError(true);
+        }
+        return mGson.toJson(responseBean);
+    }
+
+    /**
+     * 管理店铺
+     * */
+    @RequestMapping(value = "/searchshop",method = RequestMethod.POST)
+    public @ResponseBody String SearchShop(@RequestBody byte[] info, HttpSession session){
+        boolean isLogin = mService.isLogin();
+        SearchShopResponseBean responseBean = new SearchShopResponseBean();
+        SearchShopResponseBean.DataBean dataBean = new SearchShopResponseBean.DataBean();
+//        isLogin=true;
+        if (isLogin){
+            String infoStr = new String(info);
+            SearchShopRequestBean requestBean = mGson.fromJson(infoStr,SearchShopRequestBean.class);
+            ShopAndOwnerDbBean shopAndOwnerBean = mAdminService.getShopById(requestBean.getShopid());
+            if(shopAndOwnerBean != null){
+                responseBean.setError(false);
+                dataBean.setShopId(shopAndOwnerBean.getShopId());
+                dataBean.setShopName(shopAndOwnerBean.getShopName());
+                dataBean.setIntroduction(shopAndOwnerBean.getIntroduction());
+                dataBean.setPhotoGroup(shopAndOwnerBean.getPhotoGroup());
+                dataBean.setViews(shopAndOwnerBean.getViews());
+                dataBean.setLogo(shopAndOwnerBean.getLogo());
+                dataBean.setState(shopAndOwnerBean.getShopState());
+                dataBean.setOwnerId(shopAndOwnerBean.getOwnerId());
+            }else{
+                responseBean.setError(true);
+            }
+        }else {
+            responseBean.setError(true);
+        }
+        if(responseBean.isError() == true){//如果response的error=true，给dataBean赋一组明显错误的值
+            dataBean.setShopId(-11111);
+            dataBean.setShopName("--");
+            dataBean.setIntroduction("--");
+            dataBean.setPhotoGroup("--");
+            dataBean.setViews(-11111);
+            dataBean.setLogo("--");
+            dataBean.setState(-11111);
+            dataBean.setOwnerId(-11111);
+        }
+        responseBean.setData(dataBean);
+        return mGson.toJson(responseBean);
+    }
+
+    @RequestMapping(value = "/blackshop",method = RequestMethod.POST)
+    public @ResponseBody String BlackShop(@RequestBody byte[] info, HttpSession session){
+        boolean isLogin = mService.isLogin();
+        BlackorWhiteorDeleteResponseBean responseBean = new BlackorWhiteorDeleteResponseBean();
+//        isLogin=true;
+        if(isLogin){
+            String infoStr = new String(info);
+            BlackorWhiteorDeleteShopRequestBean requestBean = mGson.fromJson(infoStr,BlackorWhiteorDeleteShopRequestBean.class);
+            responseBean.setError(!mAdminService.blackShop(requestBean.getShopid()));
+        }else{
+            responseBean.setError(true);
+        }
+        return mGson.toJson(responseBean);
+    }
+
+    @RequestMapping(value = "/whiteshop",method = RequestMethod.POST)
+    public @ResponseBody String WhiteShop(@RequestBody byte[] info, HttpSession session){
+        boolean isLogin = mService.isLogin();
+        BlackorWhiteorDeleteResponseBean responseBean = new BlackorWhiteorDeleteResponseBean();
+//        isLogin=true;
+        if(isLogin){
+            String infoStr = new String(info);
+            BlackorWhiteorDeleteShopRequestBean requestBean = mGson.fromJson(infoStr,BlackorWhiteorDeleteShopRequestBean.class);
+            responseBean.setError(!mAdminService.whiteShop(requestBean.getShopid()));
+        }else{
+            responseBean.setError(true);
+        }
+        return mGson.toJson(responseBean);
+    }
+
+    @RequestMapping(value = "/deleteshop",method = RequestMethod.POST)
+    public @ResponseBody String DeleteShop(@RequestBody byte[] info, HttpSession session){
+        boolean isLogin = mService.isLogin();
+        BlackorWhiteorDeleteResponseBean responseBean = new BlackorWhiteorDeleteResponseBean();
+//        isLogin=true;
+        if(isLogin){
+            String infoStr = new String(info);
+            BlackorWhiteorDeleteShopRequestBean requestBean = mGson.fromJson(infoStr,BlackorWhiteorDeleteShopRequestBean.class);
+            responseBean.setError(!mAdminService.deleteShop(requestBean.getShopid()));
+        }else{
+            responseBean.setError(true);
+        }
+        return mGson.toJson(responseBean);
+    }
 }

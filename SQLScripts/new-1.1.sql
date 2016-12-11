@@ -173,6 +173,8 @@ CREATE TABLE `goods` (
   `createTime` datetime NOT NULL,
   `views` int(11) NOT NULL,
   `state` int(11) NOT NULL,
+  'type' varchar(50) DEFAULT 'other' NOT NULL,
+  'sales' INT DEFAULT 0 NOT NULL,
   PRIMARY KEY (`goodsId`),
   KEY `FK_Reference_3` (`shopId`),
   CONSTRAINT `FK_Reference_3` FOREIGN KEY (`shopId`) REFERENCES `shop` (`shopId`)

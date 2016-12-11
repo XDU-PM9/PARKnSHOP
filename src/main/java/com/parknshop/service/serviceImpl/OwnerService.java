@@ -2,11 +2,11 @@ package com.parknshop.service.serviceImpl;
 
 import com.parknshop.bean.ShopAndOwnerDbBean;
 import com.parknshop.dao.IBaseDao;
+import com.parknshop.dao.IPictureDao;
 import com.parknshop.dao.daoImpl.BaseDao;
-import com.parknshop.entity.OwnerEntity;
-import com.parknshop.entity.PhotoEntity;
-import com.parknshop.entity.RoleEntity;
-import com.parknshop.entity.ShopEntity;
+import com.parknshop.dao.daoImpl.PitureDao;
+import com.parknshop.entity.*;
+import com.parknshop.service.IGoodsBuilder;
 import com.parknshop.service.IListBean;
 import com.parknshop.service.IOwnerService;
 import com.parknshop.service.baseImpl.IUploadPictures;
@@ -29,16 +29,20 @@ public class OwnerService implements IOwnerService {
     final
     IBaseDao<ShopEntity> mDaoShop;
     final
-    IBaseDao<PhotoEntity> mDaoPhoto;
+    IPictureDao mDaoPhoto;
     final
     IListBean listBean;
-
+    final
+    IBaseDao<GoodsEntity> goodDao;
+    private final IListBean goodsList;
     @Autowired
-    public OwnerService(IBaseDao<OwnerEntity> mDao, IBaseDao<ShopEntity> mDaoShop, IBaseDao<PhotoEntity> mDaoPhoto, PersonShopListBean listBean) {
+    public OwnerService(IBaseDao<OwnerEntity> mDao, IBaseDao<ShopEntity> mDaoShop, PitureDao mDaoPhoto, PersonShopListBean listBean, IBaseDao<GoodsEntity> goodDao, GoodsListBean goodsList) {
         this.mDao = mDao;
         this.mDaoShop = mDaoShop;
         this.mDaoPhoto = mDaoPhoto;
         this.listBean = listBean;
+        this.goodDao = goodDao;
+        this.goodsList = goodsList;
     }
 
     //更新用户
@@ -62,7 +66,7 @@ public class OwnerService implements IOwnerService {
         //生成 photoGroup
         String photoGroup = String.valueOf(ownerEntity.getOwnerId())+String.valueOf(System.currentTimeMillis());
 
-        if(!savePicture(listPath,photoGroup)){
+        if(!mDaoPhoto.savePicture(listPath,photoGroup)){
             //保存图片错误
             return NEW_ERROPICTURE;
         }else {//保存图片
@@ -71,7 +75,7 @@ public class OwnerService implements IOwnerService {
         shopEntity.setState(SHOP_STATE_CHECKING);//正在申请状态
         shopEntity.setViews(0);//访问量0
         try{
-            mDao.save(ownerEntity);
+            mDao.update(ownerEntity);
             mDaoShop.save(shopEntity);
             return NEW_SUCCESS;
 
@@ -85,6 +89,70 @@ public class OwnerService implements IOwnerService {
     public IListBean<ShopAndOwnerDbBean> getMyShop(OwnerEntity entity,int page, int lines) {
         listBean.init(entity,page,lines);
         return listBean;
+    }
+
+    @Override
+    public IListBean<ShopAndOwnerDbBean> getMyGoods(ShopEntity entity, int page, int lines) {
+        goodsList.init(entity,page,lines);
+        return goodsList;
+    }
+
+    @Override
+    public int newGoods(IGoodsBuilder goodsBuilder, IUploadPictures pictures) {
+        try {
+            GoodsEntity goodsEntity = goodsBuilder.builder();
+            //回调
+            List<String> listPath= pictures.getPicturePaths();
+            //生成 photoGroup
+            String photoGroup ="Good"+String.valueOf(goodsEntity.getGoodsId())+String.valueOf(System.currentTimeMillis());
+
+            if(!mDaoPhoto.savePicture(listPath,photoGroup)){
+                //保存图片错误
+                return NEW_ERROPICTURE;
+            }else {//保存图片
+                goodsEntity.setPhotoGroup(photoGroup);
+            }
+            //保存
+            goodDao.save(goodsEntity);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return NEW_BUILDER_ERROR;
+        }
+        return 0;
+    }
+
+    @Override
+    public boolean deletGoods(int goodId) {
+        return updateGoodState(IGoodsBuilder.GOOD_SATE_DELETE,goodId);
+    }
+
+    @Override
+    public boolean updateGoods(GoodsEntity goodsEntity, IUploadPictures uploadPictures) {
+        try {
+            if (null == uploadPictures) {
+                goodDao.update(goodsEntity);
+                return true;
+            }else {
+                List<String> listPath= uploadPictures.getPicturePaths();
+                //生成 photoGroup
+                String photoGroup ="Good"+String.valueOf(goodsEntity.getGoodsId())+String.valueOf(System.currentTimeMillis());
+
+                if(!mDaoPhoto.savePicture(listPath,photoGroup)){
+                    //保存图片错误
+                    return false;
+                }else {//保存图片
+                    goodsEntity.setPhotoGroup(photoGroup);
+                }
+                //保存
+                goodDao.save(goodsEntity);
+                return true;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+
     }
 
 
@@ -122,18 +190,19 @@ public class OwnerService implements IOwnerService {
         }
 
     }
-    private boolean savePicture(List<String> list ,String photoGroup){
-        try{
-            //这里使用new 防止出问题
-            List<PhotoEntity> photoList = new ArrayList<>();
-            for(String path:list){//添加数据
-                PhotoEntity photoEntity = new PhotoEntity();
-                photoEntity.setPhotoGroup(photoGroup);
-                photoEntity.setAddress(path);
-                photoList.add(photoEntity);
+    //更新商品状态
+    private  boolean updateGoodState(int type,int goodsId){
+        try {
+            GoodsEntity entity = goodDao.get(GoodsEntity.class, goodsId);
+            if(null != entity) {
+                entity.setState(type);//可以使用
+                goodDao.update(entity);
+                int h;//没用的，不要提醒代码重复
+                return true;
+            }else {
+                return false;
             }
-            mDaoPhoto.save(photoList);
-            return true;
+
         }catch (Exception e){
             e.printStackTrace();
             return false;

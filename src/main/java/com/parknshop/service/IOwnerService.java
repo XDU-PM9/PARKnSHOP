@@ -1,6 +1,7 @@
 package com.parknshop.service;
 
 import com.parknshop.bean.ShopAndOwnerDbBean;
+import com.parknshop.entity.GoodsEntity;
 import com.parknshop.entity.OwnerEntity;
 import com.parknshop.entity.ShopEntity;
 import com.parknshop.service.baseImpl.IUploadPictures;
@@ -15,7 +16,7 @@ public interface IOwnerService {
      */
     int SHOP_STATE_ELSE = -3;//其他错误
     int SHOP_STATE_NOSHOP =-2;//没有商店
-    int SHOP_STATE_DELETE = -1;//商店已被删除删除
+    int SHOP_STATE_DELETE = -1;//商店已被删除
     int SHOP_STATE_REJECT = 0;//商店被拒绝
     int SHOP_STATE_CHECKING =1;//商店申请
     int SHOP_STATE_BLAKE = 2;//商店被拉黑
@@ -57,4 +58,41 @@ public interface IOwnerService {
      *          页数不对，返回null
      */
     IListBean<ShopAndOwnerDbBean> getMyShop(OwnerEntity entity,int page, int lines);
+
+    /**
+     * 获取 商品列表
+     * @param entity
+     * @param page 请求第几页
+     * @param lines 请求多少条
+     * @return 返回一个存放了数据的 bean 接口 查看 service.IShopListBean
+     *          页数不对，返回null
+     */
+    IListBean<ShopAndOwnerDbBean> getMyGoods(ShopEntity entity,int page, int lines);
+    /**
+     * 创建新商品
+     * @param goodsBuilder 记得设置 ownerId的值 ，理论上所有set 都设值
+     * @param pictures
+     * @return
+     *  int NEW_ERROPICTURE = -1;//图片上传失败
+     *  int NEW_FAIL =0;//创建 商店
+     * int NEW_SUCCESS = 1;//商店创建成功
+     */
+    int NEW_BUILDER_ERROR = -2;
+    int newGoods(IGoodsBuilder goodsBuilder,IUploadPictures pictures);
+
+    /**
+     * 删除商品
+     * @param goodId
+     * @return
+     */
+    boolean  deletGoods(int goodId);
+
+    /**
+     * 更新商品 信息
+     * @param goodsEntity
+     * @param uploadPictures 若为空则不更新图片
+     * @return
+     */
+    boolean updateGoods(GoodsEntity goodsEntity,IUploadPictures uploadPictures);
+
 }

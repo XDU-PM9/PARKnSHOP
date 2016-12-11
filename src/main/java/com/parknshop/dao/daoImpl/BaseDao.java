@@ -204,6 +204,32 @@ public class BaseDao<T> implements IBaseDao<T> {
         return ts;
     }
 
+    @Override
+    public List<T> findNumberRows(String hql, Object[] param, Integer first, Integer max) {
+        Session session=this.getCurrentSession();
+        Query query=session.createQuery(hql);
+        if(param!=null){
+            for(int i=0;i<param.length;i++){
+                query.setParameter(i,param[i]);
+            }
+        }
+        List<T> result=query.setFirstResult(first).setMaxResults(max).list();
+        session.close();
+        return result;
+    }
+
+    @Override
+    public List<T> findNumberRows(String hql, List param, Integer first, Integer max) {
+        Session session=this.getCurrentSession();
+        Query query=session.createQuery(hql);
+        for(int i=0;i<param.size();i++){
+            query.setParameter(i, param.get(i));
+        }
+        List<T> result=query.setFirstResult(first).setMaxResults(max).list();
+        session.close();
+        return result;
+    }
+
     public List<T> find(String hql, List<Object> param, Integer page, Integer rows) {
         Session session = this.getCurrentSession();
         if (page == null || page < 1) {

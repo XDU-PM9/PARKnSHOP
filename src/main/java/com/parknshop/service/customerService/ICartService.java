@@ -9,15 +9,23 @@ import java.util.List;
  */
 public interface ICartService {
 
+    //改变单个商品的数量
+    public  boolean changeAmount(int cartId,int amount);
 
+    public boolean changeAmount(int userId,int goodsId,int amount);
 
-    public  boolean changeAmount(int cartId,int ammount);
+    //跟据用户ID获取该用户购物车中的商品,max为起始值，count为获取条数
+    public List<CartEntity> getProducts(int userId,int max,int count) ;
 
-    public List<CartEntity> find(int userId) ;
+    public  boolean addProduct(int  userId,int goodsId,int ammount);
 
-    public  void   insert(int  goodsId,int userId,int ammount);
+    public  boolean removeProduct(int cartId);
 
-    public  void   remove(int cartId);
+    public boolean removeProduct(int userId,int goodsId);
 
     public CartEntity  getCartById(int cartId);
+
+    public CartEntity getCart(int userId,int goodsId);
+
+    public long getCount(int userID);
 }
