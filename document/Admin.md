@@ -33,9 +33,6 @@
 {"size":5,"index":1}
 size:请求数据的分页量
 index：按照size分页后的数据第index页
-
-
-
 响应数据格式：json
 响应参数描述：
 {
@@ -207,6 +204,141 @@ index：按照size分页后的数据第index页
 请求格式：JSON
 参数描述：{
 "shopid":"shopid"
+}
+响应参数描述：
+{
+	"error":boolean
+}
+
+
+
+
+
+#请求所有卖家列表
+请求地址：/admin/applyallowner
+方法:POST
+请求格式:JSON
+参数描述：{
+”size：5，
+”index“:1
+}
+响应参数描述：
+{
+"error":boolean,
+"total":9,
+"realSize":5,
+"data":[ {
+        "ownerId": 123,
+        "username": "String",
+        "userImage": "String",
+        "realname": "String",
+        "phone": "String",
+        "email": "String",
+        "address": "String"
+		"state":	"int"
+		}]//注意  这个data是个list  参照ApplyResposeBean.data
+}
+
+
+
+#请求所有店铺列表//这个接口还没写好，getApplyShop拿到的是开店申请 不是店铺
+请求地址：/admin/applyallshop
+方法：POST
+请求格式：JSON
+参数描述：{
+”size：5，
+”index“:1
+}
+
+
+
+响应参数描述：
+{
+"error":boolean,
+"total":9,
+"realSize":5,
+"data":[{
+	"shopId":"int",
+	"shopName":"String",
+	"introduction":"String",
+	"photoGroup":	"String",
+	"views":	"int",
+	"logo":		"String",
+	"state":	"int"
+	"ownerId"	:"int"//通过shopentity.getownerbyownerid.getownerid（）拿到
+	}]//注意  这个data是个list  参照ApplyResposeBean.data
+}
+
+
+
+
+
+#请求所有顾客列表
+请求地址：/admin/applyalluser
+方法：POST
+请求格式：JSON
+参数描述：{
+”size：5，
+”index“:1
+}
+
+
+
+响应参数描述：
+{
+"error":boolean,
+"total":9,
+"realSize":5,
+"data":[{
+	"userId":"int",
+	"username":"String",
+	"phone":	"String",
+	"email":	String",
+	"userImage":"String",
+	"state":	"int"
+	}]//注意  这个data是个list  参照ApplyResposeBean.data
+}
+
+
+
+
+#拉黑顾客
+请求地址/admin/blackuser
+方法：POST
+请求格式：JSON
+参数描述：{
+"userId":"userId"
+}
+响应参数描述：
+{
+	"error":boolean
+}
+
+
+
+#恢复顾客
+
+请求地址: /admin/whiteuser
+方法：POST
+请求格式：JSON
+参数描述：{
+"userId":"userId"
+}
+响应参数描述：
+{
+	"error":boolean
+}
+
+
+
+
+#删除店铺
+
+请求地址: /admin/deleteuser
+方法：POST
+请求格式：JSON
+参数描述：{
+"userId":"userId"
 }
 响应参数描述：
 {
