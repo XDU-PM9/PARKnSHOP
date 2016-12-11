@@ -114,12 +114,11 @@ public class OwnerService implements IOwnerService {
             }
             //保存
             goodDao.save(goodsEntity);
-
+            return  NEW_SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
-            return NEW_BUILDER_ERROR;
+            return NEW_FAIL;
         }
-        return 0;
     }
 
     @Override
