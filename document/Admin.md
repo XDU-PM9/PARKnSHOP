@@ -20,6 +20,7 @@
 
 
 #管理注销模块
+
 请求地址:/admin/logout
 方法:POST
 
@@ -36,7 +37,7 @@ index：按照size分页后的数据第index页
 响应数据格式：json
 响应参数描述：
 {
-    “error”:false,
+    "error":false,
     "total":9,        //按照请求的size分页，总共有几页数据，比如size等于5，数据库有11条数据，那么total为3
     "realSize":5,      //改成响应返回的实际数据量，比如上面，当size为5，index为3时，realSize为1
     "data":
@@ -58,6 +59,7 @@ index：按照size分页后的数据第index页
 
 
 # 管理请求
+
 对于每一个开店请求，管理员可以处理为：允许，或拒绝
 处理结果提交：
 网址：/admin/reply
@@ -68,7 +70,6 @@ index：按照size分页后的数据第index页
   "shopId":12345，
   "result":0/1    //0代表拒绝请求，1代表允许请求
 }
-
 响应格式：json
 参数描述：
 {
@@ -101,6 +102,7 @@ index：按照size分页后的数据第index页
 		}
 }
 
+
 #拉黑店主模块
 
 请求地址:/admin/blackowner
@@ -108,13 +110,14 @@ index：按照size分页后的数据第index页
 请求数据格式：json
 参数描述：
 {
-"ownerId":"ownerid"
+	"ownerId":"ownerid"
 }
 
 响应参数描述：
 {
 	"error":boolean
 }
+
 
 #恢复店主模块
 
@@ -123,13 +126,13 @@ index：按照size分页后的数据第index页
 请求数据格式：json
 参数描述：
 {
-"ownerId":"ownerid"
+	"ownerId":"ownerid"
 }
-
 响应参数描述：
 {
 	"error":boolean
 }
+
 
 #删除店主模块
 
@@ -138,13 +141,13 @@ index：按照size分页后的数据第index页
 请求数据格式：json
 参数描述：
 {
-"ownerId":"ownerid"
+	"ownerId":"ownerid"
 }
-
 响应参数描述：
 {
 	"error":boolean
 }
+
 
 #搜索店铺
 
@@ -152,9 +155,8 @@ index：按照size分页后的数据第index页
 方法:POST
 请求格式：JSON
 参数描述：{
-"shopid":"shopid"
+	"shopid":"shopid"
 }
-
 响应参数描述：
 {
 	"error":boolean,
@@ -170,13 +172,15 @@ index：按照size分页后的数据第index页
 	}
 }
 
+
 #拉黑店铺
 
 请求地址: /admin/blackshop
 方法：POST
 请求格式：JSON
-参数描述：{
-"shopid":"shopid"
+参数描述：
+{
+	"shopid":"shopid"
 }
 响应参数描述：
 {
@@ -189,21 +193,24 @@ index：按照size分页后的数据第index页
 请求地址: /admin/whiteshop
 方法：POST
 请求格式：JSON
-参数描述：{
-"shopid":"shopid"
+参数描述：
+{
+	"shopid":"shopid"
 }
 响应参数描述：
 {
 	"error":boolean
 }
+
 
 #删除店铺
 
 请求地址: /admin/deleteshop
 方法：POST
 请求格式：JSON
-参数描述：{
-"shopid":"shopid"
+参数描述：
+{
+	"shopid":"shopid"
 }
 响应参数描述：
 {
@@ -211,23 +218,22 @@ index：按照size分页后的数据第index页
 }
 
 
-
-
-
 #请求所有卖家列表
+
 请求地址：/admin/applyallowner
 方法:POST
 请求格式:JSON
-参数描述：{
-”size：5，
-”index“:1
+参数描述：
+{
+	”size：5，
+	”index“:1
 }
 响应参数描述：
 {
-"error":boolean,
-"total":9,
-"realSize":5,
-"data":[ {
+	"error":boolean,
+	"total":9,
+	"realSize":5,
+	"data":[ {
         "ownerId": 123,
         "username": "String",
         "userImage": "String",
@@ -240,80 +246,96 @@ index：按照size分页后的数据第index页
 }
 
 
+#请求所有店铺列表
 
-#请求所有店铺列表//这个接口还没写好，getApplyShop拿到的是开店申请 不是店铺
 请求地址：/admin/applyallshop
 方法：POST
 请求格式：JSON
-参数描述：{
-”size：5，
-”index“:1
+参数描述：
+{
+	”size：5，
+	”index“:1
 }
-
-
-
 响应参数描述：
 {
-"error":boolean,
-"total":9,
-"realSize":5,
-"data":[{
-	"shopId":"int",
-	"shopName":"String",
-	"introduction":"String",
-	"photoGroup":	"String",
-	"views":	"int",
-	"logo":		"String",
-	"state":	"int"
-	"ownerId"	:"int"//通过shopentity.getownerbyownerid.getownerid（）拿到
+	"error":boolean,
+	"total":9,
+	"realSize":5,
+	"data":[{
+		"shopId":"int",
+		"shopName":"String",
+		"introduction":"String",
+		"photoGroup":	"String",
+		"views":	"int",
+		"logo":		"String",
+		"state":	"int"
+		"ownerId"	:"int"//通过shopentity.getownerbyownerid.getownerid（）拿到
 	}]//注意  这个data是个list  参照ApplyResposeBean.data
 }
-
-
-
 
 
 #请求所有顾客列表
+
 请求地址：/admin/applyalluser
 方法：POST
 请求格式：JSON
-参数描述：{
-”size：5，
-”index“:1
+参数描述：
+{
+	”size：5，
+	”index“:1
 }
-
-
-
 响应参数描述：
 {
-"error":boolean,
-"total":9,
-"realSize":5,
-"data":[{
-	"userId":"int",
-	"username":"String",
-	"phone":	"String",
-	"email":	String",
-	"userImage":"String",
-	"state":	"int"
+	"error":boolean,
+	"total":9,
+	"realSize":5,
+	"data":[{
+		"userId":"int",
+		"username":"String",
+		"phone":	"String",
+		"email":	String",
+		"userImage":"String",
+		"state":	"int"
 	}]//注意  这个data是个list  参照ApplyResposeBean.data
 }
 
 
+#搜索顾客模块
+
+请求地址：/admin/searchuser
+方法:POST
+请求数据格式：json
+参数描述：
+{
+	"userId":"userid"
+}
+响应数据格式:json
+响应参数描述:
+{
+    "error": "true/false",
+    "data": {
+        "userId": 123,
+        "username": "String",
+        "userImage": "String",
+        "phone": "String",
+        "email": "String",
+		"state": "int"
+	}
+}
 
 
 #拉黑顾客
+
 请求地址/admin/blackuser
 方法：POST
 请求格式：JSON
 参数描述：{
-"userId":"userId"
+	"userId":"userId"
 }
 响应参数描述：
 {
 	"error":boolean
 }
-
 
 
 #恢复顾客
@@ -321,8 +343,9 @@ index：按照size分页后的数据第index页
 请求地址: /admin/whiteuser
 方法：POST
 请求格式：JSON
-参数描述：{
-"userId":"userId"
+参数描述：
+{
+	"userId":"userId"
 }
 响应参数描述：
 {
@@ -330,15 +353,14 @@ index：按照size分页后的数据第index页
 }
 
 
-
-
-#删除店铺
+#删除顾客
 
 请求地址: /admin/deleteuser
 方法：POST
 请求格式：JSON
-参数描述：{
-"userId":"userId"
+参数描述：
+{
+	"userId":"userId"
 }
 响应参数描述：
 {
