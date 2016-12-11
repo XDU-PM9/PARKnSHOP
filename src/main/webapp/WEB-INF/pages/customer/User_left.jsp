@@ -20,7 +20,7 @@
                         <div class="background_img"></div>
                     </div>
                     <div class="user_name">
-                        <p><span class="name">${user.getUsername()}</span><a href="">[Change Password]</a></p>
+                        <p><span class="name">${user.getUsername()}</span><a href="/goPassword">[Change Password]</a></p>
                     </div>
                 </div>
                 <div class="sideMen">
@@ -28,12 +28,12 @@
 
 
                     <dl class="accountSideOption1">
-                        <dt class="transaction_manage"><em class="icon_2"></em>会员中心</dt>
+                        <dt class="transaction_manage"><em class="icon_2"></em>Member Center</dt>
                         <dd>
                             <ul>
-                                <li> <a href="/listUserInfo?userId=6"> User Information</a></li>
+                                <li> <a href="/listUserInfo"> User Information</a></li>
                                 <li> <a href="/goPassword">Change Password</a></li>
-                                <li> <a href="/listAddress?userId=6"> My Address</a></li>
+                                <li> <a href="/listAddress"> My Address</a></li>
                             </ul>
                         </dd>
                     </dl>
@@ -41,11 +41,13 @@
                         <dt class="transaction_manage"><em class="icon_4"></em>My Collection</dt>
                         <dd>
                             <ul>
-                                <li> <a href="#"> Collect Shop</a></li>
-                                <li> <a href="/listAddress?userId=6"> Collect  Product</a></li>
+                                <li> <a href="/listCollectShop?requestPage=1"> Collect Shop</a></li>
+                                <li> <a href="/listCollect?requestPage=1"> Collect  Product</a></li>
                             </ul>
                         </dd>
                     </dl>
+
+                    <!--
                     <dl class="accountSideOption1">
                         <dt class="transaction_manage"><em class="icon_1"></em>Order Center</dt>
                         <dd>
@@ -55,6 +57,7 @@
                             </ul>
                         </dd>
                     </dl>
+
                     <dl class="accountSideOption1">
                         <dt class="transaction_manage"><em class="icon_3"></em>账户中心</dt>
                         <dd>
@@ -64,7 +67,7 @@
                             </ul>
                         </dd>
                     </dl>
-
+                    -->
                 </div>
                 <script>jQuery(".sideMen").slide({titCell:"dt", targetCell:"dd",trigger:"click",defaultIndex:0,effect:"slideDown",delayTime:300,returnDefault:true});</script>
             </div>
