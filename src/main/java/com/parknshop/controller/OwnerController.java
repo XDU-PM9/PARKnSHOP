@@ -4,11 +4,16 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.parknshop.bean.*;
 import com.parknshop.entity.OwnerEntity;
+import com.parknshop.entity.PhotoEntity;
+import com.parknshop.entity.ShopEntity;
 import com.parknshop.service.IOwnerService;
 import com.parknshop.service.IUserBuilder;
 import com.parknshop.service.IUserService;
 import com.parknshop.service.baseImpl.IDefineString;
 import com.parknshop.service.serviceImpl.OwnerBuilder;
+import com.parknshop.service.serviceImpl.OwnerService;
+import com.parknshop.service.serviceImpl.PersonShopListBean;
+import com.parknshop.service.serviceImpl.UserService;
 import com.parknshop.utils.DateFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -136,5 +141,72 @@ public class OwnerController {
                 return "owner/register.jsp";
         }
     }
+
+    @RequestMapping("/OwnerInformation")
+    public String OwnerInfo(HttpServletRequest request) {
+        return "owner/OwnerInformation.jsp";
+    }
+
+    @RequestMapping("/OwnerInfo_Edit")
+    public String OwnerInfoEdit(HttpServletRequest request) {
+        String method = request.getMethod();
+        switch (method){
+            case REQ_METHOD_GET:
+                return "owner/OwnerInfo_Edit.jsp";
+            case REQ_METHOD_POST:
+                HttpSession session = request.getSession();
+                OwnerEntity user = (OwnerEntity)session.getAttribute("user");
+                String phone = request.getParameter("phone");
+                String email = request.getParameter("email");
+                user.setPhone(phone);
+                user.setEmail(email);
+                int state = mOwnerService.updateOwner(user);
+                if(state == IOwnerService.UPDATE_SUCCESS){
+                    return  "owner/updateSuccess.jsp";
+                } else {
+                    request.setAttribute(MSG,"Update failed");
+                    return "owner/OwnerInfo_Edit.jsp";
+                }
+
+            default:
+                return "owner/OwnerInfo_Edit.jsp";
+        }
+    }
+
+    @RequestMapping("/ownerPassword_Edit")
+    public  String OwnerPasswordEdit(HttpServletRequest request) {
+        String method = request.getMethod();
+        switch (method) {
+            case REQ_METHOD_GET:
+                return "owner/ownerPassword_Edit.jsp";
+            case REQ_METHOD_POST:
+                HttpSession session = request.getSession();
+
+                OwnerEntity user = (OwnerEntity) session.getAttribute("user");
+                String oldPassword = request.getParameter("oldPassword");
+                String newPassword = request.getParameter("newPassword");
+                String confirmpwd = request.getParameter("confirmpwd");
+                if (!user.getPassword().equals(oldPassword)) {
+                    request.setAttribute(MSG, "OldPassword is wrong");
+                    return "owner/ownerPassword_Edit.jsp";
+                } else if (!newPassword.equals(confirmpwd)) {
+                    request.setAttribute(MSG, "The passing words you entered must be the same in the latest two times");
+                    return "owner/ownerPassword_Edit.jsp";
+                } else {
+                    user.setPassword(newPassword);
+                    int state = mOwnerService.updateOwner(user);
+                    if(state == IOwnerService.UPDATE_SUCCESS ){
+                        return "owner/updateSuccess.jsp";
+                    }else {
+                        request.setAttribute(MSG,"Update failed");
+                        return "owner/ownerPassword_Edit.jsp";
+                    }
+                }
+
+            default:
+                return "owner/ownerPassword_Edit.jsp";
+        }
+    }
+
 
 }
