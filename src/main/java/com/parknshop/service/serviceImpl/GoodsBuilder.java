@@ -28,9 +28,13 @@ public class GoodsBuilder implements IGoodsBuilder {
     private int views;
     private int state;
 
+    private String type;
+    private int sales;
+
     public GoodsBuilder() {
         clear();
     }
+
 
     @Override
     public IGoodsBuilder clear() {
@@ -45,6 +49,10 @@ public class GoodsBuilder implements IGoodsBuilder {
         this.createTime = new Timestamp(System.currentTimeMillis());
         this.views = 0;
         this.state = GOOD_STATE_USING;
+
+        this.type="unkown";
+        this.sales=0;
+
         return this;
     }
 
@@ -74,7 +82,8 @@ public class GoodsBuilder implements IGoodsBuilder {
         goodsEntity.setCreateTime(this.createTime);
         goodsEntity.setViews(this.views);
         goodsEntity.setState(this.state);
-
+        goodsEntity.setType(this.type);
+        goodsEntity.setSales(this.sales);
         return goodsEntity;
     }
 
@@ -100,6 +109,11 @@ public class GoodsBuilder implements IGoodsBuilder {
     public IGoodsBuilder setInventory(int inventory) {
         this.inventory = inventory;
         return this;
+    }
+    @Override
+    public IGoodsBuilder setType(String type) {
+        this.type = type;
+        return  this;
     }
     private int getShopId(){
         IBaseDao<ShopAndOwnerDbBean> mDao = new BaseDao<>();
