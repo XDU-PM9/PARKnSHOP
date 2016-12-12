@@ -94,10 +94,10 @@ public class CustomerController{
         return response;
     }
 
-    @RequestMapping(value = "/customerRegister",method = RequestMethod.GET)
+    @RequestMapping(value = "/customer/register",method = RequestMethod.GET)
     public String register()
     {
-        return "customerRegister";
+        return "customer/register.html";
     }
 
     /**
@@ -109,7 +109,7 @@ public class CustomerController{
     @RequestMapping(value = "/customer/register",method = RequestMethod.POST)
     public @ResponseBody Map customerRegister(@RequestBody Map request, HttpSession session)throws Exception{
         userBuilder.clear();
-        userBuilder.setUserName((String)request.get("userName")).setPassWord((String)request.get("password"))
+        userBuilder.setUserName((String)request.get("username")).setPassWord((String)request.get("password"))
                 //.setPhone((String)request.get("phone"))
                 .setEmail((String)request.get("email"));
         int status=userService.registerByUser(userBuilder);
@@ -118,7 +118,7 @@ public class CustomerController{
             response.put("error","false");
             response.put("message","Register success");
             Map<String,String> data=new HashMap<String,String>();
-            data.put("userName", (String) request.get("userName"));
+            data.put("userName", (String) request.get("username"));
             data.put("imge","/resources/images/a.png");
             response.put("data",data);
         }else {

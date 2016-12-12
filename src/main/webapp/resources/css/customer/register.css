@@ -1,0 +1,12 @@
+.logo{
+    height: 5%;
+    width: 20%;
+}
+.register{
+    text-align:center;
+    margin: auto;
+}
+.tips{
+    color: red;
+    font-size: 80%;
+}

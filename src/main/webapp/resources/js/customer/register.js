@@ -2,13 +2,18 @@
  * Created by wei on 16-12-11.
  */
 $(document).ready(function () {
-    $('#loginForm').bind('submit',function () {
-        loginOption.username=$('#username').val();
-        loginOption.password=$('#password').val();
+    $('#registerForm').bind('submit',function () {
+        registerOption.username=$('#username').val();
+        registerOption.password=$('#password').val();
+        if(registerOption.password!=$('#passwordConfirm').val()){
+            $('#tips').html('Entered passwords differ').addClass('tips');
+            return false;
+        }
+        registerOption.email=$('#email').val();
         $.ajax({
             type:'POST',
             contentType: "application/json; charset=utf-8",
-            data:JSON.stringify(loginOption),
+            data:JSON.stringify(registerOption),
             success: function (msg) {
                 if("false"==msg.error){
                     window.location.href='/index.html';
@@ -21,7 +26,8 @@ $(document).ready(function () {
         return false;
     })
 })
-var loginOption={
+var registerOption={
     username:"",
-    password:""
+    password:"",
+    email:""
 }
