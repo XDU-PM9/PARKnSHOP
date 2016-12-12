@@ -7,7 +7,7 @@ public class SearchUserResponseBean {
 
     /**
      * error : true/false
-     * data : {"userId":123,"username":"String","userImage":"String","phone":"String","email":"String","address":"String","state":"int"}
+     * data : {"userId":123,"username":"String","userImage":"String","phone":"String","email":"String","state":"int"}
      */
 
     private boolean error;
@@ -36,7 +36,6 @@ public class SearchUserResponseBean {
          * userImage : String
          * phone : String
          * email : String
-         * address : String
          * state : int
          */
 

@@ -70,7 +70,7 @@ public class ApplyAllShopResponseBean {
         private int views;
         private String logo;
         private int state;
-        private String ownerId;
+        private int ownerId;
 
         public int getShopId() {
             return shopId;
@@ -128,11 +128,11 @@ public class ApplyAllShopResponseBean {
             this.state = state;
         }
 
-        public String getOwnerId() {
+        public int getOwnerId() {
             return ownerId;
         }
 
-        public void setOwnerId(String ownerId) {
+        public void setOwnerId(int ownerId) {
             this.ownerId = ownerId;
         }
     }
