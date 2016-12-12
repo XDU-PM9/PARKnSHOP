@@ -2,7 +2,8 @@
 <%@ page import="com.google.gson.GsonBuilder" %>
 <%@ page import="com.parknshop.utils.DateFormat" %>
 <%@ page import="com.parknshop.controller.OwnerController" %>
-<%@ page import="com.parknshop.service.serviceImpl.ShopListBean" %><%--
+<%@ page import="com.parknshop.service.serviceImpl.ShopListBean" %>
+<%@ page import="com.parknshop.bean.GoodsListBean" %><%--
   Created by IntelliJ IDEA.
   User: fallb
   Date: 2016/12/11
@@ -20,14 +21,32 @@
     <title>Title</title>
 </head>
 <body>
-
     <%
-        String listStr = (String) request.getAttribute(OwnerController.GOODS);
-        ShopListBean goodsList = mGson.fromJson(listStr,ShopListBean.class);
-        if (goodsList.getNumer()==0){
-            out.println("<p>no data</p>");
+        String msg = (String) request.getAttribute(OwnerController.MSG);
+        if (msg.equals(0)){
+            out.println("<p>没Shop state error</p>");
+        }else {
+            GoodsListBean goodsList = (GoodsListBean) request.getAttribute(OwnerController.GOODS);
+            if (goodsList.getCount() == 0) {
+                out.println("<p>no data</p>");
+            }else {
+                out.println("<ul>");
+                for (GoodsListBean.DataBean item : goodsList.getData()){
+                    out.println("<li>");
+                    out.println("<p>id:"+item.getId()+"</p>");
+                    out.println("<p>name:"+item.getName()+"</p>");
+                    out.println("<p>desc:"+item.getDesc()+"</p>");
+                    out.println("<p>price:"+item.getPrice()+"</p>");
+                    out.println("<p>views:"+item.getViews()+"</p>");
+                    out.println("<p>discount:"+item.getDiscount()+"</p>");
+                    out.println("<p>photos"+item.getPhotos()+"</p>");
+                    out.println("<p>createTime"+item.getCreateTime()+"</p>");
+                    out.println("</li>");
+
+                }
+                out.println("</ul>");
+            }
         }
-        for (l)
     %>
 
 </body>

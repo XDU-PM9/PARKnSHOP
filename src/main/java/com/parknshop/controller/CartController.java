@@ -26,27 +26,26 @@ public class CartController {
     @Autowired
     IGetList productsList;
 
-//    @RequestMapping(value = "/changeAmount",method = RequestMethod.POST)
-//    public @ResponseBody String changeAmount(HttpServletRequest request, HttpSession session)
-//    {
-//        try {
-//            int amount = Integer.parseInt(request.getParameter("amount"));
-//            if (request.getParameter("cartId") != null) {
-//                return String.valueOf(cartService.changeAmount(Integer.parseInt(request.getParameter("cartId")), amount));
-//            } else {
-//                return String.valueOf(cartService.changeAmount(getUserId(session), Integer.parseInt(request.getParameter("goodsId")), amount));
-//            }
-//        }catch (NumberFormatException e){
-//            return "Paramter error";
-//        }
-//    }
-
+    /**
+     * 改变数量
+     * @param goodsId
+     * @param amount
+     * @param session
+     * @return
+     */
     @RequestMapping(value = "/changeAmount",method = RequestMethod.POST)
     public @ResponseBody String changeAmount(@RequestParam int goodsId,@RequestParam int amount, HttpSession session)
     {
         return String.valueOf(cartService.changeAmount(getUserId(session), goodsId, amount));
     }
 
+    /**
+     * 列出购物车
+     * @param start
+     * @param count
+     * @param session
+     * @return
+     */
     @RequestMapping(value = "/listProduct",method = RequestMethod.POST)
     public @ResponseBody List listCart(@RequestParam int start,@RequestParam int count,HttpSession session)
     {
@@ -61,6 +60,13 @@ public class CartController {
         }
     }
 
+    /**
+     * 添加到购物车
+     * @param goodsId
+     * @param amount
+     * @param session
+     * @return "true"、"false" or "please login"
+     */
     @RequestMapping(value = "/addProduct",method = RequestMethod.POST)
     public @ResponseBody String addCart(@RequestParam int goodsId,@RequestParam int amount,HttpSession session){
         int userId=getUserId(session);
@@ -71,6 +77,12 @@ public class CartController {
         return String.valueOf(cartService.addProduct(userId,goodsId,amount));
     }
 
+    /**
+     * 从购物车中删除
+     * @param goodsId
+     * @param session
+     * @return
+     */
     @RequestMapping(value = "/removeProduct",method = RequestMethod.POST)
     public @ResponseBody String removeProduct(@RequestParam int goodsId,HttpSession session){
         return String.valueOf(cartService.removeProduct(getUserId(session),goodsId));

@@ -69,7 +69,7 @@ public class GoodsBuilder implements IGoodsBuilder {
         goodsEntity.setIntroduction(this.introduction);
         goodsEntity.setPrice(this.price);
         goodsEntity.setDiscount(0.0);
-        goodsEntity.setIntroduction(this.introduction);
+        goodsEntity.setInventory(this.inventory);
         goodsEntity.setPhotoGroup(this.photoGroup);
         goodsEntity.setCreateTime(this.createTime);
         goodsEntity.setViews(this.views);

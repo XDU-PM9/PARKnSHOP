@@ -341,12 +341,21 @@ public class OwnerController {
         if (!checkLogin(session)){
             return "redirect:/owner/login";
         }
+        //检查检查检查检确确make sure shop state is normal
+        OwnerEntity entity = (OwnerEntity) session.getAttribute(IDefineString.SESSION_USER);
+        int state = mOwnerService.isHasShop(entity);
+        if (state != IOwnerService.SHOP_STATE_USING){
+            request.setAttribute(MSG,"0");
+            return "owner/goods_list.jsp";
+        }else {
+            request.setAttribute(MSG,"1");
+        }
 
         int page = 1;//Integer.parseInt(request.getParameter("page"));
         int lines = 10;//Integer.parseInt(request.getParameter("lines"));
 
-        ShopEntity entity = getShop(session);
-        IListBean<GoodsDbBean> data = mOwnerService.getMyGoods(entity,page,lines);
+        ShopEntity shopEntity = getShop(session);
+        IListBean<GoodsDbBean> data = mOwnerService.getMyGoods(shopEntity,page,lines);
 
         GoodsListBean goodsList = new GoodsListBean();
         goodsList.setCurrent((int) data.getCurrentPage());
@@ -374,11 +383,11 @@ public class OwnerController {
 
             list.add(goods);
         }
+        goodsList.setData(list);
         String temp = mGson.toJson(list);
         System.out.println(temp);
-        request.setAttribute(GOODS,mGson.toJson(list));
-
-        return "redirect:/owner/index";
+        request.setAttribute(GOODS,goodsList);
+        return "owner/goods_list.jsp";
     }
 
     @RequestMapping(value = "/addGoods",method = RequestMethod.GET)
@@ -408,6 +417,11 @@ public class OwnerController {
             //服务器存储错误
             return "redirect:/";
         }
+        System.out.printf("name:"+name);
+        System.out.println("desc:"+desc);
+        System.out.println("price:"+price);
+        System.out.println("inventory:"+inventory);
+        System.out.println("photoPath:"+photoPath);
         OwnerEntity entity = (OwnerEntity) session.getAttribute(IDefineString.SESSION_USER);
         mGoodsBuilder.clear();
         mGoodsBuilder

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>customer register</title>
+    <script src="/resources/libs/jquery.js"></script>
+    <script src="/resources/js/customer/register.js"></script>
+    <link rel="stylesheet" href="/resources/css/customer/register.css">
+</head>
+<body>
+<div>
+    <a href="/index.html"><img src="/resources/images/ico/banner.jpg" class="logo"></a>
+</div>
+<div class="register">
+    <form id="registerForm" action="/customer/register" method="post">
+        <div>
+        <label>Username:</label>
+        <input placeholder="Username" name="username" type="text" id="username" size="18" required/>
+        </div>
+        <div>
+        <label>Password:</label>
+        <input placeholder="Password" name="password" type="password" id="password" size="18" required/>
+        </div>
+        <div>
+            <label>Password confirm:</label>
+            <input placeholder="Password confirm" name="passwordConfirm" type="password" id="passwordConfirm" size="18" required/>
+        </div>
+        <div>
+            <label>Email:</label>
+            <input placeholder="Email" name="email" type="email" id="email" size="18" required/>
+        </div>
+        <input type="submit" value="register" id="registerBtn"/>
+        <div>
+            <span id="tips"></span>
+        </div>
+    </form>
+</div>
+</body>
+</html>

@@ -23,6 +23,11 @@ public class SearchController {
     @Autowired
     ISearchShops searchShops;
 
+    @RequestMapping(value = "/search",method = RequestMethod.GET)
+    public String search(){
+        return "search.html";
+    }
+
     /**
      * 通过类型搜索商品
      *
@@ -124,7 +129,7 @@ public class SearchController {
     @ResponseBody
     public long productCount(@RequestBody Map request) {
         searchProducts.initRuler();
-        return searchProducts.setRuler(request).getCount();
+        return searchProducts.setByMap(request).getCount();
     }
 
     /**
@@ -155,9 +160,4 @@ public class SearchController {
             return null;
         }
     }
-//    private List tipsNoResult(){
-//        List list=new ArrayList();
-//        list.add("No result");
-//        return list;
-//    }
 }
