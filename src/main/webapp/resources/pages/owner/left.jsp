@@ -12,14 +12,14 @@
     <div class="list1">
         <h1>Owner:</h1>
         <ul class="leftList">
-            <li><a href="/owner/OwnerInformation" target="mainFrame" class="leftLink">Personal Information</a></li>
+            <li><a href="/owner/ownerInfo" target="mainFrame" class="leftLink">Personal Information</a></li>
         </ul>
     </div>
     <div class="list2">
         <h1>Manage:</h1>
         <ul class="leftList">
             <li><a href="/owner/query" target="mainFrame" class="leftLink">Register New Shop</a></li>
-            <li><a href="/resources/pages/owner/test.html" target="mainFrame" class="leftLink">Manage Products</a></li>
+            <li><a href="/owner/goods" target="mainFrame" class="leftLink">Manage Products</a></li>
             <li><a href="/resources/pages/owner/test.html" target="mainFrame" class="leftLink">Manage Advertisement</a></li>
             <li><a href="/resources/pages/owner/test.html" target="mainFrame" class="leftLink">Add/Modify Shop Details</a></li>
             <li><a href="/resources/pages/owner/test.html" target="mainFrame" class="leftLink">Manage Order</a></li>
