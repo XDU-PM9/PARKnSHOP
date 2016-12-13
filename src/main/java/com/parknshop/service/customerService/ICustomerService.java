@@ -8,6 +8,7 @@ import com.parknshop.entity.UserEntity;
 /**
  * Created by H on 2016/12/5.
  */
+
 public interface ICustomerService {
 //管理员得到所有用户
     public  List<UserEntity>   getAllCustomer();

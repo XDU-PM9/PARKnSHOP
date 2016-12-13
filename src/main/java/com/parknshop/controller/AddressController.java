@@ -22,6 +22,7 @@ public class AddressController {
     @Autowired
     private IAddressService addressService;
 
+
     @RequestMapping(value = "/listAddress",method = RequestMethod.GET)
     public String  listAddress(Model model, HttpSession session)
     {

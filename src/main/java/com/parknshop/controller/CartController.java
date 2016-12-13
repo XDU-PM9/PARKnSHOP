@@ -85,6 +85,7 @@ public class CartController {
         }
     }
 
+
     @RequestMapping(value = "/removeProduct",method = RequestMethod.GET)
     public  String removeProduct(@RequestParam int goodsId,HttpSession session){
         cartService.removeProduct(goodsId);

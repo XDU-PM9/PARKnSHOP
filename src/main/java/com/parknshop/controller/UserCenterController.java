@@ -115,6 +115,7 @@ public class UserCenterController {
         }
     }
 
+
     @RequestMapping(value="/insertCollect",method = RequestMethod.GET)
     public String  insertCollect(@RequestParam int  goodsId,HttpSession session)
     {

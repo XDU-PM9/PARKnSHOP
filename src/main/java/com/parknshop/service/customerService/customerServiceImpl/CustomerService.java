@@ -198,6 +198,7 @@ public class CustomerService  implements ICustomerService {
 
     }
 
+
     @Override
     public void removeShop(Integer id) {
               collectshopEntityBaseDao.delete("delete from collectshop where scollectId=?",id);
