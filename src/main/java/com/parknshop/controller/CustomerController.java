@@ -46,29 +46,6 @@ public class CustomerController{
         return "customerLogin";
     }
 
-    /**
-     * 用户登录，接收一个json参数并返回json
-     * @param //request
-     */
-    @RequestMapping(value = "/customer/log",method = RequestMethod.GET)
-    public String log(){
-        return "customer/test.jsp";
-    }
-
-
-    @RequestMapping(value = "/customer/login1",method = RequestMethod.POST)
-    public  String  customerLogin(@RequestParam String username,@RequestParam String password,HttpSession session)throws Exception{
-        Map response=new HashMap<String,Object>();
-        //登录返回状态码
-        int status=userService.loginAsUser(username,password);
-
-        if(LOGIN_SUCCESS==status){
-
-        }else {
-
-        }
-         return  "customer/User_Personalinfo.jsp";
-    }
 
 
     @RequestMapping(value = "/customer/login",method = RequestMethod.POST)

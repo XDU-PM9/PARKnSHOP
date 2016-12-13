@@ -81,7 +81,7 @@ public class CartController {
             return "redirect:/customer/login";
         } else {
             cartService.addProduct(userId, goodsId, amount);
-            return "redirect:/listProduct?start=1&count=10";
+            return "redirect:/listProduct?start=1&count=5";
         }
     }
 
