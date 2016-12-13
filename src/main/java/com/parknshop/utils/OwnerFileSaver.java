@@ -11,11 +11,11 @@ import java.util.UUID;
 public class OwnerFileSaver {
 
 
-    public static String saveOwnerImage(MultipartFile multipartFile,String context) throws IOException {
+    public static String saveImage(MultipartFile multipartFile,String context) throws IOException {
         File root = new File(context);
         String[] splitFile = multipartFile.getOriginalFilename().split("\\.");
         String fileSuffix = splitFile[splitFile.length-1];
-        String pathPrefix = "resources/images/owner/";
+        String pathPrefix = "resources/images/photos/";
         String fileName = pathPrefix+UUID.randomUUID().toString()+"."+fileSuffix;
 
         File file = new File(root,fileName);
@@ -38,4 +38,5 @@ public class OwnerFileSaver {
         out.close();
         return "/"+fileName;
     }
+
 }

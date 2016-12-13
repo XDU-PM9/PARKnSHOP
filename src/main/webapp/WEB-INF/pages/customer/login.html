@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>customer login</title>
+    <script src="/resources/libs/jquery.js"></script>
+    <script src="/resources/js/customer/login.js"></script>
+    <link rel="stylesheet" href="/resources/css/customer/login.css">
+</head>
+<body>
+<div>
+    <a href="/index.html"><img src="/resources/images/ico/banner.jpg" class="logo"></a>
+</div>
+<div class="login">
+    <form id="loginForm" action="/customer/login" method="post">
+        <div>
+        <label>Username:</label>
+        <input placeholder="Username/Email" name="username" type="text" id="username" size="18" required/>
+        </div>
+        <div>
+        <label>Password:</label>
+        <input placeholder="Password" name="password" type="password" id="password" size="18" required/>
+        </div>
+        <input type="submit" value="Login" id="loginBtn"/>
+        <div>
+            <span id="tips"></span>
+        </div>
+    </form>
+</div>
+</body>
+</html>

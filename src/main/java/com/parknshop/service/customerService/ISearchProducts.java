@@ -46,6 +46,7 @@ public interface ISearchProducts {
     public ISearchProducts setGoodsType(String type);
     public ISearchProducts setShopId(int shopId);
     public ISearchProducts setScope(int start,int count);
+    public ISearchProducts setByMap(Map map);
     public long getCount();
     public List<GoodsEntity> search();
 }

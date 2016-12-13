@@ -194,21 +194,7 @@ public class SearchProducts implements ISearchProducts {
 
     @Override
     public List<GoodsEntity> searchProductsByMap(Map map) throws NumberFormatException {
-        initRuler();
-        setRuler(map);
-        String name = (String) map.get("name");
-        String type = (String) map.get("type");
-        String startString=(String)map.get("start");
-        String countString= (String) map.get("count");
-        String shopIdString= (String) map.get("shopID");
-        if(stringNotNull(shopIdString)){
-            setShopId(Integer.parseInt(shopIdString));
-        }
-        if(stringNotNull(startString)&&stringNotNull(countString)){
-            setScope(Integer.parseInt(startString),Integer.parseInt(countString));
-        }
-        setGoodsName(name);
-        setGoodsType(type);
+        setByMap(map);
         return search();
     }
 
@@ -255,6 +241,26 @@ public class SearchProducts implements ISearchProducts {
         if (start > 0 && count < 1 && start < count)
             this.start = start;
         this.count = count;
+        return this;
+    }
+
+    @Override
+    public ISearchProducts setByMap(Map map) throws NumberFormatException{
+        initRuler();
+        setRuler(map);
+        String name = (String) map.get("name");
+        String type = (String) map.get("type");
+        String startString=(String)map.get("start");
+        String countString= (String) map.get("count");
+        String shopIdString= (String) map.get("shopID");
+        if(stringNotNull(shopIdString)){
+            setShopId(Integer.parseInt(shopIdString));
+        }
+        if(stringNotNull(startString)&&stringNotNull(countString)){
+            setScope(Integer.parseInt(startString),Integer.parseInt(countString));
+        }
+        setGoodsName(name);
+        setGoodsType(type);
         return this;
     }
 
