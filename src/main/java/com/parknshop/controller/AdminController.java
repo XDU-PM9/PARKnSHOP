@@ -278,7 +278,6 @@ public class AdminController {
     public @ResponseBody String applyAllShop(@RequestBody byte[] info,HttpSession session){
         boolean isLogin = mService.isLogin();
         ApplyAllShopResponseBean responseBean = new ApplyAllShopResponseBean();
-//        isLogin = true;
         if(isLogin){
             String infoStr = new String(info);
             ApplyAllRequestBean requestBean = mGson.fromJson(infoStr,ApplyAllRequestBean.class);

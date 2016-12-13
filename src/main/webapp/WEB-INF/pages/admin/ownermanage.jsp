@@ -61,29 +61,17 @@
                 </td>
 
             </tr>
-
-            <!--end，这些都是显示代码，没有格式化，开发时会删除 -->
-            <tr>
-                <td align="right" nowrap="true" colspan="6">
-                    <div id="turn-page" style="margin-top: 20px">
-                        总计  <span id="totalRecords">11</span>
-                        个记录分为 <span id="totalPages">2</span>
-                        页当前第 <span id="pageCurrent">1</span>页
-        <span id="page-link">
-          <a href="javascript:listTable.gotoPageFirst()">第一页</a>
-          <a href="javascript:listTable.gotoPagePrev()">上一页</a>
-          <a href="javascript:listTable.gotoPageNext()">下一页</a>
-          <a href="javascript:listTable.gotoPageLast()">最末页</a>
-          <select id="gotoPage" onchange="listTable.gotoPage(this.value)">
-            <option value="1">1</option><option value="2">2</option>
-          </select>
-        </span>
-                    </div>
-                </td>
-            </tr>
             </tbody>
         </table>
-
+        <div id="turn-page" style="margin-top: 20px;text-align: center;font-size: 15px">All page:<span id="allPage"></span>&nbsp;&nbsp;&nbsp;   Current page:<span id="pageCurrent"></span>
+            <span id="page-link">
+                <a href="#" id="prev" style="margin-right: 20px;">Prev Page</a>
+                <a href="#" id="next" style="margin-right: 20px;">Next Page</a>
+                <select name="" id="gotoPage">
+                </select>
+                <a href="#" id="turnPage">Turn</a>
+            </span>
+        </div>
         <!-- end brand list -->
     </div>
 </form>

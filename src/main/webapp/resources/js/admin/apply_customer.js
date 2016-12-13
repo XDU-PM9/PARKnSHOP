@@ -1,21 +1,12 @@
 /**
+ * Created by niewenzhi on 2016/12/13.
+ */
+/**
  * Created by jk on 2016/12/12.
  */
-/*全局变量*/
-var shopId = [];
-var allPage;
-var curPage;
-var index = 1;
-/*加载....*/
 $(function () {
     uploadApply();
-    black();
-    del();
-    recover();
-    next();
-    prev();
-    turn();
-})
+});
 function uploadApply() {
     var data={};
     data.size = 5;
@@ -24,18 +15,18 @@ function uploadApply() {
         type:'post',
         contentType : 'application/json',
         data: JSON.stringify(data),
-        url:'/admin/applyallshop',
+        url:'/admin/applyalluser',
         success: function (data) {
             var response =JSON.parse(data);
             console.log(response);
             var length = response.data.length;
             for(var i=0;i<length;i++){
                 addTr(i);
-                addTd(i,response.data[i].shopId);
-                addTd(i,response.data[i].shopName);
-                addImg(i,response.data[i].shopLogo);
-                addTd(i,response.data[i].introduction);
-                addTd(i,response.data[i].ownerId);
+                addTd(i,response.data[i].userId);
+                addTd(i,response.data[i].username);
+                addImg(i,response.data[i].userImage);
+                addTd(i,response.data[i].email);
+                addTd(i,response.data[i].phone);
                 addOption(i);
             }
         }
@@ -59,8 +50,4 @@ function addImg(i,url) {
     url='"'+url+'"';
     var str = "<td class='imgTd'><img src="+url+"></td>";
     $("."+className+"").append(str)
-}
-function clearTable(){
-    $("#tableInfor").html("");
-    $("#gotoPage").html("");
 }

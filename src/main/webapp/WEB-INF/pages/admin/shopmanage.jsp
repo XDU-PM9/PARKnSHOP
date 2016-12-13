@@ -33,7 +33,6 @@
     <!-- start brand list -->
     <div class="list-div" id="listDiv">
         <table cellpadding="3" cellspacing="1">
-            <tbody id="tableInfor">
             <tr>
                 <th>shopId</th>
                 <th>shopName</th>
@@ -42,7 +41,7 @@
                 <th>ownerId</th>
                 <th>option</th>
             </tr>
-            <tr>
+            <%--<tr>
                 <td class="first-cell">
                     <span>WYH</span>
                 </td>
@@ -59,38 +58,28 @@
                     <a href="">Delete</a> |
                     <a href="">Recover</a>
                 </td>
-
             </tr>
-
+--%>
             <!--end，这些都是显示代码，没有格式化，开发时会删除 -->
-            <tr>
-                <td align="right" nowrap="true" colspan="6">
-                    <div id="turn-page" style="margin-top: 20px">
-                        总计  <span id="totalRecords">11</span>
-                        个记录分为 <span id="totalPages">2</span>
-                        页当前第 <span id="pageCurrent">1</span>页
-        <span id="page-link">
-          <a href="javascript:listTable.gotoPageFirst()">第一页</a>
-          <a href="javascript:listTable.gotoPagePrev()">上一页</a>
-          <a href="javascript:listTable.gotoPageNext()">下一页</a>
-          <a href="javascript:listTable.gotoPageLast()">最末页</a>
-          <select id="gotoPage" onchange="listTable.gotoPage(this.value)">
-            <option value="1">1</option><option value="2">2</option>
-          </select>
-        </span>
-                    </div>
-                </td>
-            </tr>
+            <tbody id="tableInfor">
             </tbody>
         </table>
-
+        <div id="turn-page" style="margin-top: 20px;text-align: center;font-size: 15px">All page:<span id="allPage"></span>&nbsp;&nbsp;&nbsp;   Current page:<span id="pageCurrent"></span>
+            <span id="page-link">
+                <a href="#" id="prev" style="margin-right: 20px;">Prev Page</a>
+                <a href="#" id="next" style="margin-right: 20px;">Next Page</a>
+                <select name="" id="gotoPage">
+                </select>
+                <a href="#" id="turnPage">Turn</a>
+            </span>
+        </div>
         <!-- end brand list -->
     </div>
 </form>
 <div id="footer">
     &copy; 2016-2017 Group9-PARKnSHOP </div>
 </div>
-<script src="/resources/libs/jquery.js"></script>
+<script src="/resources/libs/jquery.js  "></script>
 <script src="/resources/js/admin/apply_shop.js"></script>
 </body>
 </html>

@@ -3,15 +3,25 @@
  */
 /*全局属性*/
 var shopId = [];
+var allPage;
+var curPage;
+var index = 1;
 /*加载方法*/
 $(function () {
     uploadApply();
+    agree();
+    disagree();
+    next();
+    prev();
+    turn();
 });
 /*工具方法*/
 function uploadApply() {
+    shopId.splice(0,shopId.length);
+    clearTable();
     var data={};
-    data.size = 5;
-    data.index = 1;
+    data.size = 2;
+    data.index = index;
     $.ajax({
         type:'post',
         contentType : 'application/json',
@@ -19,8 +29,12 @@ function uploadApply() {
         url:'/admin/apply',
         success: function (data) {
             var response =JSON.parse(data);
-            console.log(response);
             var length = response.data.length;
+            console.log(response);
+            allPage = response.total;
+            curPage = index;
+            pageNum(allPage,curPage);
+            addSel(allPage);
             for(var i=0;i<length;i++){
                 addTr(i);
                 addTd(i,response.data[i].ownerName);
@@ -35,9 +49,7 @@ function uploadApply() {
         }
     })
 }
-function uploadShop() {
-    
-}
+/*添加标签的方法*/
 function addTr(i) {
     var className = "tr"+i;
     $("#tableInfor").append("<tr class="+className+"></tr>");
@@ -57,19 +69,40 @@ function addImg(i,url) {
     var str = "<td class='imgTd'><img src="+url+"></td>";
     $("."+className+"").append(str)
 }
-/*
-$("a").click(function () {
-        alert("aaa");
+
+function addSel(num) {
+    for(var i=0;i<num;i++){
+        addOpt(i);
+    }
+}
+function addOpt(num){
+    num  = num+1;
+    /*引号化*/
+    numb='"'+num+'"';
+    var str = "<option value="+numb+">"+num+"</option>"
+    $("#gotoPage").append(str);
+}
+function pageNum(all,cur) {
+    $("#allPage").html(all);
+    $("#pageCurrent").html(cur);
+}
+function clearTable(){
+    $("#tableInfor").html("");
+    $("#gotoPage").html("");
+}
+/*页面链接方法*/
+function agree() {
+    $("body").on('click','.agree',function () {
         var id = $(this).parent().parent().index();
-        console.log(id);
         var data = {};
-        data.shopId = shopId[id-2];
+        data.shopId = shopId[id];
         data.result = 1;
+        /*测试成功*/
         $.ajax({
             type:'post',
             contentType : 'application/json',
             data: JSON.stringify(data),
-            url:'admin/apply',
+            url:'/admin/reply',
             success: function (data) {
                 var response =JSON.parse(data);
                 console.log(response);
@@ -78,10 +111,67 @@ $("a").click(function () {
                 }
                 else {
                     alter("error");
-                }    
                 }
-            
+            }
         })
-    return false;
     })
-*/
+}
+function disagree() {
+    $("body").on('click','.disagree',function () {
+        var id = $(this).parent().parent().index();
+        var data = {};
+        data.shopId = shopId[id-1];
+        data.result = 0;
+        /*测试成功*/
+        $.ajax({
+            type:'post',
+            contentType : 'application/json',
+            data: JSON.stringify(data),
+            url:'/admin/reply',
+            success: function (data) {
+                var response =JSON.parse(data);
+                console.log(response);
+                if(response.error==false) {
+                    location.reload();
+                }
+                else {
+                    alter("error");
+                }
+            }
+        })
+    })
+}
+function turn() {
+    $("#turnPage").click(function () {
+            index = $("#gotoPage").val();
+            uploadApply();
+        }
+    )
+
+}
+
+function next() {
+    $("#next").click(function () {
+       index++;
+       var max = parseInt($("#allPage").html());
+        if(index > max){
+            alert("This is the last page");
+            /*location.reload();*/
+        }
+        else {
+            uploadApply();
+        }
+    })
+}
+function prev() {
+    $("#prev").click(function () {
+        index--;
+        var min = 1;
+        if(index<min){
+            alert("This is the first page")
+        }
+        else{
+            uploadApply();
+        }
+    })
+}
