@@ -1,0 +1,80 @@
+/*reset start*/
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td { margin:0; padding:0; }
+/*body, button, input, select, textarea { font:12px/1.5tahoma, arial, \5b8b\4f53;}*/
+h1, h2, h3, h4, h5, h6{ font-size:100%; }
+address, cite, dfn, em, var { font-style:normal; }
+code, kbd, pre, samp { font-family:couriernew, courier, monospace; }
+small{ font-size:12px; }
+ul, ol { list-style:none; }
+a { text-decoration:none; }
+a:hover { text-decoration:underline; }
+sup { vertical-align:text-top; }
+sub{ vertical-align:text-bottom; }
+legend { color:#000; }
+fieldset, img { border:0; }
+button, input, select, textarea { font-size:100%; }
+table { border-collapse:collapse; border-spacing:0; }
+/*reset over*/
+/*top*/
+.topMain{
+    background: #278296;
+}
+.logo{
+    padding: 5px;
+}
+.topHead{
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    right: 20px;
+    top: 5px;
+}
+.headList>li{
+    padding-right: 6px;
+    border-right: 1px solid white;
+    color: white;
+    font:14px "sans-serif", "Arial", "Verdana";
+    display: inline;
+}
+.headList>li:last-child{border-right: 0px}
+.headList>li>a{color: white}
+/*top over*/
+/*left*/
+.leftMain{
+    margin:0;
+    border: 0px  solid black;
+    background: white;
+    text-align: center;
+    font:16px "sans-serif", "Arial", "Verdana";
+}
+.list1,.list2{
+    margin: 20px 0 10px 0;
+}
+h1{
+    font-size: 20px;
+    text-align: left;
+}
+.leftList{
+    border: 1px solid black;
+    border-bottom: 0;
+}
+.leftList>li{
+    line-height: 50px;
+}
+.leftList>li{
+    border-bottom: 1px solid black;
+}
+.leftList>li:hover{
+    background: #313131;
+    cursor: pointer;
+}
+.leftLink{
+    color: black;
+    text-decoration: none;
+}
+.leftLink:hover{
+    text-decoration: none;
+}
+.clicked{
+    background-color: #aeaeae;
+}

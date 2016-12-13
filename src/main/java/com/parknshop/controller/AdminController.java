@@ -41,8 +41,46 @@ public class AdminController {
             .create();
 
     @RequestMapping(value = "", method = RequestMethod.GET)
+    public String logo() {
+        return "admin/login.jsp";
+    }
+
+    @RequestMapping(value = "/top", method = RequestMethod.GET)
+    public String top() {
+        return "admin/top.jsp";
+    }
+
+    @RequestMapping(value = "/menu", method = RequestMethod.GET)
+    public String menu() {
+        return "admin/menu.jsp";
+    }
+
+    @RequestMapping(value = "/main", method = RequestMethod.GET)
+    public String main() {
+        return "admin/main.jsp";
+    }
+
+    @RequestMapping(value = "applymanage", method = RequestMethod.GET)
+    public String applymanage() {
+        return "admin/applymanage.jsp";
+    }
+
+    @RequestMapping(value = "ownermanage", method = RequestMethod.GET)
+    public String ownermanage() {
+        return "admin/ownermanage.jsp";
+    }
+    @RequestMapping(value = "customermanage", method = RequestMethod.GET)
+    public String customermanage() {
+        return "admin/customermanage.jsp";
+    }
+    @RequestMapping(value = "shopmanage", method = RequestMethod.GET)
+    public String shopmanage() {
+        return "admin/shopmanage.jsp";
+    }
+
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index() {
-        return "redirect:/#/admin/login";
+        return "admin/index.jsp";
     }
 
     @RequestMapping(value = "/login",method = RequestMethod.POST)
@@ -244,8 +282,10 @@ public class AdminController {
         if(isLogin){
             String infoStr = new String(info);
             ApplyAllRequestBean requestBean = mGson.fromJson(infoStr,ApplyAllRequestBean.class);
+            System.out.println("before service");
             IListBean<ShopAndOwnerDbBean> dataList =
                     mAdminService.getAllShop(requestBean.getIndex(),requestBean.getSize());
+            System.out.println("after service");
             long total = dataList.getMaxPages();
             long size = dataList.getNumer();
             if(requestBean.getIndex()>total){
