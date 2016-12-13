@@ -17,6 +17,8 @@ public interface ICartService {
     //跟据用户ID获取该用户购物车中的商品,max为起始值，count为获取条数
     public List<CartEntity> getProducts(int userId,int max,int count) ;
 
+    public List<CartEntity> getProductsByPage(int userId,int page,int line) ;
+
     public  boolean addProduct(int  userId,int goodsId,int ammount);
 
     public  boolean removeProduct(int cartId);

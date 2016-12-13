@@ -55,11 +55,16 @@ public class CartService implements ICartService {
 
     public List<CartEntity> getProducts(int userId, int first, int count) {
         try {
-            return cartEntityDao.findNumberRows("from CartEntity where userEntity = ?", new Object[]{getUserEntity(userId)}, first, count);
+            return cartEntityDao.findNumberRows("from CartEntity where userByUserId = ?", new Object[]{getUserEntity(userId)}, first, count);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
+    }
+
+    @Override
+    public List<CartEntity> getProductsByPage(int userId, int page, int line) {
+        return getProducts(userId,(page-1)*line,line);
     }
 
     public boolean addProduct(int userId, int goodsId, int amount) {
@@ -89,7 +94,7 @@ public class CartService implements ICartService {
     public boolean removeProduct(int cartId) {
         try {
             //若成功执行且影响的行数大于0,返回true，否则返回false
-            return cartEntityDao.executeHql("delete from CartEntity where cartId = ?", new Object[]{cartId}) > 0 ? true : false;
+            return cartEntityDao.delete("delete from cart where cartId = ?",new Integer(cartId));
         } catch (Exception e) {
             e.printStackTrace();
             return false;

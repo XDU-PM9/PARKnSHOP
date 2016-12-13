@@ -4,15 +4,14 @@ import com.parknshop.entity.UserEntity;
 import com.parknshop.service.IUserBuilder;
 import com.parknshop.service.IUserService;
 import com.parknshop.service.baseImpl.IDefineString;
+import com.parknshop.service.customerService.ICustomerService;
 import com.parknshop.service.enumStatic.LoginTypeEnum;
 import com.parknshop.service.serviceImpl.UserBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -33,6 +32,9 @@ public class CustomerController{
     //返回时间格式
     private final static SimpleDateFormat timeformat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
+    @Resource
+    private ICustomerService customerService;
+
     @Autowired
     public CustomerController(IUserService userService, UserBuilder userBuilder) {
         this.userService = userService;
@@ -46,8 +48,29 @@ public class CustomerController{
 
     /**
      * 用户登录，接收一个json参数并返回json
-     * @param request
+     * @param //request
      */
+    @RequestMapping(value = "/customer/log",method = RequestMethod.GET)
+    public String log(){
+        return "customer/test.jsp";
+    }
+
+
+    @RequestMapping(value = "/customer/login1",method = RequestMethod.POST)
+    public  String  customerLogin(@RequestParam String username,@RequestParam String password,HttpSession session)throws Exception{
+        Map response=new HashMap<String,Object>();
+        //登录返回状态码
+        int status=userService.loginAsUser(username,password);
+
+        if(LOGIN_SUCCESS==status){
+
+        }else {
+
+        }
+         return  "customer/User_Personalinfo.jsp";
+    }
+
+
     @RequestMapping(value = "/customer/login",method = RequestMethod.POST)
     public @ResponseBody Map customerLogin(@RequestBody Map request //映射为Map
                                            ,HttpSession session
@@ -158,5 +181,14 @@ public class CustomerController{
         //todo:个人中心
         Map response=new HashMap();
         return response;
+    }
+
+
+    private int getUserId(HttpSession session){
+        try {
+            return ((UserEntity) session.getAttribute(IDefineString.SESSION_USER)).getUserId();
+        }catch (Exception e){
+            return -1;
+        }
     }
 }
