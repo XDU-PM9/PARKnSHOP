@@ -17,9 +17,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -122,7 +124,7 @@ public class OwnerController {
                 int state = mUserService.registerByOwner(mUserBuilder);
                 if (state == IUserService.SUCCESS) {
                     request.setAttribute(EMAIL, email);
-                    return "owner/registerSuccess.jsp";
+                    return "owner/register_success.jsp";
                 } else if (state == IUserService.ERRO_EMPTYEMAIL) {
                     request.setAttribute(MSG, "Empty e-mail");
                 } else if (state == IUserService.ERRO_EMiAL) {
@@ -140,43 +142,68 @@ public class OwnerController {
         }
     }
 
-    @RequestMapping("/OwnerInformation")
-    public String OwnerInfo() {
-        return "owner/OwnerInformation.jsp";
-    }
-
-    @RequestMapping("/OwnerInfo_Edit")
-    public String OwnerInfoEdit(HttpServletRequest request) {
-        String method = request.getMethod();
-        switch (method){
-            case REQ_METHOD_GET:
-                return "owner/OwnerInfo_Edit.jsp";
-            case REQ_METHOD_POST:
-                HttpSession session = request.getSession();
-                OwnerEntity user = (OwnerEntity)session.getAttribute("user");
-                String phone = request.getParameter("phone");
-                String email = request.getParameter("email");
-                user.setPhone(phone);
-                user.setEmail(email);
-                int state = mOwnerService.updateOwner(user);
-                if(state == IOwnerService.UPDATE_SUCCESS){
-                    return  "owner/updateSuccess.jsp";
-                } else {
-                    request.setAttribute(MSG,"Update failed");
-                    return "owner/OwnerInfo_Edit.jsp";
-                }
-
-            default:
-                return "owner/OwnerInfo_Edit.jsp";
+    @RequestMapping("/ownerInfo")
+    public String OwnerInfo(HttpSession session) {
+        if (!checkLogin(session)){
+            return "redirect:/owner/login";
         }
+        return "owner/owner_info.jsp";
     }
 
-    @RequestMapping("/ownerPassword_Edit")
+    @RequestMapping(value = "/ownerInfoEdit",method = RequestMethod.GET)
+    public String OwnerInfoEditGet(HttpSession session){
+        if (!checkLogin(session)){
+            return "redirect:/owner/login";
+        }
+        return "owner/owner_info_edit.jsp";
+    }
+
+
+    @RequestMapping(value = "/OwnerInfoEdit",method = RequestMethod.POST)
+    public String OwnerInfoEditPost(HttpServletRequest request,HttpSession session,
+                                @RequestParam("userImage")MultipartFile image,
+                                @RequestParam("email")String email,
+                                @RequestParam("phone")String phone){
+        if (!checkLogin(session)){
+            return "redirect:/owner/login";
+        }
+
+        OwnerEntity user = (OwnerEntity)session.getAttribute(IDefineString.SESSION_USER);
+        String contextPath = session.getServletContext().getRealPath("/");
+
+        System.out.println("testing:"+image.getOriginalFilename());
+
+        String imagePath = null;
+        if (image != null){
+            try {
+                imagePath = OwnerFileSaver.saveImage(image,contextPath);
+            } catch (IOException e) {
+                //服务出现错误
+                return "redirect:/";
+            }
+        }
+        user.setPhone(phone);
+        user.setEmail(email);
+        user.setUserImage(imagePath);
+        int state = mOwnerService.updateOwner(user);
+        if(state == IOwnerService.UPDATE_SUCCESS){
+            return  "owner/update_success.jsp";
+        } else {
+            request.setAttribute(MSG,"Update failed");
+            return "owner/owner_info_edit.jsp";
+        }
+
+    }
+
+    @RequestMapping("/ownerPasswordEdit")
     public  String OwnerPasswordEdit(HttpServletRequest request) {
+        if (!checkLogin(request.getSession())){
+            return "redirect:/owner/login";
+        }
         String method = request.getMethod();
         switch (method) {
             case REQ_METHOD_GET:
-                return "owner/ownerPassword_Edit.jsp";
+                return "owner/owner_password_exit.jsp";
             case REQ_METHOD_POST:
                 HttpSession session = request.getSession();
 
@@ -186,26 +213,26 @@ public class OwnerController {
                 String confirmpwd = request.getParameter("confirmpwd");
                 if (!user.getPassword().equals(oldPassword)) {
                     request.setAttribute(MSG, "OldPassword is wrong");
-                    return "owner/ownerPassword_Edit.jsp";
+                    return "owner/owner_password_exit.jsp";
                 } else if (!newPassword.equals(confirmpwd)) {
                     request.setAttribute(MSG, "The passing words you entered must be the same in the latest two times");
-                    return "owner/ownerPassword_Edit.jsp";
+                    return "owner/owner_password_exit.jsp";
                 } else if(newPassword.equals(user.getPassword())){
                     request.setAttribute(MSG,"The new password is the same as old password");
-                    return "owner/ownerPassword_Edit.jsp";
+                    return "owner/owner_password_exit.jsp";
                 } else {
                     user.setPassword(newPassword);
                     int state = mOwnerService.updateOwner(user);
                     if (state == IOwnerService.UPDATE_SUCCESS) {
-                        return "owner/updateSuccess.jsp";
+                        return "owner/update_success.jsp";
                     } else {
                         request.setAttribute(MSG, "Update failed");
-                        return "owner/ownerPassword_Edit.jsp";
+                        return "owner/owner_password_exit.jsp";
                     }
                 }
 
             default:
-                return "owner/ownerPassword_Edit.jsp";
+                return "owner/owner_password_exit.jsp";
         }
     }
 
@@ -282,7 +309,7 @@ public class OwnerController {
     public String applyPost(HttpSession session,
                             @RequestParam(value = "person") MultipartFile personImage,
                             @RequestParam(value = "logo") MultipartFile logoImage,
-                            @RequestParam(value = "theme") MultipartFile themeImage,
+                            @RequestParam(value = "theme") MultipartFile[] themeImages,
                             @RequestParam(value = "realName") String realName,
                             @RequestParam(value = "idNumber") String idNumber,
                             @RequestParam(value = "phone") String phone,
@@ -293,11 +320,15 @@ public class OwnerController {
         }
 
         String contextPath = session.getServletContext().getRealPath("/");
-        String person, logo, theme;
+        String person, logo;
+        final int count = themeImages.length;
+        String[] themes = new String[count];
         try {
-            person = OwnerFileSaver.saveOwnerImage(personImage, contextPath);
-            logo = OwnerFileSaver.saveOwnerImage(logoImage, contextPath);
-            theme = OwnerFileSaver.saveOwnerImage(themeImage, contextPath);
+            person = OwnerFileSaver.saveImage(personImage, contextPath);
+            logo = OwnerFileSaver.saveImage(logoImage, contextPath);
+            for (int i=0;i<count;i++){
+                themes[i] = OwnerFileSaver.saveImage(themeImages[i], contextPath);
+            }
         } catch (Exception e) {
             //服务器存储错误
             return "redirect:/";
@@ -317,7 +348,9 @@ public class OwnerController {
             @Override
             public List<String> getPicturePaths() {
                 List<String> list = new ArrayList<>();
-                list.add(theme);
+                for (int i=0;i<count;i++){
+                    list.add(themes[i]);
+                }
                 return list;
             }
         };
@@ -335,7 +368,6 @@ public class OwnerController {
      * @param session
      * @return
      */
-    //未完成
     @RequestMapping("/goods")
     public String listGoods(HttpServletRequest request,HttpSession session){
         if (!checkLogin(session)){
@@ -405,23 +437,21 @@ public class OwnerController {
                            @RequestParam("desc")String desc,
                            @RequestParam("price")double price,
                            @RequestParam("inventory")int inventory,
-                           @RequestParam("photo")MultipartFile photo){
+                           @RequestParam("photo")MultipartFile[] photos){
         if (!checkLogin(session)){
             return "redirect:/owner/login";
         }
+        final int count = photos.length;
         String contextPath = session.getServletContext().getRealPath("/");
-        String photoPath;
+        String[] photoPaths = new String[count];
         try {
-            photoPath = OwnerFileSaver.saveOwnerImage(photo, contextPath);
+            for (int i=0;i<count;i++) {
+                photoPaths[i] = OwnerFileSaver.saveImage(photos[i], contextPath);
+            }
         } catch (Exception e) {
             //服务器存储错误
             return "redirect:/";
         }
-        System.out.printf("name:"+name);
-        System.out.println("desc:"+desc);
-        System.out.println("price:"+price);
-        System.out.println("inventory:"+inventory);
-        System.out.println("photoPath:"+photoPath);
         OwnerEntity entity = (OwnerEntity) session.getAttribute(IDefineString.SESSION_USER);
         mGoodsBuilder.clear();
         mGoodsBuilder
@@ -434,7 +464,9 @@ public class OwnerController {
             @Override
             public List<String> getPicturePaths() {
                 List<String> photos = new ArrayList<>();
-                photos.add(photoPath);
+                for (int i=0;i<count;i++){
+                    photos.add(photoPaths[i]);
+                }
                 return photos;
             }
         };
@@ -445,6 +477,8 @@ public class OwnerController {
 
         return "owner/add_goods_fail.jsp";
     }
+
+
 
 
     /**

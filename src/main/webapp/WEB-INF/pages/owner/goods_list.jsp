@@ -23,11 +23,12 @@
 <body>
     <%
         String msg = (String) request.getAttribute(OwnerController.MSG);
-        if (msg.equals(0)){
-            out.println("<p>没Shop state error</p>");
+        if (msg.equals("0")){
+            out.println("<p>Shop state error</p>");
         }else {
+            out.println("<a href=\"/owner/addGoods\">add goods</a><br>");
             GoodsListBean goodsList = (GoodsListBean) request.getAttribute(OwnerController.GOODS);
-            if (goodsList.getCount() == 0) {
+            if (goodsList==null || goodsList.getCount() == 0) {
                 out.println("<p>no data</p>");
             }else {
                 out.println("<ul>");

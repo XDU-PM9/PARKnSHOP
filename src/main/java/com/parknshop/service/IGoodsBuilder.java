@@ -47,6 +47,12 @@ public interface IGoodsBuilder {
     IGoodsBuilder setInventory(int inventory);
 
     /**
+     * 类型
+     * @param type
+     * @return
+     */
+    IGoodsBuilder setType(String type);
+    /**
      * 构造器
      * @return
      */
