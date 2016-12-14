@@ -3,7 +3,6 @@ package com.parknshop.controller;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.parknshop.bean.*;
-import com.parknshop.entity.GoodsEntity;
 import com.parknshop.entity.OwnerEntity;
 import com.parknshop.entity.PhotoEntity;
 import com.parknshop.entity.ShopEntity;
@@ -17,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -57,7 +55,7 @@ public class OwnerController {
     }
 
     @RequestMapping("")
-    public String dispatcher(){
+    public String dispatcher() {
         return "redirect:/owner/index";
     }
 
@@ -144,39 +142,39 @@ public class OwnerController {
 
     @RequestMapping("/ownerInfo")
     public String OwnerInfo(HttpSession session) {
-        if (!checkLogin(session)){
+        if (!checkLogin(session)) {
             return "redirect:/owner/login";
         }
         return "owner/owner_info.jsp";
     }
 
-    @RequestMapping(value = "/ownerInfoEdit",method = RequestMethod.GET)
-    public String OwnerInfoEditGet(HttpSession session){
-        if (!checkLogin(session)){
+    @RequestMapping(value = "/ownerInfoEdit", method = RequestMethod.GET)
+    public String OwnerInfoEditGet(HttpSession session) {
+        if (!checkLogin(session)) {
             return "redirect:/owner/login";
         }
         return "owner/owner_info_edit.jsp";
     }
 
 
-    @RequestMapping(value = "/OwnerInfoEdit",method = RequestMethod.POST)
-    public String OwnerInfoEditPost(HttpServletRequest request,HttpSession session,
-                                @RequestParam("userImage")MultipartFile image,
-                                @RequestParam("email")String email,
-                                @RequestParam("phone")String phone){
-        if (!checkLogin(session)){
+    @RequestMapping(value = "/OwnerInfoEdit", method = RequestMethod.POST)
+    public String OwnerInfoEditPost(HttpServletRequest request, HttpSession session,
+                                    @RequestParam("userImage") MultipartFile image,
+                                    @RequestParam("email") String email,
+                                    @RequestParam("phone") String phone) {
+        if (!checkLogin(session)) {
             return "redirect:/owner/login";
         }
 
-        OwnerEntity user = (OwnerEntity)session.getAttribute(IDefineString.SESSION_USER);
+        OwnerEntity user = (OwnerEntity) session.getAttribute(IDefineString.SESSION_USER);
         String contextPath = session.getServletContext().getRealPath("/");
 
-        System.out.println("testing:"+image.getOriginalFilename());
+        System.out.println("testing:" + image.getOriginalFilename());
 
         String imagePath = null;
-        if (image != null){
+        if (image != null) {
             try {
-                imagePath = OwnerFileSaver.saveImage(image,contextPath);
+                imagePath = OwnerFileSaver.saveImage(image, contextPath);
             } catch (IOException e) {
                 //服务出现错误
                 return "redirect:/";
@@ -186,18 +184,18 @@ public class OwnerController {
         user.setEmail(email);
         user.setUserImage(imagePath);
         int state = mOwnerService.updateOwner(user);
-        if(state == IOwnerService.UPDATE_SUCCESS){
-            return  "owner/update_success.jsp";
+        if (state == IOwnerService.UPDATE_SUCCESS) {
+            return "owner/update_success.jsp";
         } else {
-            request.setAttribute(MSG,"Update failed");
+            request.setAttribute(MSG, "Update failed");
             return "owner/owner_info_edit.jsp";
         }
 
     }
 
     @RequestMapping("/ownerPasswordEdit")
-    public  String OwnerPasswordEdit(HttpServletRequest request) {
-        if (!checkLogin(request.getSession())){
+    public String OwnerPasswordEdit(HttpServletRequest request) {
+        if (!checkLogin(request.getSession())) {
             return "redirect:/owner/login";
         }
         String method = request.getMethod();
@@ -217,8 +215,8 @@ public class OwnerController {
                 } else if (!newPassword.equals(confirmpwd)) {
                     request.setAttribute(MSG, "The passing words you entered must be the same in the latest two times");
                     return "owner/owner_password_exit.jsp";
-                } else if(newPassword.equals(user.getPassword())){
-                    request.setAttribute(MSG,"The new password is the same as old password");
+                } else if (newPassword.equals(user.getPassword())) {
+                    request.setAttribute(MSG, "The new password is the same as old password");
                     return "owner/owner_password_exit.jsp";
                 } else {
                     user.setPassword(newPassword);
@@ -264,7 +262,7 @@ public class OwnerController {
             shop.setName(item.getShopName());
             shop.setDesc(item.getIntroduction());
             shop.setLogo(item.getLogo());
-            switch (item.getShopState()){
+            switch (item.getShopState()) {
                 case IOwnerService.SHOP_STATE_USING:
                     shop.setState("Normal");
                     break;
@@ -326,7 +324,7 @@ public class OwnerController {
         try {
             person = OwnerFileSaver.saveImage(personImage, contextPath);
             logo = OwnerFileSaver.saveImage(logoImage, contextPath);
-            for (int i=0;i<count;i++){
+            for (int i = 0; i < count; i++) {
                 themes[i] = OwnerFileSaver.saveImage(themeImages[i], contextPath);
             }
         } catch (Exception e) {
@@ -348,7 +346,7 @@ public class OwnerController {
             @Override
             public List<String> getPicturePaths() {
                 List<String> list = new ArrayList<>();
-                for (int i=0;i<count;i++){
+                for (int i = 0; i < count; i++) {
                     list.add(themes[i]);
                 }
                 return list;
@@ -365,36 +363,37 @@ public class OwnerController {
 
     /**
      * 返回商品列表
+     *
      * @param session
      * @return
      */
     @RequestMapping("/goods")
-    public String listGoods(HttpServletRequest request,HttpSession session){
-        if (!checkLogin(session)){
+    public String listGoods(HttpServletRequest request, HttpSession session) {
+        if (!checkLogin(session)) {
             return "redirect:/owner/login";
         }
         //检查检查检查检确确make sure shop state is normal
         OwnerEntity entity = (OwnerEntity) session.getAttribute(IDefineString.SESSION_USER);
         int state = mOwnerService.isHasShop(entity);
-        if (state != IOwnerService.SHOP_STATE_USING){
-            request.setAttribute(MSG,"0");
+        if (state != IOwnerService.SHOP_STATE_USING) {
+            request.setAttribute(MSG, "0");
             return "owner/goods_list.jsp";
-        }else {
-            request.setAttribute(MSG,"1");
+        } else {
+            request.setAttribute(MSG, "1");
         }
 
         int page = 1;//Integer.parseInt(request.getParameter("page"));
         int lines = 10;//Integer.parseInt(request.getParameter("lines"));
 
         ShopEntity shopEntity = getShop(session);
-        IListBean<GoodsDbBean> data = mOwnerService.getMyGoods(shopEntity,page,lines);
+        IListBean<GoodsDbBean> data = mOwnerService.getMyGoods(shopEntity, page, lines);
 
         GoodsListBean goodsList = new GoodsListBean();
         goodsList.setCurrent((int) data.getCurrentPage());
         goodsList.setTotal((int) data.getMaxPages());
         goodsList.setCount((int) data.getNumer());
         List<GoodsListBean.DataBean> list = new ArrayList<>();
-        for (GoodsDbBean item : data.getShopList()){
+        for (GoodsDbBean item : data.getShopList()) {
             GoodsListBean.DataBean goods = new GoodsListBean.DataBean();
             goods.setId(item.getGoodsId());
             goods.setName(item.getGoodsName());
@@ -408,7 +407,7 @@ public class OwnerController {
             int count = item.getPicturePath().size();
             String[] photos = new String[count];
             List<PhotoEntity> photoEntities = item.getPicturePath();
-            for (int i = 0;i<count;i++){
+            for (int i = 0; i < count; i++) {
                 photos[i] = photoEntities.get(i).getAddress();
             }
             goods.setPhotos(photos);
@@ -418,34 +417,36 @@ public class OwnerController {
         goodsList.setData(list);
         String temp = mGson.toJson(list);
         System.out.println(temp);
-        request.setAttribute(GOODS,goodsList);
+        request.setAttribute(GOODS, goodsList);
         return "owner/goods_list.jsp";
     }
 
-    @RequestMapping(value = "/addGoods",method = RequestMethod.GET)
-    public String addGoodsGet(HttpSession session){
-        if (!checkLogin(session)){
+    @RequestMapping(value = "/addGoods", method = RequestMethod.GET)
+    public String addGoodsGet(HttpSession session) {
+        if (!checkLogin(session)) {
             return "redirect:/owner/login";
         }
         return "owner/add_goods.jsp";
     }
 
 
-    @RequestMapping(value = "/addGoods",method = RequestMethod.POST)
+    @RequestMapping(value = "/addGoods", method = RequestMethod.POST)
     public String addGoodsPost(HttpSession session,
-                           @RequestParam("name")String name,
-                           @RequestParam("desc")String desc,
-                           @RequestParam("price")double price,
-                           @RequestParam("inventory")int inventory,
-                           @RequestParam("photo")MultipartFile[] photos){
-        if (!checkLogin(session)){
+                               @RequestParam("name") String name,
+                               @RequestParam("desc") String desc,
+                               @RequestParam("price") double price,
+                               @RequestParam("inventory") int inventory,
+                               @RequestParam("goods_type") String type,
+                               @RequestParam("photo") MultipartFile[] photos) {
+        if (!checkLogin(session)) {
             return "redirect:/owner/login";
         }
+        System.out.println("type:" + type);
         final int count = photos.length;
         String contextPath = session.getServletContext().getRealPath("/");
         String[] photoPaths = new String[count];
         try {
-            for (int i=0;i<count;i++) {
+            for (int i = 0; i < count; i++) {
                 photoPaths[i] = OwnerFileSaver.saveImage(photos[i], contextPath);
             }
         } catch (Exception e) {
@@ -455,30 +456,44 @@ public class OwnerController {
         OwnerEntity entity = (OwnerEntity) session.getAttribute(IDefineString.SESSION_USER);
         mGoodsBuilder.clear();
         mGoodsBuilder
-                    .setOwnerId(entity.getOwnerId())
-                    .setGoodsName(name)
-                    .setIntroduction(desc)
-                    .setPrice(price)
-                    .setInventory(inventory);
+                .setOwnerId(entity.getOwnerId())
+                .setGoodsName(name)
+                .setIntroduction(desc)
+                .setPrice(price)
+                .setType(type)
+                .setInventory(inventory);
         IUploadPictures callback = new IUploadPictures() {
             @Override
             public List<String> getPicturePaths() {
                 List<String> photos = new ArrayList<>();
-                for (int i=0;i<count;i++){
+                for (int i = 0; i < count; i++) {
                     photos.add(photoPaths[i]);
                 }
                 return photos;
             }
         };
-        int state = mOwnerService.newGoods(mGoodsBuilder,callback);
-        if (state == IOwnerService.NEW_SUCCESS){
+        int state = mOwnerService.newGoods(mGoodsBuilder, callback);
+        if (state == IOwnerService.NEW_SUCCESS) {
             return "owner/add_goods_success.jsp";
         }
 
         return "owner/add_goods_fail.jsp";
     }
 
-
+    @RequestMapping(value = "/deleteGoods", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    String deleteGoods(HttpServletRequest request, @RequestBody byte[] data) {
+        if (!checkLogin(request.getSession())) {
+            return "redirect:/login";
+        }
+        String dataStr = new String(data);
+        DeleteGoodsRequestBean requestBean = mGson.fromJson(dataStr, DeleteGoodsRequestBean.class);
+        DeleteGoodsResponseBean responseBean = new DeleteGoodsResponseBean();
+        boolean success = mOwnerService.deletGoods(requestBean.getGoodsID());
+        responseBean.setSuccess(success);
+        return mGson.toJson(request);
+    }
 
 
     /**
@@ -516,17 +531,17 @@ public class OwnerController {
     }
 
 
-    private ShopEntity getShop(HttpSession session){
+    private ShopEntity getShop(HttpSession session) {
         OwnerEntity ownerEntity = (OwnerEntity) session.getAttribute(IDefineString.SESSION_USER);
-        IListBean<ShopAndOwnerDbBean> data = mOwnerService.getMyShop(ownerEntity,1,1000);
+        IListBean<ShopAndOwnerDbBean> data = mOwnerService.getMyShop(ownerEntity, 1, 1000);
         List<ShopAndOwnerDbBean> shops = data.getShopList();
-        if (shops == null){
+        if (shops == null) {
             return null;
         }
         ShopEntity entity;
-        for (ShopAndOwnerDbBean item : shops){
+        for (ShopAndOwnerDbBean item : shops) {
             int state = item.getShopState();
-            if (state == IOwnerService.SHOP_STATE_USING){
+            if (state == IOwnerService.SHOP_STATE_USING) {
                 entity = new ShopEntity();
                 entity.setShopId(item.getShopId());
                 return entity;
