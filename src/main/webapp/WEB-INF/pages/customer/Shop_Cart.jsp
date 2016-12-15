@@ -64,7 +64,7 @@
                                     </div>
                                 </td>
                                 <td class="xj" >
-                                    <span>￥${cart.getPrice()}</span>
+                                    <span>￥${cart.getPrice()*cart.getAmount()}</span>
                                 </td>
                                 <td class="cz">
                                     <p><a href="/removeProduct?goodsId=${cart.getCartId()}">delete</a><P>

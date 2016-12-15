@@ -38,8 +38,8 @@
 				
                <td colspan="3" class="select">
                
-                <label> Province </label><select name="province" onChange = "hw_select()"></select>
-                <label> Country </label><select name="country" onChange = "hw_select()"></select>
+                <label> Area </label><select name="province" onChange = "hw_select()"></select>
+                <label> Distinct </label><select name="country" onChange = "hw_select()"></select>
          
                </td>
                </tr>
@@ -63,6 +63,95 @@
    </div>
   </div>
 </div>
+<script language="JavaScript">
+    var hw_selecttext =
+        "HK|Aberdeen^Admiralty^Ap Lei Chau^Big Wave Bay^Causeway Bay^Central^Central sheung Wan^Central South^Chai Wan^Gloucester Road^Happy Valley^Harbour Road^Jardine's Lookkout^Kennedy Town^Lai Tak Tsuen^Mid-Levels^Mid-Levels West^North Point^Pok Fu Lam^Quarry Bay^Sai Wan^Shau Kei Wan^Shek O^Sheung Wan West^Siu Sai Wan^So Kon Po^Southern District^Stanley^Tai Hang Road^The Peak^Tim Mei Ave^Tin Hau^Wah Fu^Wan Chai^Wong Chuk Hang*" +
+        "KLN|Cheung Sha Wan^Choi Wan^Diamond Hill^Ho Man Tin^Hung Hom^Jordan^Jordan Road^Kowloon Bay^Kowloon City^Kowloon Tong^kwun Tong^La Salle Road^Lai Chi Kok^Lam Tin^Lok Fu^Ma Tau Wai^Mei Foo^Mong Kok^Ngau Chi Wan^Ngau Tau Kok^Rainbow Village^San Po Kong^Sau Mau Ping^Sham Shui Po^Shek Kip Mei^Tai Kok Tsui^To Kwa Wan^Tsim Sha Tsui^Tsz Wan Shan^Wong Tai Sin^Yau Ma Tei^Yau Tong*" +
+        "NT|Chek Lap Kok^Chinese University^Clear Water Bay^Discovery Bay^Fairview Park^Fanling^Fo Tan^HKUST^Kwai Chung^Long Ping^Ma On Shan^Ma Wan^Pat Heung^Sai Kung (North)^Sai Kung (South)^Science Park^Sha Tin^Sheung Shui^Siu Lek Yuen^Tai Po^Tai Wai^Tin Shui Wai^Tseung Kwan O^Tsing Yi^Tsuen Wan^Tuen Mun^Tuen Mun^Wu Kai Sha^Yuen Long*"
+    var TheSplit1 = "*",TheSplit2 = "|",TheSplit3 = "^", TheSplit4 = "@"
+    var hwallselecttext = hw_selecttext
+    var hwdefault_value = "On Select"
+    var hwallselecttextarr
+    hwallselecttextarr = hwallselecttext.split(TheSplit1)
+    hwArraylength = hwallselecttextarr.length
+    var hwwhere = new Array(hwArraylength);
+    hwwhere[0]= new hw_comefrom("Select Area@","Select Distinct@");
 
+    for (var hwl=0;hwl<hwArraylength;hwl++) {
+        eval(hwwhere[hwl+1] = new hw_comefrom(hwallselecttextarr[hwl].split(TheSplit2)[0],hwallselecttextarr[hwl].split(TheSplit2)[1]))
+    }
+    function hw_comefrom(hwSelect_s1,hwSelect_s2) { this.hwSelect_s1 = hwSelect_s1; this.hwSelect_s2 = hwSelect_s2; }
+    function hw_select() {
+        with(document.all.province) {
+            var hwSelect_s12 = options[selectedIndex].value;
+        }
+        for(hwi = 0;hwi < hwwhere.length;hwi ++) {
+            if (hwwhere[hwi].hwSelect_s1.indexOf(TheSplit4)!=-1) {
+                var hwThisV = hwwhere[hwi].hwSelect_s1.split(TheSplit4)[1]
+            }
+            else {
+                var hwThisV = hwwhere[hwi].hwSelect_s1
+            }
+            if (hwThisV == hwSelect_s12) {
+                hwSelect_s13 = (hwwhere[hwi].hwSelect_s2).split(TheSplit3);
+                for(hwj = 0;hwj < hwSelect_s13.length;hwj++) {
+                    with(document.all.country) {
+                        length = hwSelect_s13.length;
+                        if (hwSelect_s13[hwj].indexOf(TheSplit4)!=-1) {
+                            options[hwj].text = hwSelect_s13[hwj].split(TheSplit4)[0]
+                            options[hwj].value = hwSelect_s13[hwj].split(TheSplit4)[1]
+                        }
+                        else {
+                            options[hwj].text = hwSelect_s13[hwj];
+                            options[hwj].value = hwSelect_s13[hwj];
+                        }
+                        var hwSelect_s14=options[selectedIndex].value;
+                    }
+                }
+                break;
+            }
+        }
+        document.all.hw.value=hwSelect_s12+""+hwSelect_s14;
+    }
+    function hw_init() {
+        with(document.all.province) {
+            length = hwwhere.length;
+            var hwm = 0
+            for(hwk=0;hwk<hwwhere.length;hwk++) {
+                if (hwwhere[hwk].hwSelect_s1.indexOf(TheSplit4)!=-1) {
+                    options[hwk].text = hwwhere[hwk].hwSelect_s1.split(TheSplit4)[0];
+                    options[hwk].value = hwwhere[hwk].hwSelect_s1.split(TheSplit4)[1];
+                    if (hwdefault_value.indexOf(hwwhere[hwk].hwSelect_s1.split(TheSplit4)[1])!=-1){hwm = hwk}
+                }
+                else {
+                    options[hwk].text = hwwhere[hwk].hwSelect_s1;
+                    options[hwk].value = hwwhere[hwk].hwSelect_s1;
+                    if (hwdefault_value.indexOf(hwwhere[hwk].hwSelect_s1)!=-1){hwm = hwk}
+                }
+            }
+            selectedIndex = hwm
+        }
+        with(document.all.country)
+        {
+            var hwn = 0
+            hwSelect_s13 = (hwwhere[hwm].hwSelect_s2).split(TheSplit3);
+            length = hwSelect_s13.length;
+            for(hwl=0;hwl<length;hwl++) {
+                if (hwSelect_s13[hwl].indexOf(TheSplit4)!=-1) {
+                    options[hwl].text = hwSelect_s13[hwl].split(TheSplit4)[0];
+                    options[hwl].value = hwSelect_s13[hwl].split(TheSplit4)[1];
+                    if (hwdefault_value.indexOf(hwSelect_s13[hwl].split(TheSplit4)[1])!=-1){hwn = hwl}
+                }
+                else {
+                    options[hwl].text = hwSelect_s13[hwl];
+                    options[hwl].value = hwSelect_s13[hwl];
+                    if (hwdefault_value.indexOf(hwSelect_s13[hwl])!=-1){hwn = hwl}
+                }
+            }
+            selectedIndex = hwn
+        }
+    }
+    hw_init();
+</script>
 </body>
 </html>

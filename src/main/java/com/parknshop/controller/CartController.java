@@ -7,6 +7,7 @@ import com.parknshop.service.customerService.Cart;
 import com.parknshop.service.customerService.ICartService;
 import com.parknshop.service.customerService.IGetList;
 import com.parknshop.service.customerService.Product;
+import com.sun.deploy.net.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,14 +46,20 @@ public class CartController {
 //    }
 
     @RequestMapping(value = "/changeAmount",method = RequestMethod.GET)
-    public  String changeAmount(@RequestParam int cartId,@RequestParam int amount, HttpSession session)
+    public  String changeAmount(@RequestParam int cartId, @RequestParam int amount, HttpSession session, Model model)
     {
         int userId=getUserId(session);
         if(userId<1){
             return "redirect:/customer/login";
         }else {
-            cartService.changeAmount(cartId,amount);
-            return  "redirect:/listProduct?start=1&count=5";
+            if(amount>0) {
+                cartService.changeAmount(cartId, amount);
+                return "redirect:/listProduct?start=1&count=5";
+            }else
+            {
+                model.addAttribute("husdfdskljaf",cartId);
+                return "redirect:/removeProduct?goodsId={husdfdskljaf}";
+            }
         }
     }
 

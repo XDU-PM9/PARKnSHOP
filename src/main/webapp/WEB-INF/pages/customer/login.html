@@ -1,31 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>customer login</title>
+    <title>Sign Up</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="" />
+
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+    function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- Custom Theme files -->
+    <link href="/resources/customer/login/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="/resources/customer/login/style.css" rel="stylesheet" type="text/css" media="all" />
+    <!-- web-fonts -->
+    <link href='http://fonts.useso.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Lovers+Quarrel' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Offside' rel='stylesheet' type='text/css'>
     <script src="/resources/libs/jquery.js"></script>
     <script src="/resources/js/customer/login.js"></script>
-    <link rel="stylesheet" href="/resources/css/customer/login.css">
+    <!-- web-fonts -->
 </head>
 <body>
-<div>
-    <a href="/index.html"><img src="/resources/images/ico/banner.jpg" class="logo"></a>
+
+<!-- login-page -->
+<div class="login-page">
+    <div class="container">
+        <h3 class="w3ls-title w3ls-title1">Login to your account</h3>
+        <div class="login-body">
+            <form id="loginForm" action="/customer/login" method="post">
+                <input type="text" class="user" name="username" id="username" placeholder="Enter your email/userName/phone" required="">
+                <input type="password" name="password" id="password"  class="lock" placeholder="Password" required="">
+                <input type="submit" value="Login">
+                <div>
+                    <span id="tips" style="color: red"></span>
+                </div>
+                <div class="forgot-grid">
+                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Remember me</label>
+                    <div class="forgot">
+                        <a href="#">Forgot Password?</a>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+            </form>
+        </div>
+        <h6> Not a Member? <a href="/cusromer/register.html">Sign Up Now »</a> </h6>
+
+    </div>
 </div>
-<div class="login">
-    <form id="loginForm" action="/customer/login" method="post">
-        <div>
-        <label>Username:</label>
-        <input placeholder="Username/Email" name="username" type="text" id="username" size="18" required/>
-        </div>
-        <div>
-        <label>Password:</label>
-        <input placeholder="Password" name="password" type="password" id="password" size="18" required/>
-        </div>
-        <input type="submit" value="Login" id="loginBtn"/>
-        <div>
-            <span id="tips"></span>
-        </div>
-    </form>
+
+<div class="copy-right">
+    <div class="container">
+        <p>Copyright &copy; 2016.Company name All rights reserved.</p>
+    </div>
 </div>
 </body>
 </html>
