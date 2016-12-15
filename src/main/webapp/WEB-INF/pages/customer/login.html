@@ -1,56 +1,66 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
-    <title>Sign Up</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="keywords" content="" />
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	<title>Login</title>
+	<link rel="stylesheet" href="/resources/css/base.css" />
+	<link rel="stylesheet" href="/resources/css/global.css" />
+	<link rel="stylesheet" href="/resources/css/login-register.css" />
 
-    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
-    function hideURLbar(){ window.scrollTo(0,1); } </script>
-    <!-- Custom Theme files -->
-    <link href="/resources/customer/login/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-    <link href="/resources/customer/login/style.css" rel="stylesheet" type="text/css" media="all" />
-    <!-- web-fonts -->
-    <link href='http://fonts.useso.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.useso.com/css?family=Lovers+Quarrel' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.useso.com/css?family=Offside' rel='stylesheet' type='text/css'>
     <script src="/resources/libs/jquery.js"></script>
     <script src="/resources/js/customer/login.js"></script>
-    <!-- web-fonts -->
 </head>
 <body>
 
-<!-- login-page -->
-<div class="login-page">
-    <div class="container">
-        <h3 class="w3ls-title w3ls-title1">Login to your account</h3>
-        <div class="login-body">
-            <form id="loginForm" action="/customer/login" method="post">
-                <input type="text" class="user" name="username" id="username" placeholder="Enter your email/userName/phone" required="">
-                <input type="password" name="password" id="password"  class="lock" placeholder="Password" required="">
-                <input type="submit" value="Login">
-                <div>
-                    <span id="tips" style="color: red"></span>
-                </div>
-                <div class="forgot-grid">
-                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Remember me</label>
-                    <div class="forgot">
-                        <a href="#">Forgot Password?</a>
-                    </div>
-                    <div class="clearfix"> </div>
-                </div>
-            </form>
+	<div class="header wrap1000">
+		<a href=""><img id="logo" src="/resources/images/ico/banner.jpg" alt="" /></a>
+	</div>
+	
+	<div class="main">
+		<div class="login-form fr">
+			<div class="form-hd">
+				<h3>Login</h3>
+			</div>
+			<div class="form-bd">
+				<form id="loginForm" action="/customer/login" method="post">
+					<dl>
+						<dt>Username</dt>
+						<dd><input type="text" id="username" required name="user" class="text" placeholder="Username/Email"/></dd>
+					</dl>
+					<dl>
+						<dt>Password</dt>
+						<dd><input type="password"  id="password" required name="pwd" class="text"/></dd>
+					</dl>
+					<!--<dl>
+						<dt>验证码</dt>
+						<dd><input type="text" name="code" class="text" size="10" style="width:58px;"> <img src="images/code.png" alt="" align="absmiddle" style="position:relative;top:-2px;"/> <a href="" style="color:#999;">看不清，换一张</a></dd>
+					</dl>-->
+					<div id="tips_container">
+						<span id="tips"></span>
+					</div>
+					<dl>
+						<dt>&nbsp;</dt>
+						<dd><input type="submit" value="Login" class="submit"/> </dd>
+					</dl>
+				</form>
+			</div>
+			<div class="form-ft">
+			
+			</div>		
+		</div>
+        <div class="login-form-left fl">
+
+            <div class="if">
+                <h2>If you are not a user of this site</h2>
+                <p>immediately <a href="" class="register">Regist</a></p>
+            </div>
         </div>
-        <h6> Not a Member? <a href="/cusromer/register.html">Sign Up Now »</a> </h6>
-
-    </div>
-</div>
-
-<div class="copy-right">
-    <div class="container">
-        <p>Copyright &copy; 2016.Company name All rights reserved.</p>
-    </div>
-</div>
+	</div>
+	
+	<div class="footer clear wrap1000">
+		<p>Copyright 2004-2013 itcast Inc.,All rights reserved.</p>
+	</div>
+	
+	
 </body>
 </html>

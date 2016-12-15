@@ -3,12 +3,18 @@
  */
 $(document).ready(function () {
     $('#loginForm').bind('submit',function () {
-        loginOption.username=$('#username').val();
-        loginOption.password=$('#password').val();
         $.ajax({
             type:'POST',
             contentType: "application/json; charset=utf-8",
-            data:JSON.stringify(loginOption),
+            data:JSON.stringify(loginOption,function (key,value) {
+                if("username"==key){
+                    return $('#username').val();
+                }
+                if("password"==key){
+                    return $('#password').val();
+                }
+                return value;
+            }),
             success: function (msg) {
                 if("false"==msg.error){
                     window.location.href='/index.html';

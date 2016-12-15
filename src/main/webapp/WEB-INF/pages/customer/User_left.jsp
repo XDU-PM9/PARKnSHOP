@@ -47,27 +47,27 @@
                         </dd>
                     </dl>
 
-
+                    <!--
                     <dl class="accountSideOption1">
                         <dt class="transaction_manage"><em class="icon_1"></em>Order Center</dt>
                         <dd>
                             <ul>
-                                <li> <a href="/listProduct?start=1&count=10"> My Cart</a></li>
+                                <li> <a href="#"> 我的订单</a></li>
 
                             </ul>
                         </dd>
                     </dl>
-                    <!--
-                                    <dl class="accountSideOption1">
-                                        <dt class="transaction_manage"><em class="icon_3"></em>账户中心</dt>
-                                        <dd>
-                                            <ul>
-                                                <li> <a href="#"> 资金管理</a></li>
-                                                <li> <a href="#">充值缴费</a>
-                                            </ul>
-                                        </dd>
-                                    </dl>
-                                    -->
+
+                    <dl class="accountSideOption1">
+                        <dt class="transaction_manage"><em class="icon_3"></em>账户中心</dt>
+                        <dd>
+                            <ul>
+                                <li> <a href="#"> 资金管理</a></li>
+                                <li> <a href="#">充值缴费</a>
+                            </ul>
+                        </dd>
+                    </dl>
+                    -->
                 </div>
                 <script>jQuery(".sideMen").slide({titCell:"dt", targetCell:"dd",trigger:"click",defaultIndex:0,effect:"slideDown",delayTime:300,returnDefault:true});</script>
             </div>
