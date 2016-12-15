@@ -40,7 +40,12 @@
                     out.println("<p>price:"+item.getPrice()+"</p>");
                     out.println("<p>views:"+item.getViews()+"</p>");
                     out.println("<p>discount:"+item.getDiscount()+"</p>");
-                    out.println("<p>photos"+item.getPhotos()+"</p>");
+                    out.print("<p>photos:");
+                    String[] photos = item.getPhotos();
+                    for (String p : photos){
+                        out.print(p+" ");
+                    }
+                    out.println("</p>");
                     out.println("<p>createTime"+item.getCreateTime()+"</p>");
                     out.println("</li>");
 
