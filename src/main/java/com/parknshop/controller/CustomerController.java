@@ -142,10 +142,10 @@ public class CustomerController{
      * 注销
      * @return
      */
-    @RequestMapping(value = "/customer/logout",method = RequestMethod.POST)
-    public @ResponseBody String loginout(){
+    @RequestMapping(value = "/customer/logout",method = RequestMethod.GET)
+    public String loginout(){
         userService.loginOut();
-        return "";
+        return "forward:/";
     }
 
     /**

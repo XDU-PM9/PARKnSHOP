@@ -6,10 +6,8 @@ import com.parknshop.service.customerService.ISearchShops;
 import com.parknshop.service.customerService.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -27,16 +25,8 @@ public class SearchController {
 
     //Get请求搜索商品
     @RequestMapping(value = "/search",method = RequestMethod.GET)
-    public String search(HttpServletRequest request, Model model){
-        searchProducts.initRuler();
-        try {
-            model.addAttribute("products",getList.getProducts(searchProducts.searchProductsByMap(request.getParameterMap())));
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
-        return "search.html";
+    public String search(){
+        return "search.jsp";
     }
 
     /**
@@ -136,7 +126,7 @@ public class SearchController {
      * @param request
      * @return
      */
-    @RequestMapping(value = "/getSearchCount", method = RequestMethod.POST)
+    @RequestMapping(value = "/getProductCount", method = RequestMethod.POST)
     @ResponseBody
     public String productCount(@RequestBody Map request) {
         searchProducts.initRuler();
@@ -155,8 +145,8 @@ public class SearchController {
      */
     @RequestMapping(value = "/getShopCount",method=RequestMethod.POST)
     @ResponseBody
-    public long shopCount(@RequestParam String shopName){
-        return searchShops.getCount(shopName);
+    public String shopCount(@RequestParam String shopName){
+        return String.valueOf(searchShops.getCount(shopName));
     }
 
     /**

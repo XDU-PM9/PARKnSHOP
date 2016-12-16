@@ -3,9 +3,6 @@ package com.parknshop.service.customerService.customerServiceImpl;
 import com.parknshop.dao.daoImpl.BaseDao;
 import com.parknshop.entity.GoodsEntity;
 import com.parknshop.service.customerService.ISearchProducts;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.cfg.Configuration;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -164,32 +161,62 @@ public class SearchProducts implements ISearchProducts {
 
     @Override
     public List<GoodsEntity> searchProductsByName(String name, int max, int count) {
-        return getGoodsEntitys("from GoodsEntity where GoodsName like ?", getLikeParamter(name), max, count);
+        try {
+            return goodsEntityBaseDao.findNumberRows(mergerRulertoHql("from GoodsEntity where GoodsName like ?"), getLikeParamter(name), max, count);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
     public List<GoodsEntity> searchProductsByType(String type, int max, int count) {
-        return getGoodsEntitys("from GoodsEntity where type like ?", getLikeParamter(type), max, count);
+        try {
+            return goodsEntityBaseDao.findNumberRows(mergerRulertoHql("from GoodsEntity where type like ?"), getLikeParamter(type), max, count);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
     public List<GoodsEntity> searchProductsOnePageByName(String name, int pageNum, int pageSize) {
-        return getGoodsEntitys("from GoodsEntity where GoodsName like ?", getLikeParamter(name), (pageNum - 1) * pageSize, pageSize);
+        try{
+        return goodsEntityBaseDao.findNumberRows(mergerRulertoHql("from GoodsEntity where GoodsName like ?"), getLikeParamter(name), (pageNum - 1) * pageSize, pageSize);
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
     public List<GoodsEntity> searchProductsOnePageByType(String type, int pageNum, int pageSize) {
-        return getGoodsEntitys("from GoodsEntity where type like ?", new Object[]{getLikeParamter(type)}, (pageNum - 1) * pageSize, pageSize);
+        try{
+        return goodsEntityBaseDao.findNumberRows(mergerRulertoHql("from GoodsEntity where type like ?"), new Object[]{getLikeParamter(type)}, (pageNum - 1) * pageSize, pageSize);
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
     public List<GoodsEntity> searchProductsByNameAndType(String name, String type, int max, int count) {
-        return getGoodsEntitys("from GoodsEntity where goodsName like ? and type like ?", getLikeParamter(name, type), max, count);
+        try{
+        return goodsEntityBaseDao.findNumberRows(mergerRulertoHql("from GoodsEntity where goodsName like ? and type like ?"), getLikeParamter(name, type), max, count);
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
     public List<GoodsEntity> searchProductsOnePageByNameAndType(String name, String type, int pageNum, int pageSize) {
-        return getGoodsEntitys("from GoodsEntity where goodsName like ? and type like ?", getLikeParamter(name, type), (pageNum - 1) * pageSize, pageSize);
+        try{
+        return goodsEntityBaseDao.findNumberRows(mergerRulertoHql("from GoodsEntity where goodsName like ? and type like ?"), getLikeParamter(name, type), (pageNum - 1) * pageSize, pageSize);
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
@@ -245,19 +272,19 @@ public class SearchProducts implements ISearchProducts {
     }
 
     @Override
-    public ISearchProducts setByMap(Map map) throws NumberFormatException{
+    public ISearchProducts setByMap(Map map) throws NumberFormatException {
         initRuler();
         setRuler(map);
         String name = (String) map.get("name");
         String type = (String) map.get("type");
-        String startString=(String)map.get("start");
-        String countString= (String) map.get("count");
-        String shopIdString= (String) map.get("shopID");
-        if(stringNotNull(shopIdString)){
+        String startString = (String) map.get("start");
+        String countString = (String) map.get("count");
+        String shopIdString = (String) map.get("shopID");
+        if (stringNotNull(shopIdString)) {
             setShopId(Integer.parseInt(shopIdString));
         }
-        if(stringNotNull(startString)&&stringNotNull(countString)){
-            setScope(Integer.parseInt(startString),Integer.parseInt(countString));
+        if (stringNotNull(startString) && stringNotNull(countString)) {
+            setScope(Integer.parseInt(startString), Integer.parseInt(countString));
         }
         setGoodsName(name);
         setGoodsType(type);
@@ -268,8 +295,8 @@ public class SearchProducts implements ISearchProducts {
     @Override
     public long getCount() {
         param = null;
-        String hql=getHql();
-        if(null==hql){
+        String hql = getHql();
+        if (null == hql) {
             return -1;
         }
         try {
@@ -292,7 +319,7 @@ public class SearchProducts implements ISearchProducts {
             if (start < 0 || count < 1) {
                 return goodsEntityBaseDao.find(hql, param);
             } else {
-                return getGoodsEntitys(hql, param, start, count);
+                return goodsEntityBaseDao.findNumberRows(hql, param, start, count);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -375,23 +402,22 @@ public class SearchProducts implements ISearchProducts {
     }
 
     //搜索从max开始count个GoodsEntity
-    private List<GoodsEntity> getGoodsEntitys(String hql, Object[] params, int max, int count) {
-        hql = mergerRulertoHql(hql);
-        try {
-            Session session = new Configuration().configure().buildSessionFactory().getCurrentSession();
-            Query query = session.createQuery(hql);
-            if (params != null) {
-                for (int i = 0; i < params.length; i++) {
-                    query.setParameter(i, params[i]);
-                }
-            }
-            List<GoodsEntity> goodsEntities = query.setFirstResult(max).setMaxResults(count).list();
-            session.close();
-            return goodsEntities;
-        } catch (Exception e) {
-            return null;
-        }
-    }
+//    private List<GoodsEntity> getGoodsEntitys(String hql, Object[] params, int max, int count) {
+//        try {
+//            Session session = new Configuration().configure().buildSessionFactory().getCurrentSession();
+//            Query query = session.createQuery(hql);
+//            if (params != null) {
+//                for (int i = 0; i < params.length; i++) {
+//                    query.setParameter(i, params[i]);
+//                }
+//            }
+//            List<GoodsEntity> goodsEntities = query.setFirstResult(max).setMaxResults(count).list();
+//            session.close();
+//            return goodsEntities;
+//        } catch (Exception e) {
+//            return null;
+//        }
+//    }
 
     //获取“%param%"形式的参数数组
     private Object[] getLikeParamter(String param) {
@@ -407,12 +433,12 @@ public class SearchProducts implements ISearchProducts {
         int status = 0;
         StringBuilder hql = new StringBuilder("");
         List list = new ArrayList<Object>();
-        if (null != goodsName && !"".equals(goodsName) && !"null".equals(goodsName)) {
+        if (stringNotNull(goodsName)) {
             hql.append(" goodsName like ?");
             list.add("%" + goodsName + "%");
             status++;
         }
-        if (null != type && "" != type && "null" != type) {
+        if (stringNotNull(type)) {
             if (status > 0) {
                 hql.append(" and");
             }
@@ -444,7 +470,7 @@ public class SearchProducts implements ISearchProducts {
     }
 
     //判断String是否为空或null
-    private boolean stringNotNull(String string){
-        return null!=string&&!"null".equals(string)&&!"".equals(string);
+    private boolean stringNotNull(String string) {
+        return null != string && !"null".equals(string) && !"".equals(string);
     }
 }

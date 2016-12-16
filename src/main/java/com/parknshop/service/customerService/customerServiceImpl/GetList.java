@@ -9,9 +9,6 @@ import com.parknshop.service.customerService.Cart;
 import com.parknshop.service.customerService.IGetList;
 import com.parknshop.service.customerService.Product;
 import com.parknshop.service.customerService.Shop;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.cfg.Configuration;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -26,6 +23,8 @@ public class GetList implements IGetList {
 
     @Resource
     private BaseDao<PhotoEntity> photoEntityBaseDao;
+//    @Autowired
+//    IPictureDao pictureDao;
     @Override
     public Cart getCart(CartEntity cartEntity) throws NullPointerException{
         GoodsEntity goodsEntity=cartEntity.getGoodsEntity();
@@ -94,7 +93,13 @@ public class GetList implements IGetList {
     private  String   getPhoto(String  photogroup)
     {
         if(!"".equals(photogroup)&&null!=photogroup) {
-            return   photoEntityBaseDao.find("from PhotoEntity where photoGroup=? order by photoId desc",new Object[]{photogroup}).get(0).getAddress();
+            try {
+//                return pictureDao.getPictures(photogroup).get(0).getAddress();
+                return photoEntityBaseDao.find("from PhotoEntity where photoGroup=? order by photoId desc", new Object[]{photogroup}).get(0).getAddress();
+            }catch (Exception e){
+                e.printStackTrace();
+                return "";
+            }
         }
         else
         {

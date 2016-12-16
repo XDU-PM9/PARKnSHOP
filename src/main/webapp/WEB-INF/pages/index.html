@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
-    <title>ShopCZ-首页</title>
+    <title>PARKnSHOP</title>
     <link rel="stylesheet" href="../../resources/css/base.css" type="text/css"/>
     <link rel="stylesheet" href="../../resources/css/shop_common.css" type="text/css"/>
     <link rel="stylesheet" href="../../resources/css/shop_header.css" type="text/css"/>
@@ -12,6 +12,11 @@
     <script type="text/javascript" src="../../resources/js/topNav.js"></script>
     <script type="text/javascript" src="../../resources/js/focus.js"></script>
     <script type="text/javascript" src="../../resources/js/shop_home_tab.js"></script>
+    <script>
+        function search() {
+                window.location.href=$('#shop_search').hasClass('current') ? '/searchShop' : '/search'+"?name="+$('#searchText').val();
+        }
+    </script>
 </head>
 <body>
 <!-- Header  -wll-2013/03/24 -->
@@ -35,10 +40,10 @@
                         <a href="#">Username</a>
                     </li>
                     <li>
-                        <a href="#">User center</a>
+                        <a href="/listUserInfo">User center</a>
                     </li>
                     <li>
-                        <a href="#">Logout</a>
+                        <a href="/customer/logout">Logout</a>
                     </li>
 
                 </ul>
@@ -58,26 +63,20 @@
         </div>
         <div class="shop_hd_header_search">
             <ul class="shop_hd_header_search_tab">
-                <li id="search" class="current">商品</li>
-                <li id="shop_search">店铺</li>
+                <li id="search" class="current">Product</li>
+                <li id="shop_search">Shop</li>
             </ul>
             <div class="clear"></div>
             <div class="search_form">
-                <form method="post" action="index.php">
-                    <div class="search_formstyle">
-                        <input type="text" class="search_form_text" name="search_content" value="搜索其实很简单！"/>
-                        <input type="submit" class="search_form_sub" name="secrch_submit" value="" title="搜索"/>
-                    </div>
-                </form>
+                <!--<form method="post" action="/search">-->
+                <div class="search_formstyle">
+                    <input type="text" class="search_form_text" id="searchText" name="search_content" placeholder="Search!"/>
+                    <input type="button" class="search_form_sub" name="secrch_submit" value="" title="搜索"
+                           onclick="search()"/>
+                </div>
+                <!--</form>-->
             </div>
             <div class="clear"></div>
-            <div class="search_tag">
-                <a href="">李宁</a>
-                <a href="">耐克</a>
-                <a href="">Kappa</a>
-                <a href="">双肩包</a>
-                <a href="">手提包</a>
-            </div>
 
         </div>
     </div>

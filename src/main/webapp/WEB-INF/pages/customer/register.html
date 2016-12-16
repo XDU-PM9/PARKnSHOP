@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="/resources/css/base.css"/>
     <link rel="stylesheet" href="/resources/css/global.css"/>
     <link rel="stylesheet" href="/resources/css/login-register.css"/>
+    <script src="/resources/libs/jquery.js"></script>
+    <script src="/resources/js/customer/register.js"></script>
 
 </head>
 <body>
@@ -23,19 +25,19 @@
             <form action="/customer/register" id="registerForm" method="POST">
                 <dl>
                     <dt>Username</dt>
-                    <dd><input type="text" name="user" id="username" requird class="text"/></dd>
+                    <dd><input type="text" name="user" id="username" required class="text" placeholder="username"/></dd>
                 </dl>
                 <dl>
                     <dt>Password</dt>
-                    <dd><input type="password" name="pwd" class="text" id="password" requird/></dd>
+                    <dd><input type="password" name="pwd" class="text" id="password" required placeholder="password"/></dd>
                 </dl>
                 <dl>
                     <dt>Confirm</dt>
-                    <dd><input type="password" placeholder="Confirm Password" name="repwd" id="passwordConfirm" class="text" requird/></dd>
+                    <dd><input type="password" placeholder="Confirm Password" name="repwd" id="passwordConfirm" class="text" required/></dd>
                 </dl>
                 <dl>
                     <dt>Email</dt>
-                    <dd><input type="email" name="email"  id="email" class="text" requird/></dd>
+                    <dd><input type="email" name="email"  id="email" class="text" required placeholder="email"/></dd>
                 </dl>
                 <!--<dl>-->
                 <!--<dt>验证码</dt>-->
