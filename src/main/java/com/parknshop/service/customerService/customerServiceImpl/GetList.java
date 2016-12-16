@@ -1,7 +1,9 @@
 package com.parknshop.service.customerService.customerServiceImpl;
 
+import com.parknshop.dao.daoImpl.BaseDao;
 import com.parknshop.entity.CartEntity;
 import com.parknshop.entity.GoodsEntity;
+import com.parknshop.entity.PhotoEntity;
 import com.parknshop.entity.ShopEntity;
 import com.parknshop.service.customerService.Cart;
 import com.parknshop.service.customerService.IGetList;
@@ -12,6 +14,7 @@ import org.hibernate.Session;
 import org.hibernate.cfg.Configuration;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +24,8 @@ import java.util.List;
 @Service
 public class GetList implements IGetList {
 
+    @Resource
+    private BaseDao<PhotoEntity> photoEntityBaseDao;
     @Override
     public Cart getCart(CartEntity cartEntity) throws NullPointerException{
         GoodsEntity goodsEntity=cartEntity.getGoodsEntity();
@@ -86,9 +91,18 @@ public class GetList implements IGetList {
         }
         return shops;
     }
-
+    private  String   getPhoto(String  photogroup)
+    {
+        if(!"".equals(photogroup)&&null!=photogroup) {
+            return   photoEntityBaseDao.find("from PhotoEntity where photoGroup=? order by photoId desc",new Object[]{photogroup}).get(0).getAddress();
+        }
+        else
+        {
+            return  "";
+        }
+    }
     //获取该商品的第一张图片
-    private String getPhoto(String photoGroup) throws NullPointerException{
+ /*   private String getPhoto(String photoGroup) throws NullPointerException{
         if(null==photoGroup||"".equals(photoGroup)){
             return "";
         }
@@ -102,5 +116,5 @@ public class GetList implements IGetList {
             e.printStackTrace();
             return "";
         }
-    }
+    }*/
 }

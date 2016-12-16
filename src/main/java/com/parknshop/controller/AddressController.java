@@ -22,19 +22,17 @@ public class AddressController {
     @Autowired
     private IAddressService addressService;
 
+
     @RequestMapping(value = "/listAddress",method = RequestMethod.GET)
     public String  listAddress(Model model, HttpSession session)
     {
-
-        UserEntity userEntity=(UserEntity)session.getAttribute(IDefineString.SESSION_USER);
-        if(userEntity!=null) {
-            List<AddressEntity> addressEntityList = addressService.getAllAddressByUserId(userEntity.getUserId());
+        int userId=getUserId(session);
+        if(userId<1){
+            return "redirect:customer/login";
+        }else{
+            List<AddressEntity> addressEntityList = addressService.getAllAddressByUserId(userId);
             model.addAttribute("addressEntityList", addressEntityList);
             return "customer/User_Address.jsp";
-        }
-        else
-        {
-            return "redirect:customer/login";
         }
     }
 
@@ -56,18 +54,17 @@ public class AddressController {
                                  @RequestParam long phoneNum,
                                  HttpSession session)
     {
-        UserEntity userEntity=(UserEntity)session.getAttribute(IDefineString.SESSION_USER);
-        if(userEntity!=null) {
+        int userId=getUserId(session);
+
+        if(userId<1){
+            return "redirect:customer/login";
+        }else{
             ///
             String province, country;
             province = null;
             country = null;
-            addressService.updateAddressEntity(addressId, province, country, others, name, phoneNum, zip, userEntity.getUserId());
+            addressService.updateAddressEntity(addressId, province, country, others, name, phoneNum, zip, userId);
             return "redirect:listAddress";
-        }
-        else
-        {
-            return "redirect:customer/login";
         }
     }
 
@@ -80,18 +77,16 @@ public class AddressController {
                                  @RequestParam long phoneNum,
                                  HttpSession session)
     {
-        UserEntity userEntity=(UserEntity)session.getAttribute(IDefineString.SESSION_USER);
-        if(userEntity!=null) {
-            ///
+        int userId=getUserId(session);
+        if(userId<1){
+            return "redirect:customer/login";
+        }
+        else{
             String province, country;
             province = null;
             country = null;
-            addressService.insertAddressEntity(province, country, others, name, phoneNum, zip, userEntity.getUserId());
+            addressService.insertAddressEntity(province, country, others, name, phoneNum, zip, userId);
             return "redirect:listAddress";
-        }
-        else
-        {
-            return "redirect:customer/login";
         }
     }
 
@@ -102,4 +97,12 @@ public class AddressController {
         return "redirect:listAddress";
     }
 
+
+    private int getUserId(HttpSession session){
+        try {
+            return ((UserEntity) session.getAttribute(IDefineString.SESSION_USER)).getUserId();
+        }catch (Exception e){
+            return -1;
+        }
+    }
 }

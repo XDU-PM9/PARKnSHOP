@@ -30,17 +30,15 @@ public class UserCenterController {
     @RequestMapping(value="/listUserInfo",method = RequestMethod.GET)
     public String  listUserInfo(Model model, HttpSession session)
     {
-         //  userEntity=session.getAttribute("user");
-      //  UserEntity userEntity=customerService.getCustomerById(new Integer(userId));
-        UserEntity  userEntity=(UserEntity)session.getAttribute("user");
-        if(userEntity!=null) {
+        int userId=getUserId(session);
+        if(userId<1){
+            return "redirect:customer/login";
+        }else{
+            UserEntity userEntity=customerService.getCustomerById(new Integer(userId));
             model.addAttribute("user", userEntity);
             return "customer/User_Personalinfo.jsp";
         }
-        else
-        {
-            return "redirect:customer/login";
-        }
+
     }
 
     @RequestMapping(value="/goPassword",method = RequestMethod.GET)
@@ -53,7 +51,6 @@ public class UserCenterController {
     {
         UserEntity  userEntity=(UserEntity)session.getAttribute(IDefineString.SESSION_USER);
         if(userEntity!=null) {
-            // UserEntity userEntity=customerService.getCustomerById(new Integer(userId));
             if (userEntity.getPassword().equals(password)) {
                 customerService.changePassword(pass1, userEntity.getUserId());
                 model.addAttribute("user", userEntity);
@@ -70,67 +67,64 @@ public class UserCenterController {
     @RequestMapping(value="/listCollect",method = RequestMethod.GET)
     public String listCollect(@RequestParam int requestPage, Model  model,HttpSession session)
     {
-        UserEntity  userEntity=(UserEntity)session.getAttribute(IDefineString.SESSION_USER);
-        if(userEntity!=null) {
-            int size = customerService.querySize(userEntity.getUserId());
+        int userId=getUserId(session);
+        if(userId<1){
+            return "redirect:customer/login";
+        }else{
+            int size = customerService.querySize(userId);
             double d = size / 4;
             double sina = Math.ceil(d);
-            List<CollectionEntity> collectionEntities = customerService.queryAllCollect(new Integer(userEntity.getUserId()), requestPage);
+            List<CollectionEntity> collectionEntities = customerService.queryAllCollect(new Integer(userId), requestPage);
             model.addAttribute("Collects", collectionEntities);
             model.addAttribute("currentPage", requestPage);
             model.addAttribute("maxSize", size);
             model.addAttribute("sina", sina);
             return "customer/User_Collect.jsp";
         }
-        else
-        {
-            return "redirect:customer/login";
-        }
+
     }
 
     @RequestMapping(value="/listCollectShop",method = RequestMethod.GET)
     public String listCollectShop(@RequestParam int requestPage, Model  model,HttpSession session)
     {
-        UserEntity  userEntity=(UserEntity)session.getAttribute(IDefineString.SESSION_USER);
-        if(userEntity!=null) {
-            int size = customerService.queryShopsize(new Integer(userEntity.getUserId()));
+        int userId=getUserId(session);
+        if(userId<1){
+            return "redirect:customer/login";
+        }else{
+            int size = customerService.queryShopsize(new Integer(userId));
             double d = size / 4;
             double sina = Math.ceil(d);
-            List<CollectshopEntity> collectionEntities = customerService.queryAllShop(new Integer(userEntity.getUserId()), requestPage);
+            List<CollectshopEntity> collectionEntities = customerService.queryAllShop(new Integer(userId), requestPage);
             model.addAttribute("Collects", collectionEntities);
             model.addAttribute("currentPage", requestPage);
             model.addAttribute("maxSize", size);
             model.addAttribute("sina", sina);
             return "customer/User_CollectShop.jsp";
-        }else {
-            return "redirect:customer/login";
         }
     }
 
     @RequestMapping(value="/insertCollectShop",method = RequestMethod.GET)
     public String  insertCollectShop(@RequestParam int  shopId,HttpSession session)
     {
-        UserEntity  userEntity=(UserEntity)session.getAttribute(IDefineString.SESSION_USER);
-        if(userEntity!=null)
-        {
-            customerService.insertShop(shopId,userEntity.getUserId());
+        int userId=getUserId(session);
+        if(userId<1){
+            return "redirect:customer/login";
+        }else{
+            customerService.insertShop(shopId,userId);
             return "redirect:listCollectShop?requestPage=1";
         }
-        else
-        {
-            return "redirect:customer/login";
-        }
     }
+
 
     @RequestMapping(value="/insertCollect",method = RequestMethod.GET)
     public String  insertCollect(@RequestParam int  goodsId,HttpSession session)
     {
-        UserEntity  userEntity=(UserEntity)session.getAttribute(IDefineString.SESSION_USER);
-        if(userEntity!=null) {
-            customerService.insertCollect(goodsId, userEntity.getUserId());
-            return "redirect:listCollect?requestPage=1";
-        }else {
+        int userId=getUserId(session);
+        if(userId<1){
             return "redirect:customer/login";
+        }else{
+            customerService.insertCollect(goodsId, userId);
+            return "redirect:listCollect?requestPage=1";
         }
     }
 
@@ -148,4 +142,11 @@ public class UserCenterController {
         return "redirect:listCollectShop?requestPage=1";
     }
 
+    private int getUserId(HttpSession session){
+        try {
+            return ((UserEntity) session.getAttribute(IDefineString.SESSION_USER)).getUserId();
+        }catch (Exception e){
+            return -1;
+        }
+    }
 }

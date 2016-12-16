@@ -134,7 +134,7 @@ public class CustomerService  implements ICustomerService {
 
         List<CollectionEntity> ces= collectionEntityBaseDao.find("from CollectionEntity  ce  where ce.userByUserId=? and ce.goodsByGoodsId=?",params);
          if(ces.size()==0) {
-             Object[] parans=new Object[3];
+             Object[] parans=new Object[4];
              parans[0] = id;
              parans[1] = userId;
              parans[2] = new Timestamp(System.currentTimeMillis());
@@ -180,12 +180,12 @@ public class CustomerService  implements ICustomerService {
         List<CollectshopEntity> ces= collectshopEntityBaseDao.find("from CollectshopEntity ce  where ce.userByUserId=? and ce.shopByShopId=?",params);
         if(ces.size()==0)
         {
-            Object[] parans=new Object[3];
+            Object[] parans=new Object[4];
             parans[0]=id;
             parans[1]=userId;
             parans[2]=new Timestamp(System.currentTimeMillis());
             parans[3]=getPictureLocation(shopEntity.getPhotoGroup());
-            collectshopEntityBaseDao.insert("insert into collectShop(shopId,userId,createTime) values(?,?,?)",parans);
+            collectshopEntityBaseDao.insert("insert into collectShop(shopId,userId,createTime) values(?,?,?,?)",parans);
         }
         else
         {
@@ -197,6 +197,7 @@ public class CustomerService  implements ICustomerService {
         }
 
     }
+
 
     @Override
     public void removeShop(Integer id) {
