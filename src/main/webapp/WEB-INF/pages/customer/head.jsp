@@ -1,16 +1,20 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<%--
+  Created by IntelliJ IDEA.
+  User: H
+  Date: 2016/12/17
+  Time: 10:45
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>收藏中心</title>
-    <link rel="stylesheet" href="/resources/css/base.css" type="text/css"/>
-    <link rel="stylesheet" href="/resources/css/shop_common.css" type="text/css"/>
-    <link rel="stylesheet" href="/resources/css/shop_header.css" type="text/css"/>
-    <link rel="stylesheet" href="/resources/css/shop_manager.css" type="text/css"/>
-    <link rel="stylesheet" href="/resources/css/shop_list.css" type="text/css"/>
-    <script type="text/javascript" src="/resources/js/jquery.js"></script>
-    <script type="text/javascript" src="/resources/js/topNav.js"></script>
+    <link rel="stylesheet" href="../../../resources/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../../resources/css/shop_common.css" type="text/css" />
+    <link rel="stylesheet" href="../../../resources/css/shop_header.css" type="text/css" />
+    <link rel="stylesheet" href="../../../resources/css/shop_manager.css" type="text/css" />
+    <link rel="stylesheet" href="../../../resources/css/shop_shdz_835.css" type="text/css" />
+    <script type="text/javascript" src="../../../resources/js/jquery.js" ></script>
+    <script type="text/javascript" src="../../../resources/js/topNav.js" ></script>
 </head>
 <body>
 <!-- Header  -wll-2013/03/24 -->
@@ -492,128 +496,5 @@
 </div>
 <div class="clear"></div>
 
-<!-- Header End -->
-
-<!-- 我的个人中心 -->
-<div class="shop_member_bd clearfix">
-    <!-- 左边导航 -->
-    <div class="shop_member_bd_left clearfix">
-
-        <div class="shop_member_bd_left_pic">
-            <a href="javascript:void(0);"><img src="/resources/images/images/avatar.png"/></a>
-        </div>
-        <div class="clear"></div>
-
-        <dl>
-            <dt>Member Center</dt>
-            <dd><span><a href="">User Information</a></span></dd>
-            <dd><span><a href="">Change Password</a></span></dd>
-            <dd><span><a href="">My Address</a></span></dd>
-        </dl>
-
-        <dl>
-            <dt>My Collection</dt>
-            <dd><span><a href="">Good Collection</a></span></dd>
-            <dd><span><a href="">Shop Collection</a></span></dd>
-        </dl>
-        <dl>
-            <dd><span><a href="">Cart</a></span></dd>
-        </dl>
-
-    </div>
-    <!-- 左边导航 End -->
-
-    <!-- 右边购物列表 -->
-    <div class="shop_member_bd_right clearfix">
-
-        <div class="shop_meber_bd_good_lists clearfix">
-            <!-- 商品列表 -->
-            <div class="shop_meber_bd_good_lists clearfix">
-                <div class="title"><h3>Good collection</h3></div>
-
-                <!-- 商品列表 -->
-                <div class="shop_bd_list_content clearfix">
-                    <ul>
-                        <li>
-                            <dl>
-                                <dt><a href=""><img
-                                        src="/resources/images/images/21151da3bdefc6d9a7120c991fe59800.jpg_small.jpg"/></a>
-                                </dt>
-                                <dd class="title"><a href="">OCIAIZO春装水洗做旧短外套复古磨白短款牛仔外套春01C1417</a></dd>
-                                <dd class="content">
-                                    <span class="goods_jiage">￥<strong>249.00</strong></span>
-                                    <span class="goods_chengjiao">最近成交5笔</span>
-                                </dd>
-                            </dl>
-                        </li>
-
-                        <li>
-                            <dl>
-                                <dt><a href=""><img
-                                        src="/resources/images/images/21151da3bdefc6d9a7120c991fe59800.jpg_small.jpg"/></a>
-                                </dt>
-                                <dd class="title"><a href="">OCIAIZO春装水洗做旧短外套复古磨白短款牛仔外套春01C1417</a></dd>
-                                <dd class="content">
-                                    <span class="goods_jiage">￥<strong>249.00</strong></span>
-                                    <span class="goods_chengjiao">最近成交5笔</span>
-                                </dd>
-                            </dl>
-                        </li>
-
-                        <li>
-                            <dl>
-                                <dt><a href=""><img
-                                        src="/resources/images/images/21151da3bdefc6d9a7120c991fe59800.jpg_small.jpg"/></a>
-                                </dt>
-                                <dd class="title"><a href="">OCIAIZO春装水洗做旧短外套复古磨白短款牛仔外套春01C1417</a></dd>
-                                <dd class="content">
-                                    <span class="goods_jiage">￥<strong>249.00</strong></span>
-                                    <span class="goods_chengjiao">最近成交5笔</span>
-                                </dd>
-                            </dl>
-                        </li>
-
-                        <li>
-                            <dl>
-                                <dt><a href=""><img
-                                        src="/resources/images/images/21151da3bdefc6d9a7120c991fe59800.jpg_small.jpg"/></a>
-                                </dt>
-                                <dd class="title"><a href="">OCIAIZO春装水洗做旧短外套复古磨白短款牛仔外套春01C1417</a></dd>
-                                <dd class="content">
-                                    <span class="goods_jiage">￥<strong>249.00</strong></span>
-                                    <span class="goods_chengjiao">最近成交5笔</span>
-                                </dd>
-                            </dl>
-                        </li>
-
-                    </ul>
-                </div>
-                <div class="clear"></div>
-                <div class="pagination">
-                    <ul>
-                        <li><span>Front</span></li>
-                        <li><span>Previous</span></li>
-                        <li><span class="currentpage">1</span></li>
-                        <li><span>Next</span></li>
-                        <li><span>Last</span></li>
-                    </ul>
-                </div>
-                <!-- 商品列表 End -->
-
-            </div>
-        </div>
-        <!-- 右边购物列表 End -->
-
-    </div>
-    <!-- 我的个人中心 End -->
-
-    <!-- Footer - wll - 2013/3/24 -->
-    <div class="clear"></div>
-    <div class="shop_footer">
-        <div class="shop_footer_copy">
-            <p>Copyright 2004-2013 itcast Inc.,All rights reserved.</p>
-        </div>
-    </div>
-    <!-- Footer End -->
 </body>
 </html>

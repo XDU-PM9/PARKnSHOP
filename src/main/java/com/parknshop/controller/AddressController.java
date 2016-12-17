@@ -32,7 +32,7 @@ public class AddressController {
         }else{
             List<AddressEntity> addressEntityList = addressService.getAllAddressByUserId(userId);
             model.addAttribute("addressEntityList", addressEntityList);
-            return "customer/User_Address.jsp";
+            return "customer/address.jsp";
         }
     }
 
@@ -41,13 +41,13 @@ public class AddressController {
     {
         AddressEntity addressEntity=addressService.getByAddressId(addressId);
         model.addAttribute("addressEntity",addressEntity);
-        return "/customer/address-edit.jsp";
+        return "/customer/Address_Edit.jsp";
     }
 
     @RequestMapping(value = "/updateAddress",method = RequestMethod.POST)
     public String  updateAddress(@RequestParam int addressId,
-                                // @RequestParam String  province,
-                                 //@RequestParam String  country,
+                                 @RequestParam String  province,
+                                 @RequestParam String  country,
                                  @RequestParam String  others,
                                  @RequestParam String   name,
                                  @RequestParam int zip,
@@ -59,18 +59,14 @@ public class AddressController {
         if(userId<1){
             return "redirect:customer/login";
         }else{
-            ///
-            String province, country;
-            province = null;
-            country = null;
             addressService.updateAddressEntity(addressId, province, country, others, name, phoneNum, zip, userId);
             return "redirect:listAddress";
         }
     }
 
     @RequestMapping(value = "/saveAddress",method = RequestMethod.POST)
-    public String  saveAddress( // @RequestParam String  province,
-                                 //@RequestParam String  country,
+    public String  saveAddress(  @RequestParam String  province,
+                                 @RequestParam String  country,
                                  @RequestParam String  others,
                                  @RequestParam String   name,
                                  @RequestParam int zip,
@@ -82,9 +78,6 @@ public class AddressController {
             return "redirect:customer/login";
         }
         else{
-            String province, country;
-            province = null;
-            country = null;
             addressService.insertAddressEntity(province, country, others, name, phoneNum, zip, userId);
             return "redirect:listAddress";
         }
