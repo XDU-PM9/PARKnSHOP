@@ -1,62 +1,64 @@
 /**
  * Created by wei on 16-12-11.
  */
-var productCount;
-var onePageCount=28;
-var currentPage=1;
+var pageCount = 1;
+var onePageCount = 2;
+var currentPage = 1;
 
 function nextPage() {
-    if(productCount>currentPage*onePageCount){
-        getOnePage(currentPage++*onePageCount);
-    }
+    getOnePage(currentPage++ * onePageCount);
 }
 
 function previousPage() {
-    if(currentPage>1){
-        getOnePage(--currentPage*onePageCount);
-    }
+    getOnePage((--currentPage - 1) * onePageCount);
 }
 
-function jumpPage(page) {
-    if(page>0&&(page-1)*onePageCount<productCount){
-        getOnePage((page-1)*onePageCount)
-        currentPage=page;
-    }
+function jumpPage() {
+    var page = $('#pageNumber').val();
+    getOnePage((page - 1) * onePageCount)
+    currentPage = page;
 }
 
 function search() {
-    searchOption.name=$('#searchText').val();
-    getCount(false);
-    getOnePage(0);
+    if ($('#shop_search').hasClass('current')) {
+        window.location.href = '/searchShop?shopName=' + $('#searchText').val();
+        return;
+    }
+    var searchText = $('#searchText');
+    //searchText不为空，则进行搜索
+    if (undefined != searchText && null != searchText && '' != searchText) {
+        searchOption.name = $('#searchText').val();
+        getCount();
+        getOnePage(0);
+    }
 }
 
 function getOnePage(start) {
-    searchOption.start=start.toString();
-    searchOption.count=onePageCount.toString();
+    searchOption.start = start.toString();
+    searchOption.count = onePageCount.toString();
     $.ajax({
         type: 'POST',
         url: "/search",
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify(searchOption),
         success: function (msg) {
-            listSearchResult(msg)
+            listSearchResult(msg);
+            displayCount();
         },
         datatype: 'json'
     })
 }
 
 function getCount(searchShop) {
-    var url="/getProductCount";
-    if(searchShop){
-        url="/getShopCount";
-    }
-     $.ajax({
+    $.ajax({
         type: 'POST',
-        url: url,
+        url: "/getProductCount",
         contentType: "application/json; charset=utf-8",
         data: getJsonData(),
         success: function (msg) {
-            displayCount(msg);
+            pageCount = Math.ceil(msg / onePageCount);
+            currentPage = 1;
+            displayCount();
         },
         // datatype: 'json'
     })
@@ -75,8 +77,32 @@ var searchOption = {
     salesDesc: 'false',
     name: '',    //（商品名）
     type: '',    //（类型）
-    start:'0',    //开始搜索处
-    count:'0'     //搜索数量
+    start: '0',    //开始搜索处
+    count: '0'     //搜索数量
+};
+
+function initOrder() {
+    searchOption.time = 'false';   //(按时间排序,新的在后面)
+    searchOption.timeDesc = 'false';   //（按时间降序排序，新的在前面）
+    searchOption.price = 'false';  //(价格)
+    searchOption.priceDesc = 'false';
+    searchOption.view = 'false';   //(浏览量)
+    searchOption.viewDesc = 'false';
+    searchOption.discount = 'false';   //（折扣）
+    searchOption.discountDesc = 'false';
+    searchOption.sales = 'false';  //（销量）
+    searchOption.salesDesc = 'false';
+    search();
+}
+
+function setOrderByTimeNewtoOld() {
+    searchOption.timeDesc='true';
+    search();
+}
+
+function setOrderByTimeOldtoNew() {
+    searchOption.time='true';
+    search();
 }
 
 function getJsonData() {
@@ -95,8 +121,8 @@ function listSearchResult(result) {
         $('#productList').append(
             "<li>" +
             "<dl>" +
-            "<dt><a href=" + "><img src=" + result.picture + "/></a></dt>" +
-            "<dd class='title'><a href=" + ">" + result.goodsName + "</a></dd>" +
+            "<dt><a href=" + "/goods/detail?goodsId=" + result.goodsId + "><img src=" + result.picture + "/></a></dt>" +
+            "<dd class='title'><a href=" + "/goods/detail?goodsId=" + result.goodsId + ">" + result.goodsName + "</a></dd>" +
             "<dd class='content'>" +
             "<span class='goods_jiage'>$<strong>" + result.price + "</strong></span>" +
             "<span class='goods_chengjiao'>" + result.sales + "buy</span>" +
@@ -107,69 +133,23 @@ function listSearchResult(result) {
     })
 }
 
-function displayCount(count) {
-    productCount=count;
-    if(count<28){
-
+function displayCount() {
+    if (pageCount <= 1) {
+        $('#pageList').find('li').remove();
+        $('#pageList').append("<li><span class='currentpage' id='currentPage'>1</span></li>");
+        $('#pageList').append("<li><p>A total of 1 page</p></li>");
+    } else {
+        $('#pageList').find('li').remove();
+        if (currentPage > 1) {
+            $('#pageList').append("<li><input type='button' onclick='previousPage()' value='Previous'</input></li>");
+        }
+        $('#pageList').append("<li><span class='currentpage' id='currentPage'>" + currentPage + "</span></li>");
+        if (currentPage < pageCount) {
+            $('#pageList').append("<li><input type='button' onclick='nextPage()' value='Next'</input></li>");
+        }
+        $('#pageList').append("<li><p>A total of " + pageCount + " page</p></li>");
+        $('#pageList').append("<li><input id='pageNumber' type='number' min='1' max='" + pageCount + "'</li>");
+        $('#pageList').append("<li><input type='button' value='jump' onclick='jumpPage()'> ");
     }
 }
 
-function firstSearch() {
-    var searchText=$('#searchText');
-    //searchText不为空，则进行搜索
-    if(undefined!=searchText&&null!=searchText&&''!=searchText){
-        if($('#search').hasClass('current')) {
-            getCount();
-            search();
-        }else {
-            getShopCount();
-            searchShop();
-        }
-    }
-}
-
-function getShopCount() {
-    $.ajax({
-        type:'POST',
-        url:"/getShopCount",
-        data:{
-            shopName:$('#searchText')
-        },
-        success:function (msg) {
-            displayCount(msg);
-        }
-    })
-}
-
-function searchShop(){
-    $.ajax({
-        type:'POST',
-        url:'/searchShop',
-        data:{
-            shopName:$('#searchText')
-        },
-        success:function (msg) {
-            listShopResult(msg);
-        },
-        datatype:'json'
-    })
-}
-
-function listShopResult(result){
-    $('#productList').find('li').remove();
-    $.each(result, function () {
-        var result = this;
-        $('#productList').append(
-            "<li>" +
-            "<dl>" +
-            "<dt><a href=" + "><img src=" + result.logo+ "/></a></dt>" +
-            "<dd class='title'><a href=" + ">" + result.shopName + "</a></dd>" +
-            "<dd class='content'>" +
-            // "<span class='goods_jiage'>$<strong>" + result.price + "</strong></span>" +
-            "<span class='goods_chengjiao'>" + result.views + "view</span>" +
-            "</dd>" +
-            "</dl>" +
-            "</li>"
-        );
-    })
-}

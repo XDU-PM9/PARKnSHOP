@@ -69,7 +69,10 @@ public class GetList implements IGetList {
     }
 
     @Override
-    public List<Product> getProducts(List<GoodsEntity> goodsEntityList) throws NullPointerException{
+    public List<Product> getProducts(List<GoodsEntity> goodsEntityList){
+        if(null==goodsEntityList){
+            return null;
+        }
         List products = new ArrayList<Product>();
         for(GoodsEntity goodsEntity:goodsEntityList){
             products.add(getProduct(goodsEntity));
@@ -84,6 +87,9 @@ public class GetList implements IGetList {
 
     @Override
     public List<Shop> getShops(List<ShopEntity> shopEntityList) {
+        if(null==shopEntityList){
+            return null;
+        }
         List shops=new ArrayList<Shop>();
         for(ShopEntity shopEntity:shopEntityList){
             shops.add(getShop(shopEntity));

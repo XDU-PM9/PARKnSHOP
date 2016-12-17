@@ -73,7 +73,16 @@ public class GoodsListBean {
         private Date createTime;
         private int views;
         private int state;
+        private String type;
         private String[] photos;
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
 
         public int getId() {
             return id;

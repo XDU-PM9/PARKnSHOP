@@ -29,6 +29,11 @@ public class SearchController {
         return "search.jsp";
     }
 
+    //Get请求搜索店铺
+    @RequestMapping(value = "/searchShop",method = RequestMethod.GET)
+    public String searchShop(){
+        return "searchShop.jsp";
+    }
     /**
      * 通过类型搜索商品
      *

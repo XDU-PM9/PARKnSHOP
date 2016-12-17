@@ -265,7 +265,7 @@ public class SearchProducts implements ISearchProducts {
     //设置查询的范围（从哪开始查多少条）
     @Override
     public ISearchProducts setScope(int start, int count) {
-        if (start > 0 && count < 1 && start < count)
+        if (start > 0 && count > 1)
             this.start = start;
         this.count = count;
         return this;
