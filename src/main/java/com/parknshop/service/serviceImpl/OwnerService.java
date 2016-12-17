@@ -36,14 +36,16 @@ public class OwnerService implements IOwnerService {
     final
     IBaseDao<GoodsEntity> goodDao;
     private final IListBean goodsList;
+    private final IBaseDao<GoodsDbBean> goodsDbBeanIBaseDao;
     @Autowired
-    public OwnerService(IBaseDao<OwnerEntity> mDao, IBaseDao<ShopEntity> mDaoShop, PitureDao mDaoPhoto, PersonShopListBean listBean, IBaseDao<GoodsEntity> goodDao, GoodsListBean goodsList) {
+    public OwnerService(IBaseDao<OwnerEntity> mDao, IBaseDao<ShopEntity> mDaoShop, PitureDao mDaoPhoto, PersonShopListBean listBean, IBaseDao<GoodsEntity> goodDao, GoodsListBean goodsList, IBaseDao<GoodsDbBean> goodsDbBeanIBaseDao) {
         this.mDao = mDao;
         this.mDaoShop = mDaoShop;
         this.mDaoPhoto = mDaoPhoto;
         this.listBean = listBean;
         this.goodDao = goodDao;
         this.goodsList = goodsList;
+        this.goodsDbBeanIBaseDao = goodsDbBeanIBaseDao;
     }
 
     //更新用户
@@ -105,7 +107,7 @@ public class OwnerService implements IOwnerService {
             //回调
             List<String> listPath= pictures.getPicturePaths();
             //生成 photoGroup
-            String photoGroup ="Good"+String.valueOf(goodsEntity.getGoodsId())+String.valueOf(System.currentTimeMillis());
+            String photoGroup ="Good"+String.valueOf(goodsEntity.getCreateTime())+String.valueOf(System.currentTimeMillis());
 
             if(!mDaoPhoto.savePicture(listPath,photoGroup)){
                 //保存图片错误
@@ -136,7 +138,7 @@ public class OwnerService implements IOwnerService {
             }else {
                 List<String> listPath= uploadPictures.getPicturePaths();
                 //生成 photoGroup
-                String photoGroup ="Good"+String.valueOf(goodsEntity.getGoodsId())+String.valueOf(System.currentTimeMillis());
+                String photoGroup ="Good"+String.valueOf(goodsEntity.getCreateTime())+String.valueOf(System.currentTimeMillis());
 
                 if(!mDaoPhoto.savePicture(listPath,photoGroup)){
                     //保存图片错误
@@ -153,6 +155,31 @@ public class OwnerService implements IOwnerService {
             return false;
         }
 
+    }
+
+    @Override
+    public GoodsDbBean getGoods(int goodsId) {
+        String hql = GoodsDbBean.hql + //
+                " and g.goodsId = ?";
+        Object[] param = {goodsId};
+        GoodsDbBean entity = goodsDbBeanIBaseDao.get(hql,param);
+        //数量加一
+        synchronized (this){
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    GoodsEntity entity = goodDao.get(GoodsEntity.class,goodsId);
+                    entity.setViews(entity.getViews()+1);
+                    try {
+                        goodDao.update(entity);
+                        System.out.println("view add ");
+                    } catch (Exception e) {
+                        System.out.println("view add fail");
+                    }
+                }
+            }).start();
+        }
+        return entity;
     }
 
 

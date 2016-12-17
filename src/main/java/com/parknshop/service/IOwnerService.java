@@ -96,4 +96,12 @@ public interface IOwnerService {
      */
     boolean updateGoods(GoodsEntity goodsEntity,IUploadPictures uploadPictures);
 
+    /**
+     * 获取单个商品 并内部对  商品数量加一，（已经加锁操作,线程操作）
+     * @param goodsId 商品id
+     * @return  成功实体，失败null
+     */
+    GoodsDbBean getGoods(int goodsId);
+
+
 }
