@@ -1,38 +1,23 @@
 /**
  * Created by wei on 16-12-11.
  */
-var productCount;
-var onePageCount = 28;
+var pageCount=1;
+var onePageCount = 2;
 var currentPage = 1;
 
 function nextPage() {
-    if (productCount > currentPage * onePageCount) {
-        getOnePage(currentPage++ * onePageCount);
-    }
+    getOnePage(currentPage++ * onePageCount);
 }
 
 function previousPage() {
-    if (currentPage > 1) {
-        getOnePage(--currentPage * onePageCount);
-    }
+    getOnePage((--currentPage - 1) * onePageCount);
 }
 
-function jumpPage(page) {
-    if (page > 0 && (page - 1) * onePageCount < productCount) {
-        getOnePage((page - 1) * onePageCount)
-        currentPage = page;
-    }
+function jumpPage() {
+    var page = $('#pageNumber').val();
+    getOnePage((page - 1) * onePageCount)
+    currentPage = page;
 }
-
-// function search() {
-//     if(false==$('#shop_search').hasClass('current')) {
-//         // window.location.href = '/search?name=' + $('#searchText').val();
-//         return;
-//     }
-//     searchOption.name = $('#searchText').val();
-//     getCount(false);
-//     getOnePage(0);
-// }
 
 function getOnePage(start) {
     searchOption.start = start.toString();
@@ -77,8 +62,9 @@ function getShopCount() {
             shopName: $('#searchText').val()
         },
         success: function (msg) {
-            displayCount(msg);
-        },
+            pageCount=Math.ceil(msg/onePageCount);
+            displayCount();
+        }
     })
 }
 
@@ -115,4 +101,24 @@ function listShopResult(result) {
             "</li>"
         );
     })
+}
+
+function displayCount() {
+    if (pageCount <= 1) {
+        $('#pageList').find('li').remove();
+        $('#pageList').append("<li><span class='currentpage' id='currentPage'>1</span></li>");
+        $('#pageList').append("<li><p>A total of 1 page</p></li>");
+    } else {
+        $('#pageList').find('li').remove();
+        if (currentPage > 1) {
+            $('#pageList').append("<li><input type='button' onclick='previousPage()' value='Previous'</input></li>");
+        }
+        $('#pageList').append("<li><span class='currentpage' id='currentPage'>" + currentPage + "</span></li>");
+        if (currentPage < pageCount) {
+            $('#pageList').append("<li><input type='button' onclick='nextPage()' value='Next'</input></li>");
+        }
+        $('#pageList').append("<li><p>A total of " + pageCount + " page</p></li>");
+        $('#pageList').append("<li><input id='pageNumber' type='number' min='1' max='" + pageCount + "'</li>");
+        $('#pageList').append("<li><input type='button' value='jump' onclick='jumpPage()'> ");
+    }
 }

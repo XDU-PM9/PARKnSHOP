@@ -515,15 +515,16 @@
             <div class="contents clearfix">
                 <dl class="shop_bd_list_type_links clearfix">
                     <dd>
-                        <span><input type="radio"> TV& Home Theater</span>
-                        <span><input type="radio"> Computers & Tablets</span>
-                        <span><input type="radio"> Cell Phones</span>
-                        <span><input type="radio"> Cameras & Camcorders</span>
-                        <span><input type="radio"> Audio</span>
-                        <span><input type="radio"> Car Electronics & GPS</span>
-                        <span><input type="radio"> Video, Games, Movies & Music</span>
-                        <span><input type="radio"> Health, Fitness & Sports</span>
-                        <span><input type="radio"> Home & Office</span>
+                        <span onclick="setType('')">All</span>
+                        <span onclick="setType('TV& Home Theater')">TV& Home Theater</span>
+                        <span onclick="setType('Computers & Tablets')">Computers & Tablets</span>
+                        <span onclick="setType('Cell Phones')">Cell Phones</span>
+                        <span onclick="setType('Cameras & Camcorders')">Cameras & Camcorders</span>
+                        <span onclick="setType('Audio')">Audio</span>
+                        <span onclick="setType('Car Electronics & GPS')">Car Electronics & GPS</span>
+                        <span onclick="setType('Video, Games, Movies & Music')">Video, Games, Movies & Music</span>
+                        <span onclick="setType('Health, Fitness & Sports')">Health, Fitness & Sports</span>
+                        <span onclick="setType('Home & Office')">Home & Office</span>
                     </dd>
                 </dl>
             </div>
@@ -619,19 +620,19 @@
                 <!-- 查看方式E -->
                 <!-- 排序方式S -->
                 <ul class="array">
-                    <li class="selected"><a title="默认排序" onclick="javascript:dropParam(['key','order'],'','array');"
+                    <li class="selected"><a title="默认排序" onclick="orderByDefault()"
                                             class="nobg" href="javascript:void(0)">Default</a></li>
                     <li><a title="点击按销量从高到低排序"
-                           onclick="javascript:replaceParam(['key','order'],['sales','desc'],'array');"
+                           onclick="orderBySalesHightoLow()"
                            href="javascript:void(0)">Sales</a></li>
                     <li><a title="点击按人气从高到低排序"
-                           onclick="javascript:replaceParam(['key','order'],['click','desc'],'array');"
+                           onclick="orderByViewHightoLow()"
                            href="javascript:void(0)">Hot</a></li>
-                    <li><a title="点击按信用从高到低排序"
-                           onclick="javascript:replaceParam(['key','order'],['credit','desc'],'array');"
-                           href="javascript:void(0)">Credit</a></li>
+                    <%--<li><a title="点击按信用从高到低排序"--%>
+                           <%--onclick="javascript:replaceParam(['key','order'],['credit','desc'],'array');"--%>
+                           <%--href="javascript:void(0)">Credit</a></li>--%>
                     <li><a title="点击按价格从高到低排序"
-                           onclick="javascript:replaceParam(['key','order'],['price','desc'],'array');"
+                           onclick="orderByPriceHightoLow()"
                            href="javascript:void(0)">Price</a></li>
                 </ul>
                 <!-- 排序方式E -->
@@ -965,9 +966,9 @@
         <div class="pagination">
             <ul id="pageList">
                 <%--<li><span onclick="search()">First page</span></li>--%>
-                <li><span>Previous</span></li>
+                <%--<li><span>Previous</span></li>--%>
                 <li><span class="currentpage" id="currentPage">1</span></li>
-                <li><span>Next</span></li>
+                <li><p>A total of 1 page</p></li>
                 <%--<li><span>Last page</span></li>--%>
             </ul>
         </div>

@@ -22,8 +22,8 @@ public class SearchProducts implements ISearchProducts {
     private boolean orderByTimeDesc = false;
     private boolean orderByPrice = false;
     private boolean orderByPriceDesc = false;
-    private boolean orderByView = false;
-    private boolean orderByViewDesc = false;
+    private boolean orderByViews = false;
+    private boolean orderByViewsDesc = false;
     private boolean orderBySales = false;
     private boolean orderBySalesDesc = false;
     private boolean orderByDiscount = false;
@@ -46,8 +46,8 @@ public class SearchProducts implements ISearchProducts {
         orderByTimeDesc = false;
         orderByPrice = false;
         orderByPriceDesc = false;
-        orderByView = false;
-        orderByViewDesc = false;
+        orderByViews = false;
+        orderByViewsDesc = false;
         orderBySales = false;
         orderBySalesDesc = false;
         orderByDiscount = false;
@@ -74,7 +74,7 @@ public class SearchProducts implements ISearchProducts {
                 orderByPrice = !orderByPrice;
                 break;
             case VIEW:
-                orderByView = !orderByView;
+                orderByViews = !orderByViews;
                 break;
             case DISCOUNT:
                 orderByDiscount = !orderByDiscount;
@@ -89,7 +89,7 @@ public class SearchProducts implements ISearchProducts {
                 orderByPriceDesc = !orderByPriceDesc;
                 break;
             case VIEWDESC:
-                orderByViewDesc = !orderByViewDesc;
+                orderByViewsDesc = !orderByViewsDesc;
                 break;
             case DISCOUNTDESC:
                 orderByDiscountDesc = !orderByDiscountDesc;
@@ -109,25 +109,25 @@ public class SearchProducts implements ISearchProducts {
     public ISearchProducts setRuler(Map ruler) {
 //        if ("true" == ruler.get("noFilter"))
 //            anyState = true;
-        if ("true" == ruler.get("time"))
+        if ("true".equals(ruler.get("time")))
             orderByTime = true;
-        if ("true" == ruler.get("timeDesc"))
+        if ("true".equals(ruler.get("timeDesc")))
             orderByTimeDesc = true;
-        if ("true" == ruler.get("price"))
+        if ("true".equals(ruler.get("price")))
             orderByPrice = true;
-        if ("true" == ruler.get("priceDesc"))
+        if ("true".equals(ruler.get("priceDesc")))
             orderByPriceDesc = true;
-        if ("true" == ruler.get("view"))
-            orderByView = true;
-        if ("true" == ruler.get("viewDesc"))
-            orderByViewDesc = true;
-        if ("true" == ruler.get("discount"))
+        if ("true".equals(ruler.get("views")))
+            orderByViews = true;
+        if ("true".equals(ruler.get("viewsDesc")))
+            orderByViewsDesc = true;
+        if ("true".equals(ruler.get("discount")))
             orderByDiscount = true;
-        if ("true" == ruler.get("discountDesc"))
+        if ("true".equals(ruler.get("discountDesc")))
             orderByDiscountDesc = true;
-        if ("true" == ruler.get("sales"))
+        if ("true".equals(ruler.get("sales")))
             orderBySales = true;
-        if ("true" == ruler.get("salesDesc"))
+        if ("true".equals(ruler.get("salesDesc")))
             orderBySalesDesc = true;
         return this;
     }
@@ -381,17 +381,17 @@ public class SearchProducts implements ISearchProducts {
             order.append(" discount");
             count++;
         }
-        if (orderByViewDesc) {
+        if (orderByViewsDesc) {
             if (count > 0) {
                 order.append(" ,");
             }
-            order.append(" view DESC");
+            order.append(" views DESC");
             count++;
-        } else if (orderByView) {
+        } else if (orderByViews) {
             if (count > 0) {
                 order.append(" ,");
             }
-            order.append(" view");
+            order.append(" views");
             count++;
         }
         if (count > 0) {

@@ -81,6 +81,15 @@ var searchOption = {
     count: '0'     //搜索数量
 };
 
+function initType() {
+    searchOption.type='';
+}
+
+function setType(type) {
+    searchOption.type=type;
+    search();
+}
+
 function initOrder() {
     searchOption.time = 'false';   //(按时间排序,新的在后面)
     searchOption.timeDesc = 'false';   //（按时间降序排序，新的在前面）
@@ -92,16 +101,69 @@ function initOrder() {
     searchOption.discountDesc = 'false';
     searchOption.sales = 'false';  //（销量）
     searchOption.salesDesc = 'false';
-    search();
 }
 
-function setOrderByTimeNewtoOld() {
+function orderByDefault() {
+    initOrder();
+    search();
+}
+function orderByTimeNewtoOld() {
+    initOrder();
     searchOption.timeDesc='true';
     search();
 }
 
-function setOrderByTimeOldtoNew() {
+function orderByTimeOldtoNew() {
+    initOrder();
     searchOption.time='true';
+    search();
+}
+
+function orderByPriceLowtoHigh() {
+    initOrder();
+    searchOption.price='true';
+    search();
+}
+
+function orderByPriceHightoLow() {
+    initOrder();
+    searchOption.priceDesc='true';
+    search();
+}
+
+function orderByViewHightoLow() {
+    initOrder();
+    searchOption.viewDesc='true';
+    search();
+}
+
+function orderByViewLowtoHigh() {
+    initOrder();
+    searchOption.view='true';
+    search();
+}
+
+function orderBySalesHightoLow() {
+    initOrder();
+    searchOption.salesDesc='true';
+    search();
+}
+
+function orderBySalesLowtoHigh() {
+    initOrder();
+    searchOption.sales='true';
+    search();
+}
+
+function orderByDiscountHightoLow() {
+    initOrder();
+    searchOption.discountDesc='true';
+    search();
+}
+
+function orderByDiscountLowtoHigh() {
+    initOrder();
+    searchOption.discount='true';
     search();
 }
 
