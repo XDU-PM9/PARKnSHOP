@@ -47,7 +47,6 @@
                     <input type="hidden" name="goodsId" value="${cart.getGoodsId()}"/>
                     <input name="id1" type="checkbox" value="${cart.getCartId()}" />
                 </td>
-                <td class="gwc_list_pic"><a href=""><img src="${cart.getPicture()}" /></a></td>
                 <td class="gwc_list_title"><a href="">${cart.getGoodsName()} </a></td>
                 <td class="gwc_list_danjia"><span>￥<strong id="danjia_001">${cart.getPrice()}</strong></span></td>
                 <td class="gwc_list_shuliang"><span><a class="good_num_jian this_good_nums"  ty="-" href="/changeAmount?cartId=${cart.getCartId()}&amount=${cart.getAmount()-1}">-</a>
@@ -80,15 +79,7 @@
 <!-- Footer - wll - 2013/3/24 -->
 <div class="clear"></div>
 <div class="shop_footer">
-    <div class="shop_footer_link">
-        <p>
-            <a href="">首页</a>|
-            <a href="">招聘英才</a>|
-            <a href="">广告合作</a>|
-            <a href="">关于ShopCZ</a>|
-            <a href="">关于我们</a>
-        </p>
-    </div>
+
     <div class="shop_footer_copy">
         <p>Copyright 2004-2013 itcast Inc.,All rights reserved.</p>
     </div>

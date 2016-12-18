@@ -963,15 +963,30 @@
             </ul>
         </div>
         <div class="clear"></div>
+
         <div class="pagination">
-            <ul id="pageList">
-                <%--<li><span onclick="search()">First page</span></li>--%>
-                <%--<li><span>Previous</span></li>--%>
-                <li><span class="currentpage" id="currentPage">1</span></li>
-                <li><p>A total of 1 page</p></li>
-                <%--<li><span>Last page</span></li>--%>
-            </ul>
+            <ul>
+
+                <li><span>Previous</span></li>
+                <li><span class="currentpage">1 of 3</span></li>
+                <li><span>Next</span></li>
+
+                <li><form action="/jumpPage" method="post">
+                    <input type="hidden" name="ty" value="1">
+                    <input type="number" name="jump" min="1" max="3" value="1">
+                    <input type="submit" value="jump">
+                </form></li></ul>
         </div>
+
+        <%--<div class="pagination">--%>
+            <%--<ul id="pageList">--%>
+                <%--&lt;%&ndash;<li><span onclick="search()">First page</span></li>&ndash;%&gt;--%>
+                <%--&lt;%&ndash;<li><span>Previous</span></li>&ndash;%&gt;--%>
+                <%--<li><span class="currentpage" id="currentPage">1</span></li>--%>
+                <%--<li><p>A total of 1 page</p></li>--%>
+                <%--&lt;%&ndash;<li><span>Last page</span></li>&ndash;%&gt;--%>
+            <%--</ul>--%>
+        <%--</div>--%>
         <!-- 商品列表 End -->
 
 
