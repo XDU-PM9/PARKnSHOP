@@ -13,70 +13,32 @@
     <link rel="stylesheet" href="../../../resources/css/shop_header.css" type="text/css" />
     <link rel="stylesheet" href="../../../resources/css/shop_manager.css" type="text/css" />
     <link rel="stylesheet" href="../../../resources/css/shop_shdz_835.css" type="text/css" />
-    <script type="text/javascript" src="../../../resources/js/jquery.js" ></script>
-    <script type="text/javascript" src="../../../resources/js/topNav.js" ></script>
+    <script type="text/javascript" src="../../resources/js/jquery.js"></script>
+    <script type="text/javascript" src="../../resources/js/topNav.js"></script>
+    <script type="text/javascript" src="../../resources/js/focus.js"></script>
+    <script type="text/javascript" src="../../resources/js/shop_home_tab.js"></script>
+    <script>
+        function search() {
+            window.location.href=$('#shop_search').hasClass('current') ? '/searchShop?shopName=' : '/search?name='+$('#searchText').val();
+        }
+    </script>
 </head>
 <body>
 <!-- Header  -wll-2013/03/24 -->
 <div class="shop_hd">
     <!-- Header TopNav -->
-    <div class="shop_hd_topNav">
-        <div class="shop_hd_topNav_all">
-            <!-- Header TopNav Left -->
 
-            <!-- Header TopNav Left End -->
-
-            <!-- Header TopNav Right -->
-            <div class="shop_hd_topNav_all_right">
-                <ul class="topNav_quick_menu">
-
-                    <li>
-                        <div class="topNav_menu">
-                            <a href="#" class="topNavHover">Username<i></i></a>
-
-                        </div>
-                    </li>
-                    <li>
-                        <div class="topNav_menu">
-                            <a href="#" class="topNavHover">Customer Center<i></i></a>
-                            <div class="topNav_menu_bd" style="display:none;">
-                                <ul>
-                                    <li><a title="已售出的商品" target="_top" href="#">已售出的商品</a></li>
-                                    <li><a title="销售中的商品" target="_top" href="#">销售中的商品</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li>
-                        <div class="topNav_menu">
-                            <a href="#" class="topNavHover">Cart</a>
-                            <div class="topNav_menu_bd" style="display:none;">
-                                <!--
-                                <ul>
-                                  <li><a title="已售出的商品" target="_top" href="#">已售出的商品</a></li>
-                                  <li><a title="销售中的商品" target="_top" href="#">销售中的商品</a></li>
-                                </ul>
-                                -->
-                                <p>还没有商品，赶快去挑选！</p>
-                            </div>
-                        </div>
-                    </li>
-
-
-                </ul>
-            </div>
-            <!-- Header TopNav Right End -->
-        </div>
-        <div class="clear"></div>
-    </div>
+    <%@include file="top.jsp"%>
     <div class="clear"></div>
     <!-- Header TopNav End -->
 
     <!-- TopHeader Center -->
+    <!-- TopHeader Center -->
     <div class="shop_hd_header">
-        <div class="shop_hd_header_logo"><h1 class="logo"><a href="/"><img
-                src="/resources/images/ico/banner.jpg" id="logo" alt="ShopCZ"/></a><span>ShopCZ</span></h1></div>
+        <div class="shop_hd_header_logo"><h1 class="logo"><a href="/"><img id="logo"
+                                                                           src="/resources/images/ico/banner.jpg"
+                                                                           alt="ShopCZ"/></a><span>ShopCZ</span></h1>
+        </div>
         <div class="shop_hd_header_search">
             <ul class="shop_hd_header_search_tab">
                 <li id="search" class="current">Product</li>
@@ -84,12 +46,13 @@
             </ul>
             <div class="clear"></div>
             <div class="search_form">
-                <form method="post" action="index.php">
-                    <div class="search_formstyle">
-                        <input type="text" class="search_form_text" name="search_content" value="Search！"/>
-                        <input type="submit" class="search_form_sub" name="secrch_submit" value="" title="Search"/>
-                    </div>
-                </form>
+                <!--<form method="post" action="/search">-->
+                <div class="search_formstyle">
+                    <input type="text" class="search_form_text" id="searchText" name="search_content" placeholder="Search!"/>
+                    <input type="button" class="search_form_sub" name="secrch_submit" value="" title="搜索"
+                           onclick="search()"/>
+                </div>
+                <!--</form>-->
             </div>
             <div class="clear"></div>
 

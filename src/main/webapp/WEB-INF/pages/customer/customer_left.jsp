@@ -27,6 +27,6 @@
     </dl>
     <dl>
         <dt>Order Center</dt>
-        <dd><span><a href="/listProduct?start=1&count=10">Cart</a></span></dd>
+        <dd><span><a href="/listProduct?requestPage=1">My Cart</a></span></dd>
     </dl>
 </div>

@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
@@ -59,15 +60,15 @@
                     <div class="shdz_new_form">
                         <form action="/saveAddress" method="post">
                             <ul>
-                                <li><label for=""><span>*</span>User Name：</label>
-                                    <input type="text" name="name" class="name" />
+                                <li><label ><span>*</span>User Name：</label>
+                                    <input type="text" name="name" class="name" required/>
                                 </li>
-                                <li><label for=""><span>*</span>Province <select name="province" onChange = "hw_select()"></select></label></li>
-                                <li><label for=""><span>*</span>country  <select name="country" onChange = "hw_select()"></select></label></li>
-                                <li><label for=""><span>*</span>Detailed Address：</label><input name="others"  type="text" class="xiangxi" /></li>
-                                <li><label for=""><span></span>Zip Code：</label><input type="text" name="zip" class="youbian" /></li>
-                                <li><label for=""><span></span>Phone Num：</label><input type="text"   name="phoneNum" class="shouji" /></li>
-                                <li><label for="">&nbsp;</label><input type="submit" value="Add a address" /></li>
+                                <li><label><span>*</span>Province <select name="province" onChange = "hw_select()" required></select></label></li>
+                                <li><label ><span>*</span>country  <select name="country" onChange = "hw_select()" required></select></label></li>
+                                <li><label ><span>*</span>Detailed Address：</label><input name="others"  type="text" class="xiangxi" required /></li>
+                                <li><label ><span></span>Zip Code：</label><input type="text" pattern="[0-9]{6}" name="zip" class="youbian" required/></li>
+                                <li><label ><span></span>Phone Num：</label><input type="tel" pattern="[0-9]{8}|^[1][3578][0-9]{9}$"  name="phoneNum" class="shouji" required /></li>
+                                <li><label>&nbsp;</label><input type="submit" value="Add a address" /></li>
                             </ul>
                         </form>
                     </div>
@@ -113,7 +114,7 @@
     var hw_selecttext =
         "HK|Aberdeen^Admiralty^Ap Lei Chau^Big Wave Bay^Causeway Bay^Central^Central sheung Wan^Central South^Chai Wan^Gloucester Road^Happy Valley^Harbour Road^Jardine's Lookkout^Kennedy Town^Lai Tak Tsuen^Mid-Levels^Mid-Levels West^North Point^Pok Fu Lam^Quarry Bay^Sai Wan^Shau Kei Wan^Shek O^Sheung Wan West^Siu Sai Wan^So Kon Po^Southern District^Stanley^Tai Hang Road^The Peak^Tim Mei Ave^Tin Hau^Wah Fu^Wan Chai^Wong Chuk Hang*" +
         "KLN|Cheung Sha Wan^Choi Wan^Diamond Hill^Ho Man Tin^Hung Hom^Jordan^Jordan Road^Kowloon Bay^Kowloon City^Kowloon Tong^kwun Tong^La Salle Road^Lai Chi Kok^Lam Tin^Lok Fu^Ma Tau Wai^Mei Foo^Mong Kok^Ngau Chi Wan^Ngau Tau Kok^Rainbow Village^San Po Kong^Sau Mau Ping^Sham Shui Po^Shek Kip Mei^Tai Kok Tsui^To Kwa Wan^Tsim Sha Tsui^Tsz Wan Shan^Wong Tai Sin^Yau Ma Tei^Yau Tong*" +
-        "NT|Chek Lap Kok^Chinese University^Clear Water Bay^Discovery Bay^Fairview Park^Fanling^Fo Tan^HKUST^Kwai Chung^Long Ping^Ma On Shan^Ma Wan^Pat Heung^Sai Kung (North)^Sai Kung (South)^Science Park^Sha Tin^Sheung Shui^Siu Lek Yuen^Tai Po^Tai Wai^Tin Shui Wai^Tseung Kwan O^Tsing Yi^Tsuen Wan^Tuen Mun^Tuen Mun^Wu Kai Sha^Yuen Long*"
+        "NT|Chek Lap Kok^Chinese University^Clear Water Bay^Discovery Bay^Fairview Park^Fanling^Fo Tan^HKUST^Kwai Chung^Long Ping^Ma On Shan^Ma Wan^Pat Heung^Sai Kung (North)^Sai Kung (South)^Science Park^Sha Tin^Sheung Shui^Siu Lek Yuen^Tai Po^Tai Wai^Tin Shui Wai^Tseung Kwan O^Tsing Yi^Tsuen Wan^Tuen Mun^Tuen Mun^Wu Kai Sha^Yuen Long"
     var TheSplit1 = "*",TheSplit2 = "|",TheSplit3 = "^", TheSplit4 = "@"
     var hwallselecttext = hw_selecttext
     var hwdefault_value = "On Select"

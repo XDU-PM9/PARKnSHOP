@@ -17,6 +17,17 @@
     <link rel="stylesheet" href="../../../resources/css/shop_form.css" type="text/css" />
     <script type="text/javascript" src="../../../resources/js/jquery.js" ></script>
     <script type="text/javascript" src="../../../resources/js/topNav.js" ></script>
+    <script>
+        $(document).ready(function () {
+            $('#changPasswordForm').bind('submit',function () {
+                if ($('#password').val() != $('#passwordConfirm').val()) {
+                    $('#tips').html('Entered passwords differ');
+//                    alert("password");
+                    return false;
+                }
+            })
+        })
+    </script>
 </head>
 <body>
 <%@include file="head.jsp"%>
@@ -30,11 +41,12 @@
         <div class="title"><h3>Change Password</h3></div>
         <div class="clear"></div>
         <dic class="shop_home_form">
-            <form action="changePassword"  name="" class="shop_form" method="post">
+            <form id="changPasswordForm" action="changePassword"  name="" class="shop_form" method="post">
                 <ul>
-                    <li class="bn"><label>Old Password：</label><input type="password" name="password" class="truename form-text" /></li>
-                    <li class="bn"><label>New Password：</label><input type="password" name="pass" class="truename form-text" /></li>
-                    <li class="bn"><label>Confirm Password：</label><input type="password" name="pass1" class="truename form-text" /></li>
+                    <li class="bn"><label>Old Password：</label><input type="password" name="password" class="truename form-text" required/></li>
+                    <li class="bn"><label>New Password：</label><input type="password" id="password" name="pass" class="truename form-text" required/></li>
+                    <li class="bn"><label>Confirm Password：</label><input type="password" id="passwordConfirm" name="pass1" class="truename form-text" required/></li>
+                    <li><span id="tips" style="color: red;text-align: center">${tips}</span></li>
                     <li class="bn"><label>&nbsp;</label><input type="submit" class="form-submit" value="Confirm the change" /></li>
                 </ul>
             </form>

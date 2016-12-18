@@ -33,23 +33,27 @@
             <!-- 商品列表 -->
             <div class="shop_meber_bd_good_lists clearfix">
                 <div class="title"><h3>Product collection</h3></div>
-
+                <c:choose>
+                <c:when test="${Collects.size()<=0}">
+                      Not Collections,let's add a product to your Collection.
+                </c:when>
+                <c:when test="${Collects.size()>0}">
                 <!-- 商品列表 -->
                 <div class="shop_bd_list_content clearfix">
                     <ul>
-                     <c:forEach var="c" items="${Collects}">
-                        <li>
-                            <dl>
-                                <dt><a href=""><img src="${c.getPicture()}"/></a>
-                                </dt>
-                                <dd class="title"><a href="">${c.getGoodsByGoodsId().getGoodsName()}</a></dd>
-                                <dd class="content">
-                                    <span class="goods_jiage">￥<strong>${c.getGoodsByGoodsId().getPrice() }</strong></span>
-                                    <span class="goods_chengjiao"> <a href="/addProduct?goodsId=${c.getGoodsByGoodsId().getGoodsId()}&amount=1">Add to Cart</a></span>
-                                </dd>
-                            </dl>
-                        </li>
-                     </c:forEach>
+                        <c:forEach var="c" items="${Collects}">
+                            <li>
+                                <dl>
+                                    <dt><a href=""><img src="${c.getPicture()}"/></a>
+                                    </dt>
+                                    <dd class="title"><a href="">${c.getGoodsByGoodsId().getGoodsName()}</a></dd>
+                                    <dd class="content">
+                                        <span class="goods_jiage">￥<strong>${c.getGoodsByGoodsId().getPrice() }</strong></span>
+                                        <span class="goods_chengjiao"> <a href="/addProduct?goodsId=${c.getGoodsByGoodsId().getGoodsId()}&amount=1">Add to Cart</a></span>
+                                    </dd>
+                                </dl>
+                            </li>
+                        </c:forEach>
                     </ul>
                 </div>
                 <div class="clear"></div>
@@ -63,15 +67,10 @@
                             <c:when test="${currentPage<sina}"> <li><a href="/listCollect?requestPage=${currentPage+1}"> <span>Next</span> </a></li></c:when>
                         </c:choose>
 
-                        As total of ${sina} Pages.
+                        A total of <c:out value="${sina}"></c:out>  Pages.
                         <form action="/jumpPage" method="post">
                             <input type="hidden" name="ty" value="1">
-                          <%--<select  name="jump">--%>
-                              <input type="number"  name="jump"  min="1" max="${sina}"/>
-                            <%--<c:forEach var="asd" begin="1" end="${sina}">--%>
-                                    <%--<option  value="${asd}">${asd}</option>--%>
-                            <%--</c:forEach>--%>
-                           <%--</select>--%>
+                            <input type="number"  name="jump"  min="1" max="${sina}" value="1"/>
                             <input type="submit" value="jump">
                         </form>
                     </ul>
@@ -79,6 +78,10 @@
                 <!-- 商品列表 End -->
 
             </div>
+                </c:when>
+                </c:choose>
+
+
         </div>
         <!-- 右边购物列表 End -->
 

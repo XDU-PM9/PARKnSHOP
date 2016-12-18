@@ -41,6 +41,11 @@ public class UserCenterController {
 
     }
 
+    @RequestMapping(value = "uploadPicture",method = RequestMethod.POST)
+    public  String uploadPicture()
+    {
+        return "";
+    }
     @RequestMapping(value="/goPassword",method = RequestMethod.GET)
     public String  goPassword(){
         return "customer/password_edit.jsp";
@@ -55,8 +60,10 @@ public class UserCenterController {
                 customerService.changePassword(pass1, userEntity.getUserId());
                 model.addAttribute("user", userEntity);
                 return "customer/user_info.jsp";
-            } else
+            } else {
+                model.addAttribute("tips","Old Password Error");
                 return "customer/password_edit.jsp";
+            }
         }
         else
         {
@@ -73,7 +80,7 @@ public class UserCenterController {
         }else{
             int size = customerService.querySize(userId);
             double d = size / 4;
-            double sina = Math.floor(d)+1;
+            int  sina =(int) Math.floor(d)+1;
             List<CollectionEntity> collectionEntities = customerService.queryAllCollect(new Integer(userId), requestPage);
             model.addAttribute("Collects", collectionEntities);
             model.addAttribute("currentPage", requestPage);
@@ -93,7 +100,7 @@ public class UserCenterController {
         }else{
             int size = customerService.queryShopsize(new Integer(userId));
             double d = size / 4;
-            double sina = Math.floor(d)+1;
+            int  sina =(int) Math.floor(d)+1;
             List<CollectshopEntity> collectionEntities = customerService.queryAllShop(new Integer(userId), requestPage);
             model.addAttribute("Collects", collectionEntities);
             model.addAttribute("currentPage", requestPage);

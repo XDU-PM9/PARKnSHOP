@@ -50,7 +50,7 @@ public class CartController {
         }else {
             if(amount>0) {
                 cartService.changeAmount(cartId, amount);
-                return "redirect:/listProduct?start=1&count=5";
+                return "redirect:/listProduct?requestPage=1";
             }else
             {
                 model.addAttribute("husdfdskljaf",cartId);
@@ -60,14 +60,14 @@ public class CartController {
     }
 
     @RequestMapping(value = "/listProduct",method = RequestMethod.GET)
-    public  String listCart(@RequestParam int start,@RequestParam int count,HttpSession session,Model model)
+    public  String listCart(@RequestParam int requestPage,HttpSession session,Model model)
     {
 
         int userId=getUserId(session);
         if(userId<1){
             return "redirect:/customer/login";
         }else {
-            List<CartEntity> cartEntityList=cartService.getProductsByPage(getUserId(session),start,count);
+            List<CartEntity> cartEntityList=cartService.getProductsByPage(getUserId(session),requestPage,10);
             if(null!=cartEntityList) {
                 List<Cart> products=productsList.getCarts(cartEntityList);
                 model.addAttribute("cartList",products);
@@ -84,7 +84,7 @@ public class CartController {
             return "redirect:/customer/login";
         } else {
             cartService.addProduct(userId, goodsId, amount);
-            return "redirect:/listProduct?start=1&count=5";
+            return "redirect:/listProduct?requestPage=1";
         }
     }
 
@@ -92,7 +92,7 @@ public class CartController {
     @RequestMapping(value = "/removeProduct",method = RequestMethod.GET)
     public  String removeProduct(@RequestParam int goodsId,HttpSession session){
         cartService.removeProduct(goodsId);
-        return "redirect:/listProduct?start=1&count=5";
+        return "redirect:/listProduct?requestPage=1";
     }
 
     private int getUserId(HttpSession session){
