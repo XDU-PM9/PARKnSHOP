@@ -279,6 +279,11 @@ public class UserService implements IUserService{
         return false;
     }
 
+    @Override
+    public boolean resetPassword(String email) {
+        return sendEamil(email,"do you want to reset your password?");
+    }
+
     private boolean activate(LoginTypeEnum loginTypeEnum,String code){
         if(null == code|| code.equals("")){
             //参数不能为空
@@ -327,13 +332,12 @@ public class UserService implements IUserService{
         session.setAttribute(IDefineString.SESSION_USER,userEntity);
         session.setMaxInactiveInterval(IUserService.SESSION_TIME);
     }
-
-    private boolean sendEmail(final String email,final String name,final String confirm,final int type){
-        if(null == email || email.equals("") || null ==confirm || confirm.equals("")||null == name || name.equals("")){
+    private boolean sendEamil(final  String email,final String text){
+        if(null == email || email.equals("")){
             return  false;
         }
         //连接地址
-        String link =  IDefineString.HOME_ID+"/activate?code="+confirm+"&type="+String.valueOf(type);
+        String link =  text;
         // 收件人的电子邮件 ID
         String to = email;
 
@@ -371,7 +375,7 @@ public class UserService implements IUserService{
             message.setSubject("This is Activate email");
             // 现在设置实际消息
             message.setContent(
-                    IHtmlContext.HTMLEMAIL+link+IHtmlContext.LINK_HTMLEMAIL+name+IHtmlContext.HTMLEMAIL_NAME,
+                    text,
                     "text/html;charset=utf-8");
             // 发送消息
             javax.mail.Transport.send(message);
@@ -388,7 +392,15 @@ public class UserService implements IUserService{
             mex.printStackTrace();
             return false;
         }
+    }
 
+    private boolean sendEmail(final String email,final String name,final String confirm,final int type){
+        if(null == email || email.equals("") || null ==confirm || confirm.equals("")||null == name || name.equals("")){
+            return  false;
+        }
+        //连接地址
+        String link =  IDefineString.HOME_ID+"/activate?code="+confirm+"&type="+String.valueOf(type);
+       return sendEamil(email,IHtmlContext.HTMLEMAIL+link+IHtmlContext.LINK_HTMLEMAIL+name+IHtmlContext.HTMLEMAIL_NAME);
     }
     static class Authentication extends Authenticator {
         String username = null;
