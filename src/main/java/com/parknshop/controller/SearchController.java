@@ -145,27 +145,25 @@ public class SearchController {
 
     /**
      * 获得搜索到的店铺数量
-     * @param shopName
+     * @param request
      * @return
      */
     @RequestMapping(value = "/getShopCount",method=RequestMethod.POST)
     @ResponseBody
-    public String shopCount(@RequestParam String shopName){
-        return String.valueOf(searchShops.getCount(shopName));
+    public String shopCount(@RequestBody Map request){
+        return String.valueOf(searchShops.setByMap(request).getCount());
     }
 
     /**
      * 搜索店铺
-     * @param shopName
-     * @param start
-     * @param count
+     * @param request
      * @return
      */
     @RequestMapping(value = "/searchShop",method = RequestMethod.POST)
     @ResponseBody
-    public List searchShop(@RequestParam String shopName,@RequestParam int start,@RequestParam int count){
+    public List searchShop(@RequestBody Map request){
         try{
-            return getList.getShops(searchShops.searchShop(shopName, start,count));
+            return getList.getShops(searchShops.setByMap(request).searchShop());
         }catch (NumberFormatException e){
             e.printStackTrace();
             return null;
