@@ -73,7 +73,7 @@ public class CartController {
                 model.addAttribute("cartList",products);
             }
         }
-        return "/customer/Shop_Cart.jsp";
+        return "/customer/cart.jsp";
     }
 
     @RequestMapping(value = "/addProduct",method = RequestMethod.GET)

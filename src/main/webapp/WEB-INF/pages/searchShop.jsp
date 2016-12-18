@@ -963,11 +963,11 @@
         </div>
         <div class="clear"></div>
         <div class="pagination">
-            <ul>
+            <ul id="pageList">
                 <%--<li><span onclick="search()">First page</span></li>--%>
-                <li><span>Previous</span></li>
+                <%--<li><span>Previous</span></li>--%>
                 <li><span class="currentpage" id="currentPage">1</span></li>
-                <li><span>Next</span></li>
+                <li><p>A total of 1 page</p></li>
                 <%--<li><span>Last page</span></li>--%>
             </ul>
         </div>

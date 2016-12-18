@@ -75,8 +75,6 @@ public class CartService implements ICartService {
                 CartEntity cartEntity = new CartEntity();
                 cartEntity.setAmount(amount);
                 cartEntity.setCreateTime(new Timestamp(System.currentTimeMillis()));
-                //  cartEntity.setGoodsId(goodsId);
-                // cartEntity.setUserId(userId);
                 cartEntity.setGoodsEntity(getGoodsEntity(goodsId));
                 cartEntity.setUserByUserId(getUserEntity(userId));
                 cartEntity.setSingleGoodId(0);
@@ -125,7 +123,7 @@ public class CartService implements ICartService {
     @Override
     public CartEntity getCart(int userId, int goodsId) {
         try {
-            return cartEntityDao.get("from CartEntity where userByUserId = ? and goodsEntity = ", new Object[]{getUserEntity(userId), getGoodsEntity(goodsId)});
+            return cartEntityDao.get("from CartEntity where userByUserId = ? and goodsEntity =? ", new Object[]{getUserEntity(userId), getGoodsEntity(goodsId)});
         } catch (Exception e) {
             e.printStackTrace();
             return null;
