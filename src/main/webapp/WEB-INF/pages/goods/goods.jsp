@@ -1,5 +1,18 @@
-
+<%@ page import="com.parknshop.bean.GoodsDbBean" %>
+<%@ page import="com.parknshop.controller.GoodsController" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.parknshop.entity.PhotoEntity" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.parknshop.utils.Log" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    GoodsDbBean goods = (GoodsDbBean) request.getAttribute(GoodsController.KEY_GOODS);
+    List<PhotoEntity> photoList = goods.getPicturePath();
+    List<String> photos = new ArrayList<>();
+    for (PhotoEntity entity : photoList){
+        photos.add(entity.getAddress());
+    }
+%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
@@ -483,20 +496,6 @@
     <!-- Header Menu End -->
 
 </div>
-<div class="clear"></div>
-<!-- 面包屑 注意首页没有 -->
-<div class="shop_hd_breadcrumb">
-    <strong>当前位置：</strong>
-    <span>
-			<a href="">首页</a>&nbsp;›&nbsp;
-			<a href="">商品分类</a>&nbsp;›&nbsp;
-			<a href="">男装女装</a>&nbsp;›&nbsp;
-			<a href="">男装</a>
-		</span>
-</div>
-<div class="clear"></div>
-<!-- 面包屑 End -->
-
 <!-- Header End -->
 
 <!-- Goods Body -->
@@ -506,35 +505,30 @@
     <div class="shop_goods_show">
         <div class="shop_goods_show_left">
             <!-- 京东商品展示 -->
-            <link rel="stylesheet" href="css/shop_goodPic.css" type="text/css" />
-            <script type="text/javascript" src="js/shop_goodPic_base.js"></script>
-            <script type="text/javascript" src="js/lib.js"></script>
-            <script type="text/javascript" src="js/163css.js"></script>
+            <link rel="stylesheet" href="/resources/css/shop_goodPic.css" type="text/css" />
+            <script type="text/javascript" src="/resources/js/shop_goodPic_base.js"></script>
+            <script type="text/javascript" src="/resources/js/lib.js"></script>
+            <script type="text/javascript" src="/resources/js/163css.js"></script>
             <div id="preview">
                 <div class=jqzoom id="spec-n1" onClick="window.open('/')"><IMG height="350" src="images/img04.jpg" jqimg="images/img04.jpg" width="350">
                 </div>
                 <div id="spec-n5">
                     <div class=control id="spec-left">
-                        <img src="images/left.gif" />
+                        <img src="/resources/images/left.gif" />
                     </div>
                     <div id="spec-list">
                         <ul class="list-h">
-                            <li><img src="images/img01.jpg"> </li>
-                            <li><img src="images/img02.jpg"> </li>
-                            <li><img src="images/img03.jpg"> </li>
-                            <li><img src="images/img04.jpg"> </li>
-                            <li><img src="images/img01.jpg"> </li>
-                            <li><img src="images/img02.jpg"> </li>
-                            <li><img src="images/img03.jpg"> </li>
-                            <li><img src="images/img04.jpg"> </li>
-                            <li><img src="images/img01.jpg"> </li>
-                            <li><img src="images/img02.jpg"> </li>
-                            <li><img src="images/img03.jpg"> </li>
-                            <li><img src="images/img04.jpg"> </li>
+
+                            <%--生成图片--%>
+                            <%
+                                for (String image : photos){
+                                    out.println("<li><img src=\""+image+"\"> </li>");
+                                }
+                            %>
                         </ul>
                     </div>
                     <div class=control id="spec-right">
-                        <img src="images/right.gif" />
+                        <img src="/resources/images/right.gif" />
                     </div>
 
                 </div>
@@ -585,11 +579,15 @@
         <div class="shop_goods_show_right">
             <ul>
                 <li>
-                    <strong style="font-size:14px; font-weight:bold;">联想 K900 3G手机（炫酷银）WCDMA/GSM</strong>
+                    <%--<strong style="font-size:14px; font-weight:bold;">联想 K900 3G手机（炫酷银）WCDMA/GSM</strong>--%>
+
+                        <%--充填商品名字--%>
+                        <strong style="font-size:14px; font-weight:bold;"><%out.print(goods.getGoodsName());%></strong>
                 </li>
                 <li>
                     <label>价格：</label>
-                    <span><strong>200.00</strong>元</span>
+                    <%--<span><strong>200.00</strong>元</span>--%>
+                    <span><strong><%out.print(goods.getPrice());%></strong>元</span>
                 </li>
                 <li>
                     <label>运费：</label>
@@ -605,7 +603,7 @@
                 </li>
                 <li class="goods_num">
                     <label>购买数量：</label>
-                    <span><a class="good_num_jian" id="good_num_jian" href="javascript:void(0);"></a><input type="text" value="1" id="good_nums" class="good_nums" /><a href="javascript:void(0);" id="good_num_jia" class="good_num_jia"></a>(当前库存0件)</span>
+                    <span><a class="good_num_jian" id="good_num_jian" href="javascript:void(0);"></a><input type="text" value="1" id="good_nums" class="good_nums" /><a href="javascript:void(0);" id="good_num_jia" class="good_num_jia"></a>(当前库存<%out.print(goods.getInventory());%>件)</span>
                 </li>
                 <li style="padding:20px 0;">
                     <label>&nbsp;</label>
@@ -616,116 +614,8 @@
     </div>
     <!-- 商品展示 End -->
 
-    <div class="clear mt15"></div>
-    <!-- Goods Left -->
-    <div class="shop_bd_list_left clearfix">
-        <!-- 左边商品分类 -->
-        <div class="shop_bd_list_bk clearfix">
-            <div class="title">商品分类</div>
-            <div class="contents clearfix">
-                <dl class="shop_bd_list_type_links clearfix">
-                    <dt><strong>女装</strong></dt>
-                    <dd>
-                        <span><a href="">风衣</a></span>
-                        <span><a href="">长袖连衣裙</a></span>
-                        <span><a href="">毛呢连衣裙</a></span>
-                        <span><a href="">半身裙</a></span>
-                        <span><a href="">小脚裤</a></span>
-                        <span><a href="">加绒打底裤</a></span>
-                        <span><a href="">牛仔裤</a></span>
-                        <span><a href="">打底衫</a></span>
-                        <span><a href="">情侣装</a></span>
-                        <span><a href="">棉衣</a></span>
-                        <span><a href="">毛呢大衣</a></span>
-                        <span><a href="">毛呢短裤</a></span>
-                    </dd>
-                </dl>
-            </div>
-        </div>
-        <!-- 左边商品分类 End -->
-
-        <!-- 热卖推荐商品 -->
-        <div class="shop_bd_list_bk clearfix">
-            <div class="title">热卖推荐商品</div>
-            <div class="contents clearfix">
-                <ul class="clearfix">
-
-                    <li class="clearfix">
-                        <div class="goods_name"><a href="">Gap经典弹力纯色长袖T恤|000891347|原价149元</a></div>
-                        <div class="goods_pic"><span class="goods_price">¥ 279.00 </span><a href=""><img src="images/89a6d6466b00ae32d3c826b9ec639084.jpg_small.jpg" /></a></div>
-                        <div class="goods_xiaoliang">
-                            <span class="goods_xiaoliang_link"><a href="">去看看</a></span>
-                            <span class="goods_xiaoliang_nums">已销售<strong>99</strong>笔</span>
-                        </div>
-                    </li>
-
-                    <li class="clearfix">
-                        <div class="goods_name"><a href="">Gap经典弹力纯色长袖T恤|000891347|原价149元</a></div>
-                        <div class="goods_pic"><span class="goods_price">¥ 279.00 </span><a href=""><img src="images/89a6d6466b00ae32d3c826b9ec639084.jpg_small.jpg" /></a></div>
-                        <div class="goods_xiaoliang">
-                            <span class="goods_xiaoliang_link"><a href="">去看看</a></span>
-                            <span class="goods_xiaoliang_nums">已销售<strong>99</strong>笔</span>
-                        </div>
-                    </li>
-
-                    <li class="clearfix">
-                        <div class="goods_name"><a href="">Gap经典弹力纯色长袖T恤|000891347|原价149元</a></div>
-                        <div class="goods_pic"><span class="goods_price">¥ 279.00 </span><a href=""><img src="images/89a6d6466b00ae32d3c826b9ec639084.jpg_small.jpg" /></a></div>
-                        <div class="goods_xiaoliang">
-                            <span class="goods_xiaoliang_link"><a href="">去看看</a></span>
-                            <span class="goods_xiaoliang_nums">已销售<strong>99</strong>笔</span>
-                        </div>
-                    </li>
-
-                </ul>
-            </div>
-        </div>
-        <!-- 热卖推荐商品 -->
-        <div class="clear"></div>
-
-        <!-- 浏览过的商品 -->
-        <div class="shop_bd_list_bk clearfix">
-            <div class="title">浏览过的商品</div>
-            <div class="contents clearfix">
-                <ul class="clearfix">
-
-                    <li class="clearfix">
-                        <div class="goods_name"><a href="">Gap经典弹力纯色长袖T恤|000891347|原价149元</a></div>
-                        <div class="goods_pic"><span class="goods_price">¥ 279.00 </span><a href=""><img src="images/89a6d6466b00ae32d3c826b9ec639084.jpg_small.jpg" /></a></div>
-                        <div class="goods_xiaoliang">
-                            <span class="goods_xiaoliang_link"><a href="">去看看</a></span>
-                            <span class="goods_xiaoliang_nums">已销售<strong>99</strong>笔</span>
-                        </div>
-                    </li>
-
-                    <li class="clearfix">
-                        <div class="goods_name"><a href="">Gap经典弹力纯色长袖T恤|000891347|原价149元</a></div>
-                        <div class="goods_pic"><span class="goods_price">¥ 279.00 </span><a href=""><img src="images/89a6d6466b00ae32d3c826b9ec639084.jpg_small.jpg" /></a></div>
-                        <div class="goods_xiaoliang">
-                            <span class="goods_xiaoliang_link"><a href="">去看看</a></span>
-                            <span class="goods_xiaoliang_nums">已销售<strong>99</strong>笔</span>
-                        </div>
-                    </li>
-
-                    <li class="clearfix">
-                        <div class="goods_name"><a href="">Gap经典弹力纯色长袖T恤|000891347|原价149元</a></div>
-                        <div class="goods_pic"><span class="goods_price">¥ 279.00 </span><a href=""><img src="images/89a6d6466b00ae32d3c826b9ec639084.jpg_small.jpg" /></a></div>
-                        <div class="goods_xiaoliang">
-                            <span class="goods_xiaoliang_link"><a href="">去看看</a></span>
-                            <span class="goods_xiaoliang_nums">已销售<strong>99</strong>笔</span>
-                        </div>
-                    </li>
-
-                </ul>
-            </div>
-        </div>
-        <!-- 浏览过的商品 -->
-
-    </div>
-    <!-- Goods Left End -->
-
     <!-- 商品详情 -->
-    <script type="text/javascript" src="js/shop_goods_tab.js"></script>
+    <script type="text/javascript" src="/resources/js/shop_goods_tab.js"></script>
     <div class="shop_goods_bd_xiangqing clearfix">
         <div class="shop_goods_bd_xiangqing_tab">
             <ul>
