@@ -27,7 +27,7 @@
 .shop_gwc_bd_contents table tbody td a{color:#3366D4;}
 .shop_gwc_bd_contents table tbody td.gwc_list_danjia{width:100px;}
 .shop_gwc_bd_contents table tbody td.gwc_list_shuliang{width:100px;}
-.shop_gwc_bd_contents table tbody td.gwc_list_shuliang input{width:20px; height:20px; line-height: 20px; padding:0 3px;}
+.shop_gwc_bd_contents table tbody td.gwc_list_shuliang input{width:100px; height:20px; line-height: 20px; padding:0 3px;}
 .shop_gwc_bd_contents table tbody td.gwc_list_shuliang span a{display: inline-block; width:14px; height:14px; font-size:14px; font-weight: 800; background-color:#BDBDBD; color:#FFF; line-height: 14px; margin:0 3px; position: relative; top:2px; border-radius:2px; text-decoration: none;}
 .shop_gwc_bd_contents table tbody td.gwc_list_shuliang span a:hover{background-color:#FF9900;}
 

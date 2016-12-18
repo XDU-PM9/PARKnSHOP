@@ -46,7 +46,10 @@
                                 <dl>
                                     <dt><a href=""><img src="${c.getPicture()}"/></a>
                                     </dt>
-                                    <dd class="title"><a href="">${c.getGoodsByGoodsId().getGoodsName()}</a></dd>
+                                    <dd class="title">
+                                        <a href="">${c.getGoodsByGoodsId().getGoodsName()}</a>
+                                        <a href="">Delete</a>
+                                    </dd>
                                     <dd class="content">
                                         <span class="goods_jiage">￥<strong>${c.getGoodsByGoodsId().getPrice() }</strong></span>
                                         <span class="goods_chengjiao"> <a href="/addProduct?goodsId=${c.getGoodsByGoodsId().getGoodsId()}&amount=1">Add to Cart</a></span>
@@ -57,6 +60,21 @@
                     </ul>
                 </div>
                 <div class="clear"></div>
+
+                <div class="pagination">
+                    <ul>
+
+                        <li><span>Previous</span></li>
+                        <li><span class="currentpage">1 of 3</span></li>
+                        <li><span>Next</span></li>
+
+                        <li><form action="/jumpPage" method="post">
+                            <input type="hidden" name="ty" value="1">
+                            <input type="number" name="jump" min="1" max="3" value="1">
+                            <input type="submit" value="jump">
+                        </form></li></ul>
+                </div>
+<%--删掉--%>
                 <div class="pagination">
                     <ul>
                         <c:choose>
@@ -75,6 +93,7 @@
                         </form>
                     </ul>
                 </div>
+                    <%--删掉--%>
                 <!-- 商品列表 End -->
 
             </div>

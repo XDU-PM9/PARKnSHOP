@@ -32,13 +32,13 @@
                         <c:when test="${user==null}">
                             <li>
                                 <div class="topNav_menu">
-                                    <a href="/customer/login" class="topNavHover">Login<i></i></a>
+                                    <a href="/customer/login" class="topNavHover">Login</a>
                                 </div>
                             </li>
 
                             <li>
                                 <div class="topNav_menu">
-                                    <a href="/customer/register" class="topNavHover">Sign up<i></i></a>
+                                    <a href="/customer/register" class="topNavHover">Sign up</a>
                                 </div>
                             </li>
 
@@ -47,13 +47,13 @@
                         <c:when test="${user!=null}">
                             <li>
                                 <div class="topNav_menu">
-                                    <a href="/listUserInfo" class="topNavHover">Welcome,${user.getUsername()}<i></i></a>
+                                    <a href="/listUserInfo" class="topNavHover">Welcome,${user.getUsername()}</a>
                                 </div>
                             </li>
 
                             <li>
                                 <div class="topNav_menu">
-                                    <a href="/customer/logout" class="topNavHover">Logout<i></i></a>
+                                    <a href="/customer/logout" class="topNavHover">Logout</a>
                                 </div>
                             </li>
 
