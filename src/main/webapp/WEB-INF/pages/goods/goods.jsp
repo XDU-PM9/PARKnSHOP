@@ -607,7 +607,7 @@
                 </li>
                 <li style="padding:20px 0;">
                     <label>&nbsp;</label>
-                    <span><a href="" class="goods_sub goods_sub_gou" >加入购物车</a></span>
+                    <span><a href="/addProduct?goodsId=<%out.print(goods.getGoodsId());%>&amount=1" class="goods_sub goods_sub_gou" >加入购物车</a></span>
                 </li>
             </ul>
         </div>
