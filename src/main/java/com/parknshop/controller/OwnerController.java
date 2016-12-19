@@ -9,7 +9,7 @@ import com.parknshop.entity.ShopEntity;
 import com.parknshop.service.*;
 import com.parknshop.service.baseImpl.IDefineString;
 import com.parknshop.service.baseImpl.IUploadPictures;
-import com.parknshop.service.serviceImpl.OwnerBuilder;
+import com.parknshop.service.serviceImpl.builder.OwnerBuilder;
 import com.parknshop.utils.DateFormat;
 import com.parknshop.utils.Log;
 import com.parknshop.utils.OwnerFileSaver;

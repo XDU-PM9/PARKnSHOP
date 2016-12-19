@@ -1,25 +1,16 @@
 package com.parknshop.controller;
 
 import com.parknshop.dao.IBaseDao;
-import com.parknshop.dao.daoImpl.BaseDao;
-import com.parknshop.entity.AddressEntity;
-import com.parknshop.entity.AdminEntity;
 import com.parknshop.entity.OwnerEntity;
 import com.parknshop.entity.RoleEntity;
-import com.parknshop.service.IOwnerService;
 import com.parknshop.service.IUserBuilder;
 import com.parknshop.service.IUserService;
-import com.parknshop.service.enumStatic.RegisterType;
-import com.parknshop.service.serviceImpl.OwnerBuilder;
 import com.parknshop.service.serviceImpl.OwnerService;
-import com.parknshop.service.serviceImpl.UserBuilder;
+import com.parknshop.service.serviceImpl.builder.UserBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import javax.annotation.Resource;
 
 /**
  * Created by weina on 2016/11/28.
