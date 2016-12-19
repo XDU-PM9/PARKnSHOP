@@ -56,22 +56,20 @@
             <div class="clear"></div>
             <div class="pagination">
                 <ul>
-
-
                     <c:choose>
                         <c:when test="${currentPage>1}"> <li><a href="/listCollectShop?requestPage=${currentPage-1}"> <span>Previous</span></a></li></c:when>
                     </c:choose>
-                    <li><span class="currentpage">${currentPage}</span></li>
+                    <li><span class="currentpage">${currentPage} of ${sina}</span></li>
                     <c:choose>
                         <c:when test="${currentPage<sina}"> <li><a href="/listCollectShop?requestPage=${currentPage+1}"> <span>Next</span> </a></li></c:when>
                     </c:choose>
-
-                    As total of ${sina} Pages.
+                    <li>
                     <form action="/jumpPage" method="post">
                         <input type="hidden" name="ty" value="2">
                         <input type="number"  name="jump"  min="1" max="${sina}"  value="1"/>
                         <input type="submit" value="jump">
                     </form>
+                    </li>
                 </ul>
             </div>
             <!-- 商品列表 End -->
