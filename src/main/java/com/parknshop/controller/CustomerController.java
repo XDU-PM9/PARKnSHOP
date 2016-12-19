@@ -46,8 +46,6 @@ public class CustomerController{
         return "customer/login.html";
     }
 
-
-
     @RequestMapping(value = "/customer/login",method = RequestMethod.POST)
     public @ResponseBody Map customerLogin(@RequestBody Map request //映射为Map
                                            ,HttpSession session
