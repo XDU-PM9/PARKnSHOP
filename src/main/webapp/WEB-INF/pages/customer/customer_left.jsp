@@ -9,7 +9,7 @@
 <div class="shop_member_bd_left clearfix">
 
     <div class="shop_member_bd_left_pic">
-        <a href="javascript:void(0);"><img src="/resources/images/images/avatar.png"/></a>
+        <a href="javascript:void(0);"><img src="${user.getUserImage()}"/></a>
     </div>
     <div class="clear"></div>
 

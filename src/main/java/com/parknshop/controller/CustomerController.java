@@ -9,9 +9,14 @@ import com.parknshop.service.enumStatic.LoginTypeEnum;
 import com.parknshop.service.serviceImpl.UserBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -29,6 +34,8 @@ public class CustomerController{
     private final IUserService userService;
     private final IUserBuilder userBuilder;
 
+    private boolean backPage=false;
+
     //返回时间格式
     private final static SimpleDateFormat timeformat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
@@ -42,16 +49,15 @@ public class CustomerController{
     }
 
     @RequestMapping(value = "/customer/login",method = RequestMethod.GET)
-    public String login(){
+    public String login(HttpServletRequest request, RedirectAttributes model){
+        this.backPage= (boolean) request.getAttribute("backPage");
         return "customer/login.html";
     }
-
-
 
     @RequestMapping(value = "/customer/login",method = RequestMethod.POST)
     public @ResponseBody Map customerLogin(@RequestBody Map request //映射为Map
                                            ,HttpSession session
-                                )throws Exception{
+                                ){
         Map response=new HashMap<String,Object>();
         //登录返回状态码
         int status=userService.loginAsUser((String)request.get("username"),(String)request.get("password"));
@@ -59,6 +65,7 @@ public class CustomerController{
             //登录成功
             response.put("error","false");
             response.put("message","login success");
+            response.put("fresh",backPage);
             //使用嵌套map来实现嵌套json
             Map<String,String> data=new HashMap<String,String>();
             data.put("userName", (String) request.get("username"));
@@ -142,37 +149,9 @@ public class CustomerController{
      * 注销
      * @return
      */
-
-
-
-
-    /*
-    logot需要
-     */
     @RequestMapping(value = "/customer/logout",method = RequestMethod.GET)
     public String loginout(){
         userService.loginOut();
         return "redirect:/";
-    }
-
-    /**
-     * 个人中心
-     * @param request
-     * @return
-     */
-    @RequestMapping(value = "/customer/information",method = RequestMethod.POST)
-    public @ResponseBody Map customerInformation(@RequestBody Map request){
-        //todo:个人中心
-        Map response=new HashMap();
-        return response;
-    }
-
-
-    private int getUserId(HttpSession session){
-        try {
-            return ((UserEntity) session.getAttribute(IDefineString.SESSION_USER)).getUserId();
-        }catch (Exception e){
-            return -1;
-        }
     }
 }

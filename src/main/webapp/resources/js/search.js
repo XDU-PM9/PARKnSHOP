@@ -18,6 +18,9 @@ function previousPage() {
 //跳页
 function jumpPage() {
     var page = $('#pageNumber').val();
+    if(page>pageCount){
+        return;
+    }
     getOnePage((page - 1) * onePageCount)
     currentPage = page;
 }
@@ -210,20 +213,19 @@ function listSearchResult(result) {
 function displayCount() {
     if (pageCount <= 1) {
         $('#pageList').find('li').remove();
-        $('#pageList').append("<li><span class='currentpage' id='currentPage'>1</span></li>");
-        $('#pageList').append("<li><p>A total of 1 page</p></li>");
+        $('#pageList').append("<li><span class='currentpage' id='currentPage'>1 of 1</span></li>");
     } else {
         $('#pageList').find('li').remove();
         if (currentPage > 1) {
             $('#pageList').append("<li><input type='button' onclick='previousPage()' value='Previous'</input></li>");
         }
-        $('#pageList').append("<li><span class='currentpage' id='currentPage'>" + currentPage + "</span></li>");
+        $('#pageList').append("<li><span class='currentpage' id='currentPage'>" + currentPage +" of "+pageCount+ "</span></li>");
         if (currentPage < pageCount) {
             $('#pageList').append("<li><input type='button' onclick='nextPage()' value='Next'</input></li>");
         }
-        $('#pageList').append("<li><p>A total of " + pageCount + " page</p></li>");
-        $('#pageList').append("<li><input id='pageNumber' type='number' value='1' min='1' max='" + pageCount + "'</li>");
-        $('#pageList').append("<li><input type='button' value='jump' onclick='jumpPage()'> ");
+        // $('#pageList').append("<li><p>A total of " + pageCount + " page</p></li>");
+        $('#pageList').append("<li><input id='pageNumber' name='jump' type='number' value='1' min='1' max='" + pageCount + "'</li>");
+        $('#pageList').append("<li><input type='button' name='jump' value='jump' onclick='jumpPage()'> ");
     }
 }
 
