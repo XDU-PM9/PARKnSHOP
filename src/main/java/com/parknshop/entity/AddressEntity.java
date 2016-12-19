@@ -20,7 +20,6 @@ public class AddressEntity {
     private String name;
     private Integer postcode;
     private UserEntity userByUserId;
-    private Collection<OrdersEntity> orderssByAddressId;
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -133,12 +132,5 @@ public class AddressEntity {
         this.userByUserId = userByUserId;
     }
 
-    @OneToMany(mappedBy = "addressByAddressId")
-    public Collection<OrdersEntity> getOrderssByAddressId() {
-        return orderssByAddressId;
-    }
 
-    public void setOrderssByAddressId(Collection<OrdersEntity> orderssByAddressId) {
-        this.orderssByAddressId = orderssByAddressId;
-    }
 }

@@ -30,27 +30,14 @@ public class GoodsDbBean {
     private String type;
     private int sales;
 
+    private String postWay;
     private List<PhotoEntity> picturePath;//图片组地址
     //hql 语句构建
     public static final String hql ="select new com.parknshop.bean.GoodsDbBean"+//
-                    "(g.goodsId, s.shopId, g.goodsName, g.introduction, g.price, g.discount, g.inventory, g.photoGroup, g.createTime, g.views, g.state, g.type, g.sales)  "+//
+                    "(g.goodsId, s.shopId, g.goodsName, g.introduction, g.price, g.discount, g.inventory, g.photoGroup, g.createTime, g.views, g.state, g.type, g.sales,g.postWay)  "+//
                     "from GoodsEntity as g,ShopEntity as s where g.shopByShopId.shopId = s.shopId";
 
-    public GoodsDbBean(int goodsId, int shopId, String goodsName, String introduction, Double price, Double discount, int inventory, String photoGroup, Date createTime, int views, int state) {
-        this.goodsId = goodsId;
-        this.shopId = shopId;
-        this.goodsName = goodsName;
-        this.introduction = introduction;
-        this.price = price;
-        this.discount = discount;
-        this.inventory = inventory;
-        this.photoGroup = photoGroup;
-        this.createTime = createTime;
-        this.views = views;
-        this.state = state;
-        //初始化 图片列表
-        initPhotoList();
-    }
+
 //    public GoodsEntity toGoodsEntity(){
 //        GoodsEntity entity = new GoodsEntity();
 //        entity.setGoodsId(this.goodsId);
@@ -66,7 +53,7 @@ public class GoodsDbBean {
 //        entity.setCreateTime(this.createTime);
 //    }
 
-    public GoodsDbBean(int goodsId, int shopId, String goodsName, String introduction, Double price, Double discount, int inventory, String photoGroup, Date createTime, int views, int state, String type, int sales) {
+    public GoodsDbBean(int goodsId, int shopId, String goodsName, String introduction, Double price, Double discount, int inventory, String photoGroup, Date createTime, int views, int state, String type, int sales,String postWay) {
         this.goodsId = goodsId;
         this.shopId = shopId;
         this.goodsName = goodsName;
@@ -80,7 +67,7 @@ public class GoodsDbBean {
         this.state = state;
         this.type = type;
         this.sales = sales;
-
+        this.postWay = postWay;
         //初始化 图片列表
         initPhotoList();
     }
