@@ -6,14 +6,15 @@ import com.parknshop.entity.UserEntity;
 import com.parknshop.service.IUserService;
 import com.parknshop.service.baseImpl.IDefineString;
 import com.parknshop.service.customerService.ICustomerService;
+import com.parknshop.utils.OwnerFileSaver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -44,10 +45,20 @@ public class UserCenterController {
 
     }
 
-    @RequestMapping(value = "uploadPicture",method = RequestMethod.POST)
-    public  String uploadPicture()
+    @RequestMapping(value = "/uploadPicture",method = RequestMethod.POST)
+    public  String uploadPicture(@RequestParam MultipartFile picture, HttpSession session, Model model)
     {
-        return "";
+        String contextPath = session.getServletContext().getRealPath("/");
+        String person, logo;
+        try {
+            person = OwnerFileSaver.saveImage(picture, contextPath);
+            model.addAttribute("status",true);
+        } catch (Exception e) {
+            //服务器存储错误
+            e.printStackTrace();
+        }finally {
+            return "/customer/user_info.jsp";
+        }
     }
     @RequestMapping(value="/goPassword",method = RequestMethod.GET)
     public String  goPassword(){
