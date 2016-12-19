@@ -35,7 +35,10 @@
                 <div class="title"><h3>Product collection</h3></div>
                 <c:choose>
                 <c:when test="${Collects.size()<=0}">
+                    <h1>
                       Not Collections,let's add a product to your Collection.
+                    </h1>
+
                 </c:when>
                 <c:when test="${Collects.size()>0}">
                 <!-- 商品列表 -->
@@ -64,36 +67,20 @@
                 <div class="pagination">
                     <ul>
 
-                        <li><span>Previous</span></li>
-                        <li><span class="currentpage">1 of 3</span></li>
-                        <li><span>Next</span></li>
-
-                        <li><form action="/jumpPage" method="post">
-                            <input type="hidden" name="ty" value="1">
-                            <input type="number" name="jump" min="1" max="3" value="1">
-                            <input type="submit" value="jump">
-                        </form></li></ul>
-                </div>
-<%--删掉--%>
-                <div class="pagination">
-                    <ul>
                         <c:choose>
                             <c:when test="${currentPage>1}"> <li><a href="/listCollect?requestPage=${currentPage-1}"> <span>Previous</span></a></li></c:when>
                         </c:choose>
-                        <li><span class="currentpage">${currentPage}</span></li>
+                        <li><span class="currentpage">${currentPage} of ${sina}</span></li>
                         <c:choose>
                             <c:when test="${currentPage<sina}"> <li><a href="/listCollect?requestPage=${currentPage+1}"> <span>Next</span> </a></li></c:when>
                         </c:choose>
 
-                        A total of <c:out value="${sina}"></c:out>  Pages.
-                        <form action="/jumpPage" method="post">
+                        <li><form action="/jumpPage" method="post">
                             <input type="hidden" name="ty" value="1">
-                            <input type="number"  name="jump"  min="1" max="${sina}" value="1"/>
+                            <input type="number" name="jump" min="1" max="${sina}" value="1">
                             <input type="submit" value="jump">
-                        </form>
-                    </ul>
+                        </form></li></ul>
                 </div>
-                    <%--删掉--%>
                 <!-- 商品列表 End -->
 
             </div>

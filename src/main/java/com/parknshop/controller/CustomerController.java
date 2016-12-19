@@ -152,7 +152,7 @@ public class CustomerController{
     @RequestMapping(value = "/customer/logout",method = RequestMethod.GET)
     public String loginout(){
         userService.loginOut();
-        return "forward:/";
+        return "redirect:/";
     }
 
     /**

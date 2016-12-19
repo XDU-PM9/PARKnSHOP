@@ -2,6 +2,7 @@ package com.parknshop.controller;
 
 import com.parknshop.entity.CartEntity;
 import com.parknshop.entity.UserEntity;
+import com.parknshop.service.IUserService;
 import com.parknshop.service.baseImpl.IDefineString;
 import com.parknshop.service.customerService.Cart;
 import com.parknshop.service.customerService.ICartService;
@@ -26,6 +27,8 @@ public class CartController {
     @Autowired
     IGetList productsList;
 
+    private  IUserService mUserService;
+
 //    @RequestMapping(value = "/changeAmount",method = RequestMethod.POST)
 //    public @ResponseBody String changeAmount(HttpServletRequest request, HttpSession session)
 //    {
@@ -45,7 +48,7 @@ public class CartController {
     public  String changeAmount(@RequestParam int cartId, @RequestParam int amount, HttpSession session, Model model)
     {
         int userId=getUserId(session);
-        if(userId<1){
+        if (userId<0) {
             return "redirect:/customer/login";
         }else {
             if(amount>0) {
@@ -64,7 +67,7 @@ public class CartController {
     {
 
         int userId=getUserId(session);
-        if(userId<1){
+        if (userId<0) {
             return "redirect:/customer/login";
         }else {
             List<CartEntity> cartEntityList=cartService.getProductsByPage(getUserId(session),requestPage,10);
@@ -79,8 +82,7 @@ public class CartController {
     @RequestMapping(value = "/addProduct",method = RequestMethod.GET)
     public  String addCart(@RequestParam int goodsId,@RequestParam int amount,HttpSession session) {
         int userId = getUserId(session);
-//        userId=12;
-        if (userId < 1) {
+        if (userId<0) {
             return "redirect:/customer/login";
         } else {
             cartService.addProduct(userId, goodsId, amount);
@@ -91,8 +93,14 @@ public class CartController {
 
     @RequestMapping(value = "/removeProduct",method = RequestMethod.GET)
     public  String removeProduct(@RequestParam int goodsId,HttpSession session){
-        cartService.removeProduct(goodsId);
-        return "redirect:/listProduct?requestPage=1";
+        int userId = getUserId(session);
+        if (userId<0) {
+            return "redirect:/customer/login";
+        }
+        else {
+            cartService.removeProduct(goodsId);
+            return "redirect:/listProduct?requestPage=1";
+        }
     }
 
     private int getUserId(HttpSession session){
