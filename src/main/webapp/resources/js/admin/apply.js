@@ -172,6 +172,6 @@ function prev() {
         }
         else{
             uploadApply();
-        }
+        } 
     })
 }
