@@ -77,6 +77,15 @@ public class GoodsDbBean {
         this.picturePath = dao.getPictures(this.photoGroup);
     }
 
+
+    public String getPostWay() {
+        return postWay;
+    }
+
+    public void setPostWay(String postWay) {
+        this.postWay = postWay;
+    }
+
     public String getType() {
         return type;
     }

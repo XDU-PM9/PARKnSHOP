@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="/resources/css/owner/top.css" rel="stylesheet" type="text/css" />
+    <link href="/resources/css/owner/owner-main.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+<h1>
+    <span class="action-span1"><a href="">Goods List</a> </span>
+    <div style="clear:both"></div>
+</h1>
+
+<div class="form-div">
+    <form action="javascript:search_brand()" name="searchForm">
+        <img src="/resources/images/ico/icon_search.gif" width="26" height="22" border="0" alt="SEARCH">
+        <input type="text" name="brand_name" size="35" placeholder="Please input the goodId">
+        <input type="submit" value="Search" class="button">
+    </form>
+</div>
+
+<form method="post" action="" name="listForm">
+    <!-- start brand list -->
+    <div class="list-div" id="listDiv">
+        <table cellpadding="3" cellspacing="1">
+
+            <tr>
+                <th>Index</th>
+                <th>name</th>
+                <th>price</th>
+                <th>views</th>
+                <th>Option</th>
+                <th><a href="/owner/addGoods"><img src="/resources/images/owner/button_add.png" alt="" id="addBtn"></a></th>
+            </tr>
+            <!--<tr>-->
+                <!--<td class="goodId">-->
+                    <!--<span>1</span>-->
+                <!--</td>-->
+                <!--<td class="goodName">-->
+                    <!--<span>WYH</span>-->
+                <!--</td>-->
+                <!--<td class="goodPrice">-->
+                    <!--<span>100</span>-->
+                <!--</td>-->
+                <!--<td class="goodView">-->
+                    <!--<span>100</span>-->
+                <!--</td>-->
+                <!--<td class="option">-->
+                    <!--<a href="showInfor.html" class="agree">Edit</a> |-->
+                    <!--<a href="">Delete</a>-->
+                <!--</td>-->
+            <!--</tr>-->
+
+            <!--end，这些都是显示代码，没有格式化，开发时会删除 -->
+            <tbody id="tableInfor">
+            </tbody>
+        </table>
+        <div id="turn-page" style="margin-top: 20px;text-align: center;font-size: 15px">All page:<span id="allPage"></span>&nbsp;&nbsp;&nbsp;Current page:<span id="pageCurrent"></span>
+            <span id="page-link">
+                <a href="#" id="prev" style="margin-right: 20px;">Prev Page</a>
+                <a href="#" id="next" style="margin-right: 20px;">Next Page</a>
+                <select name="" id="gotoPage">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+                <a href="" id="turnPage">Turn</a>
+            </span>
+        </div>
+        <!-- end brand list -->
+    </div>
+</form>
+<div id="footer">
+    &copy; 2016-2017 Group9-PARKnSHOP </div>
+</div>
+<button id="btn"></button>
+<script src="/resources/libs/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="/resources/js/owner/showGoods.js"></script>
+</body>
+</html>

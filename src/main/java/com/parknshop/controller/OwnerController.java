@@ -3,6 +3,8 @@ package com.parknshop.controller;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.parknshop.bean.*;
+import com.parknshop.bean.owner.GoodsListBean;
+import com.parknshop.bean.owner.GoodsRequest;
 import com.parknshop.entity.OwnerEntity;
 import com.parknshop.entity.PhotoEntity;
 import com.parknshop.entity.ShopEntity;
@@ -147,7 +149,7 @@ public class OwnerController {
             return "redirect:/owner/login";
         }
         OwnerEntity user = (OwnerEntity) session.getAttribute(IDefineString.SESSION_USER);
-        if (user.getUserImage() == null){
+        if (user.getUserImage() == null) {
             user.setUserImage("/resources/images/owner/default_owner.png");
         }
         return "owner/owner_info.jsp";
@@ -366,66 +368,82 @@ public class OwnerController {
     }
 
 
+    @RequestMapping(value = "goodsPage")
+    public String getGoodsPage(HttpSession session) {
+        if (!checkLogin(session)) {
+            return "redirect:/";
+        }
+        return "owner/show_goods.html";
+    }
+
+
     /**
      * 返回商品列表
      *
-     * @param session
+     * @param request
      * @return
      */
     @RequestMapping("/goods")
-    public String listGoods(HttpServletRequest request, HttpSession session) {
-        if (!checkLogin(session)) {
+    public @ResponseBody String listGoods(HttpServletRequest request, @RequestBody String dataStr) {
+        if (!checkLogin(request.getSession())) {
             return "redirect:/owner/login";
         }
+        HttpSession session = request.getSession();
+        Log.debug(dataStr);
+        GoodsListBean goodsList = new GoodsListBean();
+        GoodsRequest bean = mGson.fromJson(dataStr, GoodsRequest.class);
+
         //检查检查检查检确确make sure shop state is normal
         OwnerEntity entity = (OwnerEntity) session.getAttribute(IDefineString.SESSION_USER);
         int state = mOwnerService.isHasShop(entity);
         if (state != IOwnerService.SHOP_STATE_USING) {
-            request.setAttribute(MSG, "0");
-            return "owner/goods_list.jsp";
+            goodsList.setSuccess(false);
         } else {
-            request.setAttribute(MSG, "1");
+            goodsList.setSuccess(true);
         }
 
-        int page = 1;//Integer.parseInt(request.getParameter("page"));
-        int lines = 10;//Integer.parseInt(request.getParameter("lines"));
+        int page = bean.getIndex();//Integer.parseInt(request.getParameter("page"));
+        int lines = bean.getSize();//Integer.parseInt(request.getParameter("lines"));
 
         ShopEntity shopEntity = getShop(session);
         IListBean<GoodsDbBean> data = mOwnerService.getMyGoods(shopEntity, page, lines);
 
-        GoodsListBean goodsList = new GoodsListBean();
+
         goodsList.setCurrent((int) data.getCurrentPage());
         goodsList.setTotal((int) data.getMaxPages());
         goodsList.setCount((int) data.getNumer());
+
+
         List<GoodsListBean.DataBean> list = new ArrayList<>();
-        for (GoodsDbBean item : data.getShopList()) {
-            GoodsListBean.DataBean goods = new GoodsListBean.DataBean();
-            goods.setId(item.getGoodsId());
-            goods.setName(item.getGoodsName());
-            goods.setDesc(item.getIntroduction());
-            goods.setPrice(item.getPrice());
-            goods.setDiscount(item.getDiscount());
-            goods.setCreateTime(item.getCreateTime());
-            goods.setViews(item.getViews());
-            goods.setState(item.getState());
+        if (data.getShopList() != null) {
+            for (GoodsDbBean item : data.getShopList()) {
+                GoodsListBean.DataBean goods = new GoodsListBean.DataBean();
+                goods.setId(item.getGoodsId());
+                goods.setName(item.getGoodsName());
+                goods.setDesc(item.getIntroduction());
+                goods.setPrice(item.getPrice());
+                goods.setDiscount(item.getDiscount());
+                goods.setCreateTime(item.getCreateTime());
+                goods.setViews(item.getViews());
+                goods.setState(item.getState());
+                goods.setType(item.getType());
+                goods.setPostWay(item.getPostWay());
 
-            //后端为未跟上
-            //goods.setType(item.getType);
+                int count = item.getPicturePath().size();
+                String[] photos = new String[count];
+                List<PhotoEntity> photoEntities = item.getPicturePath();
+                for (int i = 0; i < count; i++) {
+                    photos[i] = photoEntities.get(i).getAddress();
+                }
+                goods.setPhotos(photos);
 
-            int count = item.getPicturePath().size();
-            String[] photos = new String[count];
-            List<PhotoEntity> photoEntities = item.getPicturePath();
-            for (int i = 0; i < count; i++) {
-                photos[i] = photoEntities.get(i).getAddress();
+                list.add(goods);
             }
-            goods.setPhotos(photos);
-
-            list.add(goods);
         }
         goodsList.setData(list);
-        String temp = mGson.toJson(list);
-        request.setAttribute(GOODS, goodsList);
-        return "owner/goods_list.jsp";
+        String temp = mGson.toJson(goodsList);
+        Log.debug(temp);
+        return mGson.toJson(goodsList);
     }
 
     @RequestMapping(value = "/addGoods", method = RequestMethod.GET)
@@ -444,6 +462,7 @@ public class OwnerController {
                                @RequestParam("price") double price,
                                @RequestParam("inventory") int inventory,
                                @RequestParam("goods_type") String type,
+                               @RequestParam("post_way")String postWay,
                                @RequestParam("photo") MultipartFile[] photos) {
         if (!checkLogin(session)) {
             return "redirect:/owner/login";
@@ -468,6 +487,7 @@ public class OwnerController {
                 .setIntroduction(desc)
                 .setPrice(price)
                 .setType(type)
+                .setPostWay(postWay)
                 .setInventory(inventory);
         IUploadPictures callback = new IUploadPictures() {
             @Override
@@ -504,11 +524,12 @@ public class OwnerController {
 
     /**
      * 更新商品信息
+     *
      * @param request
      * @return
      */
-    @RequestMapping(value = "updateGoods",method = RequestMethod.POST)
-    public String updateGoods(HttpServletRequest request){
+    @RequestMapping(value = "updateGoods", method = RequestMethod.POST)
+    public String updateGoods(HttpServletRequest request) {
         return null;
     }
 

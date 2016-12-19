@@ -19,7 +19,7 @@
         <li  class="hiden">
             <ul>
                 <li><a href="/owner/query" target="main-frame"><i class="iconfont leftIco">&#xe620;</i>Shop</a></li>
-                <li><a href="/owner/goods" target="main-frame"><i class="iconfont leftIco">&#xe620;</i>Products</a></li>
+                <li><a href="/owner/goodsPage" target="main-frame"><i class="iconfont leftIco">&#xe620;</i>Products</a></li>
             </ul>
         </li>
         <li><a href="#" class="headList list3"><i class="iconfont leftIco">&#xe60f;</i>Order<i class="iconfont rightIco">&#xe613;</i></a></li>
