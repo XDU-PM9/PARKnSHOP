@@ -69,7 +69,7 @@ form{
     margin: 22px 28px 0 18em;
     width: 60%;
 }
-.formInfor input[type=text],.formInfor input[type=email],.formInfor input[type=password] {
+.formInfor input[type=text],.formInfor input[type=email],.formInfor input[type=password],.formInfor input[type=number] {
     font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
     width:80%;
     padding: 0.7em 2em 0.7em 1em;
@@ -146,4 +146,49 @@ form{
 .no{
     color: red;
     display: none;
+}
+/*
+上传图片区域
+*/
+.a-upload {
+    top: 7px;
+    padding: 4px 10px;
+    height: 20px;
+    line-height: 20px;
+    position: relative;
+    cursor: pointer;
+    color: #888;
+    background: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+    display: inline-block;
+    *display: inline;
+    *zoom: 1
+}
+
+.a-upload  input {
+    position: absolute;
+    font-size: 100px;
+    right: 0;
+    top: 0;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    cursor: pointer
+}
+
+.a-upload:hover {
+    color: #444;
+    background: #eee;
+    border-color: #ccc;
+    text-decoration: none
+}
+.styled-select select {
+    margin: 10px 20px 10px 0;
+    background: transparent;
+    width: 268px;
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    height: 34px;
 }

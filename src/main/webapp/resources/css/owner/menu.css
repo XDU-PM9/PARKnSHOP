@@ -1,6 +1,6 @@
 /*reset*/
 body,ul{
-    background: #fafafa;
+    background: rgba(41, 41, 41, 0.83);
     margin: 0px;
     padding: 0px;
 }
@@ -51,12 +51,12 @@ a{
     margin: 0;
 }
 .headList{
-    background: #efeff0;
-    background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #efeff0), color-stop(1, #ffffff));
-    border-top: 1px solid #fcfcfc;
-    border-bottom: 1px solid #c8c8cb;
+    background: #686869;
+    background: /*-webkit-gradient(linear, left bottom, left top, color-stop(0, #686869), color-stop(1, #000000))*/#686869;
+    border-top: 1px solid #090909;
+    border-bottom: 1px solid #3e3e41;
     border-left: none;
-    color: #444;
+    color: #fcfcfc;
     display: block;
     font-weight: normal;
     font-size: 1em;
@@ -68,8 +68,8 @@ a{
     left: 0%;
 }
 .hiden>ul>li{
-    background: rgba(247, 247, 248, 0.51);
-    color: #444;
+    background: rgba(18, 18, 19, 0.51);
+    color: #d3d3d3;
     display: block;
     font-weight: normal;
     font-size: 1em;
@@ -82,10 +82,10 @@ a{
 }
 .hiden>ul>li>a{
     display: block;
-    color: #525252;
+    color: #d2d2d2;
 }
 .hiden>ul>li>a:hover{
-    background: #dbdbdc;
+    background: #5b5b5b;
 }
 .hiden{
     display: none;
