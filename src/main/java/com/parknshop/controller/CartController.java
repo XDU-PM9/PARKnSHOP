@@ -65,17 +65,16 @@ public class CartController {
     @RequestMapping(value = "/listProduct",method = RequestMethod.GET)
     public  String listCart(@RequestParam int requestPage,HttpSession session,Model model)
     {
-
         int userId=getUserId(session);
-        if (userId<0) {
-            return "redirect:/customer/login";
-        }else {
+//        if (userId<0) {
+//            return "forward:/customer/login";
+//        }else {
             List<CartEntity> cartEntityList=cartService.getProductsByPage(getUserId(session),requestPage,10);
             if(null!=cartEntityList) {
                 List<Cart> products=productsList.getCarts(cartEntityList);
                 model.addAttribute("cartList",products);
             }
-        }
+//        }
         return "/customer/cart.jsp";
     }
 
