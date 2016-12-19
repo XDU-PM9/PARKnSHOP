@@ -47,11 +47,11 @@
                         <c:forEach var="c" items="${Collects}">
                             <li>
                                 <dl>
-                                    <dt><a href=""><img src="${c.getPicture()}"/></a>
+                                    <dt><a href="/goods/detail?goodsId=${c.getGoodsByGoodsId().getGoodsId()}"><img src="${c.getPicture()}"/></a>
                                     </dt>
                                     <dd class="title">
-                                        <a href="">${c.getGoodsByGoodsId().getGoodsName()}</a>
-                                        <a href="">Delete</a>
+                                        <a href="/goods/detail?goodsId=${c.getGoodsByGoodsId().getGoodsId()}">${c.getGoodsByGoodsId().getGoodsName()}</a>
+                                        <a href="/removeCollect?collectionId=${c.getCollectionId()}">Delete</a>
                                     </dd>
                                     <dd class="content">
                                         <span class="goods_jiage">￥<strong>${c.getGoodsByGoodsId().getPrice() }</strong></span>

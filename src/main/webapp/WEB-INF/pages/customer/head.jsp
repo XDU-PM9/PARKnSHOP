@@ -96,7 +96,7 @@
                         <h3><a href="" title="美容美妆">Car Electronics & GPS</a></h3>
                     </li>
                     <li id="cat_7" class="">
-                        <h3><a href="" title="美容美妆">Video, Games, Movies & Music</a></h3>
+                        <h3><a href="" title="美容美妆">Video, Games, Movies</a></h3>
                     </li>
                     <li id="cat_8" class="">
                         <h3><a href="" title="美容美妆">Health, Fitness & Sports</a></h3>

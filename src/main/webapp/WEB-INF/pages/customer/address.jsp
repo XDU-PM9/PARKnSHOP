@@ -63,11 +63,11 @@
                                 <li><label ><span>*</span>User Name：</label>
                                     <input type="text" name="name" class="name" required/>
                                 </li>
-                                <li><label><span>*</span>Province：</label> <select name="province" onChange = "hw_select()" required></select></li>
-                                <li><label ><span>*</span>country：</label><select name="country" onChange = "hw_select()" required></select></li>
-                                <li><label ><span>*</span>Detailed Address：</label><input name="others"  type="text" class="xiangxi" required /></li>
-                                <li><label ><span></span>Zip Code：</label><input type="text" pattern="[0-9]{6}" name="zip" class="youbian" required/></li>
-                                <li><label ><span></span>Phone Num：</label><input type="tel" pattern="[0-9]{8}|^[1][3578][0-9]{9}$"  name="phoneNum" class="shouji" required /></li>
+                                <li><label><span>*</span>Province：</label> <select name="province" onChange = "hw_select()" required></select>
+                                <span style="color: red;margin-left:20px;">*</span>country：</label><select name="country" onChange = "hw_select()" required></select></li>
+                                <li><label ><span>*</span>Detail：</label><input name="others"  type="text" class="xiangxi" required /></li>
+                                <li><label ><span>*</span>Zip Code：</label><input type="text" pattern="[0-9]{6}" name="zip" class="youbian" required/></li>
+                                <li><label ><span>*</span>Phone Num：</label><input type="tel" pattern="[0-9]{8}|^[1][3578][0-9]{9}$"  name="phoneNum" class="shouji" required /></li>
                                 <li><label>&nbsp;</label><input type="submit" value="Add a address" /></li>
                             </ul>
                         </form>

@@ -59,11 +59,11 @@
             <tfoot>
             <tr>
                 <td colspan="6">
-                    <div class="gwc_foot_zongjia">商品总价(不含运费)<span>￥<strong id="good_zongjia">12750.00</strong></span></div>
+                    <div class="gwc_foot_zongjia">Commodity price<span>$<strong id="good_zongjia"></strong></span></div>
                     <div class="clear"></div>
                     <div class="gwc_foot_links">
-                        <a href="" class="go">继续购物</a>
-                        <a href="" class="op">确认并填写订单</a>
+                        <a href="" class="go">Go Shopping</a>
+                        <a href="" class="op">Confirm & Fill out the Orders</a>
                     </div>
                 </td>
             </tr>
