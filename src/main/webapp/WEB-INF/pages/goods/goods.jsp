@@ -42,11 +42,20 @@
             <script type="text/javascript" src="/resources/js/lib.js"></script>
             <script type="text/javascript" src="/resources/js/163css.js"></script>
             <div id="preview">
-                <div class=jqzoom id="spec-n1" onClick="window.open('/')"><IMG height="350" src="images/img04.jpg" jqimg="images/img04.jpg" width="350">
+                <div class=jqzoom id="spec-n1" onClick="window.open('/')">
+                    <IMG height="350" src="
+                        <%if (photos!=null){
+                            out.print(photos.get(0));
+                        }%>
+                        " jqimg="
+                        <%if (photos!=null){
+                            out.print(photos.get(0));
+                        }%>
+                        " width="350">
                 </div>
                 <div id="spec-n5">
                     <div class=control id="spec-left">
-                        <img src="/resources/images/left.gif" />
+                        <%--<img src="/resources/images/left.gif" />--%>
                     </div>
                     <div id="spec-list">
                         <ul class="list-h">
@@ -60,7 +69,7 @@
                         </ul>
                     </div>
                     <div class=control id="spec-right">
-                        <img src="/resources/images/right.gif" />
+                        <%--<img src="/resources/images/right.gif" />--%>
                     </div>
 
                 </div>
@@ -117,29 +126,31 @@
                         <strong style="font-size:14px; font-weight:bold;"><%out.print(goods.getGoodsName());%></strong>
                 </li>
                 <li>
-                    <label>价格：</label>
+                    <label>Price：</label>
                     <%--<span><strong>200.00</strong>元</span>--%>
-                    <span><strong><%out.print(goods.getPrice());%></strong>元</span>
+                    <span><strong>HK$<%out.print(goods.getPrice());%></strong></span>
                 </li>
                 <li>
-                    <label>运费：</label>
-                    <span>卖家承担运费</span>
+                    <label>Postage：</label>
+                    <span> free postage</span>
                 </li>
                 <li>
-                    <label>累计售出：</label>
-                    <span>99件</span>
+                    <label>Sold：</label>
+                    <%--<span>99件</span>--%>
+                    <span><%out.print(goods.getSales());%> pieces</span>
                 </li>
                 <li>
-                    <label>评价：</label>
-                    <span>0条评论</span>
+                    <label>Comment：</label>
+                    <span>0 comments</span>
                 </li>
                 <li class="goods_num">
-                    <label>购买数量：</label>
-                    <span><a class="good_num_jian" id="good_num_jian" href="javascript:void(0);"></a><input type="text" value="1" id="good_nums" class="good_nums" /><a href="javascript:void(0);" id="good_num_jia" class="good_num_jia"></a>(当前库存<%out.print(goods.getInventory());%>件)</span>
+                    <label>Purchase：</label>
+                    <span><a class="good_num_jian" id="good_num_jian" href="javascript:void(0);"></a><input type="text" value="1" id="good_nums" class="good_nums" />
+                        <a href="javascript:void(0);" id="good_num_jia" class="good_num_jia"></a>(total <%out.print(goods.getInventory());%> pieces)</span>
                 </li>
                 <li style="padding:20px 0;">
                     <label>&nbsp;</label>
-                    <span><a href="/addProduct?goodsId=<%out.print(goods.getGoodsId());%>&amount=1" class="goods_sub goods_sub_gou" >加入购物车</a></span>
+                    <span><a href="/addProduct?goodsId=<%out.print(goods.getGoodsId());%>&amount=1" class="goods_sub goods_sub_gou" >Add to cart</a></span>
                 </li>
             </ul>
         </div>
@@ -151,46 +162,26 @@
     <div class="shop_goods_bd_xiangqing clearfix">
         <div class="shop_goods_bd_xiangqing_tab">
             <ul>
-                <li id="xiangqing_tab_1" onmouseover="shop_goods_easytabs('1', '1');" onfocus="shop_goods_easytabs('1', '1');" onclick="return false;"><a href=""><span>商品详情</span></a></li>
-                <li id="xiangqing_tab_2" onmouseover="shop_goods_easytabs('1', '2');" onfocus="shop_goods_easytabs('1', '2');" onclick="return false;"><a href=""><span>商品评论</span></a></li>
-                <li id="xiangqing_tab_3" onmouseover="shop_goods_easytabs('1', '3');" onfocus="shop_goods_easytabs('1', '3');" onclick="return false;"><a href=""><span>商品咨询</span></a></li>
+                <li id="xiangqing_tab_1" onmouseover="shop_goods_easytabs('1', '1');" onfocus="shop_goods_easytabs('1', '1');" onclick="return false;"><a href=""><span>Details</span></a></li>
+                <li id="xiangqing_tab_2" onmouseover="shop_goods_easytabs('1', '2');" onfocus="shop_goods_easytabs('1', '2');" onclick="return false;"><a href=""><span>Comment</span></a></li>
+                <li id="xiangqing_tab_3" onmouseover="shop_goods_easytabs('1', '3');" onfocus="shop_goods_easytabs('1', '3');" onclick="return false;"><a href=""><span>Advisory</span></a></li>
             </ul>
         </div>
         <div class="shop_goods_bd_xiangqing_content clearfix">
             <div id="xiangqing_content_1" class="xiangqing_contents clearfix">
-                <p>商品详情----11111</p>
+                <p>Details----11111</p>
             </div>
             <div id="xiangqing_content_2" class="xiangqing_contents clearfix">
-                <p>商品评论----22222</p>
+                <p>Comment----22222</p>
             </div>
 
             <div id="xiangqing_content_3" class="xiangqing_contents clearfix">
-                <p>商品自诩---3333</p>
+                <p>advisory---3333</p>
             </div>
         </div>
     </div>
     <!-- 商品详情 End -->
-
 </div>
 <!-- Goods Body End -->
-
-<!-- Footer - wll - 2013/3/24 -->
-<div class="clear"></div>
-<div class="shop_footer">
-    <div class="shop_footer_link">
-        <p>
-            <a href="">首页</a>|
-            <a href="">招聘英才</a>|
-            <a href="">广告合作</a>|
-            <a href="">关于ShopCZ</a>|
-            <a href="">关于我们</a>
-        </p>
-    </div>
-    <div class="shop_footer_copy">
-        <p>Copyright 2004-2013 itcast Inc.,All rights reserved.</p>
-    </div>
-</div>
-<!-- Footer End -->
-
 </body>
 </html>
