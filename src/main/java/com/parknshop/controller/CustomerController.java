@@ -6,7 +6,7 @@ import com.parknshop.service.IUserService;
 import com.parknshop.service.baseImpl.IDefineString;
 import com.parknshop.service.customerService.ICustomerService;
 import com.parknshop.service.enumStatic.LoginTypeEnum;
-import com.parknshop.service.serviceImpl.UserBuilder;
+import com.parknshop.service.serviceImpl.builder.UserBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;

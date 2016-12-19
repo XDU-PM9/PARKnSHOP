@@ -3,8 +3,7 @@ package com.parknshop.entity;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.sql.Time;
+import java.util.Date;
 
 /**
  * Created by weina on 2016/11/30.
@@ -17,11 +16,11 @@ public class AdvertEntity {
     private Integer type;
     private Integer userId;
     private Integer typeId;
-    private Time startTime;
-    private Time endTime;
-    private Date startDate;
-    private Date endDate;
-    private Integer position;
+    private Date startTime =new Date();
+    private Date endTime=new Date();
+    private Date startDate= new Date();
+    private Date endDate=new Date();
+    private Integer position=0;
     private Double price;
     private Integer state;
 
@@ -68,21 +67,21 @@ public class AdvertEntity {
 
     @Basic
     @Column(name = "startTime", nullable = false)
-    public Time getStartTime() {
+    public Date getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Time startTime) {
+    public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
 
     @Basic
     @Column(name = "endTime", nullable = false)
-    public Time getEndTime() {
+    public Date getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Time endTime) {
+    public void setEndTime(Date endTime) {
         this.endTime = endTime;
     }
 

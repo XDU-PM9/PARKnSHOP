@@ -1,9 +1,8 @@
-package com.parknshop.service.serviceImpl;
+package com.parknshop.service.serviceImpl.listBean;
 
 import com.parknshop.bean.ShopAndOwnerDbBean;
 import com.parknshop.dao.IBaseDao;
 import com.parknshop.dao.daoImpl.BaseDao;
-import com.parknshop.service.IListBean;
 import com.parknshop.service.IOwnerService;
 import com.parknshop.service.serviceAbstract.AbstractListBean;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -25,6 +25,7 @@ public class GoodsEntity {
     private Integer state;
     private String type;
     private int sales;
+    private String postWay;
     private Collection<CollectionEntity> collectionsByGoodsId;
     private ShopEntity shopByShopId;
     private Collection<OrdersEntity> orderssByGoodsId;
@@ -149,6 +150,15 @@ public class GoodsEntity {
     public void setState(Integer state) {
         this.state = state;
     }
+    @Basic
+    @Column(name = "postWay", nullable = false)
+    public String getPostWay() {
+        return postWay;
+    }
+
+    public void setPostWay(String postWay) {
+        this.postWay = postWay;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -167,7 +177,7 @@ public class GoodsEntity {
         if (createTime != null ? !createTime.equals(that.createTime) : that.createTime != null) return false;
         if (views != null ? !views.equals(that.views) : that.views != null) return false;
         if (state != null ? !state.equals(that.state) : that.state != null) return false;
-
+        if (postWay!= null ? !postWay.equals(that.postWay) : that.postWay != null) return false;
         return true;
     }
 
@@ -183,6 +193,7 @@ public class GoodsEntity {
         result = 31 * result + (createTime != null ? createTime.hashCode() : 0);
         result = 31 * result + (views != null ? views.hashCode() : 0);
         result = 31 * result + (state != null ? state.hashCode() : 0);
+        result = 31 * result + (postWay != null ? postWay.hashCode() : 0);
         return result;
     }
 
