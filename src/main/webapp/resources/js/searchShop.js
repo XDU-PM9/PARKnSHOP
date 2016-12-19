@@ -5,42 +5,41 @@ var pageCount=1;
 var onePageCount = 2;
 var currentPage = 1;
 
+//下一页
 function nextPage() {
     getOnePage(currentPage++ * onePageCount);
 }
 
+//上一页
 function previousPage() {
     getOnePage((--currentPage - 1) * onePageCount);
 }
 
+//跳页
 function jumpPage() {
     var page = $('#pageNumber').val();
     getOnePage((page - 1) * onePageCount)
     currentPage = page;
 }
 
+//获取一页数据
 function getOnePage(start) {
     searchOption.start = start.toString();
     searchOption.count = onePageCount.toString();
     $.ajax({
         type: 'POST',
-        url: "/search",
+        url: "/searchShop",
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify(searchOption),
         success: function (msg) {
-            listSearchResult(msg)
+            listShopSearchResult(msg)
+            displayCount();
         },
         datatype: 'json'
     })
 }
 
-function displayCount(count) {
-    productCount = count;
-    if (count < 28) {
-
-    }
-}
-
+//搜索
 function search() {
     if(!$('#shop_search').hasClass('current')) {
         window.location.href = '/search?name=' + $('#searchText').val();
@@ -49,18 +48,21 @@ function search() {
     var searchText = $('#searchText').val();
     //searchText不为空，则进行搜索
     if (undefined != searchText && null != searchText && '' != searchText) {
+        searchOption.shopName=searchText;
+        // searchOption.start='0';
+        // searchOption.count=onePageCount.toString();
         getShopCount();
-        searchShop();
+        getOnePage(0);
     }
 }
 
+//获取搜索到的店铺数量
 function getShopCount() {
     $.ajax({
         type: 'POST',
         url: "/getShopCount",
-        data: {
-            shopName: $('#searchText').val()
-        },
+        contentType: "application/json; charset=utf-8",
+        data: getJsonData(),
         success: function (msg) {
             pageCount=Math.ceil(msg/onePageCount);
             displayCount();
@@ -68,23 +70,34 @@ function getShopCount() {
     })
 }
 
-function searchShop() {
-    $.ajax({
-        type: 'POST',
-        url: '/searchShop',
-        data: {
-            shopName: $('#searchText').val(),
-            start:'0',
-            count:'28'
-        },
-        success: function (msg) {
-            listShopResult(msg);
-        },
-        datatype: 'json'
-    })
+// function searchShop() {
+//     $.ajax({
+//         type: 'POST',
+//         url: '/searchShop',
+//         data: {
+//             shopName: $('#searchText').val(),
+//             start:'0',
+//             count:'28'
+//         },
+//         success: function (msg) {
+//             listShopResult(msg);
+//         },
+//         datatype: 'json'
+//     })
+// }
+
+//根据searchOption获取到JSON
+function getJsonData() {
+    return JSON.stringify(searchOption, function (key, value) {
+        if ("shopName" == key) {
+            return $('#searchText').val();
+        }
+        return value;
+    });
 }
 
-function listShopResult(result) {
+//显示搜索结果
+function listShopSearchResult(result) {
     $('#productList').find('li').remove();
     $.each(result, function () {
         var result = this;
@@ -103,6 +116,7 @@ function listShopResult(result) {
     })
 }
 
+//显示下方的分页
 function displayCount() {
     if (pageCount <= 1) {
         $('#pageList').find('li').remove();
@@ -118,7 +132,50 @@ function displayCount() {
             $('#pageList').append("<li><input type='button' onclick='nextPage()' value='Next'</input></li>");
         }
         $('#pageList').append("<li><p>A total of " + pageCount + " page</p></li>");
-        $('#pageList').append("<li><input id='pageNumber' type='number' min='1' max='" + pageCount + "'</li>");
+        $('#pageList').append("<li><input id='pageNumber' type='number' value='1' min='1' max='" + pageCount + "'</li>");
         $('#pageList').append("<li><input type='button' value='jump' onclick='jumpPage()'> ");
     }
 }
+
+//搜索选项
+var searchOption = {
+    time: 'false',   //(按时间排序,新的在后面)
+    timeDesc: 'false',   //（按时间降序排序，新的在前面）
+    view: 'false',   //(浏览量)
+    viewDesc: 'false',
+    // sales: 'false',  //（销量）
+    // salesDesc: 'false',
+    shopName: '',    //（商品名）
+    // type: '',    //（类型）
+    start: '0',    //开始搜索处
+    count: '0'     //搜索数量
+};
+
+function initOrder() {
+    searchOption.time='false';
+    searchOption.timeDesc='false';
+    searchOption.view='false';
+    searchOption.viewDesc='false';
+}
+function orderByDefault() {
+    initOrder();
+    search();
+}
+function orderByTimeNewtoOld() {
+    initOrder();
+    searchOption.timeDesc='true';
+    search();
+}
+
+function orderByTimeOldtoNew() {
+    initOrder();
+    searchOption.time='true';
+    search();
+}
+
+function orderByViewHightoLow() {
+    initOrder();
+    searchOption.viewDesc='true';
+    search();
+}
+

@@ -31,7 +31,11 @@
         <!-- 商品列表 -->
         <div class="shop_meber_bd_good_lists clearfix">
             <div class="title"><h3>Shop collection</h3></div>
-
+<c:choose>
+    <c:when test="${Collects.size()<=0}">
+        Not Collections,let's add a product to your Collection.
+    </c:when>
+    <c:when test="${Collects.size()>0}">
             <!-- 商品列表 -->
             <div class="shop_bd_list_content clearfix">
                 <ul>
@@ -52,32 +56,27 @@
             <div class="clear"></div>
             <div class="pagination">
                 <ul>
-
-
                     <c:choose>
                         <c:when test="${currentPage>1}"> <li><a href="/listCollectShop?requestPage=${currentPage-1}"> <span>Previous</span></a></li></c:when>
                     </c:choose>
-                    <li><span class="currentpage">${currentPage}</span></li>
+                    <li><span class="currentpage">${currentPage} of ${sina}</span></li>
                     <c:choose>
                         <c:when test="${currentPage<sina}"> <li><a href="/listCollectShop?requestPage=${currentPage+1}"> <span>Next</span> </a></li></c:when>
                     </c:choose>
-
-                    As total of ${sina} Pages.
+                    <li>
                     <form action="/jumpPage" method="post">
                         <input type="hidden" name="ty" value="2">
-                        <%--<select  name="jump">--%>
-                            <%--<c:forEach var="asd" begin="1" end="${sina}">--%>
-                                <%--<option  value="${asd}">${asd}</option>--%>
-                            <%--</c:forEach>--%>
-                        <%--</select>--%>
-                        <input type="number"  name="jump"  min="1" max="${sina}"/>
+                        <input type="number"  name="jump"  min="1" max="${sina}"  value="1"/>
                         <input type="submit" value="jump">
                     </form>
+                    </li>
                 </ul>
             </div>
             <!-- 商品列表 End -->
 
         </div>
+    </c:when>
+        </c:choose>
     </div>
     <!-- 右边购物列表 End -->
 

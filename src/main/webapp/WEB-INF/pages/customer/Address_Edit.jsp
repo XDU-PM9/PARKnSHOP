@@ -28,27 +28,44 @@
         <div class="shop_meber_bd_good_lists clearfix">
             <div class="title"><h3>Modification Address</h3></div>
             <div class="clear"></div>
-            <dic class="shop_home_form">
-                <form action="/updateAddress"  class="shop_form" method="post">
-                    <input type="hidden" name="addressId" value="${addressEntity.getAddressId()}"/>
+
+            <div class="shdz_new_form">
+                <form action="/saveAddress" method="post">
                     <ul>
-                        <li><label>Receiving Area：</label>
-
-                            <label> Province </label><select name="province" onChange = "hw_select()"></select>
-                            <label> Country </label><select name="country" onChange = "hw_select()"></select>
+                        <li><label ><span>*</span>User Name：</label>
+                            <input type="text" name="name" class="name" required/>
                         </li>
-                        <li><label><span>*</span>Detailed Address：</label>
-                            <input name="others" type="text"  value="${addressEntity.getOthers()}" class="form-text"/>
-                        </li>
-                        <li><label><span>*</span>User Name：</label><input type="text"  name="name" value="${addressEntity.getName()}" class="form-text"/></li>
-
-                        <li><label>Zip Coe：</label><input type="text" name="zip"  value="${addressEntity.getPostcode()}" class="form-text"/></li>
-                        <li><label>Phone：</label><input type="text" name="phoneNum"  value="${addressEntity.getPhone()}" class="form-text" value="101-888888"/></li>
-                        <li class="bn"><label>&nbsp;</label><input type="submit" class="form-submit" value="Add a Address"/></li>
+                        <li><label><span>*</span>Province：</label> <select name="province" onChange = "hw_select()" required></select></li>
+                        <li><label ><span>*</span>country：</label><select name="country" onChange = "hw_select()" required></select></li>
+                        <li><label ><span>*</span>Detailed Address：</label><input name="others"  type="text" class="xiangxi" required /></li>
+                        <li><label ><span></span>Zip Code：</label><input type="text" pattern="[0-9]{6}" name="zip" class="youbian" required/></li>
+                        <li><label ><span></span>Phone Num：</label><input type="tel" pattern="[0-9]{8}|^[1][3578][0-9]{9}$"  name="phoneNum" class="shouji" required /></li>
+                        <li><label>&nbsp;</label><input type="submit" value="Add a address" /></li>
                     </ul>
                 </form>
-            </dic>
-        </div>
+            </div>
+
+
+            <%--<dic class="shop_home_form">--%>
+                <%--<form action="/updateAddress"  class="shop_form" method="post">--%>
+                    <%--<input type="hidden" name="addressId" value="${addressEntity.getAddressId()}"/>--%>
+                    <%--<ul>--%>
+                        <%--<li>--%>
+                            <%--<label> Province </label><select name="province" onChange = "hw_select()" required></select>--%>
+                            <%--<label> Country </label><select name="country" onChange = "hw_select()"  required></select>--%>
+                        <%--</li>--%>
+                        <%--<li><label><span>*</span>Detailed Address：</label>--%>
+                            <%--<input name="others" type="text"  value="${addressEntity.getOthers()}" required class="form-text"/>--%>
+                        <%--</li>--%>
+                        <%--<li><label><span>*</span>User Name：</label><input type="text"  name="name" value="${addressEntity.getName()}" required  class="form-text"/></li>--%>
+
+                        <%--<li><label>Zip Coe：</label><input type="text" name="zip" pattern="[0-9]{6}" value="${addressEntity.getPostcode()}" required class="form-text"/></li>--%>
+                        <%--<li><label>Phone：</label><input type="text" name="phoneNum"  pattern="[0-9]{8}|^[1][3578][0-9]{9}$" value="${addressEntity.getPhone()}" required class="form-text" value="101-888888"/></li>--%>
+                        <%--<li class="bn"><label>&nbsp;</label><input type="submit" class="form-submit" value="Add a Address"/></li>--%>
+                    <%--</ul>--%>
+                <%--</form>--%>
+            <%--</dic>--%>
+        <%--</div>--%>
     </div>
     </div>
     <!-- 右边购物列表 End -->
@@ -68,7 +85,7 @@
         var hw_selecttext =
             "HK|Aberdeen^Admiralty^Ap Lei Chau^Big Wave Bay^Causeway Bay^Central^Central sheung Wan^Central South^Chai Wan^Gloucester Road^Happy Valley^Harbour Road^Jardine's Lookkout^Kennedy Town^Lai Tak Tsuen^Mid-Levels^Mid-Levels West^North Point^Pok Fu Lam^Quarry Bay^Sai Wan^Shau Kei Wan^Shek O^Sheung Wan West^Siu Sai Wan^So Kon Po^Southern District^Stanley^Tai Hang Road^The Peak^Tim Mei Ave^Tin Hau^Wah Fu^Wan Chai^Wong Chuk Hang*" +
             "KLN|Cheung Sha Wan^Choi Wan^Diamond Hill^Ho Man Tin^Hung Hom^Jordan^Jordan Road^Kowloon Bay^Kowloon City^Kowloon Tong^kwun Tong^La Salle Road^Lai Chi Kok^Lam Tin^Lok Fu^Ma Tau Wai^Mei Foo^Mong Kok^Ngau Chi Wan^Ngau Tau Kok^Rainbow Village^San Po Kong^Sau Mau Ping^Sham Shui Po^Shek Kip Mei^Tai Kok Tsui^To Kwa Wan^Tsim Sha Tsui^Tsz Wan Shan^Wong Tai Sin^Yau Ma Tei^Yau Tong*" +
-            "NT|Chek Lap Kok^Chinese University^Clear Water Bay^Discovery Bay^Fairview Park^Fanling^Fo Tan^HKUST^Kwai Chung^Long Ping^Ma On Shan^Ma Wan^Pat Heung^Sai Kung (North)^Sai Kung (South)^Science Park^Sha Tin^Sheung Shui^Siu Lek Yuen^Tai Po^Tai Wai^Tin Shui Wai^Tseung Kwan O^Tsing Yi^Tsuen Wan^Tuen Mun^Tuen Mun^Wu Kai Sha^Yuen Long*"
+            "NT|Chek Lap Kok^Chinese University^Clear Water Bay^Discovery Bay^Fairview Park^Fanling^Fo Tan^HKUST^Kwai Chung^Long Ping^Ma On Shan^Ma Wan^Pat Heung^Sai Kung (North)^Sai Kung (South)^Science Park^Sha Tin^Sheung Shui^Siu Lek Yuen^Tai Po^Tai Wai^Tin Shui Wai^Tseung Kwan O^Tsing Yi^Tsuen Wan^Tuen Mun^Tuen Mun^Wu Kai Sha^Yuen Long"
         var TheSplit1 = "*",TheSplit2 = "|",TheSplit3 = "^", TheSplit4 = "@"
         var hwallselecttext = hw_selecttext
         var hwdefault_value = "On Select"

@@ -142,10 +142,17 @@ public class CustomerController{
      * 注销
      * @return
      */
+
+
+
+
+    /*
+    logot需要
+     */
     @RequestMapping(value = "/customer/logout",method = RequestMethod.GET)
     public String loginout(){
         userService.loginOut();
-        return "forward:/";
+        return "redirect:/";
     }
 
     /**

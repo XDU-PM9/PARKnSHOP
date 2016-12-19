@@ -3,16 +3,18 @@ package com.parknshop.controller;
 import com.parknshop.entity.CollectionEntity;
 import com.parknshop.entity.CollectshopEntity;
 import com.parknshop.entity.UserEntity;
+import com.parknshop.service.IUserService;
 import com.parknshop.service.baseImpl.IDefineString;
 import com.parknshop.service.customerService.ICustomerService;
+import com.parknshop.utils.OwnerFileSaver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -26,12 +28,14 @@ public class UserCenterController {
     @Autowired
     private ICustomerService customerService;
 
+    @Autowired
+    private IUserService mUserService;
 
     @RequestMapping(value="/listUserInfo",method = RequestMethod.GET)
     public String  listUserInfo(Model model, HttpSession session)
     {
         int userId=getUserId(session);
-        if(userId<1){
+        if (userId<0) {
             return "redirect:customer/login";
         }else{
             UserEntity userEntity=customerService.getCustomerById(new Integer(userId));
@@ -41,11 +45,27 @@ public class UserCenterController {
 
     }
 
+    @RequestMapping(value = "/uploadPicture",method = RequestMethod.POST)
+    public  String uploadPicture(@RequestParam MultipartFile picture, HttpSession session, Model model)
+    {
+        String contextPath = session.getServletContext().getRealPath("/");
+        String person, logo;
+        try {
+            person = OwnerFileSaver.saveImage(picture, contextPath);
+            model.addAttribute("status",true);
+        } catch (Exception e) {
+            //服务器存储错误
+            e.printStackTrace();
+        }finally {
+            return "/customer/user_info.jsp";
+        }
+    }
     @RequestMapping(value="/goPassword",method = RequestMethod.GET)
     public String  goPassword(){
         return "customer/password_edit.jsp";
     }
-//此处需要前端验证两次密码一致性，且应用Ajax判断密码的正确性，直至输对密码为止
+
+
     @RequestMapping(value="/changePassword",method = RequestMethod.POST)
     public String  changePassword(@RequestParam String  password, @RequestParam String  pass1, Model model,HttpSession session)
     {
@@ -55,8 +75,10 @@ public class UserCenterController {
                 customerService.changePassword(pass1, userEntity.getUserId());
                 model.addAttribute("user", userEntity);
                 return "customer/user_info.jsp";
-            } else
+            } else {
+                model.addAttribute("tips","Old Password Error");
                 return "customer/password_edit.jsp";
+            }
         }
         else
         {
@@ -68,12 +90,12 @@ public class UserCenterController {
     public String listCollect(@RequestParam int requestPage, Model  model,HttpSession session)
     {
         int userId=getUserId(session);
-        if(userId<1){
+        if (userId<0) {
             return "redirect:customer/login";
         }else{
             int size = customerService.querySize(userId);
-            double d = size / 4;
-            double sina = Math.floor(d)+1;
+            double d =  (size) / 4+(size%4==0?0:1);
+            int  sina =(int) Math.ceil(d);
             List<CollectionEntity> collectionEntities = customerService.queryAllCollect(new Integer(userId), requestPage);
             model.addAttribute("Collects", collectionEntities);
             model.addAttribute("currentPage", requestPage);
@@ -88,12 +110,12 @@ public class UserCenterController {
     public String listCollectShop(@RequestParam int requestPage, Model  model,HttpSession session)
     {
         int userId=getUserId(session);
-        if(userId<1){
+        if (userId<0) {
             return "redirect:customer/login";
         }else{
             int size = customerService.queryShopsize(new Integer(userId));
-            double d = size / 4;
-            double sina = Math.floor(d)+1;
+            double d =  (size) / 4+(size%4==0?0:1);
+            int  sina =(int) Math.ceil(d);
             List<CollectshopEntity> collectionEntities = customerService.queryAllShop(new Integer(userId), requestPage);
             model.addAttribute("Collects", collectionEntities);
             model.addAttribute("currentPage", requestPage);
@@ -106,10 +128,11 @@ public class UserCenterController {
     @RequestMapping(value="/insertCollectShop",method = RequestMethod.GET)
     public String  insertCollectShop(@RequestParam int  shopId,HttpSession session)
     {
-        int userId=getUserId(session);
-        if(userId<1){
+
+        if (getUserId(session)<0) {
             return "redirect:customer/login";
         }else{
+            int userId=getUserId(session);
             customerService.insertShop(shopId,userId);
             return "redirect:listCollectShop?requestPage=1";
         }
@@ -120,7 +143,7 @@ public class UserCenterController {
     public String  insertCollect(@RequestParam int  goodsId,HttpSession session)
     {
         int userId=getUserId(session);
-        if(userId<1){
+        if (userId<0) {
             return "redirect:customer/login";
         }else{
             customerService.insertCollect(goodsId, userId);
@@ -129,21 +152,32 @@ public class UserCenterController {
     }
 
     @RequestMapping(value="/removeCollect",method = RequestMethod.GET)
-    public String removeCollect(@RequestParam int collectionId)
+    public String removeCollect(@RequestParam int collectionId,HttpSession session)
     {
-        customerService.removeCollect(new Integer(collectionId));
+        if (getUserId(session)<0) {
+            return "redirect:customer/login";
+        }
+        else{
+            customerService.removeCollect(new Integer(collectionId));
             return "redirect:listCollect?requestPage=1";
+        }
     }
 
     @RequestMapping(value="/removeCollectShop",method = RequestMethod.GET)
-    public String removeCollectShop(@RequestParam int shopId)
+    public String removeCollectShop(@RequestParam int shopId,HttpSession session)
     {
-        customerService.removeShop(new Integer(shopId));
-        return "redirect:listCollectShop?requestPage=1";
+        if (getUserId(session)<0) {
+            return "redirect:customer/login";
+        }
+        else {
+            customerService.removeShop(new Integer(shopId));
+            return "redirect:listCollectShop?requestPage=1";
+        }
     }
     @RequestMapping(value="/jumpPage",method = RequestMethod.POST)
     public String jumpPage(@RequestParam int jump,@RequestParam int ty, Model model)
     {
+
         if(ty==1) {
             model.addAttribute("gdhds", jump);
             return "redirect:listCollect?requestPage={gdhds}";

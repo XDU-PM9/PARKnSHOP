@@ -13,70 +13,32 @@
     <link rel="stylesheet" href="../../../resources/css/shop_header.css" type="text/css" />
     <link rel="stylesheet" href="../../../resources/css/shop_manager.css" type="text/css" />
     <link rel="stylesheet" href="../../../resources/css/shop_shdz_835.css" type="text/css" />
-    <script type="text/javascript" src="../../../resources/js/jquery.js" ></script>
-    <script type="text/javascript" src="../../../resources/js/topNav.js" ></script>
+    <script type="text/javascript" src="../../resources/js/jquery.js"></script>
+    <script type="text/javascript" src="../../resources/js/topNav.js"></script>
+    <script type="text/javascript" src="../../resources/js/focus.js"></script>
+    <script type="text/javascript" src="../../resources/js/shop_home_tab.js"></script>
+    <script>
+        function search() {
+            window.location.href=$('#shop_search').hasClass('current') ? '/searchShop?shopName=' : '/search?name='+$('#searchText').val();
+        }
+    </script>
 </head>
 <body>
 <!-- Header  -wll-2013/03/24 -->
 <div class="shop_hd">
     <!-- Header TopNav -->
-    <div class="shop_hd_topNav">
-        <div class="shop_hd_topNav_all">
-            <!-- Header TopNav Left -->
 
-            <!-- Header TopNav Left End -->
-
-            <!-- Header TopNav Right -->
-            <div class="shop_hd_topNav_all_right">
-                <ul class="topNav_quick_menu">
-
-                    <li>
-                        <div class="topNav_menu">
-                            <a href="#" class="topNavHover">Username<i></i></a>
-
-                        </div>
-                    </li>
-                    <li>
-                        <div class="topNav_menu">
-                            <a href="#" class="topNavHover">Customer Center<i></i></a>
-                            <div class="topNav_menu_bd" style="display:none;">
-                                <ul>
-                                    <li><a title="已售出的商品" target="_top" href="#">已售出的商品</a></li>
-                                    <li><a title="销售中的商品" target="_top" href="#">销售中的商品</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li>
-                        <div class="topNav_menu">
-                            <a href="#" class="topNavHover">Cart</a>
-                            <div class="topNav_menu_bd" style="display:none;">
-                                <!--
-                                <ul>
-                                  <li><a title="已售出的商品" target="_top" href="#">已售出的商品</a></li>
-                                  <li><a title="销售中的商品" target="_top" href="#">销售中的商品</a></li>
-                                </ul>
-                                -->
-                                <p>还没有商品，赶快去挑选！</p>
-                            </div>
-                        </div>
-                    </li>
-
-
-                </ul>
-            </div>
-            <!-- Header TopNav Right End -->
-        </div>
-        <div class="clear"></div>
-    </div>
+    <%@include file="top.jsp"%>
     <div class="clear"></div>
     <!-- Header TopNav End -->
 
     <!-- TopHeader Center -->
+    <!-- TopHeader Center -->
     <div class="shop_hd_header">
-        <div class="shop_hd_header_logo"><h1 class="logo"><a href="/"><img
-                src="/resources/images/ico/banner.jpg" id="logo" alt="ShopCZ"/></a><span>ShopCZ</span></h1></div>
+        <div class="shop_hd_header_logo"><h1 class="logo"><a href="/"><img id="logo"
+                                                                           src="/resources/images/ico/banner.jpg"
+                                                                           alt="ShopCZ"/></a><span>ShopCZ</span></h1>
+        </div>
         <div class="shop_hd_header_search">
             <ul class="shop_hd_header_search_tab">
                 <li id="search" class="current">Product</li>
@@ -84,12 +46,13 @@
             </ul>
             <div class="clear"></div>
             <div class="search_form">
-                <form method="post" action="index.php">
-                    <div class="search_formstyle">
-                        <input type="text" class="search_form_text" name="search_content" value="Search！"/>
-                        <input type="submit" class="search_form_sub" name="secrch_submit" value="" title="Search"/>
-                    </div>
-                </form>
+                <!--<form method="post" action="/search">-->
+                <div class="search_formstyle">
+                    <input type="text" class="search_form_text" id="searchText" name="search_content" placeholder="Search!"/>
+                    <input type="button" class="search_form_sub" name="secrch_submit" value="" title="搜索"
+                           onclick="search()"/>
+                </div>
+                <!--</form>-->
             </div>
             <div class="clear"></div>
 
@@ -111,368 +74,35 @@
                     <!-- 单个菜单项 -->
                     <li id="cat_1" class="">
                         <h3><a href="" title="男女服装">TV& Home Theater</a></h3>
-                        <div id="cat_1_menu" class="cat_menu clearfix" style="">
-                            <dl class="clearfix">
-                                <dt><a href="女装" href="">女装</a></dt>
-                                <dd>
-                                    <a href="">风衣</a>
-                                    <a href="">长袖连衣裙</a>
-                                    <a href="">毛呢连衣裙</a>
-                                    <a href="">半身裙</a>
-                                    <a href="">小脚裤</a>
-                                    <a href="">加绒打底裤</a>
-                                    <a href="">牛仔裤</a>
-                                    <a href="">打底衫</a>
-                                    <a href="">情侣装</a>
-                                    <a href="">棉衣</a>
-                                    <a href="">毛呢大衣</a>
-                                    <a href="">毛呢短裤</a>
-                                </dd>
-                            </dl>
-
-                            <dl class="clearfix">
-                                <dt><a href="男装" href="">男装</a></dt>
-                                <dd>
-                                    <a href="">风衣</a>
-                                    <a href="">长袖连衣裙</a>
-                                    <a href="">毛呢连衣裙</a>
-                                    <a href="">半身裙</a>
-                                    <a href="">小脚裤</a>
-                                    <a href="">加绒打底裤</a>
-                                    <a href="">牛仔裤</a>
-                                    <a href="">打底衫</a>
-                                    <a href="">情侣装</a>
-                                    <a href="">棉衣</a>
-                                    <a href="">毛呢大衣</a>
-                                    <a href="">毛呢短裤</a>
-                                </dd>
-                            </dl>
-                        </div>
                     </li>
                     <!-- 单个菜单项 End -->
                     <li id="cat_2" class="">
                         <h3><a href="" title="鞋包配饰">Computers & Tablets</a></h3>
-                        <div id="cat_1_menu" class="cat_menu clearfix" style="">
-                            <dl class="clearfix">
-                                <dt><a href="鞋子" href="">鞋子</a></dt>
-                                <dd>
-                                    <a href="">风衣</a>
-                                    <a href="">长袖连衣裙</a>
-                                    <a href="">毛呢连衣裙</a>
-                                    <a href="">半身裙</a>
-                                    <a href="">小脚裤</a>
-                                    <a href="">加绒打底裤</a>
-                                    <a href="">牛仔裤</a>
-                                    <a href="">打底衫</a>
-                                    <a href="">情侣装</a>
-                                    <a href="">棉衣</a>
-                                    <a href="">毛呢大衣</a>
-                                    <a href="">毛呢短裤</a>
-                                </dd>
-                            </dl>
-
-                            <dl class="clearfix">
-                                <dt><a href="包包" href="">包包</a></dt>
-                                <dd>
-                                    <a href="">风衣</a>
-                                    <a href="">长袖连衣裙</a>
-                                    <a href="">毛呢连衣裙</a>
-                                    <a href="">半身裙</a>
-                                    <a href="">小脚裤</a>
-                                    <a href="">加绒打底裤</a>
-                                    <a href="">牛仔裤</a>
-                                    <a href="">打底衫</a>
-                                    <a href="">情侣装</a>
-                                    <a href="">棉衣</a>
-                                    <a href="">毛呢大衣</a>
-                                    <a href="">毛呢短裤</a>
-                                </dd>
-                            </dl>
-                        </div>
                     </li>
 
                     <li id="cat_3" class="">
                         <h3><a href="" title="美容美妆">Cell Phones</a></h3>
-                        <div id="cat_1_menu" class="cat_menu clearfix" style="">
-                            <dl class="clearfix">
-                                <dt><a href="美容" href="">美容</a></dt>
-                                <dd>
-                                    <a href="">风衣</a>
-                                    <a href="">长袖连衣裙</a>
-                                    <a href="">毛呢连衣裙</a>
-                                    <a href="">半身裙</a>
-                                    <a href="">小脚裤</a>
-                                    <a href="">加绒打底裤</a>
-                                    <a href="">牛仔裤</a>
-                                    <a href="">打底衫</a>
-                                    <a href="">情侣装</a>
-                                    <a href="">棉衣</a>
-                                    <a href="">毛呢大衣</a>
-                                    <a href="">毛呢短裤</a>
-                                </dd>
-                            </dl>
-
-                            <dl class="clearfix">
-                                <dt><a href="美妆" href="">美妆</a></dt>
-                                <dd>
-                                    <a href="">风衣</a>
-                                    <a href="">长袖连衣裙</a>
-                                    <a href="">毛呢连衣裙</a>
-                                    <a href="">半身裙</a>
-                                    <a href="">小脚裤</a>
-                                    <a href="">加绒打底裤</a>
-                                    <a href="">牛仔裤</a>
-                                    <a href="">打底衫</a>
-                                    <a href="">情侣装</a>
-                                    <a href="">棉衣</a>
-                                    <a href="">毛呢大衣</a>
-                                    <a href="">毛呢短裤</a>
-                                </dd>
-                            </dl>
-                        </div>
                     </li>
 
                     <li id="cat_4" class="">
                         <h3><a href="" title="美容美妆">Cameras & Camcorders</a></h3>
-                        <div id="cat_1_menu" class="cat_menu clearfix" style="">
-                            <dl class="clearfix">
-                                <dt><a href="美容" href="">美容</a></dt>
-                                <dd>
-                                    <a href="">风衣</a>
-                                    <a href="">长袖连衣裙</a>
-                                    <a href="">毛呢连衣裙</a>
-                                    <a href="">半身裙</a>
-                                    <a href="">小脚裤</a>
-                                    <a href="">加绒打底裤</a>
-                                    <a href="">牛仔裤</a>
-                                    <a href="">打底衫</a>
-                                    <a href="">情侣装</a>
-                                    <a href="">棉衣</a>
-                                    <a href="">毛呢大衣</a>
-                                    <a href="">毛呢短裤</a>
-                                </dd>
-                            </dl>
-
-                            <dl class="clearfix">
-                                <dt><a href="美妆" href="">美妆</a></dt>
-                                <dd>
-                                    <a href="">风衣</a>
-                                    <a href="">长袖连衣裙</a>
-                                    <a href="">毛呢连衣裙</a>
-                                    <a href="">半身裙</a>
-                                    <a href="">小脚裤</a>
-                                    <a href="">加绒打底裤</a>
-                                    <a href="">牛仔裤</a>
-                                    <a href="">打底衫</a>
-                                    <a href="">情侣装</a>
-                                    <a href="">棉衣</a>
-                                    <a href="">毛呢大衣</a>
-                                    <a href="">毛呢短裤</a>
-                                </dd>
-                            </dl>
-                        </div>
                     </li>
 
                     <li id="cat_5" class="">
                         <h3><a href="" title="美容美妆">Audio</a></h3>
-                        <div id="cat_1_menu" class="cat_menu clearfix" style="">
-                            <dl class="clearfix">
-                                <dt><a href="美容" href="">美容</a></dt>
-                                <dd>
-                                    <a href="">风衣</a>
-                                    <a href="">长袖连衣裙</a>
-                                    <a href="">毛呢连衣裙</a>
-                                    <a href="">半身裙</a>
-                                    <a href="">小脚裤</a>
-                                    <a href="">加绒打底裤</a>
-                                    <a href="">牛仔裤</a>
-                                    <a href="">打底衫</a>
-                                    <a href="">情侣装</a>
-                                    <a href="">棉衣</a>
-                                    <a href="">毛呢大衣</a>
-                                    <a href="">毛呢短裤</a>
-                                </dd>
-                            </dl>
-
-                            <dl class="clearfix">
-                                <dt><a href="美妆" href="">美妆</a></dt>
-                                <dd>
-                                    <a href="">风衣</a>
-                                    <a href="">长袖连衣裙</a>
-                                    <a href="">毛呢连衣裙</a>
-                                    <a href="">半身裙</a>
-                                    <a href="">小脚裤</a>
-                                    <a href="">加绒打底裤</a>
-                                    <a href="">牛仔裤</a>
-                                    <a href="">打底衫</a>
-                                    <a href="">情侣装</a>
-                                    <a href="">棉衣</a>
-                                    <a href="">毛呢大衣</a>
-                                    <a href="">毛呢短裤</a>
-                                </dd>
-                            </dl>
-                        </div>
                     </li>
 
                     <li id="cat_6" class="">
                         <h3><a href="" title="美容美妆">Car Electronics & GPS</a></h3>
-                        <div id="cat_1_menu" class="cat_menu clearfix" style="">
-                            <dl class="clearfix">
-                                <dt><a href="美容" href="">美容</a></dt>
-                                <dd>
-                                    <a href="">风衣</a>
-                                    <a href="">长袖连衣裙</a>
-                                    <a href="">毛呢连衣裙</a>
-                                    <a href="">半身裙</a>
-                                    <a href="">小脚裤</a>
-                                    <a href="">加绒打底裤</a>
-                                    <a href="">牛仔裤</a>
-                                    <a href="">打底衫</a>
-                                    <a href="">情侣装</a>
-                                    <a href="">棉衣</a>
-                                    <a href="">毛呢大衣</a>
-                                    <a href="">毛呢短裤</a>
-                                </dd>
-                            </dl>
-
-                            <dl class="clearfix">
-                                <dt><a href="美妆" href="">美妆</a></dt>
-                                <dd>
-                                    <a href="">风衣</a>
-                                    <a href="">长袖连衣裙</a>
-                                    <a href="">毛呢连衣裙</a>
-                                    <a href="">半身裙</a>
-                                    <a href="">小脚裤</a>
-                                    <a href="">加绒打底裤</a>
-                                    <a href="">牛仔裤</a>
-                                    <a href="">打底衫</a>
-                                    <a href="">情侣装</a>
-                                    <a href="">棉衣</a>
-                                    <a href="">毛呢大衣</a>
-                                    <a href="">毛呢短裤</a>
-                                </dd>
-                            </dl>
-                        </div>
                     </li>
                     <li id="cat_7" class="">
                         <h3><a href="" title="美容美妆">Video, Games, Movies & Music</a></h3>
-                        <div id="cat_1_menu" class="cat_menu clearfix" style="">
-                            <dl class="clearfix">
-                                <dt><a href="美容" href="">美容</a></dt>
-                                <dd>
-                                    <a href="">风衣</a>
-                                    <a href="">长袖连衣裙</a>
-                                    <a href="">毛呢连衣裙</a>
-                                    <a href="">半身裙</a>
-                                    <a href="">小脚裤</a>
-                                    <a href="">加绒打底裤</a>
-                                    <a href="">牛仔裤</a>
-                                    <a href="">打底衫</a>
-                                    <a href="">情侣装</a>
-                                    <a href="">棉衣</a>
-                                    <a href="">毛呢大衣</a>
-                                    <a href="">毛呢短裤</a>
-                                </dd>
-                            </dl>
-
-                            <dl class="clearfix">
-                                <dt><a href="美妆" href="">美妆</a></dt>
-                                <dd>
-                                    <a href="">风衣</a>
-                                    <a href="">长袖连衣裙</a>
-                                    <a href="">毛呢连衣裙</a>
-                                    <a href="">半身裙</a>
-                                    <a href="">小脚裤</a>
-                                    <a href="">加绒打底裤</a>
-                                    <a href="">牛仔裤</a>
-                                    <a href="">打底衫</a>
-                                    <a href="">情侣装</a>
-                                    <a href="">棉衣</a>
-                                    <a href="">毛呢大衣</a>
-                                    <a href="">毛呢短裤</a>
-                                </dd>
-                            </dl>
-                        </div>
                     </li>
                     <li id="cat_8" class="">
                         <h3><a href="" title="美容美妆">Health, Fitness & Sports</a></h3>
-                        <div id="cat_1_menu" class="cat_menu clearfix" style="">
-                            <dl class="clearfix">
-                                <dt><a href="美容" href="">美容</a></dt>
-                                <dd>
-                                    <a href="">风衣</a>
-                                    <a href="">长袖连衣裙</a>
-                                    <a href="">毛呢连衣裙</a>
-                                    <a href="">半身裙</a>
-                                    <a href="">小脚裤</a>
-                                    <a href="">加绒打底裤</a>
-                                    <a href="">牛仔裤</a>
-                                    <a href="">打底衫</a>
-                                    <a href="">情侣装</a>
-                                    <a href="">棉衣</a>
-                                    <a href="">毛呢大衣</a>
-                                    <a href="">毛呢短裤</a>
-                                </dd>
-                            </dl>
-
-                            <dl class="clearfix">
-                                <dt><a href="美妆" href="">美妆</a></dt>
-                                <dd>
-                                    <a href="">风衣</a>
-                                    <a href="">长袖连衣裙</a>
-                                    <a href="">毛呢连衣裙</a>
-                                    <a href="">半身裙</a>
-                                    <a href="">小脚裤</a>
-                                    <a href="">加绒打底裤</a>
-                                    <a href="">牛仔裤</a>
-                                    <a href="">打底衫</a>
-                                    <a href="">情侣装</a>
-                                    <a href="">棉衣</a>
-                                    <a href="">毛呢大衣</a>
-                                    <a href="">毛呢短裤</a>
-                                </dd>
-                            </dl>
-                        </div>
                     </li>
                     <li id="cat_8" class="">
                         <h3><a href="" title="美容美妆">Home & Office</a></h3>
-                        <div id="cat_1_menu" class="cat_menu clearfix" style="">
-                            <dl class="clearfix">
-                                <dt><a href="美容" href="">美容</a></dt>
-                                <dd>
-                                    <a href="">风衣</a>
-                                    <a href="">长袖连衣裙</a>
-                                    <a href="">毛呢连衣裙</a>
-                                    <a href="">半身裙</a>
-                                    <a href="">小脚裤</a>
-                                    <a href="">加绒打底裤</a>
-                                    <a href="">牛仔裤</a>
-                                    <a href="">打底衫</a>
-                                    <a href="">情侣装</a>
-                                    <a href="">棉衣</a>
-                                    <a href="">毛呢大衣</a>
-                                    <a href="">毛呢短裤</a>
-                                </dd>
-                            </dl>
-
-                            <dl class="clearfix">
-                                <dt><a href="美妆" href="">美妆</a></dt>
-                                <dd>
-                                    <a href="">风衣</a>
-                                    <a href="">长袖连衣裙</a>
-                                    <a href="">毛呢连衣裙</a>
-                                    <a href="">半身裙</a>
-                                    <a href="">小脚裤</a>
-                                    <a href="">加绒打底裤</a>
-                                    <a href="">牛仔裤</a>
-                                    <a href="">打底衫</a>
-                                    <a href="">情侣装</a>
-                                    <a href="">棉衣</a>
-                                    <a href="">毛呢大衣</a>
-                                    <a href="">毛呢短裤</a>
-                                </dd>
-                            </dl>
-                        </div>
                     </li>
                 </ul>
             </div>

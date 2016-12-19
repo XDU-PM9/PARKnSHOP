@@ -510,24 +510,24 @@
 <div class="shop_bd clearfix">
     <div class="shop_bd_list_left clearfix">
         <!-- 左边商品分类 -->
-        <div class="shop_bd_list_bk clearfix">
-            <div class="title">Categories</div>
-            <div class="contents clearfix">
-                <dl class="shop_bd_list_type_links clearfix">
-                    <dd>
-                        <span><input type="radio"> TV& Home Theater</span>
-                        <span><input type="radio"> Computers & Tablets</span>
-                        <span><input type="radio"> Cell Phones</span>
-                        <span><input type="radio"> Cameras & Camcorders</span>
-                        <span><input type="radio"> Audio</span>
-                        <span><input type="radio"> Car Electronics & GPS</span>
-                        <span><input type="radio"> Video, Games, Movies & Music</span>
-                        <span><input type="radio"> Health, Fitness & Sports</span>
-                        <span><input type="radio"> Home & Office</span>
-                    </dd>
-                </dl>
-            </div>
-        </div>
+        <%--<div class="shop_bd_list_bk clearfix">--%>
+            <%--<div class="title">Categories</div>--%>
+            <%--<div class="contents clearfix">--%>
+                <%--<dl class="shop_bd_list_type_links clearfix">--%>
+                    <%--<dd>--%>
+                        <%--<span><input type="radio"> TV& Home Theater</span>--%>
+                        <%--<span><input type="radio"> Computers & Tablets</span>--%>
+                        <%--<span><input type="radio"> Cell Phones</span>--%>
+                        <%--<span><input type="radio"> Cameras & Camcorders</span>--%>
+                        <%--<span><input type="radio"> Audio</span>--%>
+                        <%--<span><input type="radio"> Car Electronics & GPS</span>--%>
+                        <%--<span><input type="radio"> Video, Games, Movies & Music</span>--%>
+                        <%--<span><input type="radio"> Health, Fitness & Sports</span>--%>
+                        <%--<span><input type="radio"> Home & Office</span>--%>
+                    <%--</dd>--%>
+                <%--</dl>--%>
+            <%--</div>--%>
+        <%--</div>--%>
         <!-- 左边商品分类 End -->
 
         <!-- 热卖推荐商品 -->
@@ -619,20 +619,20 @@
                 <!-- 查看方式E -->
                 <!-- 排序方式S -->
                 <ul class="array">
-                    <li class="selected"><a title="默认排序" onclick="javascript:dropParam(['key','order'],'','array');"
+                    <li class="selected"><a title="默认排序" onclick="orderByDefault()"
                                             class="nobg" href="javascript:void(0)">Default</a></li>
-                    <li><a title="点击按销量从高到低排序"
-                           onclick="javascript:replaceParam(['key','order'],['sales','desc'],'array');"
-                           href="javascript:void(0)">Sales</a></li>
+                    <%--<li><a title="点击按销量从高到低排序"--%>
+                           <%--onclick="javascript:replaceParam(['key','order'],['sales','desc'],'array');"--%>
+                           <%--href="javascript:void(0)">Sales</a></li>--%>
                     <li><a title="点击按人气从高到低排序"
-                           onclick="javascript:replaceParam(['key','order'],['click','desc'],'array');"
+                           onclick="orderByViewHightoLow()"
                            href="javascript:void(0)">Hot</a></li>
-                    <li><a title="点击按信用从高到低排序"
-                           onclick="javascript:replaceParam(['key','order'],['credit','desc'],'array');"
-                           href="javascript:void(0)">Credit</a></li>
-                    <li><a title="点击按价格从高到低排序"
-                           onclick="javascript:replaceParam(['key','order'],['price','desc'],'array');"
-                           href="javascript:void(0)">Price</a></li>
+                    <%--<li><a title="点击按信用从高到低排序"--%>
+                           <%--onclick="javascript:replaceParam(['key','order'],['credit','desc'],'array');"--%>
+                           <%--href="javascript:void(0)">Credit</a></li>--%>
+                    <%--<li><a title="点击按价格从高到低排序"--%>
+                           <%--onclick="javascript:replaceParam(['key','order'],['price','desc'],'array');"--%>
+                           <%--href="javascript:void(0)">Price</a></li>--%>
                 </ul>
                 <!-- 排序方式E -->
                 <!-- 价格段S -->
