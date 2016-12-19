@@ -1,4 +1,4 @@
-package com.parknshop.service.serviceImpl;
+package com.parknshop.service.serviceImpl.listBean;
 
 import com.parknshop.dao.IBaseDao;
 import com.parknshop.entity.UserEntity;

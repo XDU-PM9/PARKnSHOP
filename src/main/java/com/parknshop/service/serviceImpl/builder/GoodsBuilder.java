@@ -1,4 +1,4 @@
-package com.parknshop.service.serviceImpl;
+package com.parknshop.service.serviceImpl.builder;
 
 import com.parknshop.bean.ShopAndOwnerDbBean;
 import com.parknshop.dao.IBaseDao;
@@ -7,6 +7,7 @@ import com.parknshop.entity.GoodsEntity;
 import com.parknshop.entity.ShopEntity;
 import com.parknshop.service.IGoodsBuilder;
 import com.parknshop.service.IOwnerService;
+import com.parknshop.service.serviceImpl.listBean.PersonShopListBean;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
