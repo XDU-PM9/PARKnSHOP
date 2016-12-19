@@ -21,6 +21,57 @@
     <script type="text/javascript" src="../../../resources/js/topNav.js" ></script>
     <script type="text/javascript" src="../../../resources/js/jquery.goodnums.js" ></script>
     <script type="text/javascript" src="../../../resources/js/shop_gouwuche.js" ></script>
+    <script language="JavaScript">
+        function getValue(){
+            var hobbies = document.getElementsByName("id1");
+            var value;
+            for (i=0; i<hobbies.length; i++){
+                if (hobbies[i].checked){
+                    if (!value){
+                        value=hobbies[i].value;
+                    } else {
+                        value += "," + hobbies[i].value;
+                    }
+                }
+            }
+            var che=document.getElementById("abc");
+            che.value=value;
+        }
+
+        function isSelectAll(){
+            var hobbies = document.getElementsByName("id1");
+            for (i=0; i<hobbies.length; i++){
+                if (!hobbies[i].checked){
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        function selectAll(){
+            var hobbies = document.getElementsByName("id1");
+            if (isSelectAll()){
+                for (i=0; i<hobbies.length; i++){
+                    hobbies[i].checked = false;
+                }
+            } else {
+                for (i=0; i<hobbies.length; i++){
+                    hobbies[i].checked = true;
+                }
+            }
+        }
+
+        function selectOther(){
+            var hobbies = document.getElementsByName("id1");
+            for (i=0; i<hobbies.length; i++){
+                if (hobbies[i].checked){
+                    hobbies[i].checked = false;
+                } else {
+                    hobbies[i].checked = true;
+                }
+            }
+        }
+    </script>
 </head>
 <body>
 <%@include file="head.jsp"%>
@@ -48,9 +99,9 @@
                     <input name="id1" type="checkbox" value="${cart.getCartId()}" />
                 </td>
                 <td class="gwc_list_title"><a href="">${cart.getGoodsName()} </a></td>
-                <td class="gwc_list_danjia"><span>￥<strong id="danjia_001">${cart.getPrice()}</strong></span></td>
+                <td class="gwc_list_danjia"><span>$<strong id="danjia_001">${cart.getPrice()}</strong></span></td>
                 <td class="gwc_list_shuliang"><span><a class="good_num_jian this_good_nums"  ty="-" href="/changeAmount?cartId=${cart.getCartId()}&amount=${cart.getAmount()-1}">-</a>
-                    <input type="text" value="${cart.getAmount()}" id="goods_001" class="good_nums" /><a href="/changeAmount?cartId=${cart.getCartId()}&amount=${cart.getAmount()+1}"  ty="+" class="good_num_jia this_good_nums">+</a></span></td>
+                    <input type="text" value="${cart.getAmount()}" id="goods_001" name="num1"  class="good_nums" /><a href="/changeAmount?cartId=${cart.getCartId()}&amount=${cart.getAmount()+1}"  ty="+" class="good_num_jia this_good_nums">+</a></span></td>
                 <td class="gwc_list_xiaoji"><span>￥<strong id="xiaoji_001" class="good_xiaojis">${cart.getPrice()*cart.getAmount()}</strong></span></td>
                 <td class="gwc_list_caozuo"><a href="/insertCollect?goodsId=${cart.getGoodsId()}">collect</a><a href="/removeProduct?goodsId=${cart.getCartId()}" class="shop_good_delete">delete</a></td>
             </tr>
@@ -59,11 +110,14 @@
             <tfoot>
             <tr>
                 <td colspan="6">
-                    <div class="gwc_foot_zongjia">商品总价(不含运费)<span>￥<strong id="good_zongjia">12750.00</strong></span></div>
                     <div class="clear"></div>
                     <div class="gwc_foot_links">
-                        <a href="" class="go">继续购物</a>
-                        <a href="" class="op">确认并填写订单</a>
+
+                        <form action="" method="post">
+                            <input type="hidden" name="ch" id="abc" value="">
+                            <a href="" class="go">Go Shopping</a>
+                            <input type="submit" onclick="getValue()" style="background: none repeat scroll 0 0 #FE8502; border: 1px solid #FF6633; border-radius: 5px 5px 5px 5px; color: #FFFFFF !important; display: inline-block; font-size: 14px; font-weight: 600; height: 36px; line-height: 36px; padding: 4px 12px;" value="Confirm & Fill out the Orders"></input>
+                        </form>
                     </div>
                 </td>
             </tr>

@@ -48,16 +48,29 @@ public class UserCenterController {
     @RequestMapping(value = "/uploadPicture",method = RequestMethod.POST)
     public  String uploadPicture(@RequestParam MultipartFile picture, HttpSession session, Model model)
     {
-        String contextPath = session.getServletContext().getRealPath("/");
-        String person, logo;
-        try {
-            person = OwnerFileSaver.saveImage(picture, contextPath);
-            model.addAttribute("status",true);
-        } catch (Exception e) {
-            //服务器存储错误
-            e.printStackTrace();
-        }finally {
-            return "/customer/user_info.jsp";
+        int userId=getUserId(session);
+        if (userId<0) {
+            return "redirect:customer/login";
+        }else {
+            String contextPath = session.getServletContext().getRealPath("/");
+            String person, logo;
+            try {
+                person = OwnerFileSaver.saveImage(picture, contextPath);
+                boolean url=customerService.changeUserImage(person,userId);
+                session.setAttribute(IDefineString.SESSION_USER,customerService.getCustomerById(userId));
+                if(url) {
+                    model.addAttribute("status", true);
+                }
+                else
+                {
+
+                }
+            } catch (Exception e) {
+                //服务器存储错误
+                e.printStackTrace();
+            } finally {
+                return "/customer/user_info.jsp";
+            }
         }
     }
     @RequestMapping(value="/goPassword",method = RequestMethod.GET)

@@ -36,7 +36,7 @@
                     <li><label>Email：</label>${user.getEmail()}</li>
                     <li><label>Phone：</label> ${user.getPhone()}</li>
                     <li><label>Balance：</label>${user.getBalance()}</li>
-                    <li><label>Image</label><input type="file" accept="image/*"  name="picture" ></li>
+                    <li><label>Image:</label><input type="file" accept="image/png,image/jpg,image/gif"  name="picture" ></li>
                     <input type="submit" value="change">
                 </ul>
             </form>
