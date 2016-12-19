@@ -1,30 +1,37 @@
-
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import=" java.text.*"%>
-
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Personal infomation</title>
-<script language="javascript">
-	function UpdateInfo(){
-	    window.location.href="/owner/OwnerInfo_Edit";
-	}
-
-    function UpdatePassword(){
-        window.location.href="/owner/ownerPassword_Edit";
-    }
-</script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/resources/css/owner/main.css">
+    <link rel="stylesheet" href="/resources/libs/iconfont.css">
 </head>
 <body>
-            <p>${ sessionScope.user.username }</p>
-            <img src="${sessionScope.user.userImage}">
-            <img src="/resources/images/a.png">
-            <p>${ sessionScope.user.identityId}</p>
-            <p>${ sessionScope.user.email }</p>
-            <p>${ sessionScope.user.phone }</p>
-            <a  href="/owner/ownerInfoEdit">Update Information</a>
-            <a  href="/owner/ownerPasswordEdit">Update Password</a>
+    <div class="personInfor">
+        <ul>
+            <li id="myPhoto">
+                <img src="${ sessionScope.user.userImage }" alt="My photo">
+
+            </li>
+            <li id="myName"><i class="iconfont">&#xe60d;:</i>${ sessionScope.user.username }</li>
+            <li id="myPhone"><i class="iconfont">&#xe604;:</i>${ sessionScope.user.phone }</li>
+            <li id="myEmail"><i class="iconfont">&#xe649;:</i>${ sessionScope.user.email }</li>
+            <li></li>
+        </ul>
+    </div>
+    <div class="changeInfor">
+        <a href="/owner/ownerInfoEdit" class="button lightbg-blue clearfix"><span>Update infor</span>
+            <div class="icon">
+                <div class="arrow"></div>
+            </div>
+        </a>
+        <a href="/owner/ownerPasswordEdit" class="button lightbg-blue clearfix"><span>Modify password</span>
+            <div class="icon">
+                <div class="arrow"></div>
+            </div>
+        </a>
+    </div>
+    <script type="text/javascript" src="../../../resources/libs/jquery.js"></script>
+    <script type="text/javascript" src=""></script>
 </body>
 </html>

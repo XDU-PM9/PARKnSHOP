@@ -52,6 +52,13 @@ public interface IGoodsBuilder {
      * @return
      */
     IGoodsBuilder setType(String type);
+
+    /**
+     * 邮件方式
+     * @param postWay
+     * @return
+     */
+    IGoodsBuilder setPostWay(String postWay);
     /**
      * 构造器
      * @return

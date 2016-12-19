@@ -3,7 +3,6 @@ package com.parknshop.service;
 import com.parknshop.bean.ShopAndOwnerDbBean;
 import com.parknshop.entity.OwnerEntity;
 import com.parknshop.entity.UserEntity;
-import com.parknshop.service.serviceImpl.OwnerBuilder;
 
 /**
  * Created by weina on 2016/12/2.

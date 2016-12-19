@@ -1,10 +1,8 @@
-package com.parknshop.service.serviceImpl;
+package com.parknshop.service.serviceImpl.listBean;
 
 import com.parknshop.bean.GoodsDbBean;
-import com.parknshop.bean.ShopBean;
 import com.parknshop.dao.IBaseDao;
 import com.parknshop.dao.daoImpl.BaseDao;
-import com.parknshop.entity.OwnerEntity;
 import com.parknshop.entity.ShopEntity;
 import com.parknshop.service.IGoodsBuilder;
 import com.parknshop.service.serviceAbstract.AbstractListBean;

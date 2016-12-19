@@ -1,45 +1,105 @@
-
 <!DOCTYPE html>
-<html lang="zh-CN" ng-app="PNS">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1 , user-scalable=no">
-    <!--
-    <link rel="stylesheet" type="text/css" href="styles.css">
-    -->
     <title></title>
-    <link rel="stylesheet" href="/resources/css/owner/index.css">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/resources/css/owner/top.css">
+    <link rel="stylesheet" href="/resources/libs/iconfont.css">
+    <style type="text/css">
+        #header-div {
+            background: #4d5b76;
+            border-bottom: 1px solid #FFF;
+        }
+        #logo-div {
+            height: 50px;
+            float: left;
+        }
+        #license-div {
+            height: 50px;
+            float: left;
+            text-align:center;
+            vertical-align:middle;
+            line-height:50px;
+        }
+        #license-div a:visited, #license-div a:link {
+            color: #EB8A3D;
+        }
+        #license-div a:hover {
+            text-decoration: none;
+            color: #EB8A3D;
+        }
+        #submenu-div {
+            height: 50px;
+        }
+        #submenu-div ul {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+        }
+        #submenu-div li {
+            float: right;
+            padding: 0 10px;
+            margin: 3px 0;
+            border-left: 1px solid #FFF;
+        }
+        #submenu-div a:visited, #submenu-div a:link {
+            color: #FFF;
+            text-decoration: none;
+        }
+        #submenu-div a:hover {
+            color: #F5C29A;
+        }
+        /* #loading-div {
+             clear: right;
+             text-align: right;
+             display: block;
+         }
+         #menu-div {
+             background: #80BDCB;
+             font-weight: bold;
+             height: 24px;
+             line-height:24px;
+         }*/
+        #menu-div ul {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+        }
+        #menu-div li {
+            float: left;
+            border-right: 1px solid #192E32;
+            border-left:1px solid #BBDDE5;
+        }
+        #menu-div a:visited, #menu-div a:link {
+            display:block;
+            padding: 0 20px;
+            text-decoration: none;
+            color: #335B64;
+            background:#9CCBD6;
+        }
+        #menu-div a:hover {
+            color: #000;
+            background:#80BDCB;
+        }
+        #submenu-div a.fix-submenu{ clear:both; margin-left:5px; padding:1px 5px; *padding:3px 5px 5px; background:#DDEEF2; color:#278296; }
+        #submenu-div a.fix-submenu:hover{ padding:1px 5px; *padding:3px 5px 5px; background:#FFF; color:#278296; }
+        #menu-div li.fix-spacel{ width:30px; border-left:none; }
+        #menu-div li.fix-spacer{ border-right:none; }
+    </style>
 </head>
-
 <body>
-<div class="topMain">
-    <div class="logo">
-        <a href="#"><img src="/resources/images/ico/banner.jpg" alt="" width="120" height="40"></a>
+
+<div id="header-div">
+    <div id="logo-div" style="bgcolor:#000000;">
+        <a href="#"><img src="/resources/images/ico/banner.jpg" alt="PARKnSHOP" width="220px" height="50px"/></a>
     </div>
-    <div class="topHead">
-        <ul class="headList">
-            <li><span>Welcome,</span>${sessionScope.user.username}</li>
-            <li><span>Current position:</span><span id="position">Saler's Management Page</span></li>
-            <li><a href="/owner/logout" target="_parent">Quit</a></li>
+    <div id="license-div" style="bgcolor:#000000;"></div>
+    <div id="submenu-div">
+        <ul>
+            <li style="margin: 1% 0 0 0"><a href="/owner/logout" target="_parent" style="font-size: 20px">Quit</a></li>
+            <li style="border-left:none;margin:1% 0 0 0"><p style="font-size: 20px;color: white">Welcome,${sessionScope.user.username}</p></li>
         </ul>
     </div>
-    <!--<form action="" method="get">
-        <table width="100%" border="0" cellspacing="0">
-            <tr>
-                <td width="75" height="25" bgcolor="#deedf8"></td>
-                <td width="1122" align="left" valign="top" bgcolor="#deedf8"><span class="text_cray1">Current Position: 卖家管理页面</span></td>
-                <td width="140" valign="top" bgcolor="#deedf8" class="text_cray1">欢迎您，${ sessionScope.user.username }</td>
-                <td width="64" align="left" valign="top" bgcolor="#deedf8"><a href="" target="_blank" class="cray">退出</a></td>
-            </tr>
-        </table>
-    </form>-->
 </div>
 </body>
-<!--<script>
-    window.onload = function () {
-        var str = document.title;
-        document.getElementById("position").innerHTML = str;
-    }
-</script>-->
 </html>

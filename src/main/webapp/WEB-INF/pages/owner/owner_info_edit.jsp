@@ -1,32 +1,43 @@
-
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.text.*"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title></title>
-    <script language="javascript">
-        function Cancel(){
-            window.location.href="/owner/ownerInformation";
-        }
-    </script>
-
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/resources/libs/iconfont.css">
+    <link rel="stylesheet" href="/resources/css/owner/owner.css">
 </head>
+<body>
+    <div class="main">
+        <p>Now,update your information</p>
+        <form name="form" method="post" action="">
+            <ul class="formInfor">
+                <div class="inforBlock">
+                    <i class="iconfont">&#xe60d;:</i>
+                    <li>
+                        <input placeholder="Please input your new userName" name="userName" type="text" id="userName" size="18"/>
+                    </li><span></span>
+                </div>
 
-<body class="write_bg">
+                <div class="inforBlock">
+                    <i class="iconfont">&#xe604;:</i>
+                    <li>
+                        <input placeholder="Please input your new phone" name="userPhone" type="text" id="userPhone" size="18"/>
+                    </li>
+                </div>
+                <div class="inforBlock">
+                    <i class="iconfont">&#xe649;:</i>
+                    <li>
+                        <input placeholder="Please input your new email" name="userEmail" type="text" id="userEmail" size="18"/>
+                    </li>
+                </div>
+                <input type="submit"  class="butlogin" value="Update" id="updateBtn"/>
+            </ul>
+        </form>
+        <div class="filed">
 
-
-<form name="form" method="POST" enctype="multipart/form-data" action="/owner/ownerInfoEdit">
-
-    <input name="username" type="text" disabled="true" class="text_cray" id="textfield1" value="${ sessionScope.user.username }" />
-    <img src="${sessionScope.user.userImage}">
-    <input name="userImage" type="file" class="text_cray" size="20" accept="image/png,image/gif,image/jpeg"/>
-    <input name="email" type="text"  class="text_cray" id="textfield2" value="${ sessionScope.user.email }"/>
-    <input name="phone" type="text" class="text_cray" id="textfield3" value="${ sessionScope.user.phone }"/>
-    <input name="id" type="text" disabled="true" class="text_cray" id="identityId" value="${ sessionScope.user.identityId }" />
-    <input name="button" type="submit" id="button" value="Save">
-    <input name="button2" type="button" id="button2" value="取消" onClick="Cancel()">
-</form>
+        </div>
+    </div>
+    <script src="/resources/libs/jquery.js"></script>
+    <script src="/resources/js/owner/updateInfor.js"></script>
 </body>
 </html>

@@ -9,7 +9,7 @@ import com.parknshop.entity.ShopEntity;
 import com.parknshop.service.*;
 import com.parknshop.service.baseImpl.IDefineString;
 import com.parknshop.service.baseImpl.IUploadPictures;
-import com.parknshop.service.serviceImpl.OwnerBuilder;
+import com.parknshop.service.serviceImpl.builder.OwnerBuilder;
 import com.parknshop.utils.DateFormat;
 import com.parknshop.utils.Log;
 import com.parknshop.utils.OwnerFileSaver;
@@ -146,6 +146,10 @@ public class OwnerController {
         if (!checkLogin(session)) {
             return "redirect:/owner/login";
         }
+        OwnerEntity user = (OwnerEntity) session.getAttribute(IDefineString.SESSION_USER);
+        if (user.getUserImage() == null){
+            user.setUserImage("/resources/images/owner/default_owner.png");
+        }
         return "owner/owner_info.jsp";
     }
 
@@ -202,23 +206,23 @@ public class OwnerController {
         String method = request.getMethod();
         switch (method) {
             case REQ_METHOD_GET:
-                return "owner/owner_password_exit.jsp";
+                return "owner/owner_password_edit.jsp";
             case REQ_METHOD_POST:
                 HttpSession session = request.getSession();
 
-                OwnerEntity user = (OwnerEntity) session.getAttribute("user");
-                String oldPassword = request.getParameter("oldPassword");
-                String newPassword = request.getParameter("newPassword");
-                String confirmpwd = request.getParameter("confirmpwd");
+                OwnerEntity user = (OwnerEntity) session.getAttribute(IDefineString.SESSION_USER);
+                String oldPassword = request.getParameter("old");
+                String newPassword = request.getParameter("new");
+                String confirmpwd = request.getParameter("confirm");
                 if (!user.getPassword().equals(oldPassword)) {
-                    request.setAttribute(MSG, "OldPassword is wrong");
-                    return "owner/owner_password_exit.jsp";
+                    request.setAttribute(MSG, "Old password is wrong.");
+                    return "owner/owner_password_edit.jsp";
                 } else if (!newPassword.equals(confirmpwd)) {
-                    request.setAttribute(MSG, "The passing words you entered must be the same in the latest two times");
-                    return "owner/owner_password_exit.jsp";
+                    request.setAttribute(MSG, "The password you entered must be the same.");
+                    return "owner/owner_password_edit.jsp";
                 } else if (newPassword.equals(user.getPassword())) {
                     request.setAttribute(MSG, "The new password is the same as old password");
-                    return "owner/owner_password_exit.jsp";
+                    return "owner/owner_password_edit.jsp";
                 } else {
                     user.setPassword(newPassword);
                     int state = mOwnerService.updateOwner(user);
@@ -226,12 +230,12 @@ public class OwnerController {
                         return "owner/update_success.jsp";
                     } else {
                         request.setAttribute(MSG, "Update failed");
-                        return "owner/owner_password_exit.jsp";
+                        request.setAttribute(MSG, "Server occur a unknown error");
+                        return "owner/owner_password_edit.jsp";
                     }
                 }
-
             default:
-                return "owner/owner_password_exit.jsp";
+                return "owner/owner_password_edit.jsp";
         }
     }
 
@@ -420,7 +424,6 @@ public class OwnerController {
         }
         goodsList.setData(list);
         String temp = mGson.toJson(list);
-        Log.debug(temp);
         request.setAttribute(GOODS, goodsList);
         return "owner/goods_list.jsp";
     }

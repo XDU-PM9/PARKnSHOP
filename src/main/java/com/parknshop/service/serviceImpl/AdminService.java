@@ -1,18 +1,19 @@
 package com.parknshop.service.serviceImpl;
 
 import com.parknshop.bean.ShopAndOwnerDbBean;
-import com.parknshop.bean.ShopBean;
 import com.parknshop.dao.IBaseDao;
+import com.parknshop.dao.daoImpl.BaseDao;
+import com.parknshop.entity.GoodsEntity;
 import com.parknshop.entity.OwnerEntity;
 import com.parknshop.entity.ShopEntity;
 import com.parknshop.entity.UserEntity;
-import com.parknshop.service.IAdminService;
-import com.parknshop.service.IListBean;
-import com.parknshop.service.IOwnerService;
-import com.parknshop.service.IUserService;
+import com.parknshop.service.*;
+import com.parknshop.service.serviceImpl.listBean.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Created by weina on 2016/12/2.
@@ -34,8 +35,10 @@ public class AdminService  implements IAdminService{
     private final IListBean userList;
     private final IListBean ownerList;
     private final IListBean allShopList;
+    private final IAdvertisement advertisement;
+    private final IOwnerService ownerService;
     @Autowired
-    public AdminService(ShopListBean listBean, IBaseDao<ShopEntity> mDao, IBaseDao<ShopAndOwnerDbBean> shopDao, IBaseDao<Object> objectDao, UserListBean userList, OwnerListBean ownerList, AllShopListBean allShopList) {
+    public AdminService(ShopListBean listBean, IBaseDao<ShopEntity> mDao, IBaseDao<ShopAndOwnerDbBean> shopDao, IBaseDao<Object> objectDao, UserListBean userList, OwnerListBean ownerList, AllShopListBean allShopList, IAdvertisement advertisement, IOwnerService ownerService) {
         this.listBean = listBean;
         this.mDao = mDao;
         this.shopDao =shopDao;
@@ -43,6 +46,8 @@ public class AdminService  implements IAdminService{
         this.userList = userList;
         this.ownerList = ownerList;
         this.allShopList = allShopList;
+        this.advertisement = advertisement;
+        this.ownerService = ownerService;
     }
 
     @Override
@@ -68,7 +73,10 @@ public class AdminService  implements IAdminService{
     }
 
     @Override
-    public boolean blackShop(int shopId) {return updateShopState(IOwnerService.SHOP_STATE_BLAKE,shopId);}
+    public boolean blackShop(int shopId) {
+        advertisement.cancelShop(shopId);//同时取消商店的广告位置
+        return updateShopState(IOwnerService.SHOP_STATE_BLAKE,shopId);
+    }
 
     @Override
     public boolean whiteShop(int shopId) {
@@ -77,6 +85,14 @@ public class AdminService  implements IAdminService{
 
     @Override
     public boolean deleteShop(int shopId) {
+        advertisement.cancelShop(shopId);//同时取消商店的广告位置
+        String hql = "from GoodsEntity where shopId =?";
+        Object[] param ={shopId};
+        IBaseDao<GoodsEntity> goodsEntityIBaseDao = new BaseDao<>();
+        List<GoodsEntity> list = goodsEntityIBaseDao.find(hql,param);
+        for(GoodsEntity entity:list){
+            ownerService.deletGoods(entity.getGoodsId());//遍历商铺删除商品
+        }
         return updateShopState(IOwnerService.SHOP_STATE_DELETE,shopId);
     }
 
@@ -133,6 +149,13 @@ public class AdminService  implements IAdminService{
 
     @Override
     public boolean blackOwner(int ownerId) {
+        String hql ="from ShopEntity where owerId = ?";
+        Object[] param = {ownerId};
+        IBaseDao<ShopEntity> shopEntityIBaseDao = new BaseDao<>();
+        List<ShopEntity> list = shopEntityIBaseDao.find(hql,param);
+        for(ShopEntity entity:list){
+            blackShop(entity.getShopId());//拉黑所有商铺
+        }
         return updateOwnerState(IUserService.STATE_BLAKENAME,ownerId);
     }
 
@@ -143,6 +166,13 @@ public class AdminService  implements IAdminService{
 
     @Override
     public boolean deleteOwner(int ownerId) {
+        String hql ="from ShopEntity where owerId = ?";
+        Object[] param = {ownerId};
+        IBaseDao<ShopEntity> shopEntityIBaseDao = new BaseDao<>();
+        List<ShopEntity> list = shopEntityIBaseDao.find(hql,param);
+        for(ShopEntity entity:list){
+            deleteShop(entity.getShopId());//删除所有商铺
+        }
         return updateOwnerState(IUserService.STATE_DELETE,ownerId);
     }
 
