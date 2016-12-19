@@ -63,8 +63,8 @@
                                 <li><label ><span>*</span>User Name：</label>
                                     <input type="text" name="name" class="name" required/>
                                 </li>
-                                <li><label><span>*</span>Province <select name="province" onChange = "hw_select()" required></select></label></li>
-                                <li><label ><span>*</span>country  <select name="country" onChange = "hw_select()" required></select></label></li>
+                                <li><label><span>*</span>Province：</label> <select name="province" onChange = "hw_select()" required></select></li>
+                                <li><label ><span>*</span>country：</label><select name="country" onChange = "hw_select()" required></select></li>
                                 <li><label ><span>*</span>Detailed Address：</label><input name="others"  type="text" class="xiangxi" required /></li>
                                 <li><label ><span></span>Zip Code：</label><input type="text" pattern="[0-9]{6}" name="zip" class="youbian" required/></li>
                                 <li><label ><span></span>Phone Num：</label><input type="tel" pattern="[0-9]{8}|^[1][3578][0-9]{9}$"  name="phoneNum" class="shouji" required /></li>
@@ -87,15 +87,7 @@
 <!-- Footer - wll - 2013/3/24 -->
 <div class="clear"></div>
 <div class="shop_footer">
-    <div class="shop_footer_link">
-        <p>
-            <a href="">首页</a>|
-            <a href="">招聘英才</a>|
-            <a href="">广告合作</a>|
-            <a href="">关于ShopCZ</a>|
-            <a href="">关于我们</a>
-        </p>
-    </div>
+
     <div class="shop_footer_copy">
         <p>Copyright 2004-2013 itcast Inc.,All rights reserved.</p>
     </div>
