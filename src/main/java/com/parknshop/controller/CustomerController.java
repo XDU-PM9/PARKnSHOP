@@ -50,8 +50,13 @@ public class CustomerController{
 
     @RequestMapping(value = "/customer/login",method = RequestMethod.GET)
     public String login(HttpServletRequest request, RedirectAttributes model){
-        this.backPage= (boolean) request.getAttribute("backPage");
-        return "customer/login.html";
+        try {
+            this.backPage = (boolean) request.getAttribute("backPage");
+        }catch (Exception e){
+            this.backPage=false;
+        }finally {
+            return "customer/login.html";
+        }
     }
 
     @RequestMapping(value = "/customer/login",method = RequestMethod.POST)
