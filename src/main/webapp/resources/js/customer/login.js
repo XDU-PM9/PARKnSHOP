@@ -17,7 +17,7 @@ $(document).ready(function () {
             }),
             success: function (msg) {
                 if("false"==msg.error){
-                    window.location.href='/index.html';
+                    window.location.href='/';
                 }else{
                     $('#tips').html(msg.message).addClass('tips');
                 }

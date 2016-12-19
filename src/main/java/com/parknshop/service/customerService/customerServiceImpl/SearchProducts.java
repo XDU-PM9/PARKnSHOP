@@ -3,9 +3,6 @@ package com.parknshop.service.customerService.customerServiceImpl;
 import com.parknshop.dao.daoImpl.BaseDao;
 import com.parknshop.entity.GoodsEntity;
 import com.parknshop.service.customerService.ISearchProducts;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.cfg.Configuration;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -25,8 +22,8 @@ public class SearchProducts implements ISearchProducts {
     private boolean orderByTimeDesc = false;
     private boolean orderByPrice = false;
     private boolean orderByPriceDesc = false;
-    private boolean orderByView = false;
-    private boolean orderByViewDesc = false;
+    private boolean orderByViews = false;
+    private boolean orderByViewsDesc = false;
     private boolean orderBySales = false;
     private boolean orderBySalesDesc = false;
     private boolean orderByDiscount = false;
@@ -49,8 +46,8 @@ public class SearchProducts implements ISearchProducts {
         orderByTimeDesc = false;
         orderByPrice = false;
         orderByPriceDesc = false;
-        orderByView = false;
-        orderByViewDesc = false;
+        orderByViews = false;
+        orderByViewsDesc = false;
         orderBySales = false;
         orderBySalesDesc = false;
         orderByDiscount = false;
@@ -77,7 +74,7 @@ public class SearchProducts implements ISearchProducts {
                 orderByPrice = !orderByPrice;
                 break;
             case VIEW:
-                orderByView = !orderByView;
+                orderByViews = !orderByViews;
                 break;
             case DISCOUNT:
                 orderByDiscount = !orderByDiscount;
@@ -92,7 +89,7 @@ public class SearchProducts implements ISearchProducts {
                 orderByPriceDesc = !orderByPriceDesc;
                 break;
             case VIEWDESC:
-                orderByViewDesc = !orderByViewDesc;
+                orderByViewsDesc = !orderByViewsDesc;
                 break;
             case DISCOUNTDESC:
                 orderByDiscountDesc = !orderByDiscountDesc;
@@ -112,25 +109,25 @@ public class SearchProducts implements ISearchProducts {
     public ISearchProducts setRuler(Map ruler) {
 //        if ("true" == ruler.get("noFilter"))
 //            anyState = true;
-        if ("true" == ruler.get("time"))
+        if ("true".equals(ruler.get("time")))
             orderByTime = true;
-        if ("true" == ruler.get("timeDesc"))
+        if ("true".equals(ruler.get("timeDesc")))
             orderByTimeDesc = true;
-        if ("true" == ruler.get("price"))
+        if ("true".equals(ruler.get("price")))
             orderByPrice = true;
-        if ("true" == ruler.get("priceDesc"))
+        if ("true".equals(ruler.get("priceDesc")))
             orderByPriceDesc = true;
-        if ("true" == ruler.get("view"))
-            orderByView = true;
-        if ("true" == ruler.get("viewDesc"))
-            orderByViewDesc = true;
-        if ("true" == ruler.get("discount"))
+        if ("true".equals(ruler.get("views")))
+            orderByViews = true;
+        if ("true".equals(ruler.get("viewsDesc")))
+            orderByViewsDesc = true;
+        if ("true".equals(ruler.get("discount")))
             orderByDiscount = true;
-        if ("true" == ruler.get("discountDesc"))
+        if ("true".equals(ruler.get("discountDesc")))
             orderByDiscountDesc = true;
-        if ("true" == ruler.get("sales"))
+        if ("true".equals(ruler.get("sales")))
             orderBySales = true;
-        if ("true" == ruler.get("salesDesc"))
+        if ("true".equals(ruler.get("salesDesc")))
             orderBySalesDesc = true;
         return this;
     }
@@ -164,32 +161,62 @@ public class SearchProducts implements ISearchProducts {
 
     @Override
     public List<GoodsEntity> searchProductsByName(String name, int max, int count) {
-        return getGoodsEntitys("from GoodsEntity where GoodsName like ?", getLikeParamter(name), max, count);
+        try {
+            return goodsEntityBaseDao.findNumberRows(mergerRulertoHql("from GoodsEntity where GoodsName like ?"), getLikeParamter(name), max, count);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
     public List<GoodsEntity> searchProductsByType(String type, int max, int count) {
-        return getGoodsEntitys("from GoodsEntity where type like ?", getLikeParamter(type), max, count);
+        try {
+            return goodsEntityBaseDao.findNumberRows(mergerRulertoHql("from GoodsEntity where type like ?"), getLikeParamter(type), max, count);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
     public List<GoodsEntity> searchProductsOnePageByName(String name, int pageNum, int pageSize) {
-        return getGoodsEntitys("from GoodsEntity where GoodsName like ?", getLikeParamter(name), (pageNum - 1) * pageSize, pageSize);
+        try{
+        return goodsEntityBaseDao.findNumberRows(mergerRulertoHql("from GoodsEntity where GoodsName like ?"), getLikeParamter(name), (pageNum - 1) * pageSize, pageSize);
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
     public List<GoodsEntity> searchProductsOnePageByType(String type, int pageNum, int pageSize) {
-        return getGoodsEntitys("from GoodsEntity where type like ?", new Object[]{getLikeParamter(type)}, (pageNum - 1) * pageSize, pageSize);
+        try{
+        return goodsEntityBaseDao.findNumberRows(mergerRulertoHql("from GoodsEntity where type like ?"), new Object[]{getLikeParamter(type)}, (pageNum - 1) * pageSize, pageSize);
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
     public List<GoodsEntity> searchProductsByNameAndType(String name, String type, int max, int count) {
-        return getGoodsEntitys("from GoodsEntity where goodsName like ? and type like ?", getLikeParamter(name, type), max, count);
+        try{
+        return goodsEntityBaseDao.findNumberRows(mergerRulertoHql("from GoodsEntity where goodsName like ? and type like ?"), getLikeParamter(name, type), max, count);
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
     public List<GoodsEntity> searchProductsOnePageByNameAndType(String name, String type, int pageNum, int pageSize) {
-        return getGoodsEntitys("from GoodsEntity where goodsName like ? and type like ?", getLikeParamter(name, type), (pageNum - 1) * pageSize, pageSize);
+        try{
+        return goodsEntityBaseDao.findNumberRows(mergerRulertoHql("from GoodsEntity where goodsName like ? and type like ?"), getLikeParamter(name, type), (pageNum - 1) * pageSize, pageSize);
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
@@ -238,26 +265,26 @@ public class SearchProducts implements ISearchProducts {
     //设置查询的范围（从哪开始查多少条）
     @Override
     public ISearchProducts setScope(int start, int count) {
-        if (start > 0 && count < 1 && start < count)
+        if (start > 0 && count > 1)
             this.start = start;
         this.count = count;
         return this;
     }
 
     @Override
-    public ISearchProducts setByMap(Map map) throws NumberFormatException{
+    public ISearchProducts setByMap(Map map) throws NumberFormatException {
         initRuler();
         setRuler(map);
         String name = (String) map.get("name");
         String type = (String) map.get("type");
-        String startString=(String)map.get("start");
-        String countString= (String) map.get("count");
-        String shopIdString= (String) map.get("shopID");
-        if(stringNotNull(shopIdString)){
+        String startString = (String) map.get("start");
+        String countString = (String) map.get("count");
+        String shopIdString = (String) map.get("shopID");
+        if (stringNotNull(shopIdString)) {
             setShopId(Integer.parseInt(shopIdString));
         }
-        if(stringNotNull(startString)&&stringNotNull(countString)){
-            setScope(Integer.parseInt(startString),Integer.parseInt(countString));
+        if (stringNotNull(startString) && stringNotNull(countString)) {
+            setScope(Integer.parseInt(startString), Integer.parseInt(countString));
         }
         setGoodsName(name);
         setGoodsType(type);
@@ -268,8 +295,8 @@ public class SearchProducts implements ISearchProducts {
     @Override
     public long getCount() {
         param = null;
-        String hql=getHql();
-        if(null==hql){
+        String hql = getHql();
+        if (null == hql) {
             return -1;
         }
         try {
@@ -292,7 +319,7 @@ public class SearchProducts implements ISearchProducts {
             if (start < 0 || count < 1) {
                 return goodsEntityBaseDao.find(hql, param);
             } else {
-                return getGoodsEntitys(hql, param, start, count);
+                return goodsEntityBaseDao.findNumberRows(hql, param, start, count);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -354,17 +381,17 @@ public class SearchProducts implements ISearchProducts {
             order.append(" discount");
             count++;
         }
-        if (orderByViewDesc) {
+        if (orderByViewsDesc) {
             if (count > 0) {
                 order.append(" ,");
             }
-            order.append(" view DESC");
+            order.append(" views DESC");
             count++;
-        } else if (orderByView) {
+        } else if (orderByViews) {
             if (count > 0) {
                 order.append(" ,");
             }
-            order.append(" view");
+            order.append(" views");
             count++;
         }
         if (count > 0) {
@@ -375,23 +402,22 @@ public class SearchProducts implements ISearchProducts {
     }
 
     //搜索从max开始count个GoodsEntity
-    private List<GoodsEntity> getGoodsEntitys(String hql, Object[] params, int max, int count) {
-        hql = mergerRulertoHql(hql);
-        try {
-            Session session = new Configuration().configure().buildSessionFactory().getCurrentSession();
-            Query query = session.createQuery(hql);
-            if (params != null) {
-                for (int i = 0; i < params.length; i++) {
-                    query.setParameter(i, params[i]);
-                }
-            }
-            List<GoodsEntity> goodsEntities = query.setFirstResult(max).setMaxResults(count).list();
-            session.close();
-            return goodsEntities;
-        } catch (Exception e) {
-            return null;
-        }
-    }
+//    private List<GoodsEntity> getGoodsEntitys(String hql, Object[] params, int max, int count) {
+//        try {
+//            Session session = new Configuration().configure().buildSessionFactory().getCurrentSession();
+//            Query query = session.createQuery(hql);
+//            if (params != null) {
+//                for (int i = 0; i < params.length; i++) {
+//                    query.setParameter(i, params[i]);
+//                }
+//            }
+//            List<GoodsEntity> goodsEntities = query.setFirstResult(max).setMaxResults(count).list();
+//            session.close();
+//            return goodsEntities;
+//        } catch (Exception e) {
+//            return null;
+//        }
+//    }
 
     //获取“%param%"形式的参数数组
     private Object[] getLikeParamter(String param) {
@@ -407,12 +433,12 @@ public class SearchProducts implements ISearchProducts {
         int status = 0;
         StringBuilder hql = new StringBuilder("");
         List list = new ArrayList<Object>();
-        if (null != goodsName && !"".equals(goodsName) && !"null".equals(goodsName)) {
+        if (stringNotNull(goodsName)) {
             hql.append(" goodsName like ?");
             list.add("%" + goodsName + "%");
             status++;
         }
-        if (null != type && "" != type && "null" != type) {
+        if (stringNotNull(type)) {
             if (status > 0) {
                 hql.append(" and");
             }
@@ -444,7 +470,7 @@ public class SearchProducts implements ISearchProducts {
     }
 
     //判断String是否为空或null
-    private boolean stringNotNull(String string){
-        return null!=string&&!"null".equals(string)&&!"".equals(string);
+    private boolean stringNotNull(String string) {
+        return null != string && !"null".equals(string) && !"".equals(string);
     }
 }

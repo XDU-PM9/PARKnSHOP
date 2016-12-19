@@ -7,68 +7,93 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
-import java.util.Objects;
-import java.util.StringJoiner;
 
 /**
  * Created by H on 2016/12/5.
  */
 @Transactional
 @Service
-public class CustomerService  implements ICustomerService {
+public class CustomerService implements ICustomerService {
 
     @Resource
-    private BaseDao<UserEntity>          userEntityBaseDao;
+    private BaseDao<UserEntity> userEntityBaseDao;
 
     @Resource
-    private  BaseDao<CollectionEntity>   collectionEntityBaseDao;
+    private BaseDao<CollectionEntity> collectionEntityBaseDao;
 
     @Resource
-    private  BaseDao<CollectshopEntity>  collectshopEntityBaseDao;
+    private BaseDao<CollectshopEntity> collectshopEntityBaseDao;
 
     @Resource
     private BaseDao<GoodsEntity> goodsEntityBaseDao;
 
     @Resource
-    private  BaseDao<ShopEntity> shopEntityBaseDao;
+    private BaseDao<ShopEntity> shopEntityBaseDao;
 
     @Resource
     private BaseDao<PhotoEntity> photoEntityBaseDao;
 
     @Override
-    public List<UserEntity> getAllCustomer()
-    {
-        Object[] objects=null;
-        return userEntityBaseDao.find("from UserEntity",objects,10,8);
+    public List<UserEntity> getAllCustomer() {
+        try {
+            Object[] objects = null;
+            return userEntityBaseDao.find("from UserEntity", objects, 10, 8);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
     public void setBlackList(Integer userId) {
-        Object[] params=new Object[1];
-        params[0]=userId;
-            userEntityBaseDao.insert("update user set state=2 where userId=?",params);
+        Object[] params = new Object[1];
+        params[0] = userId;
+        try {
+            userEntityBaseDao.insert("update user set state=2 where userId=?", params);
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            return;
+        }
     }
 
     @Override
     public void resetBlackList(Integer userId) {
-        Object[] params=new Object[1];
-        params[0]=userId;
-        userEntityBaseDao.insert("update user set state=1 where userId=?",params);
+        Object[] params = new Object[1];
+        params[0] = userId;
+        try {
+        userEntityBaseDao.insert("update user set state=1 where userId=?", params);
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            return;
+        }
     }
 
     @Override
     public UserEntity getCustomerById(Integer id) {
-        Object[] params=new Object[1];
-        params[0]=id;
-        return userEntityBaseDao.get("from UserEntity ue where ue.userId=?",params);
+        Object[] params = new Object[1];
+        params[0] = id;
+        try{
+        return userEntityBaseDao.get("from UserEntity ue where ue.userId=?", params);
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
-    public UserEntity getCustomerByName(String name,String password) {
-        return userEntityBaseDao.get("from UserEntity ue where (ue.username=? or ue.phone=? or ue.email=?) and ue.password=?",new Object[]{name,name,name,password});
+    public UserEntity getCustomerByName(String name, String password) {
+        try {
+        return userEntityBaseDao.get("from UserEntity ue where (ue.username=? or ue.phone=? or ue.email=?) and ue.password=?", new Object[]{name, name, name, password});
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
@@ -77,130 +102,194 @@ public class CustomerService  implements ICustomerService {
     }
 
     @Override
-    public void deleteCustomer(Integer id) {
-        Object[] params=new Object[1];
-        params[0]=id;
-        userEntityBaseDao.insert("update user set state=0 where userId=?",params);
+    public boolean deleteCustomer(Integer id) {
+        Object[] params = new Object[1];
+        params[0] = id;
+        try {
+
+       return userEntityBaseDao.insert("update user set state=0 where userId=?", params);
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
-    public void changePassword(String password,int userId) {
-        Object[] params=new Object[2];
-        params[0]=password;
-        params[1]=userId;
-        userEntityBaseDao.insert("update user set password=? where userId=?",params);
+    public boolean changePassword(String password, int userId) {
+        Object[] params = new Object[2];
+        params[0] = password;
+        params[1] = userId;
+        try {
+
+            return userEntityBaseDao.insert("update user set password=? where userId=?", params);
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
-    public void changeUserImage(String url,int userId) {
-        Object[] params=new Object[2];
-        params[0]=url;
-        params[1]=userId;
-        userEntityBaseDao.insert("update user set url=? where userId=?",params);
+    public boolean changeUserImage(String url, int userId) {
+        Object[] params = new Object[2];
+        params[0] = url;
+        params[1] = userId;
+        try{
+        return  userEntityBaseDao.insert("update user set url=? where userId=?", params);
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            return false;
+        }
     }
 
 
     @Override
-    public List<CollectionEntity> queryAllCollect(Integer userId,int page) {
-        Object[] params=new Object[1];
-         params[0]=userEntityBaseDao.get("from UserEntity where userId=?",new Object[]{userId});
-        return collectionEntityBaseDao.find("from CollectionEntity  where  userByUserId=? order by createTime desc",params,page,4);
+    public List<CollectionEntity> queryAllCollect(Integer userId, int page) {
+        Object[] params = new Object[1];
+        try {
+        params[0] = userEntityBaseDao.get("from UserEntity where userId=?", new Object[]{userId});
+        return collectionEntityBaseDao.find("from CollectionEntity  where  userByUserId=? order by createTime desc", params, page, 4);
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
     public int querySize(int userId) {
-        Object[] params=new Object[1];
-        params[0]=userEntityBaseDao.get("from UserEntity where userId=?",new Object[]{userId});
-        return collectionEntityBaseDao.find("from CollectionEntity  where  userByUserId=? ",params).size();
+        Object[] params = new Object[1];
+        try {
+        params[0] = userEntityBaseDao.get("from UserEntity where userId=?", new Object[]{userId});
+        return collectionEntityBaseDao.find("from CollectionEntity  where  userByUserId=? ", params).size();
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            return  0;
+        }
     }
 
-    private  String   getPictureLocation(String  photogroup)
-    {
-            if(photogroup!=null) {
-              return   photoEntityBaseDao.find("from PhotoEntity where photoGroup=?",new Object[]{photogroup}).get(0).getAddress();
-            }
-            else
+    private String getPictureLocation(String photogroup) {
+        if (photogroup != null) {
+            try {
+                return photoEntityBaseDao.find("from PhotoEntity where photoGroup=?", new Object[]{photogroup}).get(0).getAddress();
+            }catch (Exception e)
             {
-                return  null;
+                e.printStackTrace();
+                return null;
             }
+        } else {
+            return null;
+        }
     }
 
     @Override
-    public void insertCollect(Integer id, Integer userId) {
-        Object[] params=new Object[2];
-        params[0]=userEntityBaseDao.get("from UserEntity where userId=?",new Object[]{userId});
-        GoodsEntity goodsEntity=goodsEntityBaseDao.get("from GoodsEntity where goodsId=?",new Object[]{id});
-        params[1]=goodsEntity;
+    public boolean insertCollect(Integer id, Integer userId) {
+        try {
+            Object[] params = new Object[2];
+            params[0] = userEntityBaseDao.get("from UserEntity where userId=?", new Object[]{userId});
+            GoodsEntity goodsEntity = goodsEntityBaseDao.get("from GoodsEntity where goodsId=?", new Object[]{id});
+            params[1] = goodsEntity;
 
-        List<CollectionEntity> ces= collectionEntityBaseDao.find("from CollectionEntity  ce  where ce.userByUserId=? and ce.goodsByGoodsId=?",params);
-         if(ces.size()==0) {
-             Object[] parans=new Object[4];
-             parans[0] = id;
-             parans[1] = userId;
-             parans[2] = new Timestamp(System.currentTimeMillis());
-             parans[3]=getPictureLocation(goodsEntity.getPhotoGroup());
-             collectionEntityBaseDao.insert("insert into collection(goodsId,userId,createTime,picture) values(?,?,?,?)", parans);
-         }
-         else
-         {
-               Object[] parans=new Object[2];
-              parans[0]=new Timestamp(System.currentTimeMillis());
-              parans[1]=ces.get(0).getCollectionId();
-              collectionEntityBaseDao.insert("update collection set createTime=? where collectionId=?",parans);
-         }
+            List<CollectionEntity> ces = collectionEntityBaseDao.find("from CollectionEntity  ce  where ce.userByUserId=? and ce.goodsByGoodsId=?", params);
+            if (ces.size() == 0) {
+                Object[] parans = new Object[4];
+                parans[0] = id;
+                parans[1] = userId;
+                parans[2] = new Timestamp(System.currentTimeMillis());
+                parans[3] = getPictureLocation(goodsEntity.getPhotoGroup());
+                return   collectionEntityBaseDao.insert("insert into collection(goodsId,userId,createTime,picture) values(?,?,?,?)", parans);
+            } else {
+                Object[] parans = new Object[2];
+                parans[0] = new Timestamp(System.currentTimeMillis());
+                parans[1] = ces.get(0).getCollectionId();
+               return collectionEntityBaseDao.insert("update collection set createTime=? where collectionId=?", parans);
+            }
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            return false;
+        }
 
     }
 
     @Override
-    public void removeCollect(Integer id) {
-            collectionEntityBaseDao.delete("delete from collection where collectionId=?",id);
+    public boolean removeCollect(Integer id) {
+        try {
+          return   collectionEntityBaseDao.delete("delete from collection where collectionId=?", id);
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            return  false;
+        }
     }
 
     @Override
-    public List<CollectshopEntity> queryAllShop(Integer userId,int page)
-    {
-        Object[] params=new Object[1];
-        params[0]=userEntityBaseDao.get("from UserEntity where userId=?",new Object[]{userId});
-        return collectshopEntityBaseDao.find("from CollectshopEntity  where  userByUserId=? order by createTime desc",params,page,4);
+    public List<CollectshopEntity> queryAllShop(Integer userId, int page) {
+        Object[] params = new Object[1];
+        try {
+            params[0] = userEntityBaseDao.get("from UserEntity where userId=?", new Object[]{userId});
+            return collectshopEntityBaseDao.find("from CollectshopEntity  where  userByUserId=? order by createTime desc", params, page, 4);
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            return  null;
+        }
     }
 
     @Override
     public int queryShopsize(Integer userId) {
-        Object[] params=new Object[1];
-        params[0]=userEntityBaseDao.get("from UserEntity where userId=?",new Object[]{userId});
-        return collectshopEntityBaseDao.find("from  CollectshopEntity  where  userByUserId=? ",params).size();
+        Object[] params = new Object[1];
+        try {
+            params[0] = userEntityBaseDao.get("from UserEntity where userId=?", new Object[]{userId});
+            return collectshopEntityBaseDao.find("from  CollectshopEntity  where  userByUserId=? ", params).size();
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            return  0;
+        }
     }
 
     @Override
-    public void insertShop(Integer id, Integer userId) {
-        Object[] params=new Object[2];
-        params[0]=userEntityBaseDao.get("from UserEntity where userId=?",new Object[]{userId});
-        ShopEntity shopEntity=shopEntityBaseDao.get("from ShopEntity where shopId=?",new Object[]{id});
-        params[1]=shopEntity;
-        List<CollectshopEntity> ces= collectshopEntityBaseDao.find("from CollectshopEntity ce  where ce.userByUserId=? and ce.shopByShopId=?",params);
-        if(ces.size()==0)
+    public boolean insertShop(Integer id, Integer userId) {
+        Object[] params = new Object[2];
+        try {
+            params[0] = userEntityBaseDao.get("from UserEntity where userId=?", new Object[]{userId});
+            ShopEntity shopEntity = shopEntityBaseDao.get("from ShopEntity where shopId=?", new Object[]{id});
+            params[1] = shopEntity;
+            List<CollectshopEntity> ces = collectshopEntityBaseDao.find("from CollectshopEntity ce  where ce.userByUserId=? and ce.shopByShopId=?", params);
+            if (ces.size() == 0) {
+                Object[] parans = new Object[4];
+                parans[0] = id;
+                parans[1] = userId;
+                parans[2] = new Timestamp(System.currentTimeMillis());
+                parans[3] = getPictureLocation(shopEntity.getPhotoGroup());
+                return  collectshopEntityBaseDao.insert("insert into collectShop(shopId,userId,createTime) values(?,?,?,?)", parans);
+            } else {
+                Object[] parans = new Object[2];
+                parans[0] = new Timestamp(System.currentTimeMillis());
+                parans[1] = ces.get(0).getScollectId();
+                return  collectshopEntityBaseDao.insert("update collectshop set createTime=? where scollectId=?", parans);
+            }
+        }catch (Exception e)
         {
-            Object[] parans=new Object[4];
-            parans[0]=id;
-            parans[1]=userId;
-            parans[2]=new Timestamp(System.currentTimeMillis());
-            parans[3]=getPictureLocation(shopEntity.getPhotoGroup());
-            collectshopEntityBaseDao.insert("insert into collectShop(shopId,userId,createTime) values(?,?,?,?)",parans);
-        }
-        else
-        {
-            Object[] parans=new Object[2];
-            parans[0]=new Timestamp(System.currentTimeMillis());
-            parans[1]=ces.get(0).getScollectId();
-            collectshopEntityBaseDao.insert("update collectshop set createTime=? where scollectId=?",parans);
-
+            e.printStackTrace();
+            return false;
         }
 
     }
 
 
     @Override
-    public void removeShop(Integer id) {
-              collectshopEntityBaseDao.delete("delete from collectshop where scollectId=?",id);
+    public boolean removeShop(Integer id) {
+        try {
+          return   collectshopEntityBaseDao.delete("delete from collectshop where scollectId=?", id);
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            return  false;
+        }
     }
 }

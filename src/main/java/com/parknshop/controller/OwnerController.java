@@ -11,6 +11,7 @@ import com.parknshop.service.baseImpl.IDefineString;
 import com.parknshop.service.baseImpl.IUploadPictures;
 import com.parknshop.service.serviceImpl.OwnerBuilder;
 import com.parknshop.utils.DateFormat;
+import com.parknshop.utils.Log;
 import com.parknshop.utils.OwnerFileSaver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -404,6 +405,9 @@ public class OwnerController {
             goods.setViews(item.getViews());
             goods.setState(item.getState());
 
+            //后端为未跟上
+            //goods.setType(item.getType);
+
             int count = item.getPicturePath().size();
             String[] photos = new String[count];
             List<PhotoEntity> photoEntities = item.getPicturePath();
@@ -416,7 +420,7 @@ public class OwnerController {
         }
         goodsList.setData(list);
         String temp = mGson.toJson(list);
-        System.out.println(temp);
+        Log.debug(temp);
         request.setAttribute(GOODS, goodsList);
         return "owner/goods_list.jsp";
     }
@@ -493,6 +497,16 @@ public class OwnerController {
         boolean success = mOwnerService.deletGoods(requestBean.getGoodsID());
         responseBean.setSuccess(success);
         return mGson.toJson(request);
+    }
+
+    /**
+     * 更新商品信息
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "updateGoods",method = RequestMethod.POST)
+    public String updateGoods(HttpServletRequest request){
+        return null;
     }
 
 

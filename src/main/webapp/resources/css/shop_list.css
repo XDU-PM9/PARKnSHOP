@@ -55,6 +55,12 @@
 .sort-bar .bar-l div.prices{float: left; height:20px; padding-top:8px; color:#777777;}
 
 .shop_bd_list_content{width:780px; margin:0 auto;}
+.shop_bd_list_content ul li dl dt dd {
+  position : relative;
+}
+.shop_bd_list_content ul li dl dt dd:nth-child(2){
+ position : relative;
+}
 .shop_bd_list_content ul li{width:195px; float:left; margin:10px 0;}
 .shop_bd_list_content ul li dl{width:175px; margin:0 auto; padding:10px 0;}
 .shop_bd_list_content ul li dl dt img{display: block; width:160px; height:160px; padding:4px; border:1px solid #E7E7E7;}

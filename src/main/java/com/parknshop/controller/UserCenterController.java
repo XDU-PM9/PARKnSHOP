@@ -36,14 +36,19 @@ public class UserCenterController {
         }else{
             UserEntity userEntity=customerService.getCustomerById(new Integer(userId));
             model.addAttribute("user", userEntity);
-            return "customer/User_Personalinfo.jsp";
+            return "customer/user_info.jsp";
         }
 
     }
 
+    @RequestMapping(value = "uploadPicture",method = RequestMethod.POST)
+    public  String uploadPicture()
+    {
+        return "";
+    }
     @RequestMapping(value="/goPassword",method = RequestMethod.GET)
     public String  goPassword(){
-        return "customer/User_changePassword.jsp";
+        return "customer/password_edit.jsp";
     }
 //此处需要前端验证两次密码一致性，且应用Ajax判断密码的正确性，直至输对密码为止
     @RequestMapping(value="/changePassword",method = RequestMethod.POST)
@@ -54,9 +59,11 @@ public class UserCenterController {
             if (userEntity.getPassword().equals(password)) {
                 customerService.changePassword(pass1, userEntity.getUserId());
                 model.addAttribute("user", userEntity);
-                return "customer/User_Personalinfo.jsp";
-            } else
-                return "customer/User_changePassword.jsp";
+                return "customer/user_info.jsp";
+            } else {
+                model.addAttribute("tips","Old Password Error");
+                return "customer/password_edit.jsp";
+            }
         }
         else
         {
@@ -73,13 +80,13 @@ public class UserCenterController {
         }else{
             int size = customerService.querySize(userId);
             double d = size / 4;
-            double sina = Math.ceil(d);
+            int  sina =(int) Math.floor(d)+1;
             List<CollectionEntity> collectionEntities = customerService.queryAllCollect(new Integer(userId), requestPage);
             model.addAttribute("Collects", collectionEntities);
             model.addAttribute("currentPage", requestPage);
             model.addAttribute("maxSize", size);
             model.addAttribute("sina", sina);
-            return "customer/User_Collect.jsp";
+            return "customer/good_collection.jsp";
         }
 
     }
@@ -93,13 +100,13 @@ public class UserCenterController {
         }else{
             int size = customerService.queryShopsize(new Integer(userId));
             double d = size / 4;
-            double sina = Math.ceil(d);
+            int  sina =(int) Math.floor(d)+1;
             List<CollectshopEntity> collectionEntities = customerService.queryAllShop(new Integer(userId), requestPage);
             model.addAttribute("Collects", collectionEntities);
             model.addAttribute("currentPage", requestPage);
             model.addAttribute("maxSize", size);
             model.addAttribute("sina", sina);
-            return "customer/User_CollectShop.jsp";
+            return "customer/shop_collection.jsp";
         }
     }
 
@@ -141,7 +148,17 @@ public class UserCenterController {
         customerService.removeShop(new Integer(shopId));
         return "redirect:listCollectShop?requestPage=1";
     }
-
+    @RequestMapping(value="/jumpPage",method = RequestMethod.POST)
+    public String jumpPage(@RequestParam int jump,@RequestParam int ty, Model model)
+    {
+        if(ty==1) {
+            model.addAttribute("gdhds", jump);
+            return "redirect:listCollect?requestPage={gdhds}";
+        }else {
+            model.addAttribute("gdhdsfs", jump);
+            return "redirect:listCollectShop?requestPage={gdhdsfs}";
+        }
+    }
     private int getUserId(HttpSession session){
         try {
             return ((UserEntity) session.getAttribute(IDefineString.SESSION_USER)).getUserId();

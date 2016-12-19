@@ -4,7 +4,9 @@ import com.parknshop.dao.IBaseDao;
 import com.parknshop.dao.IPictureDao;
 import com.parknshop.dao.daoImpl.BaseDao;
 import com.parknshop.dao.daoImpl.PitureDao;
+import com.parknshop.entity.GoodsEntity;
 import com.parknshop.entity.PhotoEntity;
+import com.parknshop.entity.ShopEntity;
 
 import java.util.Date;
 import java.util.List;
@@ -24,10 +26,14 @@ public class GoodsDbBean {
     private Date createTime;
     private int views;
     private int state;
+
+    private String type;
+    private int sales;
+
     private List<PhotoEntity> picturePath;//图片组地址
     //hql 语句构建
     public static final String hql ="select new com.parknshop.bean.GoodsDbBean"+//
-                    "(g.goodsId, s.shopId, g.goodsName, g.introduction, g.price, g.discount, g.inventory, g.photoGroup, g.createTime, g.views, g.state)  "+//
+                    "(g.goodsId, s.shopId, g.goodsName, g.introduction, g.price, g.discount, g.inventory, g.photoGroup, g.createTime, g.views, g.state, g.type, g.sales)  "+//
                     "from GoodsEntity as g,ShopEntity as s where g.shopByShopId.shopId = s.shopId";
 
     public GoodsDbBean(int goodsId, int shopId, String goodsName, String introduction, Double price, Double discount, int inventory, String photoGroup, Date createTime, int views, int state) {
@@ -42,15 +48,61 @@ public class GoodsDbBean {
         this.createTime = createTime;
         this.views = views;
         this.state = state;
+        //初始化 图片列表
+        initPhotoList();
+    }
+//    public GoodsEntity toGoodsEntity(){
+//        GoodsEntity entity = new GoodsEntity();
+//        entity.setGoodsId(this.goodsId);
+//        ShopEntity shopEntity =new ShopEntity();
+//        shopEntity.setShopId(this.shopId);
+//        entity.setShopByShopId(shopEntity);
+//        entity.setGoodsName(this.goodsName);
+//        entity.setIntroduction(this.introduction);
+//        entity.setPrice(this.price);
+//        entity.setDiscount(this.discount);
+//        entity.setInventory(this.inventory);
+//        entity.setPhotoGroup(this.photoGroup);
+//        entity.setCreateTime(this.createTime);
+//    }
+
+    public GoodsDbBean(int goodsId, int shopId, String goodsName, String introduction, Double price, Double discount, int inventory, String photoGroup, Date createTime, int views, int state, String type, int sales) {
+        this.goodsId = goodsId;
+        this.shopId = shopId;
+        this.goodsName = goodsName;
+        this.introduction = introduction;
+        this.price = price;
+        this.discount = discount;
+        this.inventory = inventory;
+        this.photoGroup = photoGroup;
+        this.createTime = createTime;
+        this.views = views;
+        this.state = state;
+        this.type = type;
+        this.sales = sales;
 
         //初始化 图片列表
         initPhotoList();
-
     }
     private void initPhotoList(){
         IBaseDao<PhotoEntity> pDao = new BaseDao<>();
         IPictureDao dao = new PitureDao( pDao);
         this.picturePath = dao.getPictures(this.photoGroup);
+    }
+
+    public String getType() {
+        return type;
+    }
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public int getSales() {
+        return sales;
+    }
+
+    public void setSales(int sales) {
+        this.sales = sales;
     }
 
     public List<PhotoEntity> getPicturePath() {

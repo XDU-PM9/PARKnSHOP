@@ -115,4 +115,11 @@ IUserService {
      */
     boolean activateOwner(String code);
     boolean activateUser(String code);
+
+    /**
+     * 重置 密码 ，（此函数只是单纯的发邮件）
+     * @param email 邮件地址
+     * @return 成功true 失败false
+     */
+    boolean resetPassword(String email);
 }
