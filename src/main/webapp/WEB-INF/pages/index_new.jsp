@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
-    <title>ShopCZ-首页</title>
+    <title>PARKnSHOP</title>
     <link rel="stylesheet" href="../../resources/css/base.css" type="text/css"/>
     <link rel="stylesheet" href="../../resources/css/shop_common.css" type="text/css"/>
     <link rel="stylesheet" href="../../resources/css/shop_header.css" type="text/css"/>
@@ -34,59 +34,28 @@
                     <div>
                         <dl class=""></dl>
                         <dl class="">
-                            <dt><a href="http://www.zztuku.com" title="" target="_blank"><img
-                                    src="../../resources/images/images/e2dfe57add8fff66ed0964b1effd39b9.jpg"
-                                    alt="2011城市主题公园亲子游"></a></dt>
-                            <dd><h2><a href="http://www.zztuku.com" target="_blank">2011城市主题公园亲子游</a></h2></dd>
+                            <dt><a href="#" title="" target="_blank"><img
+                                    src="../../resources/images/index-example/1.jpg"
+                                    alt="New Goods"></a></dt>
+                            <dd><h2><a href="#" target="_blank">New Goods</a></h2></dd>
                         </dl>
                         <dl class="">
-                            <dt><a href="http://www.zztuku.com" title="" target="_blank"><img
-                                    src="../../resources/images/images/e50b5d398e3b890f08e14defbc71a94d.jpg"
-                                    alt="潜入城市周边清幽之地"></a></dt>
-                            <dd><h2><a href="http://www.zztuku.com" target="_blank">潜入城市周边清幽之地</a></h2></dd>
+                            <dt><a href="#" title="" target="_blank"><img
+                                    src="../../resources/images/index-example/2.jpg"
+                                    alt="New Goods"></a></dt>
+                            <dd><h2><a href="#" target="_blank">New Goods</a></h2></dd>
                         </dl>
                         <dl class="">
-                            <dt><a href="http://www.zztuku.com" title="" target="_blank"><img
-                                    src="../../resources/images/images/196b173f15685a2019ab3396cd1851a4.jpg"
-                                    alt="盘点中国最美雪山"></a></dt>
-                            <dd><h2><a href="http://www.zztuku.com" target="_blank">盘点中国最美雪山</a></h2></dd>
+                            <dt><a href="#" title="" target="_blank"><img
+                                    src="../../resources/images/index-example/3.jpg"
+                                    alt="New Goods"></a></dt>
+                            <dd><h2><a href="#" target="_blank">New Goods</a></h2></dd>
                         </dl>
                         <dl class="">
-                            <dt><a href="http://www.zztuku.com" title="" target="_blank"><img
-                                    src="../../resources/images/images/e81345cbc3d8a7e11f9a0e09df68221d.jpg"
-                                    alt="2011西安世园会攻略"></a></dt>
-                            <dd><h2><a href="http://www.zztuku.com" target="_blank">2011西安世园会攻略</a></h2></dd>
-                        </dl>
-                        <dl class="">
-                            <dt><a href="http://www.zztuku.com" title="" target="_blank"><img
-                                    src="../../resources/images/images/65662b58848da87812ba371c7ff6c1ad.jpg"
-                                    alt="五月乐享懒人天堂塞班岛"></a></dt>
-                            <dd><h2><a href="http://www.zztuku.com" target="_blank">五月乐享懒人天堂塞班岛</a></h2></dd>
-                        </dl>
-
-                        <dl class="">
-                            <dt><a href="http://www.zztuku.com" title="" target="_blank"><img
-                                    src="../../resources/images/images/e50b5d398e3b890f08e14defbc71a94d.jpg"
-                                    alt="潜入城市周边清幽之地"></a></dt>
-                            <dd><h2><a href="http://www.zztuku.com" target="_blank">潜入城市周边清幽之地</a></h2></dd>
-                        </dl>
-                        <dl class="">
-                            <dt><a href="http://www.zztuku.com" title="" target="_blank"><img
-                                    src="../../resources/images/images/196b173f15685a2019ab3396cd1851a4.jpg"
-                                    alt="盘点中国最美雪山"></a></dt>
-                            <dd><h2><a href="http://www.zztuku.com" target="_blank">盘点中国最美雪山</a></h2></dd>
-                        </dl>
-                        <dl class="">
-                            <dt><a href="http://www.zztuku.com" title="" target="_blank"><img
-                                    src="../../resources/images/images/e81345cbc3d8a7e11f9a0e09df68221d.jpg"
-                                    alt="2011西安世园会攻略"></a></dt>
-                            <dd><h2><a href="http://www.zztuku.com" target="_blank">2011西安世园会攻略</a></h2></dd>
-                        </dl>
-                        <dl class="">
-                            <dt><a href="http://www.zztuku.com" title="" target="_blank"><img
-                                    src="../../resources/images/images/65662b58848da87812ba371c7ff6c1ad.jpg"
-                                    alt="五月乐享懒人天堂塞班岛"></a></dt>
-                            <dd><h2><a href="http://www.zztuku.com" target="_blank">五月乐享懒人天堂塞班岛</a></h2></dd>
+                            <dt><a href="#" title="" target="_blank"><img
+                                    src="../../resources/images/index-example/4.jpg"
+                                    alt="New Goods"></a></dt>
+                            <dd><h2><a href="#" target="_blank">New Goods</a></h2></dd>
                         </dl>
                     </div>
                 </div>
@@ -106,11 +75,11 @@
         <div class="shop_bd_tuijian">
             <ul class="tuijian_tabs">
                 <li class="hover" onmouseover="easytabs('1', '1');" onfocus="easytabs('1', '1');"
-                    onclick="return false;" id="tuijian_content_btn_1"><a href="javascript:void(0);">商品推荐</a></li>
+                    onclick="return false;" id="tuijian_content_btn_1"><a href="javascript:void(0);">Hot Goods</a></li>
                 <li onmouseover="easytabs('1', '2');" onfocus="easytabs('1', '2');" onclick="return false;"
-                    id="tuijian_content_btn_2"><a href="javascript:void(0);">店铺推荐</a></li>
+                    id="tuijian_content_btn_2"><a href="javascript:void(0);">Hot Shop</a></li>
                 <li style="visibility: hidden;" onmouseover="easytabs('1', '3');" onfocus="easytabs('1', '3');" onclick="return false;"
-                    id="tuijian_content_btn_3"><a href="javascript:void(0);">新品上架</a></li>
+                    id="tuijian_content_btn_3"><a href="javascript:void(0);">New</a></li>
             </ul>
             <div class="tuijian_content">
 
@@ -122,8 +91,8 @@
                                 <dt><a href=""><img
                                         src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
                                 </dt>
-                                <dd><a href="">11111111棉布艺双人沙发垫沙发巾飘窗垫素雅黄花</a></dd>
-                                <dd> 商城价：<em>256.00</em>元</dd>
+                                <dd><a href="">Hot Goods</a></dd>
+                                <dd> price：<em>HK$0.00</em></dd>
                             </dl>
                         </li>
                         <li>
@@ -131,18 +100,8 @@
                                 <dt><a href=""><img
                                         src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
                                 </dt>
-                                <dd><a href="">外贸田园绗缝全棉布艺双人沙发垫沙发巾飘窗垫素雅黄花</a></dd>
-                                <dd> 商城价：<em>256.00</em>元</dd>
-                            </dl>
-                        </li>
-
-                        <li>
-                            <dl>
-                                <dt><a href=""><img
-                                        src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
-                                </dt>
-                                <dd><a href="">外贸田园绗缝全棉布艺双人沙发垫沙发巾飘窗垫素雅黄花</a></dd>
-                                <dd> 商城价：<em>256.00</em>元</dd>
+                                <dd><a href="">Hot Goods</a></dd>
+                                <dd> price：<em>HK$0.00</em></dd>
                             </dl>
                         </li>
 
@@ -151,8 +110,18 @@
                                 <dt><a href=""><img
                                         src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
                                 </dt>
-                                <dd><a href="">外贸田园绗缝全棉布艺双人沙发垫沙发巾飘窗垫素雅黄花</a></dd>
-                                <dd> 商城价：<em>256.00</em>元</dd>
+                                <dd><a href="">Hot Goods</a></dd>
+                                <dd> price：<em>HK$0.00</em></dd>
+                            </dl>
+                        </li>
+
+                        <li>
+                            <dl>
+                                <dt><a href=""><img
+                                        src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
+                                </dt>
+                                <dd><a href="">Hot Goods</a></dd>
+                                <dd> price：<em>HK$0.00</em></dd>
                             </dl>
                         </li>
                         <li>
@@ -160,8 +129,8 @@
                             <dt><a href=""><img
                                     src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
                             </dt>
-                            <dd><a href="">外贸田园绗缝全棉布艺双人沙发垫沙发巾飘窗垫素雅黄花</a></dd>
-                            <dd> 商城价：<em>256.00</em>元</dd>
+                            <dd><a href="">Hot Goods</a></dd>
+                            <dd> price：<em>HK$0.00</em></dd>
                         </dl>
                     </li>
 
@@ -170,8 +139,8 @@
                                 <dt><a href=""><img
                                         src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
                                 </dt>
-                                <dd><a href="">外贸田园绗缝全棉布艺双人沙发垫沙发巾飘窗垫素雅黄花</a></dd>
-                                <dd> 商城价：<em>256.00</em>元</dd>
+                                <dd><a href="">Hot Goods</a></dd>
+                                <dd> price：<em>HK$0.00</em></dd>
                             </dl>
                         </li>
 
@@ -180,8 +149,8 @@
                                 <dt><a href=""><img
                                         src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
                                 </dt>
-                                <dd><a href="">外贸田园绗缝全棉布艺双人沙发垫沙发巾飘窗垫素雅黄花</a></dd>
-                                <dd> 商城价：<em>256.00</em>元</dd>
+                                <dd><a href="">Hot Goods</a></dd>
+                                <dd> price：<em>HK$0.00</em></dd>
                             </dl>
                         </li>
                         <li>
@@ -189,8 +158,8 @@
                             <dt><a href=""><img
                                     src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
                             </dt>
-                            <dd><a href="">外贸田园绗缝全棉布艺双人沙发垫沙发巾飘窗垫素雅黄花</a></dd>
-                            <dd> 商城价：<em>256.00</em>元</dd>
+                            <dd><a href="">Hot Goods</a></dd>
+                            <dd> price：<em>HK$0.00</em></dd>
                         </dl>
                     </li>
 
@@ -199,8 +168,8 @@
                                 <dt><a href=""><img
                                         src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
                                 </dt>
-                                <dd><a href="">外贸田园绗缝全棉布艺双人沙发垫沙发巾飘窗垫素雅黄花</a></dd>
-                                <dd> 商城价：<em>256.00</em>元</dd>
+                                <dd><a href="">Hot Goods</a></dd>
+                                <dd> price：<em>HK$0.00</em></dd>
                             </dl>
                         </li>
 
@@ -209,8 +178,8 @@
                                 <dt><a href=""><img
                                         src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
                                 </dt>
-                                <dd><a href="">外贸田园绗缝全棉布艺双人沙发垫沙发巾飘窗垫素雅黄花</a></dd>
-                                <dd> 商城价：<em>256.00</em>元</dd>
+                                <dd><a href="">Hot Goods</a></dd>
+                                <dd> price：<em>HK$0.00</em></dd>
                             </dl>
                         </li>
 
@@ -227,8 +196,8 @@
                                 <dt><a href=""><img
                                         src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
                                 </dt>
-                                <dd><a href="">3333333全棉布艺双人沙发垫沙发巾飘窗垫素雅黄花</a></dd>
-                                <dd> 商城价：<em>256.00</em>元</dd>
+                                <dd><a href="">Hot Shop</a></dd>
+                                <dd> price：<em>HK$0.00</em></dd>
                             </dl>
                         </li>
                         <li>
@@ -236,8 +205,8 @@
                                 <dt><a href=""><img
                                         src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
                                 </dt>
-                                <dd><a href="">外贸田园绗缝全棉布艺双人沙发垫沙发巾飘窗垫素雅黄花</a></dd>
-                                <dd> 商城价：<em>256.00</em>元</dd>
+                                <dd><a href="">Hot Shop</a></dd>
+                                <dd> price：<em>HK$0.00</em></dd>
                             </dl>
                         </li>
                         <li>
@@ -245,8 +214,8 @@
                                 <dt><a href=""><img
                                         src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
                                 </dt>
-                                <dd><a href="">3333333全棉布艺双人沙发垫沙发巾飘窗垫素雅黄花</a></dd>
-                                <dd> 商城价：<em>256.00</em>元</dd>
+                                <dd><a href="">Hot Shop</a></dd>
+                                <dd> price：<em>HK$0.00</em></dd>
                             </dl>
                         </li>
                         <li>
@@ -254,8 +223,8 @@
                                 <dt><a href=""><img
                                         src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
                                 </dt>
-                                <dd><a href="">外贸田园绗缝全棉布艺双人沙发垫沙发巾飘窗垫素雅黄花</a></dd>
-                                <dd> 商城价：<em>256.00</em>元</dd>
+                                <dd><a href="">Hot Shop</a></dd>
+                                <dd> price：<em>HK$0.00</em></dd>
                             </dl>
                         </li>
                         <li>
@@ -263,8 +232,8 @@
                                 <dt><a href=""><img
                                         src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
                                 </dt>
-                                <dd><a href="">3333333全棉布艺双人沙发垫沙发巾飘窗垫素雅黄花</a></dd>
-                                <dd> 商城价：<em>256.00</em>元</dd>
+                                <dd><a href="">Hot Shop</a></dd>
+                                <dd> price：<em>HK$0.00</em></dd>
                             </dl>
                         </li>
                         <li>
@@ -272,8 +241,8 @@
                                 <dt><a href=""><img
                                         src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
                                 </dt>
-                                <dd><a href="">外贸田园绗缝全棉布艺双人沙发垫沙发巾飘窗垫素雅黄花</a></dd>
-                                <dd> 商城价：<em>256.00</em>元</dd>
+                                <dd><a href="">Hot Shop</a></dd>
+                                <dd> price：<em>HK$0.00</em></dd>
                             </dl>
                         </li>
                         <li>
@@ -281,27 +250,8 @@
                                 <dt><a href=""><img
                                         src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
                                 </dt>
-                                <dd><a href="">外贸田园绗缝全棉布艺双人沙发垫沙发巾飘窗垫素雅黄花</a></dd>
-                                <dd> 商城价：<em>256.00</em>元</dd>
-                            </dl>
-                        </li>
-
-                        <li>
-                            <dl>
-                                <dt><a href=""><img
-                                        src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
-                                </dt>
-                                <dd><a href="">外贸田园绗缝全棉布艺双人沙发垫沙发巾飘窗垫素雅黄花</a></dd>
-                                <dd> 商城价：<em>256.00</em>元</dd>
-                            </dl>
-                        </li>
-                        <li>
-                            <dl>
-                                <dt><a href=""><img
-                                        src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
-                                </dt>
-                                <dd><a href="">外贸田园绗缝全棉布艺双人沙发垫沙发巾飘窗垫素雅黄花</a></dd>
-                                <dd> 商城价：<em>256.00</em>元</dd>
+                                <dd><a href="">Hot Shop</a></dd>
+                                <dd> price：<em>HK$0.00</em></dd>
                             </dl>
                         </li>
 
@@ -310,8 +260,27 @@
                                 <dt><a href=""><img
                                         src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
                                 </dt>
-                                <dd><a href="">外贸田园绗缝全棉布艺双人沙发垫沙发巾飘窗垫素雅黄花</a></dd>
-                                <dd> 商城价：<em>256.00</em>元</dd>
+                                <dd><a href="">Hot Shop</a></dd>
+                                <dd> price：<em>HK$0.00</em></dd>
+                            </dl>
+                        </li>
+                        <li>
+                            <dl>
+                                <dt><a href=""><img
+                                        src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
+                                </dt>
+                                <dd><a href="">Hot Shop</a></dd>
+                                <dd> price：<em>HK$0.00</em></dd>
+                            </dl>
+                        </li>
+
+                        <li>
+                            <dl>
+                                <dt><a href=""><img
+                                        src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
+                                </dt>
+                                <dd><a href="">Hot Shop</a></dd>
+                                <dd> price：<em>HK$0.00</em></dd>
                             </dl>
                         </li>
 
