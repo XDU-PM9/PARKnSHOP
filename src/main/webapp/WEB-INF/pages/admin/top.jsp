@@ -104,7 +104,7 @@
     <div id="license-div" style="bgcolor:#000000;"></div>
     <div id="submenu-div">
         <ul>
-            <li style="margin: 1% 0 0 0"><a href="/admin/logout" style="font-size: 20px">Quit</a></li>
+            <li style="margin: 1% 0 0 0"><a href="/admin/logout" target="_parent" style="font-size: 20px">Quit</a></li>
             <li style="border-left:none;margin:1% 0 0 0"><p style="font-size: 20px;color: white">Welcome,${sessionScope.user.username}</p></li>
         </ul>
     </div>

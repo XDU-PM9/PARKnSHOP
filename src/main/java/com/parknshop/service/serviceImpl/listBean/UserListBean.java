@@ -27,7 +27,7 @@ public class UserListBean extends AbstractListBean<UserEntity>{
         String hql = " from UserEntity where 1=1 and state > ?";
         Object[] param = {IUserService.STATE_DELETE};
 
-        return mDao.find(hql,param);
+        return mDao.find(hql,param,page,lines);
     }
 
     @Override

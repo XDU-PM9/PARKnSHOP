@@ -7,6 +7,7 @@ var allPage;
 var curPage;
 var index = 1;
 var Max;
+var Min = 1;
 /*加载方法*/
 $(function () {
     uploadApply();
@@ -30,11 +31,24 @@ function uploadApply() {
         url:'/admin/apply',
         success: function (data) {
             var response =JSON.parse(data);
-            var length = response.data.length;
             console.log(response);
             Max = response.total;
             allPage = response.total;
+            console.log(Max);
             curPage = index;
+            if(curPage <= Min){
+                $("#prev").hide();
+            }
+            else {
+                $("#prev").show();
+            }
+            if(curPage >= Max){
+                $("#next").hide();
+            }
+            else{
+                $("#next").show();
+            }
+            var length = response.data.length;
             pageNum(allPage,curPage);
             addSel(allPage);
             for(var i=0;i<length;i++){
@@ -154,7 +168,7 @@ function turn() {
 
 function next() {
     $("#next").click(function () {
-       var max = Max - 1;
+       var max = Max ;
         if(index >= max){
             alert("This is the last page");
             /*location.reload();*/

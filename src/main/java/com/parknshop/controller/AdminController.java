@@ -12,6 +12,7 @@ import com.parknshop.service.IUserService;
 import com.parknshop.service.baseImpl.IDefineString;
 import com.parknshop.utils.DateFormat;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -181,8 +182,8 @@ public class AdminController {
         return mGson.toJson(replyReponseBean);
     }
 
-    @RequestMapping(value = "/logout",method = RequestMethod.POST)
-    public @ResponseBody String loginout(){
+    @RequestMapping(value = "/logout",method = RequestMethod.GET)
+    public  String loginout(){
         System.out.println("logout");
         mService.loginOut();
         return "redirect:/admin";
@@ -362,7 +363,9 @@ public class AdminController {
         if(isLogin){
             String infoStr = new String(info);
             BlackorWhiteorDeleteOwnerRequestBean requestBean = mGson.fromJson(infoStr,BlackorWhiteorDeleteOwnerRequestBean.class);
+            System.out.println(mAdminService.blackOwner(requestBean.getOwnerId()));
             responseBean.setError(!mAdminService.blackOwner(requestBean.getOwnerId()));
+
         }else{
             responseBean.setError(true);
         }

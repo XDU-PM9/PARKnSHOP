@@ -7,6 +7,7 @@ var allPage;
 var curPage;
 var index = 1;
 var Max;
+var Min=1;
 /*加载....*/
 $(function () {
     uploadApply();
@@ -30,10 +31,22 @@ function uploadApply() {
         success: function (data) {
             var response =JSON.parse(data);
             console.log(response);
-            var length = response.data.length;
             Max = response.total;
             allPage = response.total;
             curPage = index;
+            if(curPage <= Min ){
+                $("#prev").hide();
+            }
+            else {
+                $("#prev").show();
+            }
+            if(curPage >= Max){
+                $("#next").hide();
+            }
+            else{
+                $("#next").show();
+            }
+            var length = response.data.length;
             pageNum(allPage,curPage);
             addSel(allPage);
             for(var i=0;i<length;i++){
@@ -44,7 +57,12 @@ function uploadApply() {
                 addTd(i,response.data[i].introduction);
                 addTd(i,response.data[i].ownerId);
                 shopId.push(response.data[i].shopId);
-                addOption(i);
+                if(response.data[i].state == 3){
+                    addOption1(i);
+                }
+                else if(response.data[i].state == 2){
+                    addOption2(i);
+                }
             }
         }
     })
@@ -58,9 +76,14 @@ function addTd(i,str) {
     var className = "tr"+i;
     $("."+className+"").append("<td>"+str+"</td>");
 }
-function addOption(i) {
+function addOption1(i) {
     var className = "tr"+i;
-    var str = "<td><a href='#' class='black'>Black</a> | <a href='#' class='delete'>Delete</a>| <a href='#' class='recover'>Recover</a></td>"
+    var str = "<td><a href='#' class='black'>Black</a> | <a href='#' class='delete'>Delete</a></td>"
+    $("."+className+"").append(str);
+}
+function addOption2(i) {
+    var className = "tr"+i;
+    var str = "<td><a href='#' class='delete'>Delete</a>| <a href='#' class='recover'>Recover</a></td>"
     $("."+className+"").append(str);
 }
 function addImg(i,url) {
@@ -95,7 +118,7 @@ function black() {
     $("body").on('click','.black',function () {
         var id = $(this).parent().parent().index();
         var data = {};
-        data.userId = shopId[id];
+        data.shopId = shopId[id];
         console.log(data.userId);
         /*测试成功*/
         $.ajax({
@@ -120,7 +143,7 @@ function del() {
     $("body").on('click','.delete',function () {
         var id = $(this).parent().parent().index();
         var data = {};
-        data.userId = shopId[id];
+        data.shopId = shopId[id];
         /*测试成功*/
         $.ajax({
             type:'post',
@@ -144,7 +167,7 @@ function recover() {
     $("body").on('click','.recover',function () {
         var id = $(this).parent().parent().index();
         var data = {};
-        data.userId = shopId[id];
+        data.shopId = shopId[id];
         /*测试成功*/
         $.ajax({
             type:'post',
@@ -166,7 +189,7 @@ function recover() {
 }
 function next() {
     $("#next").click(function () {
-        var max = Max - 1;
+        var max = Max;
         if(index >= max){
             alert("This is the last page");
             /*location.reload();*/
