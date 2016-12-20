@@ -7,6 +7,7 @@ var allPage;
 var curPage;
 var index = 1;
 var Max;
+var Min =1 ;
 /*main方法*/
 $(function () {
     uploadApply();
@@ -22,8 +23,9 @@ function uploadApply() {
     userId.splice(0,userId.length);
     clearTable();
     var data={};
-    data.size = 5;
+    data.size = 2;
     data.index = index;
+    console.log(data);
     $.ajax({
         type:'post',
         contentType : 'application/json',
@@ -32,10 +34,23 @@ function uploadApply() {
         success: function (data) {
             var response =JSON.parse(data);
             console.log(response);
-            var length = response.data.length;
             curPage = index;
             allPage = response.total;
             Max = response.total;
+            if(curPage <= Min){
+                $("#prev").hide();
+            }
+            else {
+                $("#prev").show();
+            }
+            if(curPage >= Max){
+                $("#next").hide();
+            }
+            else{
+                $("#next").show();
+            }
+            var length = response.data.length;
+
             pageNum(allPage,curPage);
             addSel(allPage);
             for(var i=0;i<length;i++){
@@ -46,7 +61,12 @@ function uploadApply() {
                 addTd(i,response.data[i].email);
                 addTd(i,response.data[i].phone);
                 userId.push(response.data[i].userId);
-                addOption(i);
+                if(response.data[i].state == 2){
+                    addOption1(i);
+                }
+                else if(response.data[i].state == 0){
+                    addOption2(i);
+                }
             }
         }
     })
@@ -60,9 +80,14 @@ function addTd(i,str) {
     var className = "tr"+i;
     $("."+className+"").append("<td>"+str+"</td>");
 }
-function addOption(i) {
+function addOption1(i) {
     var className = "tr"+i;
-    var str = "<td><a href='#' class='black'>Black</a> | <a href='#' class='delete'>Delete</a>| <a href='#' class='recover'>Recover</a></td>"
+    var str = "<td><a href='#' class='black'>Black</a> | <a href='#' class='delete'>Delete</a></td>"
+    $("."+className+"").append(str);
+}
+function addOption2(i) {
+    var className = "tr"+i;
+    var str = "<td><a href='#' class='delete'>Delete</a>| <a href='#' class='recover'>Recover</a></td>"
     $("."+className+"").append(str);
 }
 function addImg(i,url) {
@@ -168,7 +193,7 @@ function recover() {
 }
 function next() {
     $("#next").click(function () {
-        var max = Max - 1;
+        var max = Max;
         if(index >= max){
             alert("This is the last page");
             /*location.reload();*/

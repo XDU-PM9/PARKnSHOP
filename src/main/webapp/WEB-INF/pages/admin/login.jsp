@@ -13,6 +13,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1 , user-scalable=no">
     <link rel="stylesheet" href="/resources/css/admin/adminLogin.css">
+    <link rel="stylesheet" href="/resources/libs/xcConfirm.css">
 </head>
 
 <body>
@@ -38,6 +39,7 @@
     </form>
 </div>
 <script src="/resources/libs/jquery-1.8.2.min.js"></script>
+<script src="/resources/libs/xcConfirm.js"></script>
 <script>
     /**
      * Created by niewenzhi on 2016/12/10.
@@ -60,13 +62,15 @@
                     window.setTimeout("window.location='/admin/index'",500)
                 }
                 else {
-                    window.setTimeout("window.location='/admin'",500)
+                    window.setTimeout("window.wxc.xcConfirm('username or password is wrong, Please Login Agian', window.wxc.xcConfirm.typeEnum.error)",500)
                 }
 
+
+
             },
-            error:function (data) {
+           /* error:function (data) {
                 alert("ssss");
-            }
+            }*/
         })
     })
 </script>
