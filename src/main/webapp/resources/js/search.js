@@ -2,7 +2,7 @@
  * Created by wei on 16-12-11.
  */
 var pageCount = 1;
-var onePageCount = 2;
+var onePageCount = 8;
 var currentPage = 1;
 
 //下一页
@@ -35,12 +35,13 @@ function search() {
     //searchText不为空，则进行搜索
     if (undefined != searchText && null != searchText && '' != searchText) {
         searchOption.name = searchText;
+    }else{
+        searchOption.name='';
+    }
         searchOption.start='0';
         searchOption.count=onePageCount.toString();
         getCount();
         getOnePage(0);
-    }
-
 }
 
 //获取一页数据
@@ -82,8 +83,8 @@ var searchOption = {
     timeDesc: 'false',   //（按时间降序排序，新的在前面）
     price: 'false',  //(价格)
     priceDesc: 'false',
-    view: 'false',   //(浏览量)
-    viewDesc: 'false',
+    views: 'false',   //(浏览量)
+    viewsDesc: 'false',
     discount: 'false',   //（折扣）
     discountDesc: 'false',
     sales: 'false',  //（销量）
@@ -95,10 +96,14 @@ var searchOption = {
 };
 
 function initType() {
+    $('#productType').find('span').removeClass('typeSelected');
+    $('#typeSelectFirst').addClass('typeSelected');
     searchOption.type='';
 }
 
-function setType(type) {
+function setType(id,type) {
+    $('#productType').find('span').removeClass('typeSelected');
+    $(id).addClass('typeSelected');
     searchOption.type=type;
     search();
 }
@@ -108,16 +113,25 @@ function initOrder() {
     searchOption.timeDesc = 'false';   //（按时间降序排序，新的在前面）
     searchOption.price = 'false';  //(价格)
     searchOption.priceDesc = 'false';
-    searchOption.view = 'false';   //(浏览量)
-    searchOption.viewDesc = 'false';
+    searchOption.views = 'false';   //(浏览量)
+    searchOption.viewsDesc = 'false';
     searchOption.discount = 'false';   //（折扣）
     searchOption.discountDesc = 'false';
     searchOption.sales = 'false';  //（销量）
     searchOption.salesDesc = 'false';
+    initOrderClass();
+}
+
+function initOrderClass() {
+    $('#defaultOrder').removeClass('selected');
+    $('#salesHightoLowOrder').removeClass('selected');
+    $('#priceHightoLowOrder').removeClass('selected');
+    $('#viewsHightoLowOrder').removeClass('selected');
 }
 
 function orderByDefault() {
     initOrder();
+    $('#defaultOrder').addClass('selected');
     search();
 }
 function orderByTimeNewtoOld() {
@@ -140,24 +154,27 @@ function orderByPriceLowtoHigh() {
 
 function orderByPriceHightoLow() {
     initOrder();
+    $('#priceHightoLowOrder').addClass('selected');
     searchOption.priceDesc='true';
     search();
 }
 
-function orderByViewHightoLow() {
+function orderByViewsHightoLow() {
     initOrder();
-    searchOption.viewDesc='true';
+    $('#viewsHightoLowOrder').addClass('selected');
+    searchOption.viewsDesc='true';
     search();
 }
 
-function orderByViewLowtoHigh() {
+function orderByViewsLowtoHigh() {
     initOrder();
-    searchOption.view='true';
+    searchOption.views='true';
     search();
 }
 
 function orderBySalesHightoLow() {
     initOrder();
+    $('#salesHightoLowOrder').addClass('selected');
     searchOption.salesDesc='true';
     search();
 }
@@ -217,7 +234,7 @@ function listSearchResult(result) {
 function displayCount() {
     if (pageCount <= 1) {
         $('#pageList').find('li').remove();
-        $('#pageList').append("<li><span class='currentpage' id='currentPage'>1 of 1</span></li>");
+        // $('#pageList').append("<li><span class='currentpage' id='currentPage'>1 of 1</span></li>");
     } else {
         $('#pageList').find('li').remove();
         if (currentPage > 1) {
@@ -233,3 +250,21 @@ function displayCount() {
     }
 }
 
+function firstSearch() {
+    var type=GetQueryString('type');
+    if(''!=type){
+        setType(null,type);
+    }
+    search();
+}
+
+function GetQueryString(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var r = window.location.search.substr(1).match(reg); //获取url中"?"符后的字符串并正则匹配
+    var context = "";
+    if (r != null)
+        context = r[2];
+    reg = null;
+    r = null;
+    return context == null || context == "" || context == "undefined" ? "" : context;
+}
