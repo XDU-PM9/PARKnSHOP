@@ -6,6 +6,7 @@ var shopId = [];
 var allPage;
 var curPage;
 var index = 1;
+var Max;
 /*加载方法*/
 $(function () {
     uploadApply();
@@ -31,6 +32,7 @@ function uploadApply() {
             var response =JSON.parse(data);
             var length = response.data.length;
             console.log(response);
+            Max = response.total;
             allPage = response.total;
             curPage = index;
             pageNum(allPage,curPage);
@@ -152,25 +154,25 @@ function turn() {
 
 function next() {
     $("#next").click(function () {
-       index++;
-       var max = parseInt($("#allPage").html());
-        if(index > max){
+       var max = Max - 1;
+        if(index >= max){
             alert("This is the last page");
             /*location.reload();*/
         }
         else {
+            index++;
             uploadApply();
         }
     })
 }
 function prev() {
     $("#prev").click(function () {
-        index--;
         var min = 1;
-        if(index<min){
+        if(index<=min){
             alert("This is the first page")
         }
         else{
+            index--;
             uploadApply();
         } 
     })

@@ -6,6 +6,7 @@ var userId = [];
 var allPage;
 var curPage;
 var index = 1;
+var Max;
 /*main方法*/
 $(function () {
     uploadApply();
@@ -34,6 +35,7 @@ function uploadApply() {
             var length = response.data.length;
             curPage = index;
             allPage = response.total;
+            Max = response.total;
             pageNum(allPage,curPage);
             addSel(allPage);
             for(var i=0;i<length;i++){
@@ -110,7 +112,7 @@ function black() {
                     location.reload();
                 }
                 else {
-                    alter("error");
+                    alert("error");
                 }
             }
         })
@@ -134,7 +136,7 @@ function del() {
                     location.reload();
                 }
                 else {
-                    alter("error");
+                    alert("error");
                 }
             }
         })
@@ -158,18 +160,41 @@ function recover() {
                     location.reload();
                 }
                 else {
-                    alter("error");
+                    alert("error");
                 }
             }
         })
     })
 }
 function next() {
-    
+    $("#next").click(function () {
+        var max = Max - 1;
+        if(index >= max){
+            alert("This is the last page");
+            /*location.reload();*/
+        }
+        else {
+            index++;
+            uploadApply();
+        }
+    })
 }
 function prev() {
-    
+    $("#prev").click(function () {
+        var min = 1;
+        if(index<=min){
+            alert("This is the first page")
+        }
+        else{
+            index--;
+            uploadApply();
+        }
+    })
 }
 function turn() {
-    
+    $("#turnPage").click(function () {
+            index = $("#gotoPage").val();
+            uploadApply();
+        }
+    )
 }

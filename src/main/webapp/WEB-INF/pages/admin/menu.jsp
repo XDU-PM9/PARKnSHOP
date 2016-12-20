@@ -10,7 +10,7 @@
 <body bgcolor="#efeff0">
 <div class="sidebar">
     <ul>
-        <li><a href="#" class="headList list1"><i class="iconfont leftIco">&#xe62c;</i>ShopApplyManage<i class="iconfont rightIco">&#xe613;</i></a></li>
+        <li><a href="#" class="headList list1"><i class="iconfont leftIco">&#xe62c;</i>Shop Apply<i class="iconfont rightIco">&#xe613;</i></a></li>
         <li class="hiden">
             <ul>
                 <li><a href="/admin/applymanage" target="main-frame"><i class="iconfont leftIco">&#xe620;</i>ApplyList</a></li>
@@ -18,7 +18,7 @@
                 <li><a href="#" target="main-frame"><i class="iconfont leftIco">&#xe620;</i>Show goods</a></li>-->
             </ul>
         </li>
-        <li><a href="#" class="headList list2"><i class="iconfont leftIco">&#xe62c;</i>OwnerManage<i class="iconfont rightIco">&#xe613;</i></a></li>
+        <li><a href="#" class="headList list2"><i class="iconfont leftIco">&#xe62c;</i>Owner Manage<i class="iconfont rightIco">&#xe613;</i></a></li>
         <li  class="hiden">
             <ul>
                 <li><a href="/admin/ownermanage" target="main-frame"><i class="iconfont leftIco">&#xe620;</i>OwnerList</a></li>
@@ -26,7 +26,7 @@
                 <!--<li><a href="#"><i class="iconfont leftIco">&#xe620;</i>Main</a></li>-->
             </ul>
         </li>
-        <li><a href="#" class="headList list3"><i class="iconfont leftIco">&#xe62c;</i>CustomerManage<i class="iconfont rightIco">&#xe613;</i></a></li>
+        <li><a href="#" class="headList list3"><i class="iconfont leftIco">&#xe62c;</i>Customer Manage<i class="iconfont rightIco">&#xe613;</i></a></li>
           <li class="hiden">
               <ul>
                   <li><a href="/admin/customermanage" target="main-frame"><i class="iconfont leftIco">&#xe620;</i>CustomerList</a></li>
