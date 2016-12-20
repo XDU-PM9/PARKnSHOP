@@ -5,15 +5,15 @@
 .shop_bd_top{width:1000px; margin: 10px auto 0;}
 .shop_bd_top_left{width:206px;  height:350px; float: left; margin-right:10px;}
 
-.shop_bd_top_center{width:530px; float:left; height:350px; margin-right:10px;}
-.shop_bd_top_center_hot{width:530px; height:130px; margin-top:10px;}
+.shop_bd_top_center{width:1000px; float:left; height:350px; margin-right:10px;}
+.shop_bd_top_center_hot{width:1000px; height:130px; margin-top:10px;}
 
 /*********图片切换 css定义***********/
-.xifan_sub_box{width:530px; height:210px; float:left; position:relative; overflow:hidden; border:1px solid #cccccc;}
-.xifan_sub_box img{border:none; width:530px; height:210px;}
-#xifan_bd1lfimg{position:relative; width:530px; height:210px; overflow:hidden;}
+.xifan_sub_box{width:1000px; height:350px; float:left; position:relative; overflow:hidden; border:1px solid #cccccc;}
+.xifan_sub_box img{border:none; width:1000px; height:350px;}
+#xifan_bd1lfimg{position:relative; width:1000px; height:350px; overflow:hidden;}
 #xifan_bd1lfimg div{width:100000px; margin-left:-4px;}
-#xifan_bd1lfimg dl{width:530px; height:210px; position:relative; overflow:hidden; float:left;}
+#xifan_bd1lfimg dl{width:1000px; height:350px; position:relative; overflow:hidden; float:left;}
 #xifan_bd1lfimg dt{width:100%; height:310px; position:absolute; left:0px; top:0px;}
 #xifan_bd1lfimg dd{width:100%; height:30px; background:#000000; filter:alpha(Opacity=70); Opacity:0.7; position:absolute; left:0px; bottom:0px; padding:0;}
 #xifan_bd1lfimg dd h2{height:30px; text-align:left; width:100%; line-height:30px; overflow:hidden;}
@@ -21,7 +21,7 @@
 #xifan_bd1lfimg dd a{color:#ffffff; text-decoration:none;}
 #xifan_bd1lfimg dd a:hover{text-decoration:none; color:#cccccc;}
 
-.sub_nav{width:530px; height:20px; bottom:5px; position:absolute; color:#999999; z-index:80;}
+.sub_nav{width:1000px; height:20px; bottom:5px; position:absolute; color:#999999; z-index:80;}
 .sub_no{height:20px; float:right;}
 .sub_no li{display:block; margin:0 2px; width:20px; height:20px; float:left; overflow:hidden; line-height:20px; vertical-align:middle; text-align:center; background:#666666; filter:alpha(Opacity=99); Opacity:0.99; font-family:Arial; font-size:11px; color:#FFFFFF; cursor:pointer;}
 .sub_no li.show{background:#FF7700; color:#FFFFFF;}
@@ -49,14 +49,14 @@
 
 /* 特别推荐部分 */
 .shop_bd_2{width:1000px; margin:10px auto 0;}
-.shop_bd_tuijian{width:745px; height:290px; float:left; border:1px solid #E7E7E7; margin-right: 10px; }
-.tuijian_tabs{width:725px; padding:0 10px; height:30px; background:none repeat scroll 0 0 #F7F7F7;}
+.shop_bd_tuijian{width:1000px; height:568px; float:left; border:1px solid #E7E7E7; margin-right: 10px; }
+.tuijian_tabs{width:980px; padding:0 10px; height:30px; background:none repeat scroll 0 0 #F7F7F7;}
 .tuijian_tabs li{float: left;}
 .tuijian_tabs li a{display:line-block; padding:3px 20px 5px; line-height:30px; height:30px; font-size:14px; color:#333333;}
 .tuijian_tabs li.hover a{color:#ED5404; position: relative; top:1px; font-weight: bold; background-color:#FFF; border:1px solid #E7E7E7; border-bottom: none;}
 
 .tuijian_shangpin{display: none;}
-.tuijian_shangpin ul li{float:left; width:165px; height:220px; padding:20px 10px; position: relative; left:8px;}
+.tuijian_shangpin ul li{float:left; width:179px; height:220px; padding:20px 10px; position: relative; left:8px;}
 .tuijian_shangpin ul li dl dt{width:160px; height:160px; vertical-align: middle;}
 .tuijian_shangpin ul li dl dd{margin-bottom:15px;}
 .tuijian_shangpin ul li dl dd em{color:#CC0000; font-size:14px; font-weight: bold; margin:0 5px;}

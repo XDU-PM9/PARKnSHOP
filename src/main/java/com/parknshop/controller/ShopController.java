@@ -5,13 +5,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * Created by niewenzhi on 2016/11/24.
+ * Created by SONG on 2016/12/20.
  */
 @Controller
-public class MainController {
-
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String index() {
-        return "index_new.jsp";
+@RequestMapping("/shop")
+public class ShopController {
+    @RequestMapping(value = "detail",method = RequestMethod.GET)
+    public String showDetails(){
+        return "shop/shop.jsp";
     }
 }

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Title</title>
+    <link rel="stylesheet" href="/resources/css/owner/owner.css">
+</head>
+<body>
+<div class="main">
+    <p>Now,you should complete the information below to add the goods</p>
+    <form action="/owner/addGoods" enctype="multipart/form-data" method="post" id="goods_form">
+        <ul class="formInfor">
+        <div class="inforBlock">
+            <span>Name:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <li>
+                <input type="text" name="name" id="name" placeholder="Please input your good name" required/>
+            </li>
+        </div>
+
+        <!--    <%&#45;&#45;请把这项设置为只可以输入小数&#45;&#45;%>-->
+        <div class="inforBlock">
+            <span>Price:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <li>
+                <input type = "text" name= "price" id = 'price' placeholder="Please input the price of the good" required/>
+            </li>
+        </div>
+
+        <div class="inforBlock">
+            <span>Inventory:&nbsp;&nbsp;&nbsp;</span>
+            <li>
+                <input type="number" name="inventory" id="inventory" placeholder="Please input the inventory" required/>
+            </li>
+        </div>
+
+        <div class="inforBlock">
+            <span>Description:</span>
+            <li>
+                <input type="text" name="desc" id="desc" placeholder="Please input the inventory" required/>
+            </li>
+        </div>
+
+        <div class="styled-select">
+            <span>Type:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <select name="goods_type" form="goods_form">
+                <option value="TV& Home Theater">TV& Home Theater</option>
+                <option value="Computers & Tablets">Computers & Tablets</option>
+                <option value="Cell Phones">Cell Phones</option>
+                <option value="Cameras & Camcorders">Cameras & Camcorders</option>
+                <option value="Audio">Audio</option>
+                <option value="Car Electronics & GPS">Car Electronics & GPS</option>
+                <option value="Video, Games, Movies & Music">Video, Games, Movies & Music</option>
+                <option value="Health, Fitness & Sports">Health, Fitness & Sports</option>
+                <option value="Home & Office">Home & Office</option>
+            </select>
+        </div>
+
+        <div class="styled-select">
+            <span>Postage:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <select name="post_way" form="goods_form">
+                <option value="Free">Free Postage</option>
+                <option value="None-free">None Free Postage</option>
+            </select>
+        </div>
+
+        <!--<%&#45;&#45;图片的显示&#45;&#45;%>-->
+            <div style="margin: 10px 0 10px 0">
+                <label for="photo">Please Upload the logo of your shop:&nbsp;</label>
+                <a href="#" class="a-upload">
+                    <input type="file" name="photo" id="photo" accept="image/*" multiple = multiple>Upload Logo
+                </a>
+                <div id="showLogo"></div>
+            </div>
+        <input type="submit"  class="butlogin" value="Submit" id="submitBtn"/>
+    </ul>
+    </form>
+
+
+</div>
+
+<script src="../../../resources/libs/jquery.js"></script>
+<script src="../../../resources/js/owner/add_goods.js"></script>
+</body>
+</html>

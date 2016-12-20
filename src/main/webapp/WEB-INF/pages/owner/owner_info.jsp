@@ -10,7 +10,7 @@
     <div class="personInfor">
         <ul>
             <li id="myPhoto">
-                <img src="${ sessionScope.user.userImage }" alt="My photo">
+                <img src="/resources/images/owner/default_owner.png" alt="My photo">
 
             </li>
             <li id="myName"><i class="iconfont">&#xe60d;:</i>${ sessionScope.user.username }</li>

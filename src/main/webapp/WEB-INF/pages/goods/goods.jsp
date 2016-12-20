@@ -143,14 +143,19 @@
                     <label>Comment：</label>
                     <span>0 comments</span>
                 </li>
+
                 <li class="goods_num">
                     <label>Purchase：</label>
                     <span><a class="good_num_jian" id="good_num_jian" href="javascript:void(0);"></a><input type="text" value="1" id="good_nums" class="good_nums" />
-                        <a href="javascript:void(0);" id="good_num_jia" class="good_num_jia"></a>(total <%out.print(goods.getInventory());%> pieces)</span>
+                        <a href="javascript:void(0);" id="good_num_jia" class="good_num_jia"></a>(total <span id="totalAcount"><%out.print(goods.getInventory());%></span> pieces)</span>
                 </li>
+                <span style="display: none;" id ="hideGoodsId"><%out.print(goods.getGoodsId());%></span>
                 <li style="padding:20px 0;">
                     <label>&nbsp;</label>
-                    <span><a href="/addProduct?goodsId=<%out.print(goods.getGoodsId());%>&amount=1" class="goods_sub goods_sub_gou" >Add to cart</a></span>
+                    <%--<span><a href="/addProduct?goodsId=<%out.print(goods.getGoodsId());%>&amount=1" class="goods_sub goods_sub_gou" >Add to cart</a></span>--%>
+                    <span><a href="/insertCollect?goodsId=<%out.print(goods.getGoodsId());%>" class="goods_sub goods_sub_gou" style="background-position: -261px -110px;">加入收藏</a></span>
+                    <span><a href="/addProduct?goodsId=<%out.print(goods.getGoodsId());%>&amount=1" class="goods_sub goods_sub_gou"  id="addToCart">加入购物车</a></span>
+
                 </li>
             </ul>
         </div>
@@ -183,5 +188,6 @@
     <!-- 商品详情 End -->
 </div>
 <!-- Goods Body End -->
+ <script src="/resources/js/goods/add_goods.js"></script>
 </body>
 </html>
