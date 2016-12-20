@@ -321,12 +321,19 @@ public class AdminController {
     @RequestMapping(value = "/searchowner",method = RequestMethod.POST)
     public @ResponseBody String searchOwner(@RequestBody byte[] info, HttpSession session){
         boolean isLogin = mService.isLogin();
+        SearchOwnerRequestBean requestBean = new SearchOwnerRequestBean();
         SearchOwnerResponseBean responseBean = new SearchOwnerResponseBean();
         SearchOwnerResponseBean.DataBean dataBean = new SearchOwnerResponseBean.DataBean();
 //        isLogin=true;
         if (isLogin){
             String infoStr = new String(info);
-            SearchOwnerRequestBean requestBean = mGson.fromJson(infoStr,SearchOwnerRequestBean.class);
+            try {
+                requestBean = mGson.fromJson(infoStr,SearchOwnerRequestBean.class);
+            }catch (Exception e ){
+                responseBean.setError(true);
+                return mGson.toJson(responseBean);
+            }
+
             OwnerEntity ownerEntity = mAdminService.getOwnerById(requestBean.getOwnerId());
             if(ownerEntity != null){
                 responseBean.setError(false);
@@ -402,9 +409,17 @@ public class AdminController {
         SearchShopResponseBean responseBean = new SearchShopResponseBean();
         SearchShopResponseBean.DataBean dataBean = new SearchShopResponseBean.DataBean();
 //        isLogin=true;
+        SearchShopRequestBean requestBean = new SearchShopRequestBean();
         if (isLogin){
             String infoStr = new String(info);
-            SearchShopRequestBean requestBean = mGson.fromJson(infoStr,SearchShopRequestBean.class);
+            try {
+                 requestBean = mGson.fromJson(infoStr, SearchShopRequestBean.class);
+            }
+            catch (Exception e){
+                responseBean.setError(true);
+                return mGson.toJson(responseBean);
+            }
+
             ShopAndOwnerDbBean shopAndOwnerBean = mAdminService.getShopById(requestBean.getShopid());
             if(shopAndOwnerBean != null){
                 responseBean.setError(false);
@@ -422,6 +437,7 @@ public class AdminController {
         }else {
             responseBean.setError(true);
         }
+
         responseBean.setData(dataBean);
         return mGson.toJson(responseBean);
     }
@@ -477,12 +493,19 @@ public class AdminController {
     @RequestMapping(value = "/searchuser",method = RequestMethod.POST)
     public @ResponseBody String searchUser(@RequestBody byte[] info, HttpSession session){
         boolean isLogin = mService.isLogin();
+        SearchUserRequestBean requestBean = new SearchUserRequestBean();
         SearchUserResponseBean responseBean = new SearchUserResponseBean();
         SearchUserResponseBean.DataBean dataBean = new SearchUserResponseBean.DataBean();
 //        isLogin=true;
         if (isLogin){
             String infoStr = new String(info);
-            SearchUserRequestBean requestBean = mGson.fromJson(infoStr,SearchUserRequestBean.class);
+            try {
+                requestBean = mGson.fromJson(infoStr, SearchUserRequestBean.class);
+            }
+            catch (Exception e){
+                responseBean.setError(true);
+                return mGson.toJson(responseBean);
+            }
             UserEntity userEntity = mAdminService.getUserById(requestBean.getUserId());
             if(userEntity != null){
                 responseBean.setError(false);
