@@ -3,7 +3,8 @@
 <%@ page import="com.parknshop.utils.DateFormat" %>
 <%@ page import="com.parknshop.controller.OwnerController" %>
 <%@ page import="com.parknshop.service.serviceImpl.listBean.ShopListBean" %>
-<%@ page import="com.parknshop.bean.GoodsListBean" %><%--
+<%@ page import="com.parknshop.bean.GoodsDbBean" %><%--
+
   Created by IntelliJ IDEA.
   User: fallb
   Date: 2016/12/11

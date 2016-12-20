@@ -6,14 +6,15 @@ var index = 1;
 var allPage;
 var curPage;
 var goodId = [];
+var Max;
 /*加载*/
 $(function () {
     showGoods();
     next();
     prev();
     turn();
-    agree();
-    disagree();
+    edit();
+    del();
 })
 /*加载需要的方法*/
 function showGoods() {
@@ -30,21 +31,20 @@ function showGoods() {
         success:function (data) {
             var response =JSON.parse(data);
             var length = response.data.length;
-            allPage = response.max;
+            if(response.success == true){
+                $("#addBtn").show();
+            }
+            allPage = response.total;
+            Max = allPage;
             curPage = index;
             pageNum(allPage,curPage);
             addSel(allPage);
             for(var i=0;i<length;i++){
                 addTr(i);
-                addTd(i,response.data[i].id);
+                addTdIndex(i);
                 addTd(i,response.data[i].name);
-                addTd(i,response.data[i].desc);
                 addTd(i,response.data[i].price);
-                addTd(i,response.data[i].discount);
                 addTd(i,response.data[i].views);
-                addTd(i,response.data[i].createTime);
-                addTd(i,response.data[i].state);
-                addImg(i,response.data[i].photos)
                 goodId.push(response.data[i].id);
                 addOption(i);
             }
@@ -53,24 +53,25 @@ function showGoods() {
 }
 function next() {
     $("#next").click(function () {
-        index++;
-        var max = parseInt($("#allpage").html());
-        if(index>max){
+       /* var max = parseInt($("#allpage").html());
+        console.log(max);*/
+        if(index>(Max-1)){
             alert("This is the last page");
         }
         else {
+            index++;
             showGoods();
         }
     })
 }
 function prev() {
     $("#prev").click(function () {
-        index--;
         var min = 1;
-        if(index<min){
+        if(index<=min){
             alert("This is the first page");
         }
         else{
+            index--;
             showGoods();
         }
     })
@@ -81,10 +82,10 @@ function turn() {
         showGoods();
     })
 }
-function agree() {
+function edit() {
     
 }
-function disagree() {
+function del() {
     
 }
 /*添加标签方法*/
@@ -92,13 +93,18 @@ function addTr(i) {
     var className = "tr"+i;
     $("#tableInfor").append("<tr class="+className+"></tr>");
 }
+function addTdIndex(i) {
+    var className = "tr"+i;
+    i = i+1;
+    $("."+className+"").append("<td>"+i+"</td>");
+}
 function addTd(i,str) {
     var className = "tr"+i;
     $("."+className+"").append("<td>"+str+"</td>");
 }
 function addOption(i) {
     var className = "tr"+i;
-    var str = "<td><a href='' class='agree'>Agree</a> | <a href='' class='disagree'>DisAgree</a> </td>"
+    var str = "<td><a href='#' class='agree'>Edit</a> | <a href='#' class='disagree'>Delete</a> </td>"
     $("."+className+"").append(str);
 }
 function addImg(i,url) {

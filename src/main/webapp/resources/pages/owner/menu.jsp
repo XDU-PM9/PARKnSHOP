@@ -9,33 +9,41 @@
 <body bgcolor="#efeff0">
 <div class="sidebar">
     <ul>
-        <li><a href="#" class="headList list1"><i class="iconfont leftIco">&#xe60f;</i>Account<i class="iconfont rightIco">&#xe613;</i></a></li>
+        <li><a href="#" class="headList list1"><i class="iconfont leftIco">&#xe62c;</i>Account<i class="iconfont rightIco">&#xe613;</i></a></li>
         <li class="hiden">
             <ul>
-                <li><a href="/owner/ownerInfo" target="main-frame"><i class="iconfont leftIco">&#xe620;</i>Person Information</a></li>
+                <li><a href="/owner/ownerInfo" target="main-frame"><i class="iconfont leftIco">&#xe620;</i>Personal infomation</a></li>
             </ul>
         </li>
-        <li><a href="#" class="headList list2"><i class="iconfont leftIco">&#xe60f;</i>Shop<i class="iconfont rightIco">&#xe613;</i></a></li>
+        <li><a href="#" class="headList list2"><i class="iconfont leftIco">&#xe62c;</i>Shop<i class="iconfont rightIco">&#xe613;</i></a></li>
         <li  class="hiden">
             <ul>
-                <li><a href="/owner/query" target="main-frame"><i class="iconfont leftIco">&#xe620;</i>Shop</a></li>
-                <li><a href="/owner/goods" target="main-frame"><i class="iconfont leftIco">&#xe620;</i>Products</a></li>
+                <li><a href="/owner/query" target="main-frame"><i class="iconfont leftIco">&#xe620;</i>Apply shop</a></li>
+                <li><a href="/owner/goodsPage" target="main-frame"><i class="iconfont leftIco">&#xe620;</i>Manage product</a></li>
             </ul>
         </li>
-        <li><a href="#" class="headList list3"><i class="iconfont leftIco">&#xe60f;</i>Order<i class="iconfont rightIco">&#xe613;</i></a></li>
+        <li><a href="#" class="headList list3"><i class="iconfont leftIco">&#xe62c;</i>Order<i class="iconfont rightIco">&#xe613;</i></a></li>
         <li class="hiden">
             <ul>
-                <li><a href="#"><i class="iconfont leftIco"></i>Main</a></li>
-                <li><a href="#"><i class="iconfont leftIco"></i>Main</a></li>
-                <li><a href="#"><i class="iconfont leftIco"></i>Main</a></li>
+                <li><a href="#"><i class="iconfont leftIco">&#xe620;</i>Main</a></li>
+                <li><a href="#"><i class="iconfont leftIco">&#xe620;</i>Main</a></li>
+                <li><a href="#"><i class="iconfont leftIco">&#xe620;</i>Main</a></li>
             </ul>
         </li>
-        <li><a href="#" class="headList list4"><i class="iconfont leftIco">&#xe60f;</i>Advertisement<i class="iconfont rightIco">&#xe613;</i></a></li>
+        <li><a href="#" class="headList list4"><i class="iconfont leftIco">&#xe62c;</i>Advertisement<i class="iconfont rightIco">&#xe613;</i></a></li>
         <li class="hiden">
             <ul>
-                <li><a href="#"><i class="iconfont leftIco"></i>Main</a></li>
-                <li><a href="#"><i class="iconfont leftIco"></i>Main</a></li>
-                <li><a href="#"><i class="iconfont leftIco"></i>Main</a></li>
+                <li><a href="#"><i class="iconfont leftIco">&#xe620;</i>Main</a></li>
+                <li><a href="#"><i class="iconfont leftIco">&#xe620;</i>Main</a></li>
+                <li><a href="#"><i class="iconfont leftIco">&#xe620;</i>Main</a></li>
+            </ul>
+        </li>
+        <li><a href="#" class="headList list5"><i class="iconfont leftIco">&#xe62c;</i>Analysis<i class="iconfont rightIco">&#xe613;</i></a></li>
+        <li class="hiden">
+            <ul>
+                <li><a href="#"><i class="iconfont leftIco">&#xe620;</i>Main</a></li>
+                <li><a href="#"><i class="iconfont leftIco">&#xe620;</i>Main</a></li>
+                <li><a href="#"><i class="iconfont leftIco">&#xe620;</i>Main</a></li>
             </ul>
         </li>
     </ul>
