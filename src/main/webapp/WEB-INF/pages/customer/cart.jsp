@@ -108,6 +108,7 @@
 </c:forEach>
             </tbody>
             <tfoot>
+            <!--
             <tr>
                 <td colspan="6">
                     <div class="clear"></div>
@@ -120,7 +121,7 @@
                         </form>
                     </div>
                 </td>
-            </tr>
+            </tr>-->
             </tfoot>
         </table>
         <!-- 购物车列表 End -->
@@ -130,14 +131,7 @@
 </div>
 <!-- 购物车 Body End -->
 
-<!-- Footer - wll - 2013/3/24 -->
-<div class="clear"></div>
-<div class="shop_footer">
+<%@include file="footer.jsp"%>
 
-    <div class="shop_footer_copy">
-        <p>Copyright 2004-2013 itcast Inc.,All rights reserved.</p>
-    </div>
-</div>
-<!-- Footer End -->
 </body>
 </html>

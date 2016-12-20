@@ -9,7 +9,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>chang user infomation</title>
+    <title>change user infomation</title>
     <link rel="stylesheet" href="../../../resources/css/base.css" type="text/css" />
     <link rel="stylesheet" href="../../../resources/css/shop_common.css" type="text/css" />
     <link rel="stylesheet" href="../../../resources/css/shop_header.css" type="text/css" />
@@ -37,7 +37,7 @@
                     <li><label>Phone：</label> ${user.getPhone()}</li>
                     <li><label>Balance：</label>${user.getBalance()}</li>
                     <li><label>Image:</label><input type="file" accept="image/png,image/jpg,image/gif"  name="picture" ></li>
-                    <input type="submit" value="change">
+                    <input style="margin-left: 300px;" type="submit" value="change">
                 </ul>
             </form>
         </dic>
@@ -48,14 +48,7 @@
 
 </div>
 <!-- 我的个人中心 End -->
+<%@include file="footer.jsp"%>
 
-<!-- Footer - wll - 2013/3/24 -->
-<div class="clear"></div>
-<div class="shop_footer">
-    <div class="shop_footer_copy">
-        <p>Copyright 2004-2013 itcast Inc.,All rights reserved.</p>
-    </div>
-</div>
-<!-- Footer End -->
 </body>
 </html>
