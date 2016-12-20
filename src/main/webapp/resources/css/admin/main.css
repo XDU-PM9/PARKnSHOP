@@ -181,7 +181,7 @@ h1 .action-span1 {
   width: 50px;
   height: 48px;
 }
-.shopDesc{
+.shopDesc,.goodDesc{
   width: 550px;
 }
 /*
@@ -356,15 +356,15 @@ li.warning {
   margin-bottom: 5px;
 }
 
-#Marquee{ 
-  height:20px; 
-  overflow:hidden;  
+#Marquee{
+  height:20px;
+  overflow:hidden;
   border: 1px solid #CC0000;
   background: #FFFFCC;
   margin-bottom: 5px;
 }
-  
-#Marquee div{ 
+
+#Marquee div{
   background: #FFFFCC;
   padding: 10px;
   margin-bottom: 5px;
@@ -855,3 +855,4 @@ em, cite, th {
 .cloud_close a{}
 .cloud_close img{ position:absolute; right:10px; top:8px; border:none}
 .Start315{border: 1px solid #CC0000; background: #ffffcc; padding: 10px; margin-bottom: 5px;}
+/*表格*/

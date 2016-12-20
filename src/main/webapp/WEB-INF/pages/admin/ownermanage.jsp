@@ -33,16 +33,15 @@
     <!-- start brand list -->
     <div class="list-div" id="listDiv">
         <table cellpadding="3" cellspacing="1">
-            <tbody id="tableInfor">
             <tr>
-                <th>shopId</th>
-                <th>shopName</th>
-                <th>shopLogo</th>
-                <th>introduction</th>
                 <th>ownerId</th>
+                <th>ownerName</th>
+                <th>ownerImage</th>
+                <th>email</th>
+                <th>phone</th>
                 <th>option</th>
             </tr>
-            <tr>
+            <%--<tr>
                 <td class="first-cell">
                     <span>WYH</span>
                 </td>
@@ -59,8 +58,9 @@
                     <a href="">Delete</a> |
                     <a href="">Recover</a>
                 </td>
-
-            </tr>
+            </tr>--%>
+           <!--end，这些都是显示代码，没有格式化，开发时会删除 -->
+            <tbody id="tableInfor">
             </tbody>
         </table>
         <div id="turn-page" style="margin-top: 20px;text-align: center;font-size: 15px">All page:<span id="allPage"></span>&nbsp;&nbsp;&nbsp;   Current page:<span id="pageCurrent"></span>

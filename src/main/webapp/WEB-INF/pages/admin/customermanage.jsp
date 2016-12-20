@@ -29,11 +29,10 @@
     </form>
 </div>
 
-<form method="post" action="" name="listForm">
+<%--<form method="post" action="" name="listForm">
     <!-- start brand list -->
     <div class="list-div" id="listDiv">
         <table cellpadding="3" cellspacing="1">
-            <tbody id="tableInfor">
             <tr>
                 <th>userId</th>
                 <th>username</th>
@@ -42,38 +41,52 @@
                 <th>phone</th>
                 <th>option</th>
             </tr>
-            <tr>
-                <td class="first-cell">
-                    <span>WYH</span>
-                </td>
-                <td><span>WYH</span></td>
-                <td class="imgTd"><img src="/resources/images/portrait/a.png" alt=""></td>
-                <td class="shopDesc">
-                    767777@qq.com
-                </td>
-                <td>
-                    <span>10086</span>
-                </td>
-                <td>
-                    <a href="">Black</a> |
-                    <a href="">Delete</a>
-                </td>
+            <!--end，这些都是显示代码，没有格式化，开发时会删除 -->
+            <tbody id="tableInfor">
 
+            </tbody>
+        </table>
+        <div id="turn-page" style="margin-top: 20px;text-align: center;font-size: 15px">All page:<span id="allPage"></span>&nbsp;&nbsp;&nbsp;   Current page:<span id="pageCurrent"></span>
+            <span id="page-link">
+                <a href="#" id="prev" style="margin-right: 20px;">Prev Page</a>
+                <a href="#" id="next" style="margin-right: 20px;">Next Page</a>
+                <select name="" id="gotoPage">
+                </select>
+                <a href="#" id="turnPage">Turn</a>
+            </span>
+        </div>
+        <!-- end brand list -->
+    </div>
+</form>--%>
+<form method="post" action="" name="listForm">
+    <!-- start brand list -->
+    <div class="list-div" id="listDiv">
+        <table cellpadding="3" cellspacing="1">
+            <tr>
+                <th>userId</th>
+                <th>username</th>
+                <th>userImg</th>
+                <th>email</th>
+                <th>phone</th>
+                <th>option</th>
             </tr>
 
             <!--end，这些都是显示代码，没有格式化，开发时会删除 -->
+            <tbody id="tableInfor">
+
+
             </tbody>
         </table>
-        <div id="turn-page" style="margin-top: 20px;text-align: center;font-size: 15px">All page:<span></span>&nbsp;&nbsp;&nbsp;   Current page:<span id="pageCurrent">1</span>
+        <div id="turn-page" style="margin-top: 20px;text-align: center;font-size: 15px">All page:<span id="allPage"></span>&nbsp;&nbsp;&nbsp;   Current page:<span id="pageCurrent"></span>
             <span id="page-link">
-                <a href="javascript:listTable.gotoPagePrev()" style="margin-right: 20px;">Prev Page</a>
-                <a href="javascript:listTable.gotoPageNext()" style="margin-right: 20px;">Next Page</a>
+                <a href="#" id="prev" style="margin-right: 20px;">Prev Page</a>
+                <a href="#" id="next" style="margin-right: 20px;">Next Page</a>
                 <select name="" id="gotoPage">
-                    <option value="1" selected>1</option>
                 </select>
-                <a href="">Turn</a>
+                <a href="#" id="turnPage">Turn</a>
             </span>
         </div>
+
         <!-- end brand list -->
     </div>
 </form>
