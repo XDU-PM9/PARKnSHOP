@@ -164,9 +164,9 @@ public class OwnerController {
     }
 
 
-    @RequestMapping(value = "/OwnerInfoEdit", method = RequestMethod.POST)
+    @RequestMapping(value = "/ownerInfoEdit", method = RequestMethod.POST)
     public String OwnerInfoEditPost(HttpServletRequest request, HttpSession session,
-                                    @RequestParam("userImage") MultipartFile image,
+                                    @RequestParam("username") String username,
                                     @RequestParam("email") String email,
                                     @RequestParam("phone") String phone) {
         if (!checkLogin(session)) {
@@ -174,22 +174,10 @@ public class OwnerController {
         }
 
         OwnerEntity user = (OwnerEntity) session.getAttribute(IDefineString.SESSION_USER);
-        String contextPath = session.getServletContext().getRealPath("/");
 
-        System.out.println("testing:" + image.getOriginalFilename());
-
-        String imagePath = null;
-        if (image != null) {
-            try {
-                imagePath = OwnerFileSaver.saveImage(image, contextPath);
-            } catch (IOException e) {
-                //服务出现错误
-                return "redirect:/";
-            }
-        }
+        user.setUsername(username);
         user.setPhone(phone);
         user.setEmail(email);
-        user.setUserImage(imagePath);
         int state = mOwnerService.updateOwner(user);
         if (state == IOwnerService.UPDATE_SUCCESS) {
             return "owner/update_success.jsp";
@@ -451,7 +439,7 @@ public class OwnerController {
         if (!checkLogin(session)) {
             return "redirect:/owner/login";
         }
-        return "owner/add_goods.jsp";
+        return "owner/add_goods.html";
     }
 
 

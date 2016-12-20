@@ -1,69 +1,74 @@
 <!DOCTYPE html>
-
 <%@ page import="com.google.gson.Gson" %>
 <%@ page import="com.parknshop.bean.ShopBean" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 <html>
 <head>
 
     <%
-    Gson mGson = new Gson();
+        Gson mGson = new Gson();
     %>
 
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="/resources/css/owner/main.css">
+    <link href="/resources/css/owner/top.css" rel="stylesheet" type="text/css"/>
+    <link href="/resources/css/owner/owner-main.css" rel="stylesheet" type="text/css"/>
 </head>
-<body bgcolor="#f0f8ff">
+<body>
+<h1>
+    <span class="action-span1"><a href="">Apply List</a> </span>
+    <div style="clear:both"></div>
+</h1>
 
-<table>
-        <tr class="queryHead">
-            <th class="logoHead">Logo</th>
-            <th class="shopName">Name</th>
-            <th class="shopDes">Description</th>
-            <th class="shopState">State</th>
+<div class="form-div">
+    <form action="javascript:search_brand()" name="searchForm">
+        <img src="/resources/images/ico/icon_search.gif" width="26" height="22" border="0" alt="SEARCH">
+        <input type="text" name="brand_name" size="35" placeholder="Please input the shopId">
+        <input type="submit" value="Search" class="button">
+    </form>
+</div>
 
+
+<form method="post" action="" name="listForm">
+    <!-- start brand list -->
+    <div class="list-div" id="listDiv">
+        <table cellpadding="3" cellspacing="1">
+            <tbody id="tableInfor">
+            <tr class="queryHead">
+                <th class="logoHead">Logo</th>
+                <th class="shopName">Name</th>
+                <th class="shopDes">Description</th>
+                <th class="shopState">State</th>
+                <%
+                    String msg = (String) request.getAttribute("msg");
+                    if (msg.equals("1")) {
+                        out.println("<th><a href=\"/owner/apply\"><img src=\"/resources/images/owner/button_add.png\" alt=\"\" id=\"addBtn1\"></a></th>");
+                    } else {
+                        out.println("<th></th>");
+                    }
+                %>
+            </tr>
             <%
-                String msg = (String) request.getAttribute("msg");
-                if (msg.equals("1")){
-                    out.println("<th><a href=\"/owner/apply\"><img src=\"/resources/images/owner/button_add.png\" alt=\"\" id=\"addBtn\"></a></th>");
-                }else {
-                    out.println("<th></th>");
+                String listStr = (String) request.getAttribute("shops");
+                if (null == listStr) {
+                    out.println("<p>no records</p>");
+                } else {
+                    ShopBean shopList = mGson.fromJson(listStr, ShopBean.class);
+                    for (ShopBean.Shop item : shopList.getShops()) {
+                        out.println("<tr class=\"shopInfor\">");
+                        out.println("<td class=\"logoHead\"><img src=\"" + item.getLogo() + "\" alt=\"\" class=\"shopLogo\"/></td>");
+                        out.println("<td class=\"shopName\">" + item.getName() + "</td>");
+                        out.println("<td class=\"shopDes\">" + item.getDesc() + "</td>");
+                        out.println("<td class=\"shopState\">" + item.getState() + "</td>");
+                        out.println("</tr>");
+                    }
                 }
             %>
-
-            <%--<th><a href="#"><img src="/resources/images/owner/button_add.png" alt="" id="addBtn"></a></th>--%>
-        </tr>
-</table>
-<ul>
-    <%--<li class="shopInfor">--%>
-        <%--<p class="logoHead"><img src="test/a.png" alt="" class="shopLogo"/></p>--%>
-        <%--<p class="shopName">Android</p>--%>
-        <%--<p class="shopDes">Android是一种基于Linux的自由及开放源代码的操作系统，主要使用于移动设备，如智能手机和平板电脑，由Google公司和开放手机联盟领导及开发</p>--%>
-        <%--<p class="shopState">Apply</p>--%>
-    <%--</li>--%>
-        <%--动态加载商店--%>
-    <%
-        String listStr = (String) request.getAttribute("shops");
-        if (null == listStr){
-            out.println("<p>no records</p>");
-        }else {
-            ShopBean shopList = mGson.fromJson(listStr, ShopBean.class);
-            for (ShopBean.Shop item : shopList.getShops()) {
-                out.println("<li class=\"shopInfor\">");
-                out.println("<p class=\"logoHead\"><img src=\""+item.getLogo()+"\" alt=\"\" class=\"shopLogo\"/></p>");
-                out.println("<p class=\"shopName\">"+item.getName()+"</p>");
-                out.println("<p class=\"shopDes\">"+item.getDesc()+"</p>");
-                out.println("<p class=\"shopState\">"+item.getState()+"</p>");
-                out.println("</li>");
-            }
-        }
-    %>
-
-</ul>
+            </tbody>
+        </table>
+    </div>
+</form>
 <script src="/resources/libs/jquery.js"></script>
 <script src="/resources/js/owner/main.js"></script>
 </body>
 </html>
-
