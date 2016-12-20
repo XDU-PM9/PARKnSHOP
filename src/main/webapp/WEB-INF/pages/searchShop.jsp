@@ -89,14 +89,14 @@
             </ul>
             <div class="clear"></div>
             <div class="search_form">
-                <form method="post" action="/search">
+                <%--<form method="post" action="/search">--%>
                     <div class="search_formstyle">
                         <input type="text" class="search_form_text" id="searchText" name="search_content"
                                placeholder="Search!" value="${param.shopName}"/>
                         <input type="button" class="search_form_sub" name="secrch_submit" value="" title="Search"
                                onclick="search()"/>
                     </div>
-                </form>
+                <%--</form>--%>
             </div>
             <div class="clear"></div>
 
