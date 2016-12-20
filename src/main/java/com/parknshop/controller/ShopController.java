@@ -12,6 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class ShopController {
     @RequestMapping(value = "detail",method = RequestMethod.GET)
     public String showDetails(){
-        return "shop/shop.html";
+        return "shop/shop.jsp";
     }
 }

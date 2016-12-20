@@ -13,7 +13,7 @@
     <script type="text/javascript" src="/resources/js/topNav.js"></script>
 </head>
 <body>
-
+<%@include file="../customer/head.jsp"%>
 
 <!-- shop -->
 <div class="shop_member_bd clearfix">
