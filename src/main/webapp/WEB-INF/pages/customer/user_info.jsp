@@ -37,7 +37,7 @@
                     <li><label>Phone：</label> ${user.getPhone()}</li>
                     <li><label>Balance：</label>${user.getBalance()}</li>
                     <li><label>Image:</label><input type="file" accept="image/png,image/jpg,image/gif"  name="picture" ></li>
-                    <input style="margin-left: 300px;" type="submit" value="change">
+                    <input  style="margin-left: 300px;" type="submit" value="change">
                 </ul>
             </form>
         </dic>
