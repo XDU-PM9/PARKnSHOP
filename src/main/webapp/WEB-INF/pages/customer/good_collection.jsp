@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="../../../resources/css/shop_list.css" type="text/css"/>
     <script type="text/javascript" src="../../../resources/js/jquery.js"></script>
     <script type="text/javascript" src="../../../resources/js/topNav.js"></script>
+
 </head>
 <body>
     <%@include file="head.jsp"%>
@@ -51,10 +52,10 @@
                                     </dt>
                                     <dd class="title">
                                         <a href="/goods/detail?goodsId=${c.getGoodsByGoodsId().getGoodsId()}">${c.getGoodsByGoodsId().getGoodsName()}</a>
-                                        <a href="/removeCollect?collectionId=${c.getCollectionId()}">Delete</a>
+                                        <a style="margin-left: 100px;"  href="/removeCollect?collectionId=${c.getCollectionId()}">Delete</a>
                                     </dd>
                                     <dd class="content">
-                                        <span class="goods_jiage">￥<strong>${c.getGoodsByGoodsId().getPrice() }</strong></span>
+                                        <span class="goods_jiage">$<strong>${c.getGoodsByGoodsId().getPrice() }</strong></span>
                                         <span class="goods_chengjiao"> <a href="/addProduct?goodsId=${c.getGoodsByGoodsId().getGoodsId()}&amount=1">Add to Cart</a></span>
                                     </dd>
                                 </dl>
@@ -94,13 +95,6 @@
     </div>
     <!-- 我的个人中心 End -->
     </div>
-    <!-- Footer - wll - 2013/3/24 -->
-    <div class="clear"></div>
-    <div class="shop_footer">
-        <div class="shop_footer_copy">
-            <p>Copyright 2004-2013 itcast Inc.,All rights reserved.</p>
-        </div>
-    </div>
-    <!-- Footer End -->
+<%@include file="footer.jsp"%>
 </body>
 </html>

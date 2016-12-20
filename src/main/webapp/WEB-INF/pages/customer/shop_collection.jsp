@@ -40,15 +40,16 @@
             <div class="shop_bd_list_content clearfix">
                 <ul>
                     <c:forEach var="c" items="${Collects}">
-                                        <li>
-                                            <dl>
-                                                <dt><a href=""><img src="${c.getPicture()}"/></a>
-                                                </dt>
-                                                <dd class="title"><a href="">${c.getShopByShopId().getShopName()}</a></dd>
-                                                <dd class="content">                                <span class="goods_chengjiao">${c.getShopByShopId().getIntroduction() }</span>
-                                                </dd>
-                                            </dl>
-                                        </li>
+                        <li>
+                            <dl>
+                                <dt><a href=""><img src="${c.getPicture()}"/></a>
+                                </dt>
+                                <dd class="title"><a href="">${c.getShopByShopId().getShopName()}</a></dd>
+                                <dd class="content">
+                                    <span class="goods_chengjiao">${c.getShopByShopId().getIntroduction() }</span>
+                                </dd>
+                            </dl>
+                        </li>
                     </c:forEach>
 
                 </ul>
@@ -82,15 +83,7 @@
 
 </div>
 <!-- 我的个人中心 End -->
-
-<!-- Footer - wll - 2013/3/24 -->
-<div class="clear"></div>
-<div class="shop_footer">
-    <div class="shop_footer_copy">
-        <p>Copyright 2004-2013 itcast Inc.,All rights reserved.</p>
-    </div>
-</div>
-<!-- Footer End -->
+    <%@include file="footer.jsp"%>
 </div>
 </body>
 </html>

@@ -70,7 +70,7 @@
             <div class="shop_hd_menu_all_category_title"><h2 title="所有商品分类"><a href="javascript:void(0);">Categories</a>
             </h2><i></i></div>
             <div id="shop_hd_menu_all_category_hd" class="shop_hd_menu_all_category_hd">
-                <ul class="shop_hd_menu_all_category_hd_menu clearfix">
+                <ul class="shop_hd_menu_all_category_hd_menu clearfix" style="width: 205px;">
                     <!-- 单个菜单项 -->
                     <li id="cat_1" class="">
                         <h3><a href="" title="男女服装">TV& Home Theater</a></h3>
