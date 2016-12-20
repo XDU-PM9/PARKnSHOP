@@ -16,12 +16,8 @@
     <script type="text/javascript" src="../../resources/js/jquery.js"></script>
     <script type="text/javascript" src="../../resources/js/topNav.js"></script>
     <script type="text/javascript" src="../../resources/js/focus.js"></script>
+    <script type="text/javascript" src="/resources/js/jquery.js"></script>
     <script type="text/javascript" src="../../resources/js/shop_home_tab.js"></script>
-    <script>
-        function search() {
-            window.location.href=$('#shop_search').hasClass('current') ? '/searchShop?shopName=' : '/search?name='+$('#searchText').val();
-        }
-    </script>
 </head>
 <body>
 <!-- Header  -wll-2013/03/24 -->
@@ -50,7 +46,7 @@
                 <div class="search_formstyle">
                     <input type="text" class="search_form_text" id="searchText" name="search_content" placeholder="Search!"/>
                     <input type="button" class="search_form_sub" name="secrch_submit" value="" title="搜索"
-                           onclick="search()"/>
+                           onclick="window.location.href=$('#shop_search').hasClass('current') ? '/searchShop?shopName=' : '/search?name='+$('#searchText').val();"/>
                 </div>
                 <!--</form>-->
             </div>
@@ -101,7 +97,7 @@
                     <li id="cat_8" class="">
                         <h3><a href="" title="美容美妆">Health, Fitness & Sports</a></h3>
                     </li>
-                    <li id="cat_8" class="">
+                    <li id="cat_9" class="">
                         <h3><a href="" title="美容美妆">Home & Office</a></h3>
                     </li>
                 </ul>
