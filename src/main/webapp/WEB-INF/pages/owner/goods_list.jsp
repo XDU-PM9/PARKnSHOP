@@ -2,7 +2,7 @@
 <%@ page import="com.google.gson.GsonBuilder" %>
 <%@ page import="com.parknshop.utils.DateFormat" %>
 <%@ page import="com.parknshop.controller.OwnerController" %>
-<%@ page import="com.parknshop.service.serviceImpl.ShopListBean" %>
+<%@ page import="com.parknshop.service.serviceImpl.listBean.ShopListBean" %>
 <%@ page import="com.parknshop.bean.GoodsListBean" %><%--
   Created by IntelliJ IDEA.
   User: fallb
