@@ -25,7 +25,7 @@
 <%@include file="customer_left.jsp"%>
 
 <!-- 右边购物列表 -->
-<div class="shop_member_bd_right clearfix">
+<div class="shop_member_bd_right clearfix" >
 
     <div class="shop_meber_bd_good_lists clearfix">
         <!-- 商品列表 -->
@@ -33,7 +33,15 @@
             <div class="title"><h3>Shop collection</h3></div>
 <c:choose>
     <c:when test="${Collects.size()<=0}">
-        Not Collections,let's add a product to your Collection.
+        <div>
+            <img src="/resources/images/customer/shoucang.png"/>
+            <div  style="width: 700px;margin-left:280px;margin-top: -160px;padding-bottom:100px;margin-bottom: 100px;">
+                <font style="font-family: 'Microsoft Yahei';font-size:24px;line-height: 48px;"> You have not owned any shops yet!<br/></font>
+                <font  style="font-family:'Microsoft Yahei';font-size:16px;line-height: 18px;">  <a href="/"> Let's go shopping, and choose your favorite.</a>
+
+                </font>
+            </div>
+        </div>
     </c:when>
     <c:when test="${Collects.size()>0}">
             <!-- 商品列表 -->
@@ -82,7 +90,9 @@
     <!-- 右边购物列表 End -->
 
 </div>
-<!-- 我的个人中心 End -->
+</div>
+</div>
+
     <%@include file="footer.jsp"%>
 </div>
 </body>

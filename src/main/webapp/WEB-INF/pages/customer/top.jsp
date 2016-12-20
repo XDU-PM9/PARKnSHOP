@@ -14,7 +14,7 @@
         <div class="shop_hd_topNav_all">
             <!-- Header TopNav Left -->
             <div class="shop_hd_topNav_all_left">
-                <p>Welcome to PARKnSHOP</p>
+                <p><a href="/"> Welcome to PARKnSHOP</a></p>
             </div>
             <!-- Header TopNav Left End -->
 

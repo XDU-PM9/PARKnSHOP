@@ -36,10 +36,15 @@
                 <div class="title"><h3>Product collection</h3></div>
                 <c:choose>
                 <c:when test="${Collects.size()<=0}">
-                    <h1>
-                      Not Collections,let's add a product to your Collection.
-                    </h1>
+                        <div>
+                            <img src="/resources/images/customer/shoucang.png"/>
+                            <div  style="width: 700px;margin-left:280px;margin-top: -160px;padding-bottom:100px;margin-bottom: 100px;">
+                                <font style="font-family: 'Microsoft Yahei';font-size:24px;line-height: 48px;"> You have not owned any products yet!<br/></font>
+                                   <font  style="font-family:'Microsoft Yahei';font-size:16px;line-height: 18px;">  <a href="/"> Let's go shopping, and choose your favorite.</a>
 
+                                </font>
+                            </div>
+                        </div>
                 </c:when>
                 <c:when test="${Collects.size()>0}">
                 <!-- 商品列表 -->

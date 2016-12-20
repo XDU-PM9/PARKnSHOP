@@ -80,51 +80,71 @@
 
     <div class="shop_gwc_bd_contents clearfix">
 
-        <!-- 购物车列表 -->
-        <table>
-            <thead>
-            <tr>
-                <th colspan="2"><span>Product</span></th>
-                <th><span>Price($)</span></th>
-                <th><span>amount</span></th>
-                <th><span>summary</span></th>
-                <th><span>operation</span></th>
-            </tr>
-            </thead>
-            <tbody>
-<c:forEach var="cart" items="${cartList}">
-            <tr>
-                <td class="checkbox">
-                    <input type="hidden" name="goodsId" value="${cart.getGoodsId()}"/>
-                    <input name="id1" type="checkbox" value="${cart.getCartId()}" />
-                </td>
-                <td class="gwc_list_title"><a href="">${cart.getGoodsName()} </a></td>
-                <td class="gwc_list_danjia"><span>$<strong id="danjia_001">${cart.getPrice()}</strong></span></td>
-                <td class="gwc_list_shuliang"><span><a class="good_num_jian this_good_nums"  ty="-" href="/changeAmount?cartId=${cart.getCartId()}&amount=${cart.getAmount()-1}">-</a>
-                    <input type="text" value="${cart.getAmount()}" id="goods_001" name="num1"  class="good_nums" /><a href="/changeAmount?cartId=${cart.getCartId()}&amount=${cart.getAmount()+1}"  ty="+" class="good_num_jia this_good_nums">+</a></span></td>
-                <td class="gwc_list_xiaoji"><span>￥<strong id="xiaoji_001" class="good_xiaojis">${cart.getPrice()*cart.getAmount()}</strong></span></td>
-                <td class="gwc_list_caozuo"><a href="/insertCollect?goodsId=${cart.getGoodsId()}">collect</a><a href="/removeProduct?goodsId=${cart.getCartId()}" class="shop_good_delete">delete</a></td>
-            </tr>
-</c:forEach>
-            </tbody>
-            <tfoot>
-            <!--
-            <tr>
-                <td colspan="6">
-                    <div class="clear"></div>
-                    <div class="gwc_foot_links">
-
-                        <form action="" method="post">
-                            <input type="hidden" name="ch" id="abc" value="">
-                            <a href="" class="go">Go Shopping</a>
-                            <input type="submit" onclick="getValue()" style="background: none repeat scroll 0 0 #FE8502; border: 1px solid #FF6633; border-radius: 5px 5px 5px 5px; color: #FFFFFF !important; display: inline-block; font-size: 14px; font-weight: 600; height: 36px; line-height: 36px; padding: 4px 12px;" value="Confirm & Fill out the Orders"></input>
-                        </form>
+        <c:choose>
+            <c:when test="${cartList.size()==0}">
+                <div>
+                <img src="/resources/images/customer/cart.png"/>
+                    <div  style="width: 700px;margin-left:280px;margin-top: -380px;padding-bottom:100px;margin-bottom: 100px;">
+                        <font style="font-family: 'Microsoft Yahei';font-size:24px;line-height: 48px;"> Your cart is still empty!Let's go shopping!You can<br/>
+                            <a href="/listCollect?requestPage=1"> Look at your collects!</a><br/>
+                         <a href="/"> Go Shopping!</a>
+                        </font>
                     </div>
-                </td>
-            </tr>-->
-            </tfoot>
-        </table>
-        <!-- 购物车列表 End -->
+                </div>
+            </c:when>
+
+
+            <c:when test="${cartList.size()>0}">
+                <!-- 购物车列表 -->
+                <table>
+                    <thead>
+                    <tr>
+                        <th colspan="2"><span>Product</span></th>
+                        <th><span>Price($)</span></th>
+                        <th><span>amount</span></th>
+                        <th><span>summary</span></th>
+                        <th><span>operation</span></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach var="cart" items="${cartList}">
+                        <tr>
+                            <td class="checkbox">
+                                <input type="hidden" name="goodsId" value="${cart.getGoodsId()}"/>
+                                <input name="id1" type="checkbox" value="${cart.getCartId()}" />
+                            </td>
+                            <td class="gwc_list_title"><a href="">${cart.getGoodsName()} </a></td>
+                            <td class="gwc_list_danjia"><span>$<strong id="danjia_001">${cart.getPrice()}</strong></span></td>
+                            <td class="gwc_list_shuliang"><span><a class="good_num_jian this_good_nums"  ty="-" href="/changeAmount?cartId=${cart.getCartId()}&amount=${cart.getAmount()-1}">-</a>
+                    <input type="text" value="${cart.getAmount()}" id="goods_001" name="num1"  class="good_nums" /><a href="/changeAmount?cartId=${cart.getCartId()}&amount=${cart.getAmount()+1}"  ty="+" class="good_num_jia this_good_nums">+</a></span></td>
+                            <td class="gwc_list_xiaoji"><span>$<strong id="xiaoji_001" class="good_xiaojis">${cart.getPrice()*cart.getAmount()}</strong></span></td>
+                            <td class="gwc_list_caozuo"><a href="/insertCollect?goodsId=${cart.getGoodsId()}">collect</a><a href="/removeProduct?goodsId=${cart.getCartId()}" class="shop_good_delete">delete</a></td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                    <tfoot>
+                    <!--
+                    <tr>
+                        <td colspan="6">
+                            <div class="clear"></div>
+                            <div class="gwc_foot_links">
+
+                                <form action="" method="post">
+                                    <input type="hidden" name="ch" id="abc" value="">
+                                    <a href="" class="go">Go Shopping</a>
+                                    <input type="submit" onclick="getValue()" style="background: none repeat scroll 0 0 #FE8502; border: 1px solid #FF6633; border-radius: 5px 5px 5px 5px; color: #FFFFFF !important; display: inline-block; font-size: 14px; font-weight: 600; height: 36px; line-height: 36px; padding: 4px 12px;" value="Confirm & Fill out the Orders"></input>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>-->
+                    </tfoot>
+                </table>
+                <!-- 购物车列表 End -->
+
+
+            </c:when>
+        </c:choose>
+
     </div>
     <!-- 购物车有商品 end -->
 
