@@ -8,69 +8,82 @@
     <link rel="stylesheet" href="/resources/css/owner/owner.css">
 </head>
 <body>
-<div class="main">
-    <div class="header">
-        <h1>Please complete the information of your shop</h1>
-        <p></p>
+    <div class="main">
+        <div class="header">
+            <h1>Please complete the information of your shop</h1>
+            <p></p>
+        </div>
+        <form action="/owner/apply" enctype="multipart/form-data" method="post">
+            <ul class="formInfor">
+                <div class="inforBlock">
+                    <span>Real name:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <li>
+                        <input type="text" name="realName" id="realName" placeholder="Please input your reaname" required/>
+                    </li>
+                </div>
+                <div class="inforBlock">
+                    <span>Id number:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <li>
+                        <input type="text" name="idNumber" id="idNumber" placeholder="Please input your id number" required>
+                    </li>
+                </div>
+                <div class="inforBlock">
+                    <span>Phone number:</span>
+                    <li>
+                        <input type="text" name="phone" id="phone" placeholder="Please input your phone number" required>
+                    </li>
+                </div>
+
+                <div class="inforBlock">
+                    <span>Shop name:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <li>
+                        <input type="text" name="shopName" id="shopName" placeholder="Please input your shop name" required>
+                    </li>
+                </div>
+
+                <textarea name="shopDesc" cols="80" rows="10" id="shopDesc" placeholder="Please input your shop description"></textarea>
+                <!--<div style="margin: 10px 0 10px 0">
+                    <label for="person">Please Upload your photo:&nbsp;</label>
+                    <input type="file" name="person" id="person"/>
+                </div>
+
+                <div style="margin: 10px 0 10px 0">
+                    <label for="logo">Please Upload the logo of your shop:&nbsp;</label>
+                    <input type="file" name="logo" id="logo" />
+                </div>
+                <div style="margin: 10px 0 10px 0">
+                    <label for="theme">Please Upload the theme of your shop:&nbsp;</label>
+                    <input type="file" name="theme" id="theme" />
+                </div>
+
+                -->
+                <div style="margin: 10px 0 10px 0">
+                    <label for="person">Please Upload your photo:&nbsp;</label>
+                    <a href="#" class="a-upload">
+                        <input type="file" name="person" id="person">Upload Person Photo
+                    </a>
+                    <div id="showPerson"></div>
+                </div>
+                <div style="margin: 10px 0 10px 0">
+                    <label for="logo">Please Upload the logo of your shop:&nbsp;</label>
+                    <a href="#" class="a-upload">
+                        <input type="file" name="logo" id="logo">Upload Logo
+                    </a>
+                    <div id="showLogo"></div>
+                </div>
+                <div style="margin: 10px 0 10px 0">
+                    <label for="theme">Please Upload the Theme of your shop:&nbsp;</label>
+                    <a href="#" class="a-upload">
+                        <input type="file" name="theme" id="theme" multiple="multiple">Upload Theme
+                    </a>
+                    <div id="showTheme"></div>
+                </div>
+                <input type="submit" value="Submit" id="inforSub" />
+
+            </ul>
+        </form>
     </div>
-    <form action="/owner/apply" enctype="multipart/form-data" method="post">
-        <ul class="formInfor">
-            <li>
-                <input type="text" name="realName" id="realName" placeholder="Please input your reaname" required/>
-            </li>
-            <li>
-                <input type="text" name="idNumber" id="idNumber" placeholder="Please input your id number" required>
-            </li>
-            <li>
-                <input type="text" name="phone" id="phone" placeholder="Please input your phone number" required>
-            </li>
-
-            <li>
-                <input type="text" name="shopName" id="shopName" placeholder="Please input your shop name" required>
-            </li>
-            <textarea name="" cols="80" rows="10" id="shopDesc" placeholder="Please input your shop description"></textarea>
-            <!--<div style="margin: 10px 0 10px 0">
-                <label for="person">Please Upload your photo:&nbsp;</label>
-                <input type="file" name="person" id="person"/>
-            </div>
-
-            <div style="margin: 10px 0 10px 0">
-                <label for="logo">Please Upload the logo of your shop:&nbsp;</label>
-                <input type="file" name="logo" id="logo" />
-            </div>
-            <div style="margin: 10px 0 10px 0">
-                <label for="theme">Please Upload the theme of your shop:&nbsp;</label>
-                <input type="file" name="theme" id="theme" />
-            </div>
-
-            -->
-            <div style="margin: 10px 0 10px 0">
-                <label for="person">Please Upload your photo:&nbsp;</label>
-                <a href="#" class="a-upload">
-                    <input type="file" name="person" id="person">
-                </a>
-                <div id="showPerson"></div>
-            </div>
-            <div style="margin: 10px 0 10px 0">
-                <label for="logo">Please Upload the logo of your shop:&nbsp;</label>
-                <a href="#" class="a-upload">
-                    <input type="file" name="logo" id="logo">
-                </a>
-                <div id="showLogo"></div>
-            </div>
-            <div style="margin: 10px 0 10px 0">
-                <label for="theme">Please Upload the logo of your shop:&nbsp;</label>
-                <a href="#" class="a-upload">
-                    <input type="file" name="theme" id="theme" multiple="multiple">
-                </a>
-                <div id="showTheme"></div>
-            </div>
-            <input type="submit" value="Submit" id="inforSub" />
-
-        </ul>
-    </form>
-</div>
-<script src="/resources/libs/jquery.js"></script>
-<script src="/resources/js/owner/uploadPhoto.js"></script>
+    <script src="/resources/libs/jquery.js"></script>
+    <script src="/resources/js/owner/uploadPhoto.js"></script>
 </body>
 </html>
