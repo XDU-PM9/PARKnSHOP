@@ -185,7 +185,7 @@ public class AdminController {
     public @ResponseBody String loginout(){
         System.out.println("logout");
         mService.loginOut();
-        return "";
+        return "redirect:/admin";
     }
 
     /**
