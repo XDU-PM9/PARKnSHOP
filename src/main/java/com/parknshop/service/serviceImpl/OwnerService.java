@@ -4,19 +4,19 @@ import com.parknshop.bean.GoodsDbBean;
 import com.parknshop.bean.ShopAndOwnerDbBean;
 import com.parknshop.dao.IBaseDao;
 import com.parknshop.dao.IPictureDao;
-import com.parknshop.dao.daoImpl.BaseDao;
 import com.parknshop.dao.daoImpl.PitureDao;
 import com.parknshop.entity.*;
+import com.parknshop.service.IAdvertisement;
 import com.parknshop.service.IGoodsBuilder;
 import com.parknshop.service.IListBean;
 import com.parknshop.service.IOwnerService;
 import com.parknshop.service.baseImpl.IUploadPictures;
-import org.omg.Messaging.SYNC_WITH_TRANSPORT;
+import com.parknshop.service.serviceImpl.listBean.GoodsListBean;
+import com.parknshop.service.serviceImpl.listBean.PersonShopListBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,8 +37,9 @@ public class OwnerService implements IOwnerService {
     IBaseDao<GoodsEntity> goodDao;
     private final IListBean goodsList;
     private final IBaseDao<GoodsDbBean> goodsDbBeanIBaseDao;
+    private final IAdvertisement advertisement;
     @Autowired
-    public OwnerService(IBaseDao<OwnerEntity> mDao, IBaseDao<ShopEntity> mDaoShop, PitureDao mDaoPhoto, PersonShopListBean listBean, IBaseDao<GoodsEntity> goodDao, GoodsListBean goodsList, IBaseDao<GoodsDbBean> goodsDbBeanIBaseDao) {
+    public OwnerService(IBaseDao<OwnerEntity> mDao, IBaseDao<ShopEntity> mDaoShop, PitureDao mDaoPhoto, PersonShopListBean listBean, IBaseDao<GoodsEntity> goodDao, GoodsListBean goodsList, IBaseDao<GoodsDbBean> goodsDbBeanIBaseDao, IAdvertisement advertisement) {
         this.mDao = mDao;
         this.mDaoShop = mDaoShop;
         this.mDaoPhoto = mDaoPhoto;
@@ -46,6 +47,7 @@ public class OwnerService implements IOwnerService {
         this.goodDao = goodDao;
         this.goodsList = goodsList;
         this.goodsDbBeanIBaseDao = goodsDbBeanIBaseDao;
+        this.advertisement = advertisement;
     }
 
     //更新用户
@@ -126,6 +128,7 @@ public class OwnerService implements IOwnerService {
 
     @Override
     public boolean deletGoods(int goodId) {
+        advertisement.cancelGoods(goodId);//同时取消广告位置
         return updateGoodState(IGoodsBuilder.GOOD_SATE_DELETE,goodId);
     }
 

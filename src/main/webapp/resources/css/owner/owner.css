@@ -69,7 +69,7 @@ form{
     margin: 22px 28px 0 18em;
     width: 60%;
 }
-.formInfor input[type=text],.formInfor input[type=email],.formInfor input[type=password] {
+.formInfor input[type=text],.formInfor input[type=email],.formInfor input[type=password],.formInfor input[type=number] {
     font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
     width:80%;
     padding: 0.7em 2em 0.7em 1em;
@@ -88,7 +88,7 @@ form{
     -o-border-radius:0.3em;
     margin-bottom: 14px;
 }
-#registerBtn,#loginBtn{
+#registerBtn,#loginBtn,#inforSub,#updateBtn,#submitBtn{
     padding:10px 19px;
     border-radius:0.3em;
     -webkit-border-radius:0.3em;
@@ -108,7 +108,7 @@ form{
     margin-top:15px;
     cursor: pointer;
 }
-#registerBtn:hover,#loginBtn:hover{
+#registerBtn:hover,#loginBtn:hover,#inforSub:hover,#updateBtn:hover,#submitBtn:hover{
     background:#2E2D2D;
     color:#fff;
 }
@@ -122,4 +122,73 @@ form{
     color: #313131;
     text-decoration: underline;
 }
+/*update Infor*/
+.iconfont{
+    font-size: 22px;
+    font-family: 华文楷体;
+}
+.inforBlock{
+    margin: 4% 0 0 0;
+}
+.inforBlock>i,.inforBlock>li{
+    display: inline-block;
+}
+.inforBlock>li{
+    width: 60%;
+}
+.filed{
+    margin: 10% 0 10% 0;
+}
+.yes{
+    color: green;
+    display: none;
+}
+.no{
+    color: red;
+    display: none;
+}
+/*
+上传图片区域
+*/
+.a-upload {
+    top: 7px;
+    padding: 4px 10px;
+    height: 20px;
+    line-height: 20px;
+    position: relative;
+    cursor: pointer;
+    color: #888;
+    background: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+    display: inline-block;
+    *display: inline;
+    *zoom: 1
+}
 
+.a-upload  input {
+    position: absolute;
+    font-size: 100px;
+    right: 0;
+    top: 0;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    cursor: pointer
+}
+
+.a-upload:hover {
+    color: #444;
+    background: #eee;
+    border-color: #ccc;
+    text-decoration: none
+}
+.styled-select select {
+    margin: 10px 20px 10px 0;
+    background: transparent;
+    width: 268px;
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    height: 34px;
+}

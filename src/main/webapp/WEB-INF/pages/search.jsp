@@ -965,17 +965,18 @@
         <div class="clear"></div>
 
         <div class="pagination">
-            <ul>
+            <ul id="pageList">
 
-                <li><span>Previous</span></li>
-                <li><span class="currentpage">1 of 3</span></li>
-                <li><span>Next</span></li>
+                <%--<li><span>Previous</span></li>--%>
+                <li><span class="currentpage">1 of 1</span></li>
+                <%--<li><span>Next</span></li>--%>
 
-                <li><form action="/jumpPage" method="post">
-                    <input type="hidden" name="ty" value="1">
-                    <input type="number" name="jump" min="1" max="3" value="1">
-                    <input type="submit" value="jump">
-                </form></li></ul>
+                <%--<li>--%>
+                    <%--<input type="hidden" name="ty" value="1">--%>
+                    <%--<input type="number" name="jump" min="1" max="3" value="1">--%>
+                    <%--<input type="submit" value="jump">--%>
+                <%--</li>--%>
+            </ul>
         </div>
 
         <%--<div class="pagination">--%>

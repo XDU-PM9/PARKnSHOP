@@ -29,7 +29,10 @@ public class OrdersEntity {
     private Integer state;
     private UserEntity userByUserId;
     private GoodsEntity goodsByGoodsId;
-    private AddressEntity addressByAddressId;
+    private String address;
+    private String reciverPhone;
+    private String reciver;
+    private String postWay;
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -250,13 +253,45 @@ public class OrdersEntity {
         this.goodsByGoodsId = goodsByGoodsId;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "addressId", referencedColumnName = "addressId", nullable = false)
-    public AddressEntity getAddressByAddressId() {
-        return addressByAddressId;
+
+
+    @Basic
+    @Column(name = "address", nullable = true, length = 255)
+    public String getAddress() {
+        return address;
     }
 
-    public void setAddressByAddressId(AddressEntity addressByAddressId) {
-        this.addressByAddressId = addressByAddressId;
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    @Basic
+    @Column(name = "reciverPhone", nullable = true, length = 50)
+    public String getReciverPhone() {
+        return reciverPhone;
+    }
+
+    public void setReciverPhone(String reciverPhone) {
+        this.reciverPhone = reciverPhone;
+    }
+
+    @Basic
+    @Column(name = "reciver", nullable = true, length = 50)
+    public String getReciver() {
+        return reciver;
+    }
+
+    public void setReciver(String reciver) {
+        this.reciver = reciver;
+    }
+
+    @Basic
+    @Column(name = "postWay", nullable = true, length = 50)
+    public String getPostWay() {
+        return postWay;
+    }
+
+    public void setPostWay(String postWay) {
+        this.postWay = postWay;
     }
 }

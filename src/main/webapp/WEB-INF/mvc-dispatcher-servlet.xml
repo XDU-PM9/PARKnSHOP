@@ -12,7 +12,7 @@
     <aop:aspectj-autoproxy/>
 
     <!-- 静态资源(js、image等)的访问 -->
-    <mvc:resources mapping="/resources/**" location="/resources/" />
+    <mvc:resources mapping="/resources/**" location="resources/" />
     <mvc:default-servlet-handler/>
 
     <!-- 开启注解 -->
@@ -26,6 +26,14 @@
         <property name="suffix" value=""/>
     </bean>
 
+    <!--重定向未登录用户拦截器配置-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!--如需要加入拦截器请参照下面这条添加-->
+            <mvc:mapping path="/listProduct"/>
 
+            <bean class="com.parknshop.configure.LoginFilter"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 
  </beans>

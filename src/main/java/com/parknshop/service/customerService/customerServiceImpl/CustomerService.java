@@ -136,7 +136,7 @@ public class CustomerService implements ICustomerService {
         params[0] = url;
         params[1] = userId;
         try{
-        return  userEntityBaseDao.insert("update user set url=? where userId=?", params);
+            return  userEntityBaseDao.insert("update user set userImage=? where userId=?", params);
         }catch (Exception e)
         {
             e.printStackTrace();

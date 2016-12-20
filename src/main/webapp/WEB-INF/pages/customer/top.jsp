@@ -7,13 +7,6 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-    <link rel="stylesheet" href="../../../resources/css/base.css" type="text/css" />
-    <link rel="stylesheet" href="../../../resources/css/shop_common.css" type="text/css" />
-    <link rel="stylesheet" href="../../../resources/css/shop_header.css" type="text/css" />
-    <link rel="stylesheet" href="../../../resources/css/shop_manager.css" type="text/css" />
-    <link rel="stylesheet" href="../../../resources/css/shop_shdz_835.css" type="text/css" />
-    <script type="text/javascript" src="../../../resources/js/jquery.js" ></script>
-    <script type="text/javascript" src="../../../resources/js/topNav.js" ></script>
 <!-- Header  -wll-2013/03/24 -->
 
     <!-- Header TopNav -->
@@ -32,7 +25,7 @@
                         <c:when test="${user==null}">
                             <li>
                                 <div class="topNav_menu">
-                                    <a href="/customer/login" class="topNavHover">Login</a>
+                                    <a href="/customer/login" class="topNavHover">Sign in</a>
                                 </div>
                             </li>
 
@@ -41,7 +34,9 @@
                                     <a href="/customer/register" class="topNavHover">Sign up</a>
                                 </div>
                             </li>
-
+                            <li>
+                                <a href="/owner">Seller entry</a>
+                            </li>
 
                         </c:when>
                         <c:when test="${user!=null}">
@@ -56,21 +51,21 @@
                                     <a href="/customer/logout" class="topNavHover">Logout</a>
                                 </div>
                             </li>
+                            <li>
+                                <div class="topNav_menu">
+                                    <a href="#" class="topNavHover">My Collection<i></i></a>
+                                    <div class="topNav_menu_bd" style="display:none;">
+                                        <ul>
+                                            <li><a title="My_Collection" target="_top" href="/listCollect?requestPage=1">Product</a></li>
+                                            <li><a title="My_Info" target="_top" href="/listCollectShop?requestPage=1">Shop</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
 
                         </c:when>
                     </c:choose>
 
-                    <li>
-                        <div class="topNav_menu">
-                            <a href="#" class="topNavHover">My Collection<i></i></a>
-                            <div class="topNav_menu_bd" style="display:none;">
-                                <ul>
-                                    <li><a title="My_Collection" target="_top" href="/listCollect?requestPage=1">Product Collection</a></li>
-                                    <li><a title="My_Info" target="_top" href="/listCollectShop?requestPage=1">Shop Collection</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </li>
 
                     <li>
                         <div class="topNav_menu">

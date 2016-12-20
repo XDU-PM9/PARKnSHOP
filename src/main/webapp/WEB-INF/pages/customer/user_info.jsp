@@ -30,13 +30,13 @@
         <div class="title"><h3>Personal Information</h3></div>
         <div class="clear"></div>
         <dic class="shop_home_form">
-            <form athion="" name="" class="shop_form" method="post" enctype="multipart/form-data">
+            <form action="/uploadPicture" name="" class="shop_form" method="post" enctype="multipart/form-data">
                 <ul>
                     <li><label>Name：</label>${user.getUsername()}</li>
                     <li><label>Email：</label>${user.getEmail()}</li>
                     <li><label>Phone：</label> ${user.getPhone()}</li>
                     <li><label>Balance：</label>${user.getBalance()}</li>
-                    <li><label>Image</label><input type="file" accept="image/*"  name="urlImage" ></li>
+                    <li><label>Image:</label><input type="file" accept="image/png,image/jpg,image/gif"  name="picture" ></li>
                     <input type="submit" value="change">
                 </ul>
             </form>

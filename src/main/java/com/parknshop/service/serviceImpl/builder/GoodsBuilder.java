@@ -1,4 +1,4 @@
-package com.parknshop.service.serviceImpl;
+package com.parknshop.service.serviceImpl.builder;
 
 import com.parknshop.bean.ShopAndOwnerDbBean;
 import com.parknshop.dao.IBaseDao;
@@ -7,6 +7,7 @@ import com.parknshop.entity.GoodsEntity;
 import com.parknshop.entity.ShopEntity;
 import com.parknshop.service.IGoodsBuilder;
 import com.parknshop.service.IOwnerService;
+import com.parknshop.service.serviceImpl.listBean.PersonShopListBean;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
@@ -31,6 +32,7 @@ public class GoodsBuilder implements IGoodsBuilder {
     private String type;
     private int sales;
 
+    private String postWay;
     public GoodsBuilder() {
         clear();
     }
@@ -52,7 +54,7 @@ public class GoodsBuilder implements IGoodsBuilder {
 
         this.type="unkown";
         this.sales=0;
-
+        this.postWay="unkown";
         return this;
     }
 
@@ -84,6 +86,7 @@ public class GoodsBuilder implements IGoodsBuilder {
         goodsEntity.setState(this.state);
         goodsEntity.setType(this.type);
         goodsEntity.setSales(this.sales);
+        goodsEntity.setPostWay(this.postWay);
         return goodsEntity;
     }
 
@@ -115,6 +118,13 @@ public class GoodsBuilder implements IGoodsBuilder {
         this.type = type;
         return  this;
     }
+
+    @Override
+    public IGoodsBuilder setPostWay(String postWay) {
+        this.postWay =postWay;
+        return this;
+    }
+
     private int getShopId(){
         IBaseDao<ShopAndOwnerDbBean> mDao = new BaseDao<>();
         String hql = PersonShopListBean.hql+//

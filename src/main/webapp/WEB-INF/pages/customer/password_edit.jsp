@@ -46,8 +46,8 @@
                     <li class="bn"><label>Old Password：</label><input type="password" name="password" class="truename form-text" required/></li>
                     <li class="bn"><label>New Password：</label><input type="password" id="password" name="pass" class="truename form-text" required/></li>
                     <li class="bn"><label>Confirm Password：</label><input type="password" id="passwordConfirm" name="pass1" class="truename form-text" required/></li>
-                    <li><span id="tips" style="color: red;text-align: center">${tips}</span></li>
-                    <li class="bn"><label>&nbsp;</label><input type="submit" class="form-submit" value="Confirm the change" /></li>
+                    <li><span id="tips" style="color: red;margin-left: 200px;">${tips}</span></li>
+                    <li class="bn"><label>&nbsp;</label><input type="submit" class="form-submit" value="Confirm" /></li>
                 </ul>
             </form>
         </dic>

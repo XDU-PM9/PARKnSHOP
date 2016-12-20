@@ -10,7 +10,6 @@ import com.parknshop.service.IAdminService;
 import com.parknshop.service.IListBean;
 import com.parknshop.service.IUserService;
 import com.parknshop.service.baseImpl.IDefineString;
-import com.parknshop.service.serviceImpl.AllShopListBean;
 import com.parknshop.utils.DateFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

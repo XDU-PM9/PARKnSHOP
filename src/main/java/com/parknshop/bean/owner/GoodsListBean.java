@@ -1,4 +1,4 @@
-package com.parknshop.bean;
+package com.parknshop.bean.owner;
 
 import java.util.Date;
 import java.util.List;
@@ -15,10 +15,20 @@ public class GoodsListBean {
      * data : [{"id":"goods id","name":"name","desc":"desc","price":12.5,"discount":0.75,"createTime":"time","views":100,"state":1,"photos":["a","b","c"]}]
      */
 
+    private boolean success;
     private int current;
     private int total;
     private int count;
+
     private List<DataBean> data;
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
 
     public int getCurrent() {
         return current;
@@ -74,7 +84,17 @@ public class GoodsListBean {
         private int views;
         private int state;
         private String type;
+        private String postWay;
         private String[] photos;
+
+
+        public String getPostWay() {
+            return postWay;
+        }
+
+        public void setPostWay(String postWay) {
+            this.postWay = postWay;
+        }
 
         public String getType() {
             return type;

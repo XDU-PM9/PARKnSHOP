@@ -9,7 +9,7 @@
 <div class="shop_member_bd_left clearfix">
 
     <div class="shop_member_bd_left_pic">
-        <a href="javascript:void(0);"><img src="/resources/images/images/avatar.png"/></a>
+        <img src="${user.getUserImage()}"/>
     </div>
     <div class="clear"></div>
 
@@ -22,7 +22,7 @@
 
     <dl>
         <dt>My Collection</dt>
-        <dd><span><a href="/listCollect?requestPage=1">Good Collection</a></span></dd>
+        <dd><span><a href="/listCollect?requestPage=1">Product Collection</a></span></dd>
         <dd><span><a href="/listCollectShop?requestPage=1">Shop Collection</a></span></dd>
     </dl>
     <dl>
