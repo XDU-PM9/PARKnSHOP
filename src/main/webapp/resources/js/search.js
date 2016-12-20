@@ -40,6 +40,7 @@ function search() {
         getCount();
         getOnePage(0);
     }
+
 }
 
 //获取一页数据
@@ -192,6 +193,9 @@ function getJsonData() {
 //显示搜索结果
 function listSearchResult(result) {
     $('#productList').find('li').remove();
+    if(null==result||'null'==result||undefined==result||''==result){
+        $('#productList').append("<li><span>No results found for <br>"+searchOption.name+"</span>")
+    }
     $.each(result, function () {
         var result = this;
         $('#productList').append(

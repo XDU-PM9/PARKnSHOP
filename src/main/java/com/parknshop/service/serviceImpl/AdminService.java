@@ -149,7 +149,7 @@ public class AdminService  implements IAdminService{
 
     @Override
     public boolean blackOwner(int ownerId) {
-        String hql ="from ShopEntity where owerId = ?";
+        String hql ="from ShopEntity where ownerId = ?";
         Object[] param = {ownerId};
         IBaseDao<ShopEntity> shopEntityIBaseDao = new BaseDao<>();
         List<ShopEntity> list = shopEntityIBaseDao.find(hql,param);
@@ -166,7 +166,7 @@ public class AdminService  implements IAdminService{
 
     @Override
     public boolean deleteOwner(int ownerId) {
-        String hql ="from ShopEntity where owerId = ?";
+        String hql ="from ShopEntity where ownerId = ?";
         Object[] param = {ownerId};
         IBaseDao<ShopEntity> shopEntityIBaseDao = new BaseDao<>();
         List<ShopEntity> list = shopEntityIBaseDao.find(hql,param);
