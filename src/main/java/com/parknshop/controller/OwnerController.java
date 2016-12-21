@@ -497,6 +497,12 @@ public class OwnerController {
         return "owner/add_goods_fail.jsp";
     }
 
+    /**
+     * 删除商品
+     * @param request
+     * @param data
+     * @return
+     */
     @RequestMapping(value = "/deleteGoods", method = RequestMethod.POST)
     public
     @ResponseBody
@@ -505,11 +511,13 @@ public class OwnerController {
             return "redirect:/login";
         }
         String dataStr = new String(data);
+        Log.debug(dataStr);
         DeleteGoodsRequestBean requestBean = mGson.fromJson(dataStr, DeleteGoodsRequestBean.class);
         DeleteGoodsResponseBean responseBean = new DeleteGoodsResponseBean();
-        boolean success = mOwnerService.deletGoods(requestBean.getGoodsID());
+        boolean success = mOwnerService.deletGoods(requestBean.getGoodsId());
+        Log.debug(""+success);
         responseBean.setSuccess(success);
-        return mGson.toJson(request);
+        return mGson.toJson(responseBean);
     }
 
     @RequestMapping(value = "goodDetail",method = RequestMethod.POST)

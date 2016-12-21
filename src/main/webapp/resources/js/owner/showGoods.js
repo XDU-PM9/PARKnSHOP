@@ -59,7 +59,7 @@ function showGoods() {
                 addTd(i,response.data[i].price);
                 addTd(i,response.data[i].views);
                 goodId.push(response.data[i].id);
-                /*addOption(i);*/
+                addOption(i);
             }
         }
     })
@@ -116,7 +116,7 @@ function del() {
                     location.reload();
                 }
                 else {
-                    alert("error");
+                    location.reload();
                 }
             }
         })
@@ -138,7 +138,7 @@ function addTd(i,str) {
 }
 function addOption(i) {
     var className = "tr"+i;
-    var str = "<td><a href='#' class='edit'>Edit</a> | <a href='#' class='delete'>Delete</a> </td>"
+    var str = "<td><!--<a href='#' class='edit'>Edit</a> |--><a href='#' class='delete'>Delete</a></td>"
     $("."+className+"").append(str);
 }
 function addImg(i,url) {

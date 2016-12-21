@@ -34,7 +34,7 @@ public class GoodsListBean extends AbstractListBean<GoodsDbBean> {
             // 使用 常量 hql 语句 根据名字搜索
             String hql = GoodsDbBean.hql + //
                     " and s.shopId = ?" +//
-                    " and s.state > ? "+//
+                    " and g.state > ? "+//
                     " order by g.goodsId desc ";
             Object[] param = {entity.getShopId(), IGoodsBuilder.GOOD_SATE_DELETE};
             return mDao.find(hql,param,page,lines);
@@ -53,7 +53,7 @@ public class GoodsListBean extends AbstractListBean<GoodsDbBean> {
             ShopEntity entity = (ShopEntity) getObject();
             String hql = "select count(*) from GoodsEntity as g,ShopEntity as s where g.shopByShopId.shopId = s.shopId "+//
                     " and s.shopId = ?"+//
-                    " and s.state > ? ";
+                    " and g.state > ? ";
             Object[] param = {entity.getShopId(), IGoodsBuilder.GOOD_SATE_DELETE};
             return mDao.count(hql,param);
         }catch (Exception e){

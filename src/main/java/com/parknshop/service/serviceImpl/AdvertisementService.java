@@ -149,6 +149,9 @@ public class AdvertisementService implements IAdvertisement{
     private boolean updateAdert(int id,int state){
         IBaseDao<AdvertEntity> dao = new BaseDao<>();
         AdvertEntity entity = dao.get(AdvertEntity.class,id);
+        if(null == entity){
+            return false;
+        }
         entity.setState(state);
 
         if(state == IAdvertisement.AD_STATUS_EFFECT){//生效时间
