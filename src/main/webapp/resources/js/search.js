@@ -251,11 +251,11 @@ function displayCount() {
 }
 
 function firstSearch() {
-    var type=GetQueryString('type');
+    var type=decodeURIComponent(GetQueryString('type'));
     if(''!=type){
         setType(null,type);
     }
-    search();
+    // search();
 }
 
 function GetQueryString(name) {

@@ -1,7 +1,6 @@
 package com.parknshop.configure;
 
-import com.parknshop.service.IUserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.parknshop.service.baseImpl.IDefineString;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -15,24 +14,10 @@ import java.io.IOException;
  */
 @Component
 public class LoginFilter extends HandlerInterceptorAdapter {
-    @Autowired
-    IUserService userService;
-
-    //    final static String[] filterUrls=new String[]{
-//            "listProduct"
-//    };
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws ServletException, IOException {
-//        for(String url:filterUrls){
-//            if(request.getServletPath().contains(url)){
-//                request.setAttribute("url",request.getServletPath());
-//                request.getRequestDispatcher("customer/login").forward(request,response);
-//                return false;
-//            }
-//        }
-        if (!userService.isLogin()) {
+        if (null==request.getSession().getAttribute(IDefineString.SESSION_USER)) {
             request.setAttribute("backPage", true);
-//                request.setAttribute("url",request.getServletPath()+"?"+request.getQueryString());
             request.getRequestDispatcher("customer/login").forward(request, response);
             return false;
         }

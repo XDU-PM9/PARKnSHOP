@@ -47,10 +47,10 @@ public class CartController {
     @RequestMapping(value = "/changeAmount",method = RequestMethod.GET)
     public  String changeAmount(@RequestParam int cartId, @RequestParam int amount, HttpSession session, Model model)
     {
-        int userId=getUserId(session);
-        if (userId<0) {
-            return "redirect:/customer/login";
-        }else {
+//        int userId=getUserId(session);
+//        if (userId<0) {
+//            return "redirect:/customer/login";
+//        }else {
             if(amount>0) {
                 cartService.changeAmount(cartId, amount);
                 return "redirect:/listProduct?requestPage=1";
@@ -59,13 +59,13 @@ public class CartController {
                 model.addAttribute("husdfdskljaf",cartId);
                 return "redirect:/removeProduct?goodsId={husdfdskljaf}";
             }
-        }
+//        }
     }
 
     @RequestMapping(value = "/listProduct",method = RequestMethod.GET)
     public  String listCart(@RequestParam int requestPage,HttpSession session,Model model)
     {
-        int userId=getUserId(session);
+//        int userId=getUserId(session);
 //        if (userId<0) {
 //            return "forward:/customer/login";
 //        }else {
@@ -81,25 +81,25 @@ public class CartController {
     @RequestMapping(value = "/addProduct",method = RequestMethod.GET)
     public  String addCart(@RequestParam int goodsId,@RequestParam int amount,HttpSession session) {
         int userId = getUserId(session);
-        if (userId<0) {
-            return "redirect:/customer/login";
-        } else {
+//        if (userId<0) {
+//            return "redirect:/customer/login";
+//        } else {
             cartService.addProduct(userId, goodsId, amount);
             return "redirect:/listProduct?requestPage=1";
-        }
+//        }
     }
 
 
     @RequestMapping(value = "/removeProduct",method = RequestMethod.GET)
     public  String removeProduct(@RequestParam int goodsId,HttpSession session){
-        int userId = getUserId(session);
-        if (userId<0) {
-            return "redirect:/customer/login";
-        }
-        else {
+//        int userId = getUserId(session);
+//        if (userId<0) {
+//            return "redirect:/customer/login";
+//        }
+//        else {
             cartService.removeProduct(goodsId);
             return "redirect:/listProduct?requestPage=1";
-        }
+//        }
     }
 
     private int getUserId(HttpSession session){
