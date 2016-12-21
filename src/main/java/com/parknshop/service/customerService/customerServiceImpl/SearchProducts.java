@@ -332,11 +332,8 @@ public class SearchProducts implements ISearchProducts {
         //有效排序计数
         int count = 0;
         StringBuilder order = new StringBuilder("");
-        if (!anyState) {
-            hql += " and state = 1";
-        }
         if (orderByPriceDesc) {
-            order.append(" price DESC");
+            order.append(" price desc");
             count++;
         } else if (orderByPrice) {
             order.append(" price");
@@ -346,7 +343,7 @@ public class SearchProducts implements ISearchProducts {
             if (count > 0) {
                 order.append(" ,");
             }
-            order.append(" sales DESC");
+            order.append(" sales desc");
             count++;
         } else if (orderBySales) {
             if (count > 0) {
@@ -359,7 +356,7 @@ public class SearchProducts implements ISearchProducts {
             if (count > 0) {
                 order.append(" ,");
             }
-            order.append(" createTime DESC");
+            order.append(" createTime desc");
             count++;
         } else if (orderByTime) {
             if (count > 0) {
@@ -372,7 +369,7 @@ public class SearchProducts implements ISearchProducts {
             if (count > 0) {
                 order.append(" ,");
             }
-            order.append(" discount DESC");
+            order.append(" discount desc");
             count++;
         } else if (orderByDiscount) {
             if (count > 0) {
@@ -385,7 +382,7 @@ public class SearchProducts implements ISearchProducts {
             if (count > 0) {
                 order.append(" ,");
             }
-            order.append(" views DESC");
+            order.append(" views desc");
             count++;
         } else if (orderByViews) {
             if (count > 0) {
@@ -433,7 +430,14 @@ public class SearchProducts implements ISearchProducts {
         int status = 0;
         StringBuilder hql = new StringBuilder("");
         List list = new ArrayList<Object>();
+        if (!anyState) {
+            hql.append(" state = 1");
+            status++;
+        }
         if (stringNotNull(goodsName)) {
+            if(status>0){
+                hql.append(" and");
+            }
             hql.append(" goodsName like ?");
             list.add("%" + goodsName + "%");
             status++;
@@ -463,7 +467,8 @@ public class SearchProducts implements ISearchProducts {
             status++;
         }
         if (status < 1) {
-            return null;
+//            return null;
+            return mergerRulertoHql("from GoodsEntity");
         }
         param = list.toArray();
         return mergerRulertoHql("from GoodsEntity where" + hql);

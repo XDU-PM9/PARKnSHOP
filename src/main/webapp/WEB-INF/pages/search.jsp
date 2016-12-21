@@ -21,7 +21,7 @@
     <script src="/resources/js/search.js"></script>
 </head>
 <%--页面加载完成后立即执行搜索--%>
-<body onload="search()">
+<body onload="firstSearch()">
 <!-- Header  -wll-2013/03/24 -->
 <div class="shop_hd">
     <!-- Header TopNav -->
@@ -465,17 +465,18 @@
             <div class="title">Categories</div>
             <div class="contents clearfix">
                 <dl class="shop_bd_list_type_links clearfix">
-                    <dd>
-                        <span onclick="setType('')">All</span>
-                        <span onclick="setType('TV& Home Theater')">TV& Home Theater</span>
-                        <span onclick="setType('Computers & Tablets')">Computers & Tablets</span>
-                        <span onclick="setType('Cell Phones')">Cell Phones</span>
-                        <span onclick="setType('Cameras & Camcorders')">Cameras & Camcorders</span>
-                        <span onclick="setType('Audio')">Audio</span>
-                        <span onclick="setType('Car Electronics & GPS')">Car Electronics & GPS</span>
-                        <span onclick="setType('Video, Games, Movies & Music')">Video, Games, Movies & Music</span>
-                        <span onclick="setType('Health, Fitness & Sports')">Health, Fitness & Sports</span>
-                        <span onclick="setType('Home & Office')">Home & Office</span>
+                    <dd id="productType" style="cursor: pointer">
+                        <span id="typeSelectFirst" class="typeSelected" onclick="setType(this,'')">All&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+                        <span onclick="setType(this,'TV& Home Theater')">TV& Home Theater</span>
+                        <span onclick="setType(this,'Computers & Tablets')">Computers & Tablets</span>
+                        <span onclick="setType(this,'Cell Phones')">Cell Phones</span>
+                        <span onclick="setType(this,'Cameras & Camcorders')">Cameras & Camcorders</span>
+                        <span onclick="setType(this,'Audio')">Audio</span>
+                        <span onclick="setType(this,'Car Electronics & GPS')">Car Electronics & GPS</span>
+                        <span onclick="setType(this,'Video, Games, Movies & Music')">Video, Games, Movies & Music</span>
+                        <span onclick="setType(this,'Health, Fitness & Sports')">Health, Fitness & Sports</span>
+                        <span onclick="setType(this,'Home & Office')">Home & Office&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+                        <span onclick="setType(this,'other')">Others</span>
                     </dd>
                 </dl>
             </div>
@@ -571,18 +572,15 @@
                 <!-- 查看方式E -->
                 <!-- 排序方式S -->
                 <ul class="array">
-                    <li class="selected"><a title="默认排序" onclick="orderByDefault()"
+                    <li class="selected" id='defaultOrder' ><a title="默认排序" onclick="orderByDefault()"
                                             class="nobg" href="javascript:void(0)">Default</a></li>
-                    <li><a title="点击按销量从高到低排序"
+                    <li id="salesHightoLowOrder"><a title="点击按销量从高到低排序"
                            onclick="orderBySalesHightoLow()"
                            href="javascript:void(0)">Sales</a></li>
-                    <li><a title="点击按人气从高到低排序"
-                           onclick="orderByViewHightoLow()"
+                    <li id="viewsHightoLowOrder"><a title="点击按人气从高到低排序"
+                           onclick="orderByViewsHightoLow()"
                            href="javascript:void(0)">Hot</a></li>
-                    <%--<li><a title="点击按信用从高到低排序"--%>
-                           <%--onclick="javascript:replaceParam(['key','order'],['credit','desc'],'array');"--%>
-                           <%--href="javascript:void(0)">Credit</a></li>--%>
-                    <li><a title="点击按价格从高到低排序"
+                    <li id="priceHightoLowOrder"><a title="点击按价格从高到低排序"
                            onclick="orderByPriceHightoLow()"
                            href="javascript:void(0)">Price</a></li>
                 </ul>
@@ -919,7 +917,7 @@
             <ul id="pageList">
 
                 <%--<li><span>Previous</span></li>--%>
-                <li><span class="currentpage">1 of 1</span></li>
+                <%--<li><span class="currentpage">1 of 1</span></li>--%>
                 <%--<li><span>Next</span></li>--%>
 
                 <%--<li>--%>

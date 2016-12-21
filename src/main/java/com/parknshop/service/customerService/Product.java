@@ -85,12 +85,12 @@ public class Product {
         return this;
     }
 
-    public int getView() {
-        return view;
+    public int getViews() {
+        return views;
     }
 
-    public Product setView(int view) {
-        this.view = view;
+    public Product setViews(int views) {
+        this.views = views;
         return this;
     }
 
@@ -110,7 +110,7 @@ public class Product {
     double discount;
     String goodsIntroduction;
     String picture;
-    int view;
+    int views;
     int sales;
     String shopName;
     int shopId;

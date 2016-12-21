@@ -61,7 +61,7 @@ public class GetList implements IGetList {
                 .setDiscount(goodsEntity.getDiscount())
                 .setGoodsIntroduction(goodsEntity.getIntroduction())
                 .setPicture(getPhoto(goodsEntity.getPhotoGroup()))
-                .setView(goodsEntity.getViews())
+                .setViews(goodsEntity.getViews())
                 .setSales(goodsEntity.getSales())
                 .setShopId(goodsEntity.getShopByShopId().getShopId())
                 .setShopName(goodsEntity.getShopByShopId().getShopName())
