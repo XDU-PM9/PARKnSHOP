@@ -139,7 +139,7 @@ public class AdvertisementService implements IAdvertisement{
     }
     private IListBean<AdvertisementDbBean> getTopList(int type,int page,int lines){
         HqlBean hqlBean = new HqlBean();
-        hqlBean.setInnerHql(" and typeId =? and state = ?");
+        hqlBean.setInnerHql(" and type =? and state = ?");
         hqlBean.getInnerParam().add(type);
         hqlBean.getInnerParam().add(IAdvertisement.AD_STATUS_EFFECT);
         advertisementDbBeanIListBean.init(hqlBean,page,lines);
