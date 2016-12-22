@@ -124,7 +124,7 @@ public class AdvertisementService implements IAdvertisement{
 
     private IListBean<AdvertisementDbBean> getMyList(int type,int userId,int page,int lines){
         HqlBean hqlBean = new HqlBean();
-        hqlBean.setInnerHql(" and typeId =? and userId =? ");
+        hqlBean.setInnerHql(" and type =? and userId =? ");
         hqlBean.getInnerParam().add(type);
         hqlBean.getInnerParam().add(userId);
         advertisementDbBeanIListBean.init(hqlBean,page,lines);
@@ -132,7 +132,7 @@ public class AdvertisementService implements IAdvertisement{
     }
     private IListBean<AdvertisementDbBean> getAllList(int type,int page,int lines){
         HqlBean hqlBean = new HqlBean();
-        hqlBean.setInnerHql(" and typeId =? ");
+        hqlBean.setInnerHql(" and type =? ");
         hqlBean.getInnerParam().add(type);
         advertisementDbBeanIListBean.init(hqlBean,page,lines);
         return  advertisementDbBeanIListBean;
