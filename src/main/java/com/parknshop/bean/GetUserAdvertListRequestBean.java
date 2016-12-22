@@ -6,21 +6,21 @@ package com.parknshop.bean;
 public class GetUserAdvertListRequestBean {
 
     /**
-     * id : 12
+     * userId : 12
      * index : 12345
      * size : 5
      */
 
-    private int id;
+    private int userId;
     private int index;
     private int size;
 
-    public int getId() {
-        return id;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public int getIndex() {

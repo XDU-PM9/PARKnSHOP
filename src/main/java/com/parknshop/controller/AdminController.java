@@ -3,6 +3,7 @@ package com.parknshop.controller;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.parknshop.bean.*;
+import com.parknshop.bean.CancelAdvertRequestBean;
 import com.parknshop.entity.AdminEntity;
 import com.parknshop.entity.OwnerEntity;
 import com.parknshop.entity.UserEntity;
@@ -13,7 +14,6 @@ import com.parknshop.service.IUserService;
 import com.parknshop.service.baseImpl.IDefineString;
 import com.parknshop.utils.DateFormat;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -586,7 +585,8 @@ public class AdminController {
 
         GetAdvertListResponseBean.DataBean.DetailBean detailBean
                 = new GetAdvertListResponseBean.DataBean.DetailBean();
-        if(1 == state && advertBean.getGoodsEntity() !=  null) {    //state为1代表广告商品列表
+        //state为1代表广告商品列表
+        if(1 == state && advertBean.getGoodsEntity() !=  null) {
             detailBean.setId(advertBean.getGoodsEntity().getGoodsId());
             detailBean.setName(advertBean.getGoodsEntity().getGoodsName());
             detailBean.setIntroduction(advertBean.getGoodsEntity().getIntroduction());
@@ -624,14 +624,14 @@ public class AdminController {
 //        isLogin = true;
         if(isLogin){
             String infoStr = new String(info);
-            ReplyRequestBean requestBean = mGson.fromJson(infoStr,ReplyRequestBean.class);
+            ReplyAdvertRequestBean requestBean = mGson.fromJson(infoStr,ReplyAdvertRequestBean.class);
             if(1 == requestBean.getResult()){//管理员传入同意该广告请求
-                //传入商品id，ReplyRequestBean作为请求Bean，其中对id的命名是shopId
-                boolean state = mAdvert.acceptGoods(requestBean.getShopId());
+                //广告的Id
+                boolean state = mAdvert.acceptGoods(requestBean.getId());
                 //state为true，代表同意成功，返回error=false代表请求被同意
                 responseBean.setError(!state);
             }else{
-                boolean state = mAdvert.rejectGoods(requestBean.getShopId());
+                boolean state = mAdvert.rejectGoods(requestBean.getId());
                 //state为true，代表拒绝成功，返回error=false代表请求被拒绝
                 responseBean.setError(!state);
             }
@@ -648,9 +648,9 @@ public class AdminController {
 //        isLogin = true;
         if(isLogin){
             String infoStr = new String(info);
-            SearchShopRequestBean requestBean = mGson.fromJson(infoStr,SearchShopRequestBean.class);
-            //传入商品id，SearchShopRequestBean作为请求Bean，其中对id的命名是shopId
-            boolean state = mAdvert.cancelGoods(requestBean.getShopid());
+            CancelAdvertRequestBean requestBean = mGson.fromJson(infoStr,CancelAdvertRequestBean.class);
+            //传入广告id
+            boolean state = mAdvert.cancelGoods(requestBean.getId());
             responseBean.setError(!state);//处理状态为true，即处理成功，返回error=false
         }else{
             responseBean.setError(true);
@@ -699,10 +699,8 @@ public class AdminController {
             if(requestBean.getIndex()>total){
                 responseBean.setError(true);
             }else {
-                System.out.println("total:"+total+",size:"+size);
                 List<GetAdvertListResponseBean.DataBean> dataBeanList = new ArrayList<>();
                 for (AdvertisementDbBean advertBean : dataList.getShopList()) {
-
                     GetAdvertListResponseBean.DataBean dateBean = new GetAdvertListResponseBean.DataBean();
                     boolean result = AddInfoToAdvertDataBean(dateBean,advertBean,1);
                     if(result == true) dataBeanList.add(dateBean);
@@ -728,7 +726,7 @@ public class AdminController {
             String infoStr = new String(info);
             GetUserAdvertListRequestBean requestBean = mGson.fromJson(infoStr,GetUserAdvertListRequestBean.class);
             IListBean<AdvertisementDbBean> dataList =
-                    mAdvert.getMyGoods(requestBean.getId(),requestBean.getIndex(),requestBean.getSize());
+                    mAdvert.getMyGoods(requestBean.getUserId(),requestBean.getIndex(),requestBean.getSize());
             long total = dataList.getMaxPages();
             long size = dataList.getNumer();
             if(requestBean.getIndex()>total){
@@ -736,6 +734,7 @@ public class AdminController {
             }else {
                 List<GetAdvertListResponseBean.DataBean> dataBeanList = new ArrayList<>();
                 for (AdvertisementDbBean advertBean : dataList.getShopList()) {
+                    System.out.println("total:"+total+"size:"+size);
                     GetAdvertListResponseBean.DataBean dateBean = new GetAdvertListResponseBean.DataBean();
                     boolean result = AddInfoToAdvertDataBean(dateBean,advertBean,1);
                     if(result == true) dataBeanList.add(dateBean);
@@ -763,13 +762,13 @@ public class AdminController {
 //        isLogin = true;
         if(isLogin){
             String infoStr = new String(info);
-            ReplyRequestBean requestBean = mGson.fromJson(infoStr,ReplyRequestBean.class);
-            if(0!=requestBean.getResult()){//管理员传入同意该广告请求
-                boolean state = mAdvert.acceptShop(requestBean.getShopId());
+            ReplyAdvertRequestBean requestBean = mGson.fromJson(infoStr,ReplyAdvertRequestBean.class);
+            if(0 != requestBean.getResult()){//管理员传入同意该广告请求
+                boolean state = mAdvert.acceptShop(requestBean.getId());
                 //state为true，代表拒绝成功，返回error=false代表请求被同意
                 responseBean.setError(!state);
             }else{
-                boolean state = mAdvert.rejectShop(requestBean.getShopId());
+                boolean state = mAdvert.rejectShop(requestBean.getId());
                 //state为true，代表拒绝成功，返回error=false代表请求被拒绝
                 responseBean.setError(!state);
             }
@@ -786,9 +785,10 @@ public class AdminController {
 //        isLogin = true;
         if(isLogin){
             String infoStr = new String(info);
-            SearchShopRequestBean requestBean = mGson.fromJson(infoStr,SearchShopRequestBean.class);
-            //传入商品id，SearchShopRequestBean作为请求Bean，其中对id的命名是shopId
-            boolean state = mAdvert.cancelShop(requestBean.getShopid());
+            CancelAdvertRequestBean requestBean =
+                    mGson.fromJson(infoStr,CancelAdvertRequestBean.class);
+            //传入广告id
+            boolean state = mAdvert.cancelShop(requestBean.getId());
             responseBean.setError(!state);//处理状态为true，即处理成功，返回error=false
         }else{
             responseBean.setError(true);
@@ -807,7 +807,6 @@ public class AdminController {
             System.out.println(size);
             List<GetAdvertListResponseBean.DataBean> dataBeanList = new ArrayList<>();
             for (AdvertisementDbBean advertBean : dataList) {
-                System.out.println(size);
                 GetAdvertListResponseBean.DataBean dateBean = new GetAdvertListResponseBean.DataBean();
                 boolean result = AddInfoToAdvertDataBean(dateBean,advertBean,0);
                 if(result == true) dataBeanList.add(dateBean);
@@ -835,15 +834,12 @@ public class AdminController {
                     mAdvert.getAllShop(requestBean.getIndex(),requestBean.getSize());
             long total = dataList.getMaxPages();
             long size = dataList.getNumer();
-            System.out.println("total:" + total + ",size:" + size);
             if(requestBean.getIndex()>total){
                 responseBean.setError(true);
-                System.out.println("run true");
             }else {
-
                 List<GetAdvertListResponseBean.DataBean> dataBeanList = new ArrayList<>();
                 for (AdvertisementDbBean advertBean : dataList.getShopList()) {
-                    System.out.println("total:" + total + ",size:" + size);
+                    System.out.println("total:"+total+"size:"+size);
                     GetAdvertListResponseBean.DataBean dateBean = new GetAdvertListResponseBean.DataBean();
                     boolean result = AddInfoToAdvertDataBean(dateBean,advertBean,0);
                     if(result == true) dataBeanList.add(dateBean);
@@ -869,7 +865,7 @@ public class AdminController {
             String infoStr = new String(info);
             GetUserAdvertListRequestBean requestBean = mGson.fromJson(infoStr,GetUserAdvertListRequestBean.class);
             IListBean<AdvertisementDbBean> dataList =
-                    mAdvert.getMyShop(requestBean.getId(),requestBean.getIndex(),requestBean.getSize());
+                    mAdvert.getMyShop(requestBean.getUserId(),requestBean.getIndex(),requestBean.getSize());
             long total = dataList.getMaxPages();
             long size = dataList.getNumer();
             if(requestBean.getIndex()>total){
