@@ -132,7 +132,7 @@
                 </li>
                 <li>
                     <label>Postage：</label>
-                    <span> free postage</span>
+                    <span><%out.print(goods.getPostWay());%></span>
                 </li>
                 <li>
                     <label>Sold：</label>

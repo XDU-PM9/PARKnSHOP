@@ -25,58 +25,9 @@
 <!-- Header  -wll-2013/03/24 -->
 <div class="shop_hd">
     <!-- Header TopNav -->
-    <div class="shop_hd_topNav">
-        <div class="shop_hd_topNav_all">
-            <!-- Header TopNav Left -->
 
-            <!-- Header TopNav Left End -->
+      <%@include file="customer/top.jsp"%>
 
-            <!-- Header TopNav Right -->
-            <div class="shop_hd_topNav_all_right">
-                <ul class="topNav_quick_menu">
-
-                    <li>
-                        <div class="topNav_menu">
-                            <a href="#" class="topNavHover">Username<i></i></a>
-
-                        </div>
-                    </li>
-                    <li>
-                        <div class="topNav_menu">
-                            <a href="#" class="topNavHover">Customer Center<i></i></a>
-                            <div class="topNav_menu_bd" style="display:none;">
-                                <!--<ul>-->
-                                <!--<li><a title="已售出的商品" target="_top" href="#">已售出的商品</a></li>-->
-                                <!--<li><a title="销售中的商品" target="_top" href="#">销售中的商品</a></li>-->
-                                <!--</ul>-->
-                            </div>
-                        </div>
-                    </li>
-
-                    <li>
-                        <div class="topNav_menu">
-                            <a href="#" class="topNavHover">Cart</a>
-                            <div class="topNav_menu_bd" style="display:none;">
-                                <!--
-                                <ul>
-                                  <li><a title="已售出的商品" target="_top" href="#">已售出的商品</a></li>
-                                  <li><a title="销售中的商品" target="_top" href="#">销售中的商品</a></li>
-                                </ul>
-                                -->
-                                <!--<p>还没有商品，赶快去挑选！</p>-->
-                            </div>
-                        </div>
-                    </li>
-
-
-                </ul>
-            </div>
-            <!-- Header TopNav Right End -->
-        </div>
-        <div class="clear"></div>
-    </div>
-    <div class="clear"></div>
-    <!-- Header TopNav End -->
 
     <!-- TopHeader Center -->
     <div class="shop_hd_header">

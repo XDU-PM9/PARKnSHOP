@@ -125,7 +125,7 @@ function black() {
             type:'post',
             contentType : 'application/json',
             data: JSON.stringify(data),
-            url:'/admin/blackushop',
+            url:'/admin/blackshop',
             success: function (data) {
                 var response =JSON.parse(data);
                 console.log(response);
@@ -173,7 +173,7 @@ function recover() {
             type:'post',
             contentType : 'application/json',
             data: JSON.stringify(data),
-            url:'/admin/recovershop',
+            url:'/admin/whiteshop',
             success: function (data) {
                 var response =JSON.parse(data);
                 console.log(response);

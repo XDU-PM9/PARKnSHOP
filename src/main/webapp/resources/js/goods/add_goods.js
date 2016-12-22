@@ -24,17 +24,17 @@ function checkAcount() {
         if(curAcount<=1){
             $("#good_num_jian").hide();
         }
-        if(curAcount <56){
+        if(curAcount <total){
             $("#good_num_jia").show();
         }
     })
     $("#good_nums").change(function () {
         var curAcount = $(this).val();
-        if(curAcount >= 56){
-            $(this).val(56);
+        if(curAcount >= total){
+            $(this).val(total);
             $("#good_num_jia").hide();
         }
-        else if(curAcount <56){
+        else if(curAcount <total){
             $("#good_num_jia").show();
         }
         if(curAcount <=1){

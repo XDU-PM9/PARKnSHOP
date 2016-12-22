@@ -3,6 +3,8 @@ package com.parknshop.controller;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.parknshop.bean.*;
+import com.parknshop.bean.owner.GoodsDetaiResponse;
+import com.parknshop.bean.owner.GoodsDetailBean;
 import com.parknshop.bean.owner.GoodsListBean;
 import com.parknshop.bean.owner.GoodsRequest;
 import com.parknshop.entity.OwnerEntity;
@@ -495,6 +497,12 @@ public class OwnerController {
         return "owner/add_goods_fail.jsp";
     }
 
+    /**
+     * 删除商品
+     * @param request
+     * @param data
+     * @return
+     */
     @RequestMapping(value = "/deleteGoods", method = RequestMethod.POST)
     public
     @ResponseBody
@@ -503,11 +511,48 @@ public class OwnerController {
             return "redirect:/login";
         }
         String dataStr = new String(data);
+        Log.debug(dataStr);
         DeleteGoodsRequestBean requestBean = mGson.fromJson(dataStr, DeleteGoodsRequestBean.class);
         DeleteGoodsResponseBean responseBean = new DeleteGoodsResponseBean();
-        boolean success = mOwnerService.deletGoods(requestBean.getGoodsID());
+        boolean success = mOwnerService.deletGoods(requestBean.getGoodsId());
+        Log.debug(""+success);
         responseBean.setSuccess(success);
-        return mGson.toJson(request);
+        return mGson.toJson(responseBean);
+    }
+
+    @RequestMapping(value = "goodDetail",method = RequestMethod.POST)
+    public @ResponseBody String goodDetail(HttpServletRequest request,@RequestBody String data){
+
+        GoodsDetailBean bean = mGson.fromJson(data,GoodsDetailBean.class);
+        int id = bean.getId();
+        GoodsDbBean goods = mOwnerService.getGoods(id);
+        GoodsDetaiResponse response = new GoodsDetaiResponse();
+        if (goods==null){
+            response.setSuccess(false);
+        }else {
+            response.setSuccess(true);
+            GoodsDetaiResponse.DataBean goodbean = new GoodsDetaiResponse.DataBean();
+            goodbean.setId(goods.getGoodsId());
+            goodbean.setName(goods.getGoodsName());
+            goodbean.setDesc(goods.getIntroduction());
+            goodbean.setPrice(goods.getPrice());
+            goodbean.setDiscount(goodbean.getDiscount());
+            goodbean.setCreateTime(goods.getCreateTime());
+            goodbean.setViews(goods.getViews());
+            goodbean.setState(goods.getState());
+            goodbean.setPostWay(goods.getPostWay());
+
+            List<PhotoEntity> list = goods.getPicturePath();
+            int size = list.size();
+            String[] photos = new String[size];
+            for (int i = 0;i<size;i++){
+                photos[i] = list.get(i).getAddress();
+            }
+            goodbean.setPhotos(photos);
+            response.setData(goodbean);
+        }
+
+        return mGson.toJson(response);
     }
 
     /**

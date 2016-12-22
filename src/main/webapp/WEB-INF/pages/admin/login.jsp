@@ -18,7 +18,7 @@
 
 <body>
 <div class="head">
-    <a href="#"><img src="/resources/images/ico/banner.jpg" alt="" width="270" height="70" id="icoHead"></a>
+    <a href="/"><img src="/resources/images/ico/banner.jpg" alt="" width="270" height="70" id="icoHead"></a>
     <!--这里需要修改-->
 </div>
 <div class="main">
