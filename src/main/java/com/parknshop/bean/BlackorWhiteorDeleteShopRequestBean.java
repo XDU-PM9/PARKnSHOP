@@ -9,13 +9,13 @@ public class BlackorWhiteorDeleteShopRequestBean {
      * shopid : shopid
      */
 
-    private int shopid;
+    private int shopId;
 
-    public int getShopid() {
-        return shopid;
+    public int getShopId() {
+        return shopId;
     }
 
-    public void setShopid(int shopid) {
-        this.shopid = shopid;
+    public void setShopId(int shopId) {
+        this.shopId = shopId;
     }
 }

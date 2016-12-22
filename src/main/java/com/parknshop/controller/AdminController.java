@@ -172,9 +172,9 @@ public class AdminController {
             else {
                 boolean state=mAdminService.rejectShop(requestBean.getShopId());
                 if (state)
-                    replyReponseBean.setError(true);
-                else
                     replyReponseBean.setError(false);
+                else
+                    replyReponseBean.setError(true);
             }
         }
         else
@@ -452,7 +452,7 @@ public class AdminController {
         if(isLogin){
             String infoStr = new String(info);
             BlackorWhiteorDeleteShopRequestBean requestBean = mGson.fromJson(infoStr,BlackorWhiteorDeleteShopRequestBean.class);
-            responseBean.setError(!mAdminService.blackShop(requestBean.getShopid()));
+            responseBean.setError(!mAdminService.blackShop(requestBean.getShopId()));
         }else{
             responseBean.setError(true);
         }
@@ -467,7 +467,7 @@ public class AdminController {
         if(isLogin){
             String infoStr = new String(info);
             BlackorWhiteorDeleteShopRequestBean requestBean = mGson.fromJson(infoStr,BlackorWhiteorDeleteShopRequestBean.class);
-            responseBean.setError(!mAdminService.whiteShop(requestBean.getShopid()));
+            responseBean.setError(!mAdminService.whiteShop(requestBean.getShopId()));
         }else{
             responseBean.setError(true);
         }
@@ -482,7 +482,7 @@ public class AdminController {
         if(isLogin){
             String infoStr = new String(info);
             BlackorWhiteorDeleteShopRequestBean requestBean = mGson.fromJson(infoStr,BlackorWhiteorDeleteShopRequestBean.class);
-            responseBean.setError(!mAdminService.deleteShop(requestBean.getShopid()));
+            responseBean.setError(!mAdminService.deleteShop(requestBean.getShopId()));
         }else{
             responseBean.setError(true);
         }

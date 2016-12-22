@@ -4,13 +4,13 @@ package com.parknshop.bean;
  * Created by song on 16-12-14.
  */
 public class DeleteGoodsRequestBean {
-    int goodsID;
+    int goodsId;
 
-    public int getGoodsID() {
-        return goodsID;
+    public int getGoodsId() {
+        return goodsId;
     }
 
-    public void setGoodsID(int goodsID) {
-        this.goodsID = goodsID;
+    public void setGoodsId(int goodsID) {
+        this.goodsId = goodsID;
     }
 }

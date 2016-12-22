@@ -11,6 +11,6 @@
     <title>Title</title>
 </head>
 <body>
-<p>添加商品成功</p>>
+<p>Successfully</p>
 </body>
 </html>

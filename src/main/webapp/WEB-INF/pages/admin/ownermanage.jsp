@@ -17,7 +17,7 @@
 <body>
 
 <h1>
-    <span class="action-span1"><a href="">Apply List</a> </span>
+    <span class="action-span1"><a href="">Owner List</a> </span>
     <div style="clear:both"></div>
 </h1>
 

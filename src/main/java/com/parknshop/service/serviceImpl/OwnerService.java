@@ -4,6 +4,7 @@ import com.parknshop.bean.GoodsDbBean;
 import com.parknshop.bean.ShopAndOwnerDbBean;
 import com.parknshop.dao.IBaseDao;
 import com.parknshop.dao.IPictureDao;
+import com.parknshop.dao.daoImpl.BaseDao;
 import com.parknshop.dao.daoImpl.PitureDao;
 import com.parknshop.entity.*;
 import com.parknshop.service.IAdvertisement;
@@ -223,6 +224,7 @@ public class OwnerService implements IOwnerService {
     //更新商品状态
     private  boolean updateGoodState(int type,int goodsId){
         try {
+            System.out.println(goodsId);
             GoodsEntity entity = goodDao.get(GoodsEntity.class, goodsId);
             if(null != entity) {
                 entity.setState(type);//可以使用
@@ -230,10 +232,12 @@ public class OwnerService implements IOwnerService {
                 int h;//没用的，不要提醒代码重复
                 return true;
             }else {
+
                 return false;
             }
 
         }catch (Exception e){
+
             e.printStackTrace();
             return false;
         }
@@ -257,5 +261,8 @@ public class OwnerService implements IOwnerService {
 //        OwnerEntity entity = new OwnerEntity();
 //        entity.setOwnerId(5);
 //        System.out.println(ownerService.isHasShop(entity));
+        IBaseDao<GoodsEntity> dao = new BaseDao<>();
+        GoodsEntity entity = dao.get(GoodsEntity.class,11);
+        System.out.print(entity.getInventory());
     }
 }

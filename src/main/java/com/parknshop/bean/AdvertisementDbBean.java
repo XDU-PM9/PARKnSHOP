@@ -45,7 +45,7 @@ public class AdvertisementDbBean {
             } else if (type == IAdvertisement.AD_TYOE_GOODS) {
                 initGoodsEntity();
             }
-            initOwnerEntity();
+          //  initOwnerEntity();
         }catch (Exception e){
             e.printStackTrace();
         }
