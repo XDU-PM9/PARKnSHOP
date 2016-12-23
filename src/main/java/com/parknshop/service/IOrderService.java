@@ -21,6 +21,6 @@ public interface IOrderService {
     int ADD_PARAM_ERRO = 999;//参数错误
     int ADD_SAVE_ERRO = 1000;//保存失败
     int ADD_SAVE_SUCCESS = 1001;//保存成功
-    int addOrders(String carts);
+    int addOrders(int[] carts);
 
 }

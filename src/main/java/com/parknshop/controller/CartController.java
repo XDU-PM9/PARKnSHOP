@@ -2,11 +2,13 @@ package com.parknshop.controller;
 
 import com.parknshop.entity.CartEntity;
 import com.parknshop.entity.UserEntity;
+import com.parknshop.service.IOrderService;
 import com.parknshop.service.IUserService;
 import com.parknshop.service.baseImpl.IDefineString;
 import com.parknshop.service.customerService.Cart;
 import com.parknshop.service.customerService.ICartService;
 import com.parknshop.service.customerService.IGetList;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +28,9 @@ public class CartController {
     ICartService cartService;
     @Autowired
     IGetList productsList;
+
+    @Autowired
+    IOrderService orderService;
 
     private  IUserService mUserService;
 
@@ -102,6 +107,27 @@ public class CartController {
 //        }
     }
 
+
+    @RequestMapping(value = "/cartSubmit",method = RequestMethod.POST)
+    public String cartSubmit(@RequestParam("ch") String  cartId, HttpSession session, Model model)
+    {
+        String[] ch=cartId.split(",");
+        int[] nums=new int[ch.length];
+        for(int i=0;i<ch.length;i++)
+        {
+            nums[i]=new Integer(ch[i]).intValue();
+        }
+        if(orderService.addOrders(nums)-1001==0) {
+
+            return "redirect:/";
+        }
+        else {
+                return  "";
+        }
+
+
+
+    }
     private int getUserId(HttpSession session){
         try {
             return ((UserEntity) session.getAttribute(IDefineString.SESSION_USER)).getUserId();
