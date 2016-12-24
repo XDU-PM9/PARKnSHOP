@@ -15,7 +15,7 @@ public interface IBaseDao<T> {
     public boolean  delete(String sql,Integer id);
     public  boolean update(String sql,Object[] params);
     void update(T o) throws Exception;
-
+    Serializable update(List<T> o) throws Exception;
     void saveOrUpdate(T o);//此功能尚未完成
 
     List<T> find(String hql);

@@ -147,6 +147,27 @@ public class BaseDao<T> implements IBaseDao<T> {
         }
         return;
     }
+    @Override
+    public Serializable update(List<T> o) throws Exception {
+        Session session = null;
+        try {
+            session = this.getCurrentSession();
+            session.beginTransaction();
+            for(T t:o){
+                session.update(t);
+            }
+            session.getTransaction().commit();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            // 回滚事务
+            session.getTransaction().rollback();
+            throw new Exception("HWN:erro when save object");
+        } finally {
+            // 关闭session
+            session.close();
+        }
+        return session;
+    }
 
     /*
     此功能尚未实现完全
