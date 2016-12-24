@@ -6,6 +6,7 @@ import com.parknshop.dao.daoImpl.BaseDao;
 import com.parknshop.entity.*;
 import com.parknshop.service.IListBean;
 import com.parknshop.service.IOrderService;
+import com.parknshop.service.IOwnerService;
 import com.parknshop.service.customerService.Cart;
 import com.parknshop.service.serviceImpl.listBean.OrderListBean;
 import com.sun.org.apache.xpath.internal.operations.Or;
@@ -41,8 +42,13 @@ public class OrderService implements IOrderService {
 
 
     private OrdersEntity  addOerder(String orderNumber, CartEntity cartEntity){
+        if(cartEntity.getGoodsEntity().getShopByShopId().getState() != IOwnerService.SHOP_STATE_USING){
+            return null;
+        }
+
         OrdersEntity ordersEntity = new OrdersEntity();
         ordersEntity.setOrderNumber(orderNumber);
+        ordersEntity.setOwnerId(cartEntity.getGoodsEntity().getShopByShopId().getOwnerByOwnerId().getOwnerId());
         ordersEntity.setUserByUserId(cartEntity.getUserByUserId());
         ordersEntity.setSingleGoodId(cartEntity.getSingleGoodId());
         ordersEntity.setGoodsByGoodsId(cartEntity.getGoodsEntity());
