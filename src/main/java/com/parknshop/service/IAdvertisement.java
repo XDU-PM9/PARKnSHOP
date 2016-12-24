@@ -24,8 +24,8 @@ public interface IAdvertisement {
     int ILLEGAl_GOODS = 1003;//不合法的商品 删除状态
     int ELSE_ERRO = 1004;// 其他错误
     int ADD_SUCCESS = 2000;//添加成功
-    int addAdvertisementShop(int id,double price);
-    int addAdvertisementGoods(int id,double price);
+    int addAdvertisementShop(int id);
+    int addAdvertisementGoods(int id);
 
 
     int AD_SATUS_REJECT = -2;//拒绝申请

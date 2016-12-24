@@ -3,10 +3,7 @@ package com.parknshop.service.serviceImpl;
 import com.parknshop.bean.ShopAndOwnerDbBean;
 import com.parknshop.dao.IBaseDao;
 import com.parknshop.dao.daoImpl.BaseDao;
-import com.parknshop.entity.GoodsEntity;
-import com.parknshop.entity.OwnerEntity;
-import com.parknshop.entity.ShopEntity;
-import com.parknshop.entity.UserEntity;
+import com.parknshop.entity.*;
 import com.parknshop.service.*;
 import com.parknshop.service.serviceImpl.listBean.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +34,9 @@ public class AdminService  implements IAdminService{
     private final IListBean allShopList;
     private final IAdvertisement advertisement;
     private final IOwnerService ownerService;
+    private final IBaseDao<CommissionEntity> commissionEntityIBaseDao;
     @Autowired
-    public AdminService(ShopListBean listBean, IBaseDao<ShopEntity> mDao, IBaseDao<ShopAndOwnerDbBean> shopDao, IBaseDao<Object> objectDao, UserListBean userList, OwnerListBean ownerList, AllShopListBean allShopList, IAdvertisement advertisement, IOwnerService ownerService) {
+    public AdminService(ShopListBean listBean, IBaseDao<ShopEntity> mDao, IBaseDao<ShopAndOwnerDbBean> shopDao, IBaseDao<Object> objectDao, UserListBean userList, OwnerListBean ownerList, AllShopListBean allShopList, IAdvertisement advertisement, IOwnerService ownerService, IBaseDao<CommissionEntity> commissionEntityIBaseDao) {
         this.listBean = listBean;
         this.mDao = mDao;
         this.shopDao =shopDao;
@@ -48,6 +46,7 @@ public class AdminService  implements IAdminService{
         this.allShopList = allShopList;
         this.advertisement = advertisement;
         this.ownerService = ownerService;
+        this.commissionEntityIBaseDao = commissionEntityIBaseDao;
     }
 
     @Override
@@ -174,6 +173,23 @@ public class AdminService  implements IAdminService{
             deleteShop(entity.getShopId());//删除所有商铺
         }
         return updateOwnerState(IUserService.STATE_DELETE,ownerId);
+    }
+
+    @Override
+    public CommissionEntity getCommission() {
+        return commissionEntityIBaseDao.get(CommissionEntity.class,1);
+    }
+
+    @Override
+    public boolean updateCommission(CommissionEntity entity) {
+        try{
+            commissionEntityIBaseDao.update(entity);
+            double i;
+            return true;
+        }catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     private Object getPeppleById(Class mClass, int id) {

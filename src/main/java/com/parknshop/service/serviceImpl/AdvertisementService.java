@@ -5,6 +5,7 @@ import com.parknshop.bean.HqlBean;
 import com.parknshop.dao.IBaseDao;
 import com.parknshop.dao.daoImpl.BaseDao;
 import com.parknshop.entity.AdvertEntity;
+import com.parknshop.entity.CommissionEntity;
 import com.parknshop.entity.GoodsEntity;
 import com.parknshop.entity.ShopEntity;
 import com.parknshop.service.IAdvertisement;
@@ -27,14 +28,23 @@ import java.util.List;
 public class AdvertisementService implements IAdvertisement{
     private final IListBean<AdvertisementDbBean> advertisementDbBeanIListBean;
     private final IBaseDao<AdvertEntity> advertEntityIBaseDao ;
+    final
+    IBaseDao<CommissionEntity> commissionEntityIBaseDao;
     @Autowired
-    public AdvertisementService(AdvertisementListBean advertisementDbBeanIListBean, IBaseDao<AdvertEntity> advertEntityIBaseDao) {
+    public AdvertisementService(AdvertisementListBean advertisementDbBeanIListBean, IBaseDao<AdvertEntity> advertEntityIBaseDao, IBaseDao<CommissionEntity> commissionEntityIBaseDao) {
         this.advertisementDbBeanIListBean = advertisementDbBeanIListBean;
         this.advertEntityIBaseDao = advertEntityIBaseDao;
+        this.commissionEntityIBaseDao = commissionEntityIBaseDao;
     }
 
     @Override
-    public int addAdvertisementShop(int id, double price) {
+    public int addAdvertisementShop(int id){
+        CommissionEntity commissionEntity = commissionEntityIBaseDao.get(CommissionEntity.class,1);
+        return  addAdvertisementShop(id,commissionEntity.getShopPrice());
+
+    }
+
+    private int addAdvertisementShop(int id, double price) {
         IBaseDao<ShopEntity> dao = new BaseDao<>();
         ShopEntity entity = dao.get(ShopEntity.class,id);
         if(null == entity ||entity.getState() != IOwnerService.SHOP_STATE_USING){//商店正在使用才能申请
@@ -45,7 +55,11 @@ public class AdvertisementService implements IAdvertisement{
     }
 
     @Override
-    public int addAdvertisementGoods(int id, double price) {
+    public int addAdvertisementGoods(int id){
+        CommissionEntity commissionEntity = commissionEntityIBaseDao.get(CommissionEntity.class,1);
+        return  addAdvertisementGoods(id,commissionEntity.getGoodsPrice());
+    }
+    private int addAdvertisementGoods(int id, double price) {
         IBaseDao<GoodsEntity> dao = new BaseDao<>();
         IBaseDao<ShopEntity> shopDao = new BaseDao<>();
         GoodsEntity goodsEntity = dao.get(GoodsEntity.class,id);
@@ -205,9 +219,9 @@ public class AdvertisementService implements IAdvertisement{
     }
 
     public static void main(String[] args){
-        AdvertisementService advertisementService = new AdvertisementService(new AdvertisementListBean(),new BaseDao<>());
-        //advertisementService.addAdvertisementGoods(2,12);
-        System.out.println(advertisementService.addAdvertisementGoods(2,12));
+//        AdvertisementService advertisementService = new AdvertisementService(new AdvertisementListBean(),new BaseDao<>());
+//        //advertisementService.addAdvertisementGoods(2,12);
+//        System.out.println(advertisementService.addAdvertisementGoods(2,12));
     }
 
 
