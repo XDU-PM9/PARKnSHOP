@@ -13,7 +13,8 @@ import javax.persistence.*;
 public class CommissionEntity {
     private Integer commissionId;
     private Double rate;
-
+    private Double shopPrice;
+    private Double goodsPrice;
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "commissionId", nullable = false)
@@ -53,5 +54,25 @@ public class CommissionEntity {
         int result = commissionId != null ? commissionId.hashCode() : 0;
         result = 31 * result + (rate != null ? rate.hashCode() : 0);
         return result;
+    }
+
+    @Basic
+    @Column(name = "shopPrice", nullable = true, precision = 2)
+    public Double getShopPrice() {
+        return shopPrice;
+    }
+
+    public void setShopPrice(Double shopPrice) {
+        this.shopPrice = shopPrice;
+    }
+
+    @Basic
+    @Column(name = "goodsPrice", nullable = true, precision = 2)
+    public Double getGoodsPrice() {
+        return goodsPrice;
+    }
+
+    public void setGoodsPrice(Double goodsPrice) {
+        this.goodsPrice = goodsPrice;
     }
 }

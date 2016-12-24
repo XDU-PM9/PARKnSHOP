@@ -21,12 +21,27 @@ public class OrdersEntity {
     private String goodsDescribe;
     private Integer amount;
     private Date createTime;
+
+    public void setCreateTime(Timestamp createTime) {
+        this.createTime = createTime;
+    }
+
     private Date paidTime;
+
+    public void setPaidTime(Timestamp paidTime) {
+        this.paidTime = paidTime;
+    }
+
     private Double price;
     private Double commission;
     private Double commissionRate;
     private String comment;
     private Date commentTime;
+    private Integer ownerId;
+    public void setCommentTime(Timestamp commentTime) {
+        this.commentTime = commentTime;
+    }
+
     private Integer state;
     private UserEntity userByUserId;
     private GoodsEntity goodsByGoodsId;
@@ -294,5 +309,17 @@ public class OrdersEntity {
 
     public void setPostWay(String postWay) {
         this.postWay = postWay;
+    }
+
+
+
+    @Basic
+    @Column(name = "ownerId", nullable = true)
+    public Integer getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(Integer ownerId) {
+        this.ownerId = ownerId;
     }
 }

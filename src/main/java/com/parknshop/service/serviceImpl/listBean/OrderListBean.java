@@ -5,12 +5,14 @@ import com.parknshop.dao.IBaseDao;
 import com.parknshop.dao.daoImpl.BaseDao;
 import com.parknshop.entity.OrdersEntity;
 import com.parknshop.service.serviceAbstract.AbstractListBean;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 /**
  * Created by weina on 2016/12/24.
  */
+@Component
 public class OrderListBean extends AbstractListBean<OrdersEntity> {
     @Override
     protected List<OrdersEntity> initList(int page, int lines) {

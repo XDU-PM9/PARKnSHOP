@@ -10,7 +10,7 @@ import java.sql.Timestamp;
  */
 @Entity
 @Repository
-@Table(name = "cart", schema = "parknshop")
+@Table(name = "cart", schema = "parknshop", catalog = "")
 public class CartEntity {
     private Integer cartId;
     private GoodsEntity goodsEntity;
@@ -19,6 +19,30 @@ public class CartEntity {
     private Integer amount;
     private Timestamp createTime;
     private UserEntity userByUserId;
+//    @Column(name="userId",nullable = false)
+//    public Integer getUserId(){
+//        return this.userId;
+//    }
+//
+//    public void setUserId(Integer userId){
+//        this.userId=userId;
+//    }
+//
+//    @Column(name = "goodsId",nullable = false)
+//    public Integer getGoodsId(){
+//        return this.goodsId;
+//    }
+//
+//    public void setGoodsId(Integer goodsId){
+//        this.goodsId=goodsId;
+//    }
+    private int goodsId;
+    private String state;
+
+    public void setCartId(int cartId) {
+        this.cartId = cartId;
+    }
+
 //    private Integer userId;
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -32,7 +56,7 @@ public class CartEntity {
     }
 
     @Basic
-    @Column(name = "singleGoodId", nullable = true)
+    @Column(name = "singleGoodId", nullable = false)
     public Integer getSingleGoodId() {
         return singleGoodId;
     }
@@ -104,21 +128,28 @@ public class CartEntity {
     public void setGoodsEntity(GoodsEntity userByUserId) {
         this.goodsEntity = userByUserId;
     }
-//    @Column(name="userId",nullable = false)
-//    public Integer getUserId(){
-//        return this.userId;
+
+    public void setGoodsId(Integer goodsId) {
+        this.goodsId = goodsId;
+    }
+
+//    @Basic
+//    @Column(name = "goodsId", nullable = false)
+//    public int getGoodsId() {
+//        return goodsId;
 //    }
 //
-//    public void setUserId(Integer userId){
-//        this.userId=userId;
+//    public void setGoodsId(int goodsId) {
+//        this.goodsId = goodsId;
 //    }
-//
-//    @Column(name = "goodsId",nullable = false)
-//    public Integer getGoodsId(){
-//        return this.goodsId;
-//    }
-//
-//    public void setGoodsId(Integer goodsId){
-//        this.goodsId=goodsId;
-//    }
+
+    @Basic
+    @Column(name = "state", nullable = true, length = 255)
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
 }
