@@ -43,8 +43,13 @@ public class AdminController {
             .setDateFormat(DateFormat.getDateFormat())
             .create();
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    public String logo() {
+    @RequestMapping(value = "")
+    public String dispatcher(){
+        return "redirect:/admin/index";
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String login() {
         return "admin/login.jsp";
     }
 
@@ -82,7 +87,10 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
-    public String index() {
+    public String index(HttpSession session) {
+        if (!checkLogin(session)){
+            return "redirect:/admin/login";
+        }
         return "admin/index.jsp";
     }
 
@@ -887,6 +895,29 @@ public class AdminController {
             responseBean.setError(true);
         }
         return mGson.toJson(responseBean);
+    }
+
+
+    /**
+     * 登录检查
+     * @author 宋正腾
+     * @param session
+     * @return
+     */
+    private boolean checkLogin(HttpSession session) {
+        if (!mService.isLogin()) {
+            return false;
+        }
+        //防止不同类型用户的登陆影响
+        try {
+            AdminEntity entity = (AdminEntity) session.getAttribute(IDefineString.SESSION_USER);
+            if (null == entity) {
+                throw new Exception("未登陆");
+            }
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
 }
