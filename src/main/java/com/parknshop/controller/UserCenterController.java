@@ -199,6 +199,7 @@ public class UserCenterController {
             return "redirect:listCollectShop?requestPage={gdhdsfs}";
         }
     }
+
     private int getUserId(HttpSession session){
         try {
             return ((UserEntity) session.getAttribute(IDefineString.SESSION_USER)).getUserId();

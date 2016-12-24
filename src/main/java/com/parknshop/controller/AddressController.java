@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 /**
@@ -25,6 +26,8 @@ public class AddressController {
 
     @Autowired
     private IUserService mUserService;
+    @Autowired
+    private HttpServletRequest request;
 
     @RequestMapping(value = "/listAddress",method = RequestMethod.GET)
     public String  listAddress(Model model, HttpSession session)
@@ -85,8 +88,8 @@ public class AddressController {
 //            return "redirect:customer/login";
 //        }
 //        else{
-            addressService.insertAddressEntity(province, country, others, name, phoneNum, zip, userId);
-            return "redirect:listAddress";
+        addressService.insertAddressEntity(province, country, others, name, phoneNum, zip, userId);
+        return "redirect:listAddress";
 //        }
     }
 

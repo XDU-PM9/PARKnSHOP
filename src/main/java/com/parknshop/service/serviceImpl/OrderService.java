@@ -66,7 +66,7 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public int addOrders(int[] carts) {
+    public String addOrders(int[] carts) {
         List<OrdersEntity> orderList = new ArrayList<>();
         String orderNumber = java.util.UUID.randomUUID().toString();
         for (int i : carts) {
@@ -79,7 +79,7 @@ public class OrderService implements IOrderService {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                return ADD_PARAM_ERRO;
+                return null;//ADD_PARAM_ERRO;
             }
         }
 
@@ -87,10 +87,21 @@ public class OrderService implements IOrderService {
             ordersEntityIBaseDao.save(orderList);
             for(int i:carts)
                  cartEntityIBaseDao.delete("delete from cart where cartId=?",i);
-            return ADD_SAVE_SUCCESS;
+            return orderNumber;//ADD_SAVE_SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
-            return ADD_SAVE_ERRO;
+            return null;//ADD_SAVE_ERRO;
+        }
+    }
+
+    @Override
+    public List<OrdersEntity> getOrdersList(String orderNum) {
+        try {
+           return ordersEntityIBaseDao.find("from OrdersEntity o where o.orderNumber=?", new Object[]{orderNum});
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            return null;
         }
     }
 }

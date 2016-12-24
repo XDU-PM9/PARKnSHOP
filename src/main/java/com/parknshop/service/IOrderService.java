@@ -1,5 +1,9 @@
 package com.parknshop.service;
 
+import com.parknshop.entity.OrdersEntity;
+
+import java.util.List;
+
 /**
  * Created by weina on 2016/12/22.
  */
@@ -21,6 +25,6 @@ public interface IOrderService {
     int ADD_PARAM_ERRO = 999;//参数错误
     int ADD_SAVE_ERRO = 1000;//保存失败
     int ADD_SAVE_SUCCESS = 1001;//保存成功
-    int addOrders(int[] carts);
-
+    public  String addOrders(int[] carts);
+    public List<OrdersEntity> getOrdersList(String orderNum);
 }

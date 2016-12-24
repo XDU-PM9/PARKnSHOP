@@ -18,7 +18,7 @@ public class LoginFilter extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws ServletException, IOException {
         if (null==request.getSession().getAttribute(IDefineString.SESSION_USER)) {
             request.setAttribute("backPage", true);
-            request.getRequestDispatcher("customer/login").forward(request, response);
+            request.getRequestDispatcher("/customer/login").forward(request, response);
             return false;
         }
         return true;

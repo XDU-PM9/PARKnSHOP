@@ -50,6 +50,7 @@
             <mvc:mapping path="/updateAddress"/>
             <mvc:mapping path="/saveAddress"/>
             <mvc:mapping path="/deleteAddress"/>
+            <mvc:mapping path="/order/listCart"/>
 
             <bean class="com.parknshop.configure.LoginFilter"/>
         </mvc:interceptor>
