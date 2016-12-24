@@ -126,7 +126,6 @@ function agree() {
                     location.reload();
                 }
                 else {
-                    alter("error");
                 }
             }
         })
@@ -136,7 +135,7 @@ function disagree() {
     $("body").on('click','.disagree',function () {
         var id = $(this).parent().parent().index();
         var data = {};
-        data.shopId = shopId[id-1];
+        data.shopId = shopId[id];
         data.result = 0;
         /*测试成功*/
         $.ajax({
@@ -149,9 +148,10 @@ function disagree() {
                 console.log(response);
                 if(response.error==false) {
                     location.reload();
+                    alert("disagree success");
                 }
                 else {
-                    alter("error");
+                    alert("error");
                 }
             }
         })
