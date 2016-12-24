@@ -91,6 +91,7 @@ var searchOption = {
     salesDesc: 'false',
     name: '',    //（商品名）
     type: '',    //（类型）
+    shopId:'',  //店铺Id
     start: '0',    //开始搜索处
     count: '0'     //搜索数量
 };
@@ -99,6 +100,11 @@ function initType() {
     $('#productType').find('span').removeClass('typeSelected');
     $('#typeSelectFirst').addClass('typeSelected');
     searchOption.type='';
+}
+
+function setShopId(param) {
+    searchOption.shopId=param.toString();
+    search();
 }
 
 function setType(id,type) {

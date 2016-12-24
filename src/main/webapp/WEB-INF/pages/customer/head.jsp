@@ -69,36 +69,36 @@
                 <ul class="shop_hd_menu_all_category_hd_menu clearfix" style="width: 205px;">
                     <!-- 单个菜单项 -->
                     <li id="cat_1" class="">
-                        <h3><a href="search?type=TV%26%20Home%20Theater" title="男女服装">TV& Home Theater</a></h3>
+                        <h3><a href="/search?type=TV%26%20Home%20Theater" title="男女服装">TV& Home Theater</a></h3>
                     </li>
                     <!-- 单个菜单项 End -->
                     <li id="cat_2" class="">
-                        <h3><a href="search?type=Computers%20%26%20Tablets" title="Computers & Tablets">Computers & Tablets</a></h3>
+                        <h3><a href="/search?type=Computers%20%26%20Tablets" title="Computers & Tablets">Computers & Tablets</a></h3>
                     </li>
 
                     <li id="cat_3" class="">
-                        <h3><a href="search?type=Cell%20Phones" title="Cell Phones">Cell Phones</a></h3>
+                        <h3><a href="/search?type=Cell%20Phones" title="Cell Phones">Cell Phones</a></h3>
                     </li>
 
                     <li id="cat_4" class="">
-                        <h3><a href="search?type=Cameras%20%26%20Camcorders" title="Cameras & Camcorders">Cameras & Camcorders</a></h3>
+                        <h3><a href="/search?type=Cameras%20%26%20Camcorders" title="Cameras & Camcorders">Cameras & Camcorders</a></h3>
                     </li>
 
                     <li id="cat_5" class="">
-                        <h3><a href="search?type=Audio" title="Audio">Audio</a></h3>
+                        <h3><a href="/search?type=Audio" title="Audio">Audio</a></h3>
                     </li>
 
                     <li id="cat_6" class="">
-                        <h3><a href="search?type=Car%20Electronics%20%26%20GPS" title="Car Electronics & GPS">Car Electronics & GPS</a></h3>
+                        <h3><a href="/search?type=Car%20Electronics%20%26%20GPS" title="Car Electronics & GPS">Car Electronics & GPS</a></h3>
                     </li>
                     <li id="cat_7" class="">
-                        <h3><a href="search?type=Video,%20Games,%20Movies" title="Video, Games, Movies">Video, Games, Movies</a></h3>
+                        <h3><a href="/search?type=Video,%20Games,%20Movies" title="Video, Games, Movies">Video, Games, Movies</a></h3>
                     </li>
                     <li id="cat_8" class="">
-                        <h3><a href="search?type=Health,%20Fitness%20%26%20Sports" title="Health, Fitness & Sports">Health, Fitness & Sports</a></h3>
+                        <h3><a href="/search?type=Health,%20Fitness%20%26%20Sports" title="Health, Fitness & Sports">Health, Fitness & Sports</a></h3>
                     </li>
                     <li id="cat_9" class="">
-                        <h3><a href="search?type=Home%20%26%20Office" title="Home & Office">Home & Office</a></h3>
+                        <h3><a href="/search?type=Home%20%26%20Office" title="Home & Office">Home & Office</a></h3>
                     </li>
                 </ul>
             </div>
