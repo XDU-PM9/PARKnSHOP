@@ -121,7 +121,7 @@ public class OrderService implements IOrderService {
         try {
             ordersEntityIBaseDao.save(orderList);
             for(int i:carts) {
-                cartEntityIBaseDao.delete("delete from cart where cartId=?", i);
+                cartEntityIBaseDao.delete("update cart set state='0' where cartId=?", i);
             }
             return orderNumber;//ADD_SAVE_SUCCESS;
         } catch (Exception e) {

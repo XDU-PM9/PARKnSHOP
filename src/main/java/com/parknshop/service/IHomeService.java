@@ -1,5 +1,6 @@
 package com.parknshop.service;
 
+import com.parknshop.bean.GoodsDbBean;
 import com.parknshop.entity.GoodsEntity;
 import com.parknshop.service.IListBean;
 import com.parknshop.service.serviceImpl.listBean.SortGoodsListBean;
@@ -15,7 +16,7 @@ public interface IHomeService {
      * @param lines
      * @return
      */
-    IListBean<GoodsEntity> getMostSales(int page, int lines);
+    IListBean<GoodsDbBean> getMostSales(int page, int lines);
 
     /**
      * 获取 最多浏览
@@ -23,7 +24,7 @@ public interface IHomeService {
      * @param lines
      * @return
      */
-    IListBean<GoodsEntity> getMostView(int page,int lines);
+    IListBean<GoodsDbBean> getMostView(int page,int lines);
 
     /**
      * 获取 高价格的
@@ -31,5 +32,5 @@ public interface IHomeService {
      * @param lines
      * @return
      */
-    IListBean<GoodsEntity> getMostValue(int page,int lines);
+    IListBean<GoodsDbBean> getMostValue(int page,int lines);
 }

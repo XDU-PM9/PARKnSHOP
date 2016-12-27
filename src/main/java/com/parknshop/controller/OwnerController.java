@@ -3,10 +3,8 @@ package com.parknshop.controller;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.parknshop.bean.*;
-import com.parknshop.bean.owner.GoodsDetaiResponse;
-import com.parknshop.bean.owner.GoodsDetailBean;
-import com.parknshop.bean.owner.GoodsListBean;
-import com.parknshop.bean.owner.GoodsRequest;
+import com.parknshop.bean.owner.*;
+import com.parknshop.entity.GoodsEntity;
 import com.parknshop.entity.OwnerEntity;
 import com.parknshop.entity.PhotoEntity;
 import com.parknshop.entity.ShopEntity;
@@ -24,7 +22,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,17 +43,21 @@ public class OwnerController {
     final IUserBuilder mUserBuilder;
     final IOwnerService mOwnerService;
     final IGoodsBuilder mGoodsBuilder;
+    final IAdminService mAdminService;
+    final IAdvertisement mAdverService;
 
     Gson mGson = new GsonBuilder()
             .setDateFormat(DateFormat.getDateFormat())
             .create();
 
     @Autowired
-    public OwnerController(IUserService mUserService, OwnerBuilder mUserBuilder, IOwnerService ownerService, IGoodsBuilder mGoodsBuilder) {
+    public OwnerController(IUserService mUserService, OwnerBuilder mUserBuilder, IOwnerService ownerService, IGoodsBuilder mGoodsBuilder, IAdminService adminService, IAdvertisement adService) {
         this.mUserService = mUserService;
         this.mUserBuilder = mUserBuilder;
-        mOwnerService = ownerService;
+        this.mOwnerService = ownerService;
         this.mGoodsBuilder = mGoodsBuilder;
+        this.mAdminService = adminService;
+        this.mAdverService = adService;
     }
 
     @RequestMapping("")
@@ -374,12 +375,13 @@ public class OwnerController {
      * @return
      */
     @RequestMapping("/goods")
-    public @ResponseBody String listGoods(HttpServletRequest request, @RequestBody String dataStr) {
+    public
+    @ResponseBody
+    String listGoods(HttpServletRequest request, @RequestBody String dataStr) {
         if (!checkLogin(request.getSession())) {
             return "redirect:/owner/login";
         }
         HttpSession session = request.getSession();
-        Log.debug(dataStr);
         GoodsListBean goodsList = new GoodsListBean();
         GoodsRequest bean = mGson.fromJson(dataStr, GoodsRequest.class);
 
@@ -418,6 +420,10 @@ public class OwnerController {
                 goods.setState(item.getState());
                 goods.setType(item.getType());
                 goods.setPostWay(item.getPostWay());
+                //设置有没有广告
+//                goods.setAd(hasAdGoods(entity.getOwnerId(),item.getGoodsId()));
+                boolean hasAd  = mAdverService.checkAdvertGoodsExist(item.getGoodsId());
+                goods.setAd(hasAd);
 
                 int count = item.getPicturePath().size();
                 String[] photos = new String[count];
@@ -426,7 +432,6 @@ public class OwnerController {
                     photos[i] = photoEntities.get(i).getAddress();
                 }
                 goods.setPhotos(photos);
-
                 list.add(goods);
             }
         }
@@ -452,7 +457,7 @@ public class OwnerController {
                                @RequestParam("price") double price,
                                @RequestParam("inventory") int inventory,
                                @RequestParam("goods_type") String type,
-                               @RequestParam("post_way")String postWay,
+                               @RequestParam("post_way") String postWay,
                                @RequestParam("photo") MultipartFile[] photos) {
         if (!checkLogin(session)) {
             return "redirect:/owner/login";
@@ -499,6 +504,7 @@ public class OwnerController {
 
     /**
      * 删除商品
+     *
      * @param request
      * @param data
      * @return
@@ -515,21 +521,23 @@ public class OwnerController {
         DeleteGoodsRequestBean requestBean = mGson.fromJson(dataStr, DeleteGoodsRequestBean.class);
         DeleteGoodsResponseBean responseBean = new DeleteGoodsResponseBean();
         boolean success = mOwnerService.deletGoods(requestBean.getGoodsId());
-        Log.debug(""+success);
+        Log.debug("" + success);
         responseBean.setSuccess(success);
         return mGson.toJson(responseBean);
     }
 
-    @RequestMapping(value = "goodDetail",method = RequestMethod.POST)
-    public @ResponseBody String goodDetail(HttpServletRequest request,@RequestBody String data){
+    @RequestMapping(value = "goodDetail", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    String goodDetail(HttpServletRequest request, @RequestBody String data) {
 
-        GoodsDetailBean bean = mGson.fromJson(data,GoodsDetailBean.class);
+        GoodsDetailBean bean = mGson.fromJson(data, GoodsDetailBean.class);
         int id = bean.getId();
         GoodsDbBean goods = mOwnerService.getGoods(id);
         GoodsDetaiResponse response = new GoodsDetaiResponse();
-        if (goods==null){
+        if (goods == null) {
             response.setSuccess(false);
-        }else {
+        } else {
             response.setSuccess(true);
             GoodsDetaiResponse.DataBean goodbean = new GoodsDetaiResponse.DataBean();
             goodbean.setId(goods.getGoodsId());
@@ -545,7 +553,7 @@ public class OwnerController {
             List<PhotoEntity> list = goods.getPicturePath();
             int size = list.size();
             String[] photos = new String[size];
-            for (int i = 0;i<size;i++){
+            for (int i = 0; i < size; i++) {
                 photos[i] = list.get(i).getAddress();
             }
             goodbean.setPhotos(photos);
@@ -556,14 +564,112 @@ public class OwnerController {
     }
 
     /**
-     * 更新商品信息
+     * 返回商品修改页
      *
-     * @param request
      * @return
      */
+    @RequestMapping(value = "showInfo")
+    public String showGoodsInfo() {
+        return "owner/showInfor.html";
+    }
+
+    /**
+     * 更新商品信息
+     */
     @RequestMapping(value = "updateGoods", method = RequestMethod.POST)
-    public String updateGoods(HttpServletRequest request) {
-        return null;
+    public
+    @ResponseBody
+    String updateGoods(@RequestBody String idStr) {
+        GoodsEdit request = mGson.fromJson(idStr, GoodsEdit.class);
+        GoodsDbBean databean = mOwnerService.getGoods(request.getId());
+        GoodsDetaiResponse response = new GoodsDetaiResponse();
+        response.setSuccess(true);
+        GoodsDetaiResponse.DataBean data = new GoodsDetaiResponse.DataBean();
+        data.setId(databean.getGoodsId());
+        data.setInventory(databean.getInventory());
+        data.setName(databean.getGoodsName());
+        data.setDesc(databean.getIntroduction());
+        data.setPrice(databean.getPrice());
+        data.setDiscount(databean.getDiscount());
+        data.setCreateTime(databean.getCreateTime());
+        data.setViews(databean.getViews());
+        data.setState(databean.getState());
+        data.setType(databean.getType());
+        data.setPostWay(databean.getPostWay());
+
+        List<PhotoEntity> photoEntities = databean.getPicturePath();
+        int length = photoEntities.size();
+        String[] photos = new String[length];
+        for (int i = 0; i < length; i++) {
+            photos[i] = photoEntities.get(i).getAddress();
+        }
+        data.setPhotos(photos);
+        response.setData(data);
+        String temp = mGson.toJson(response);
+        Log.debug(temp);
+        return mGson.toJson(response);
+    }
+
+    /**
+     * 处理商品更的表单
+     *
+     * @param name
+     * @param desc
+     * @param price
+     * @param inventory
+     * @param type
+     * @param postWay
+     * @param photos
+     * @return
+     */
+    @RequestMapping(value = "updateGoodsInfo", method = RequestMethod.POST)
+    public String updateGoodsInfo(HttpSession session,
+                                  @RequestParam("id") int id,
+                                  @RequestParam("name") String name,
+                                  @RequestParam("desc") String desc,
+                                  @RequestParam("price") double price,
+                                  @RequestParam("discount") double discount,
+                                  @RequestParam("inventory") int inventory,
+                                  @RequestParam("goods_type") String type,
+                                  @RequestParam("post_way") String postWay,
+                                  @RequestParam("photo") MultipartFile[] photos) {
+
+        Log.debug(id + "  " + name);
+        GoodsDbBean bean = mOwnerService.getGoods(id);
+        bean.setGoodsName(name);
+        bean.setIntroduction(desc);
+        bean.setPrice(price);
+        bean.setDiscount(discount);
+        bean.setInventory(inventory);
+        bean.setType(type);
+        bean.setPostWay(postWay);
+
+        GoodsEntity entity = toGoodsEntity(bean);
+        int count = photos.length;
+        String contextPath = session.getServletContext().getRealPath("/");
+        String[] photoPaths = new String[count];
+        try {
+            for (int i = 0; i < count; i++) {
+                photoPaths[i] = OwnerFileSaver.saveImage(photos[i], contextPath);
+            }
+        } catch (Exception e) {
+            //服务器存储错误
+            return "owner/add_goods_fail.jsp";
+        }
+
+        IUploadPictures callback = new IUploadPictures() {
+            @Override
+            public List<String> getPicturePaths() {
+                List<String> pictureList = new ArrayList<>();
+                for (String path : photoPaths) {
+                    pictureList.add(path);
+                }
+                return pictureList;
+            }
+        };
+        mOwnerService.updateGoods(entity
+                , callback);
+        return "owner/add_goods_success.jsp";
     }
 
 
@@ -577,7 +683,6 @@ public class OwnerController {
         }
         return false;
     }
-
 
     /**
      * 检查是否登陆
@@ -619,6 +724,32 @@ public class OwnerController {
             }
         }
         return null;
+    }
+
+    /**
+     * entity装换
+     * @param bean
+     * @return
+     */
+    private GoodsEntity toGoodsEntity(GoodsDbBean bean) {
+        GoodsEntity entity = new GoodsEntity();
+        entity.setGoodsId(bean.getGoodsId());
+        ShopEntity shopEntity = new ShopEntity();
+        shopEntity.setShopId(bean.getShopId());
+        entity.setShopByShopId(shopEntity);
+        entity.setGoodsName(bean.getGoodsName());
+        entity.setIntroduction(bean.getIntroduction());
+        entity.setPrice(bean.getPrice());
+        entity.setDiscount(bean.getDiscount());
+        entity.setInventory(bean.getInventory());
+        entity.setPhotoGroup(bean.getPhotoGroup());
+        entity.setCreateTime(DateFormat.parseToTimestamp(bean.getCreateTime()));
+        entity.setViews(bean.getViews());
+        entity.setState(bean.getState());
+        entity.setType(bean.getType());
+        entity.setSales(bean.getSales());
+        entity.setPostWay(bean.getPostWay());
+        return entity;
     }
 
 }

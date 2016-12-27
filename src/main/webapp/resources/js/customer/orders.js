@@ -17,7 +17,26 @@ $(document).ready(function (){
         }
     })
     return false;
-})})
+})});
+
+function deleteAddress(param) {
+    $.ajax({
+        url: '/order/deleteAddress',
+        type: 'GET',
+        data:{
+          addressId:param
+        },
+        success: function (msg) {
+            if ('true' == msg) {
+                window.location.reload();
+            } else {
+                //添加失败
+            }
+        }
+    })
+    return false;
+
+}
 //
 // var AddressOption={
 //         name:'',

@@ -41,17 +41,6 @@
                             <span onclick="setType(this,'Home & Office')">Home & Office&nbsp&nbsp&nbsp&nbsp&nbsp</span>
                             <span onclick="setType(this,'other')">Others</span>
                         </dd>
-                        <%--<dd>--%>
-                        <%--<span><input type="radio"> TV& Home Theater</span>--%>
-                        <%--<span><input type="radio"> Computers & Tablets</span>--%>
-                        <%--<span><input type="radio"> Cell Phones</span>--%>
-                        <%--<span><input type="radio"> Cameras & Camcorders</span>--%>
-                        <%--<span><input type="radio"> Audio</span>--%>
-                        <%--<span><input type="radio"> Car Electronics & GPS</span>--%>
-                        <%--<span><input type="radio"> Video, Games, Movies & Music</span>--%>
-                        <%--<span><input type="radio"> Health, Fitness & Sports</span>--%>
-                        <%--<span><input type="radio"> Home & Office</span>--%>
-                        <%--</dd>--%>
                     </dl>
                 </div>
             </div>

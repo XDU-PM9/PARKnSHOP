@@ -78,4 +78,12 @@ public interface IAdvertisement {
      */
     IListBean<AdvertisementDbBean> getMyShop(int userId,int page,int lines);
     IListBean<AdvertisementDbBean> getMyGoods(int userId,int page,int lines);
+
+    /**
+     * 检查 商品 或者 商店是否已经是广告
+     * @param id
+     * @return 存在 true 不存在false
+     */
+    boolean checkAdvertShopExist(int id);
+    boolean checkAdvertGoodsExist(int id);
 }

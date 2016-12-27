@@ -39,6 +39,8 @@
                 <th class="shopName">Name</th>
                 <th class="shopDes">Description</th>
                 <th class="shopState">State</th>
+                <%--<th class="time"></th>--%>
+                <th class="option">Option</th>
                 <%
                     String msg = (String) request.getAttribute("msg");
                     if (msg.equals("1")) {
@@ -60,6 +62,8 @@
                         out.println("<td class=\"shopName\">" + item.getName() + "</td>");
                         out.println("<td class=\"shopDes\">" + item.getDesc() + "</td>");
                         out.println("<td class=\"shopState\">" + item.getState() + "</td>");
+                        /*out.println("<td class=\"option\"><a>" +"Advertisment"+ "</a></td>");*/
+                       /*out.println("<td class=\"time\">" +  + "</td>");*/
                         out.println("</tr>");
                     }
                 }
