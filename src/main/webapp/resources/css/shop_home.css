@@ -113,8 +113,16 @@
 .faq dl dt{ font-size:18px; line-height:50px;}
 .faq dl dd{font-size:12px; line-height:22px;}
 .faq dl dd a{color:#555;}
-
-
+/*商品列表*/
+.goodsList li{
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+}
+.imgContent{
+    width: 160px;
+    height: 121px;
+}
 
 
 

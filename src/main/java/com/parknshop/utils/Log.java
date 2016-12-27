@@ -45,6 +45,12 @@ public class Log {
         System.out.println(createLog(msg));
     }
 
+    public static void debug(Object msg) {
+        if (!sDebug) return;
+        getMethodInfo(new Throwable().getStackTrace());
+        System.out.println(createLog(msg.toString()));
+    }
+
     /**
      * 开启日志，默认开启
      */
