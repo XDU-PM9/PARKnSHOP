@@ -64,16 +64,18 @@
             <!-- 收货地址 title -->
             <div class="shop_bd_shdz_title">
                 <h3>收货人地址</h3>
-                <p><a href="javasrcipt:void(0);" id="new_add_shdz_btn">新增收货地址</a><a href="javascript:void(0);">管理收货地址</a></p>
+                <p><a href="javasrcipt:void(0);" id="new_add_shdz_btn">Add address</a><a href="javascript:void(0);">Manager address</a></p>
             </div>
             <div class="clear"></div>
             <!-- 收货人地址 Title End -->
             <div class="shop_bd_shdz clearfix">
                 <div class="shop_bd_shdz_lists clearfix">
-                    <ul>
+                    <ul id="addressSelect">
                         <c:forEach var="addr" items="${addressEntityList}">
                             <li>
-                                <label><span><input type="radio" name="shdz" /></span></label>
+                                <label>
+                                    <span>
+                                        <input type="radio" name="shdz" onchange="setAddress(this)" value="${addr.addressId}"/></span></label>
                                 <em>Hong Kong</em><em>${addr.getProvince()}</em><em>${addr.country}</em>
                                 <em>${addr.getOthers()}</em><em>${addr.getName()}(receive)</em><em>${addr.getPhone()}</em>
                                 <span class="admin_shdz_btn">
@@ -116,72 +118,38 @@
             <table>
                 <thead>
                 <tr>
-                    <th colspan="2"><span>商品</span></th>
-                    <th><span>单价(元)</span></th>
-                    <th><span>数量</span></th>
-                    <th><span>小计</span></th>
-                    <th><span>操作</span></th>
+                    <th colspan="2"><span>Product</span></th>
+                    <th><span>Price(dollers)</span></th>
+                    <th><span>Amount</span></th>
+                    <th><span>Subtotal</span></th>
                 </tr>
                 </thead>
                 <tbody>
 
+                <%--订单商品列表--%>
+                <c:forEach var="orderEntity" items="${ordersEntityList}">
                 <tr>
-                    <td class="gwc_list_pic"><a href=""><img src="/resources/images/images/4_7b5239c3f153ae4b67ff760f54408a5b.jpg_tiny.jpg" /></a></td>
-                    <td class="gwc_list_title"><a href="">双层花架简约韩式田园欧式地中海风格宜家纯白架现代花盆架电话架 </a></td>
-                    <td class="gwc_list_danjia"><span>￥<strong id="danjia_001">2550.00</strong></span></td>
-                    <td class="gwc_list_shuliang"><span><a class="good_num_jian this_good_nums" did="danjia_001" xid="xiaoji_001" ty="-" valId="goods_001" href="javascript:void(0);">-</a><input type="text" value="1" id="goods_001" class="good_nums" /><a href="javascript:void(0);" did="danjia_001" xid="xiaoji_001" ty="+" class="good_num_jia this_good_nums" valId="goods_001">+</a></span></td>
-                    <td class="gwc_list_xiaoji"><span>￥<strong id="xiaoji_001" class="good_xiaojis">2550.00</strong></span></td>
-                    <td class="gwc_list_caozuo"><a href="">收藏</a><a href="javascript:void(0);" class="shop_good_delete">删除</a></td>
+                    <%--<td class="gwc_list_pic"><a href=""><img src="${orderEntity.photo}" /></a></td>--%>
+                    <td class="gwc_list_title"><a href="">${orderEntity.goodsName}</a></td>
+                    <td class="gwc_list_danjia"><span>$<strong id="danjia_001">${orderEntity.price}</strong></span></td>
+                    <td class="gwc_list_shuliang">
+                        <span>
+                            <input type="button" value="${orderEntity.amount}" id="goods_001" class="good_nums" />
+                        </span>
+                    </td>
+                    <td class="gwc_list_xiaoji"><span>$<strong id="xiaoji_001" class="good_xiaojis">${orderEntity.amount*orderEntity.price}</strong></span></td>
                 </tr>
-
-                <tr>
-                    <td class="gwc_list_pic"><a href=""><img src="/resources/images/images/4_7b5239c3f153ae4b67ff760f54408a5b.jpg_tiny.jpg" /></a></td>
-                    <td class="gwc_list_title"><a href="">双层花架简约韩式田园欧式地中海风格宜家纯白架现代花盆架电话架 </a></td>
-                    <td class="gwc_list_danjia"><span>￥<strong id="danjia_002">2550.00</strong></span></td>
-                    <td class="gwc_list_shuliang"><span><a class="good_num_jian this_good_nums" did="danjia_002" xid="xiaoji_002" ty="-" valId="goods_002" href="javascript:void(0);">-</a><input type="text" value="1" id="goods_002" class="good_nums" /><a href="javascript:void(0);" did="danjia_002" xid="xiaoji_002" ty="+" class="good_num_jia this_good_nums" valId="goods_002">+</a></span></td>
-                    <td class="gwc_list_xiaoji"><span>￥<strong id="xiaoji_002" class="good_xiaojis">2550.00</strong></span></td>
-                    <td class="gwc_list_caozuo"><a href="">收藏</a><a href="javascript:void(0);" class="shop_good_delete">删除</a></td>
-                </tr>
-
-                <tr>
-                    <td class="gwc_list_pic"><a href=""><img src="/resources/images/images/4_7b5239c3f153ae4b67ff760f54408a5b.jpg_tiny.jpg" /></a></td>
-                    <td class="gwc_list_title"><a href="">双层花架简约韩式田园欧式地中海风格宜家纯白架现代花盆架电话架 </a></td>
-                    <td class="gwc_list_danjia"><span>￥<strong id="danjia_003">2550.00</strong></span></td>
-                    <td class="gwc_list_shuliang"><span><a class="good_num_jian this_good_nums" did="danjia_003" xid="xiaoji_003" ty="-" valId="goods_003" href="javascript:void(0);">-</a><input type="text" value="1" id="goods_003" class="good_nums" /><a href="javascript:void(0);" did="danjia_003" xid="xiaoji_003" ty="+" class="good_num_jia this_good_nums" valId="goods_003">+</a></span></td>
-                    <td class="gwc_list_xiaoji"><span>￥<strong id="xiaoji_003" class="good_xiaojis">2550.00</strong></span></td>
-                    <td class="gwc_list_caozuo"><a href="">收藏</a><a href="javascript:void(0);" class="shop_good_delete">删除</a></td>
-                </tr>
-
-                <tr>
-                    <td class="gwc_list_pic"><a href=""><img src="/resources/images/images/4_7b5239c3f153ae4b67ff760f54408a5b.jpg_tiny.jpg" /></a></td>
-                    <td class="gwc_list_title"><a href="">双层花架简约韩式田园欧式地中海风格宜家纯白架现代花盆架电话架 </a></td>
-                    <td class="gwc_list_danjia"><span>￥<strong id="danjia_004">2550.00</strong></span></td>
-                    <td class="gwc_list_shuliang"><span><a class="good_num_jian this_good_nums" did="danjia_004" xid="xiaoji_004" ty="-" valId="goods_004" href="javascript:void(0);">-</a><input type="text" value="1" id="goods_004" class="good_nums" /><a href="javascript:void(0);" did="danjia_004" xid="xiaoji_004" ty="+" class="good_num_jia this_good_nums" valId="goods_004">+</a></span></td>
-                    <td class="gwc_list_xiaoji"><span>￥<strong id="xiaoji_004" class="good_xiaojis">2550.00</strong></span></td>
-                    <td class="gwc_list_caozuo"><a href="">收藏</a><a href="javascript:void(0);" class="shop_good_delete">删除</a></td>
-                </tr>
-
-                <tr>
-                    <td class="gwc_list_pic"><a href=""><img src="/resources/images/images/4_7b5239c3f153ae4b67ff760f54408a5b.jpg_tiny.jpg" /></a></td>
-                    <td class="gwc_list_title"><a href="">双层花架简约韩式田园欧式地中海风格宜家纯白架现代花盆架电话架 </a></td>
-                    <td class="gwc_list_danjia"><span>￥<strong id="danjia_005">2550.00</strong></span></td>
-                    <td class="gwc_list_shuliang"><span><a class="good_num_jian this_good_nums" did="danjia_005" xid="xiaoji_005" ty="-" valId="goods_005" href="javascript:void(0);">-</a><input type="text" value="1" id="goods_005" class="good_nums" /><a href="javascript:void(0);" did="danjia_005" xid="xiaoji_005" ty="+" class="good_num_jia this_good_nums" valId="goods_005">+</a></span></td>
-                    <td class="gwc_list_xiaoji"><span>￥<strong id="xiaoji_005" class="good_xiaojis">2550.00</strong></span></td>
-                    <td class="gwc_list_caozuo"><a href="">收藏</a><a href="javascript:void(0);" class="shop_good_delete">删除</a></td>
-                </tr>
-
-
-
+                </c:forEach>
 
                 </tbody>
                 <tfoot>
                 <tr>
                     <td colspan="6">
-                        <div class="gwc_foot_zongjia">商品总价(不含运费)<span>￥<strong id="good_zongjia">12750.00</strong></span></div>
+                        <div class="gwc_foot_zongjia">Total<span>$<strong id="good_zongjia">00.00</strong></span></div>
                         <div class="clear"></div>
                         <div class="gwc_foot_links">
-                            <a href="" class="go">返回上一步</a>
-                            <a href="" class="op">确认收货地址</a>
+                            <a href="" class="go">Back</a>
+                            <a href="" class="op" onclick="confirm()">Confirm</a>
                         </div>
                     </td>
                 </tr>
@@ -193,6 +161,26 @@
     </div>
     <!-- 购物车 Body End -->
     <%@include file="footer.jsp"%>
+
+    <script>
+        var addressId=${addressEntityList[0].addressId};
+        $(document).ready(function () {
+            var total=0.0;
+            $('.good_xiaojis').each(function () {
+                var price=$(this).text();
+                total+=parseFloat(price);
+            });
+            $('#good_zongjia').html(total);
+        })
+        console.log(addressId);
+        function setAddress(param) {
+            alert($(param).val());
+        }
+
+        function confirm() {
+            window.location.href="/pay?addressId="+addressId;
+        }
+    </script>
 
     <script language="JavaScript">
         var hw_selecttext =
