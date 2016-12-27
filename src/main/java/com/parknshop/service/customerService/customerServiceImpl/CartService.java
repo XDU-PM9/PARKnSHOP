@@ -86,7 +86,21 @@ public class CartService implements ICartService {
                 return false;
             }
         } else {
-            return changeAmount(userId, goodsId, amount + cart.getAmount());
+            if(cart.getState().equals("0")) {
+                try {
+                    cart.setState("1");
+                    cart.setAmount(amount);
+                    cartEntityDao.update(cart);
+                    return true;
+                }catch (Exception e)
+                {
+                    e.printStackTrace();
+                    return false;
+                }
+            }
+            else {
+                return changeAmount(userId, goodsId, amount + cart.getAmount());
+            }
         }
     }
 

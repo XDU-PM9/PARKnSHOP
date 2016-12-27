@@ -72,7 +72,7 @@ public interface IOrderService {
     int PAY_SUCCESS=1000;
     int PAY_FAIL=1001;
     int PAY_WRONG_PARAM =1002;
-    int payOrder(String orderNum,int addressId);
+    int payOrder(String[] orderNum,int addressId);
 
     /**
      * 收到物品
