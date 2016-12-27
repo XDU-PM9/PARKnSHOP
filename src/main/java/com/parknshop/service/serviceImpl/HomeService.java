@@ -10,6 +10,8 @@ import com.parknshop.service.serviceImpl.builder.GoodsBuilder;
 import com.parknshop.service.serviceImpl.listBean.GoodsListBean;
 import com.parknshop.service.serviceImpl.listBean.SortGoodsListBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
@@ -17,6 +19,7 @@ import java.util.List;
 /**
  * Created by weina on 2016/12/27.
  */
+@Service
 public class HomeService implements IHomeService {
     private final IListBean<GoodsDbBean> sortGoodsListBeanIListBean;
 
