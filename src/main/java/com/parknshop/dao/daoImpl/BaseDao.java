@@ -9,6 +9,7 @@ import org.hibernate.cfg.Configuration;
 import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -174,6 +175,23 @@ public class BaseDao<T> implements IBaseDao<T> {
      */
     public void saveOrUpdate(T o) {
         this.getCurrentSession().saveOrUpdate(o);
+    }
+
+    @Override
+    public List<Object> executeSQL(String sql, Object[] param) {
+        Session session = null;
+        try {
+            session = this.getCurrentSession();
+            session.beginTransaction();
+            Query query = session.createSQLQuery(sql);
+            for (int i = 0; i < param.length; i++)
+                query.setParameter(i, param[i]);
+            return  query.list();
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            return  null;
+        }
     }
 
     public List<T> find(String hql) {

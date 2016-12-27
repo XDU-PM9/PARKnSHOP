@@ -33,12 +33,21 @@ public class GoodsDetaiResponse {
         private double price;
         private double discount;
         private Date createTime;
+        private int inventory;
         private int views;
         private int state;
         private String type;
         private String postWay;
         private String[] photos;
 
+
+        public int getInventory() {
+            return inventory;
+        }
+
+        public void setInventory(int inventory) {
+            this.inventory = inventory;
+        }
 
         public String getPostWay() {
             return postWay;

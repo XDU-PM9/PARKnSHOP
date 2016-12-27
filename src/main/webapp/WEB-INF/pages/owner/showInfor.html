@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/resources/css/owner/owner.css">
+</head>
+<body>
+    <div class="main">
+        <p></p>
+        <form name="form" action="/owner/updateGoodsInfo" method="post" enctype="multipart/form-data">
+            <ul class="formInfor">
+                <div class="inforBlock" style="display: none;">
+                    <span>goods name:</span>
+                    <li>
+                        <input name="id" type="text" id="id" size="18"/>
+                    </li>
+                </div>
+                <div class="inforBlock" style="display: none;">
+                    <span>goods name:</span>
+                    <li>
+                        <input name="createTime" type="text" id="createTime" size="18"/>
+                    </li>
+                </div>
+                <div class="inforBlock" style="display: none;">
+                    <span>goods name:</span>
+                    <li>
+                        <input name="views" type="text" id="views" size="18"/>
+                    </li>
+                </div>
+                <div class="inforBlock" style="display: none;">
+                    <span>goods name:</span>
+                    <li>
+                        <input name="state" type="text" id="state" size="18"/>
+                    </li>
+                </div>
+
+                <div class="inforBlock">
+                    <span>goods name:</span>
+                    <li>
+                        <input name="name" type="text" id="goodsName" size="18"/>
+                    </li>
+                </div>
+                <div class="inforBlock">
+                    <span>introduction:&nbsp;</span>
+                    <li>
+                        <input name="desc" type="text" id="introduction" size="18"/>
+                    </li>
+                </div>
+                <div class="inforBlock">
+                    <span>price:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <li>
+                        <input name="price" type="text" id="price" size="18"/>
+                    </li>
+                </div>
+                <div class="inforBlock">
+                    <span>discount:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <li>
+                        <input name="discount" type="text" id="discount" size="18"/>
+                    </li>
+                </div>
+                <div class="inforBlock">
+                    <span>inventory:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <li>
+                        <input name="inventory" type="text" id="inventory" size="18"/>
+                    </li>
+                </div>
+                <div class="inforBlock">
+                    <span>goods type:&nbsp;&nbsp;&nbsp;</span>
+                    <select name="goods_type" id="type">
+                        <option value="TV& Home Theater">TV& Home Theater</option>
+                        <option value="Computers & Tablets">Computers & Tablets</option>
+                        <option value="Cell Phones">Cell Phones</option>
+                        <option value="Cameras & Camcorders">Cameras & Camcorders</option>
+                        <option value="Audio">Audio</option>
+                        <option value="Car Electronics & GPS">Car Electronics & GPS</option>
+                        <option value="Video, Games, Movies & Music">Video, Games, Movies & Music</option>
+                        <option value="Health, Fitness & Sports">Health, Fitness & Sports</option>
+                        <option value="Home & Office">Home & Office</option>
+                    </select>
+                </div>
+                <div class="inforBlock">
+                    <span>post way:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <select name="post_way" id="post">
+                        <option value="free postage">Free Postage</option>
+                        <option value="none-free postage">None Free Postage</option>
+                    </select>
+                </div>
+                <div class="inforBlock">
+                    <ul id="photoList">
+
+                    </ul>
+                </div>
+                <div style="margin: 10px 0 10px 0">
+                    <label for="photo">Please Upload the photo of your goods:&nbsp;</label>
+                    <a href="#" class="a-upload">
+                        <input type="file" name="photo" id="photo" multiple = multiple>Upload Photo
+                    </a>
+                    <div id="showPhoto"></div>
+                </div>
+                <input type="submit"  class="butlogin" value="Submit" id="submitBtn"/>
+            </ul>
+        </form>
+    </div>
+    <script src="/resources/libs/jquery.js"></script>
+    <script src="/resources/js/owner/show_goodInfor.js"></script>
+</body>
+</html>

@@ -59,7 +59,12 @@ function showGoods() {
                 addTd(i,response.data[i].price);
                 addTd(i,response.data[i].views);
                 goodId.push(response.data[i].id);
-                addOption(i);
+                if(response.data[i].ad == true){
+                    addOptionAd(i)
+                }
+                else {
+                    addOption(i)
+                }
             }
         }
     })
@@ -96,7 +101,12 @@ function turn() {
     })
 }
 function edit() {
-    
+    $("body").on('click','.edit',function () {
+        var indexId = $(this).parent().parent().index();
+        console.log(indexId);
+        var id = goodId[indexId];
+        $(this).attr("href","/owner/showInfo?"+id);
+    })
 }
 function del() {
     $("body").on('click','.delete',function () {
@@ -138,7 +148,12 @@ function addTd(i,str) {
 }
 function addOption(i) {
     var className = "tr"+i;
-    var str = "<td><!--<a href='#' class='edit'>Edit</a> |--><a href='#' class='delete'>Delete</a></td>"
+    var str = "<td><a href='#' class='edit'>Edit</a> |<a href='#' class='delete'>Delete</a></td>"
+    $("."+className+"").append(str);
+}
+function addOptionAd(i) {
+    var className = "tr"+i;
+    var str = "<td><a href='#' class='edit'>Edit</a> |<a href='#' class='delete'>Delete</a>|<a href='#' class='adver'>Advertisment</a></td>"
     $("."+className+"").append(str);
 }
 function addImg(i,url) {
