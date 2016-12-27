@@ -51,7 +51,7 @@
             <mvc:mapping path="/saveAddress"/>
             <mvc:mapping path="/deleteAddress"/>
             <mvc:mapping path="/order/listCart"/>
-
+            <mvc:mapping path="/viewBuyHistory/dailySearch"/>
             <bean class="com.parknshop.configure.LoginFilter"/>
         </mvc:interceptor>
     </mvc:interceptors>

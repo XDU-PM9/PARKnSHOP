@@ -77,8 +77,8 @@
                                 <em>Hong Kong</em><em>${addr.getProvince()}</em><em>${addr.country}</em>
                                 <em>${addr.getOthers()}</em><em>${addr.getName()}(receive)</em><em>${addr.getPhone()}</em>
                                 <span class="admin_shdz_btn">
-                                <a href="/editAddress?addressId=${addr.getAddressId()}">edit</a>
-                                <a href="/deleteAddress?addressId=${addr.getAddressId()}">delete</a>
+                                <a href="/editAddress?addressId=${addr.getAddressId()}" >edit</a>
+                                <a  href="/order/deleteAddress?addressId=${addr.getAddressId()}" onclick="deleteAddress(${addr.getAddressId()})">delete</a>
                             </span>
                             </li>
                         </c:forEach>
@@ -129,48 +129,10 @@
                     <td class="gwc_list_pic"><a href=""><img src="/resources/images/images/4_7b5239c3f153ae4b67ff760f54408a5b.jpg_tiny.jpg" /></a></td>
                     <td class="gwc_list_title"><a href="">双层花架简约韩式田园欧式地中海风格宜家纯白架现代花盆架电话架 </a></td>
                     <td class="gwc_list_danjia"><span>￥<strong id="danjia_001">2550.00</strong></span></td>
-                    <td class="gwc_list_shuliang"><span><a class="good_num_jian this_good_nums" did="danjia_001" xid="xiaoji_001" ty="-" valId="goods_001" href="javascript:void(0);">-</a><input type="text" value="1" id="goods_001" class="good_nums" /><a href="javascript:void(0);" did="danjia_001" xid="xiaoji_001" ty="+" class="good_num_jia this_good_nums" valId="goods_001">+</a></span></td>
+                    <td class="gwc_list_shuliang"><span><input type="text" value="1" id="goods_001" class="good_nums" /></span></td>
                     <td class="gwc_list_xiaoji"><span>￥<strong id="xiaoji_001" class="good_xiaojis">2550.00</strong></span></td>
                     <td class="gwc_list_caozuo"><a href="">收藏</a><a href="javascript:void(0);" class="shop_good_delete">删除</a></td>
                 </tr>
-
-                <tr>
-                    <td class="gwc_list_pic"><a href=""><img src="/resources/images/images/4_7b5239c3f153ae4b67ff760f54408a5b.jpg_tiny.jpg" /></a></td>
-                    <td class="gwc_list_title"><a href="">双层花架简约韩式田园欧式地中海风格宜家纯白架现代花盆架电话架 </a></td>
-                    <td class="gwc_list_danjia"><span>￥<strong id="danjia_002">2550.00</strong></span></td>
-                    <td class="gwc_list_shuliang"><span><a class="good_num_jian this_good_nums" did="danjia_002" xid="xiaoji_002" ty="-" valId="goods_002" href="javascript:void(0);">-</a><input type="text" value="1" id="goods_002" class="good_nums" /><a href="javascript:void(0);" did="danjia_002" xid="xiaoji_002" ty="+" class="good_num_jia this_good_nums" valId="goods_002">+</a></span></td>
-                    <td class="gwc_list_xiaoji"><span>￥<strong id="xiaoji_002" class="good_xiaojis">2550.00</strong></span></td>
-                    <td class="gwc_list_caozuo"><a href="">收藏</a><a href="javascript:void(0);" class="shop_good_delete">删除</a></td>
-                </tr>
-
-                <tr>
-                    <td class="gwc_list_pic"><a href=""><img src="/resources/images/images/4_7b5239c3f153ae4b67ff760f54408a5b.jpg_tiny.jpg" /></a></td>
-                    <td class="gwc_list_title"><a href="">双层花架简约韩式田园欧式地中海风格宜家纯白架现代花盆架电话架 </a></td>
-                    <td class="gwc_list_danjia"><span>￥<strong id="danjia_003">2550.00</strong></span></td>
-                    <td class="gwc_list_shuliang"><span><a class="good_num_jian this_good_nums" did="danjia_003" xid="xiaoji_003" ty="-" valId="goods_003" href="javascript:void(0);">-</a><input type="text" value="1" id="goods_003" class="good_nums" /><a href="javascript:void(0);" did="danjia_003" xid="xiaoji_003" ty="+" class="good_num_jia this_good_nums" valId="goods_003">+</a></span></td>
-                    <td class="gwc_list_xiaoji"><span>￥<strong id="xiaoji_003" class="good_xiaojis">2550.00</strong></span></td>
-                    <td class="gwc_list_caozuo"><a href="">收藏</a><a href="javascript:void(0);" class="shop_good_delete">删除</a></td>
-                </tr>
-
-                <tr>
-                    <td class="gwc_list_pic"><a href=""><img src="/resources/images/images/4_7b5239c3f153ae4b67ff760f54408a5b.jpg_tiny.jpg" /></a></td>
-                    <td class="gwc_list_title"><a href="">双层花架简约韩式田园欧式地中海风格宜家纯白架现代花盆架电话架 </a></td>
-                    <td class="gwc_list_danjia"><span>￥<strong id="danjia_004">2550.00</strong></span></td>
-                    <td class="gwc_list_shuliang"><span><a class="good_num_jian this_good_nums" did="danjia_004" xid="xiaoji_004" ty="-" valId="goods_004" href="javascript:void(0);">-</a><input type="text" value="1" id="goods_004" class="good_nums" /><a href="javascript:void(0);" did="danjia_004" xid="xiaoji_004" ty="+" class="good_num_jia this_good_nums" valId="goods_004">+</a></span></td>
-                    <td class="gwc_list_xiaoji"><span>￥<strong id="xiaoji_004" class="good_xiaojis">2550.00</strong></span></td>
-                    <td class="gwc_list_caozuo"><a href="">收藏</a><a href="javascript:void(0);" class="shop_good_delete">删除</a></td>
-                </tr>
-
-                <tr>
-                    <td class="gwc_list_pic"><a href=""><img src="/resources/images/images/4_7b5239c3f153ae4b67ff760f54408a5b.jpg_tiny.jpg" /></a></td>
-                    <td class="gwc_list_title"><a href="">双层花架简约韩式田园欧式地中海风格宜家纯白架现代花盆架电话架 </a></td>
-                    <td class="gwc_list_danjia"><span>￥<strong id="danjia_005">2550.00</strong></span></td>
-                    <td class="gwc_list_shuliang"><span><a class="good_num_jian this_good_nums" did="danjia_005" xid="xiaoji_005" ty="-" valId="goods_005" href="javascript:void(0);">-</a><input type="text" value="1" id="goods_005" class="good_nums" /><a href="javascript:void(0);" did="danjia_005" xid="xiaoji_005" ty="+" class="good_num_jia this_good_nums" valId="goods_005">+</a></span></td>
-                    <td class="gwc_list_xiaoji"><span>￥<strong id="xiaoji_005" class="good_xiaojis">2550.00</strong></span></td>
-                    <td class="gwc_list_caozuo"><a href="">收藏</a><a href="javascript:void(0);" class="shop_good_delete">删除</a></td>
-                </tr>
-
-
 
 
                 </tbody>
