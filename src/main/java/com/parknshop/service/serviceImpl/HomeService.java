@@ -1,5 +1,6 @@
 package com.parknshop.service.serviceImpl;
 
+import com.parknshop.bean.GoodsDbBean;
 import com.parknshop.bean.HqlBean;
 import com.parknshop.entity.GoodsEntity;
 import com.parknshop.entity.OrdersEntity;
@@ -17,29 +18,29 @@ import java.util.List;
  * Created by weina on 2016/12/27.
  */
 public class HomeService implements IHomeService {
-    private final IListBean<GoodsEntity> sortGoodsListBeanIListBean;
+    private final IListBean<GoodsDbBean> sortGoodsListBeanIListBean;
 
     @Autowired
     public HomeService(SortGoodsListBean sortGoodsListBeanIListBean) {
         this.sortGoodsListBeanIListBean = sortGoodsListBeanIListBean;
     }
     @Override
-    public IListBean<GoodsEntity> getMostSales(int page, int lines) {
-        return getOrderList("and state = ? order by sales desc",new Object[]{GoodsBuilder.GOOD_STATE_USING},page,lines);
+    public IListBean<GoodsDbBean> getMostSales(int page, int lines) {
+        return getOrderList("and g.state = ? order by g.sales desc",new Object[]{GoodsBuilder.GOOD_STATE_USING},page,lines);
     }
 
     @Override
-    public IListBean<GoodsEntity> getMostView(int page, int lines) {
-        return getOrderList("and state = ? order by views desc",new Object[]{GoodsBuilder.GOOD_STATE_USING},page,lines);
+    public IListBean<GoodsDbBean> getMostView(int page, int lines) {
+        return getOrderList("and g.state = ? order by g.views desc",new Object[]{GoodsBuilder.GOOD_STATE_USING},page,lines);
     }
 
     @Override
-    public IListBean<GoodsEntity> getMostValue(int page, int lines) {
-        return getOrderList("and state = ? order by price desc",new Object[]{GoodsBuilder.GOOD_STATE_USING},page,lines);
+    public IListBean<GoodsDbBean> getMostValue(int page, int lines) {
+        return getOrderList("and g.state = ? order by g.price desc",new Object[]{GoodsBuilder.GOOD_STATE_USING},page,lines);
     }
 
 
-    private IListBean<GoodsEntity> getOrderList(String hql, List<Object> param,int page, int lines) {
+    private IListBean<GoodsDbBean> getOrderList(String hql, List<Object> param,int page, int lines) {
         HqlBean hqlBean = new HqlBean();
         hqlBean.setInnerHql(hql);
         hqlBean.setInnerParam(param);
@@ -47,7 +48,7 @@ public class HomeService implements IHomeService {
         sortGoodsListBeanIListBean.init(hqlBean,page,lines);
         return sortGoodsListBeanIListBean;
     }
-    private IListBean<GoodsEntity> getOrderList(String hql, Object[] param, int pages, int lines){
+    private IListBean<GoodsDbBean> getOrderList(String hql, Object[] param, int pages, int lines){
         List<Object> list = Arrays.asList(param);
         return getOrderList(hql,list,pages,lines);
     }
