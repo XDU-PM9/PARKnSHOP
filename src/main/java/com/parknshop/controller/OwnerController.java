@@ -422,6 +422,8 @@ public class OwnerController {
                 goods.setPostWay(item.getPostWay());
                 //设置有没有广告
 //                goods.setAd(hasAdGoods(entity.getOwnerId(),item.getGoodsId()));
+                boolean hasAd  = mAdverService.checkAdvertGoodsExist(item.getGoodsId());
+                goods.setAd(hasAd);
 
                 int count = item.getPicturePath().size();
                 String[] photos = new String[count];
@@ -435,6 +437,7 @@ public class OwnerController {
         }
         goodsList.setData(list);
         String temp = mGson.toJson(goodsList);
+        Log.debug(temp);
         return mGson.toJson(goodsList);
     }
 
@@ -622,9 +625,6 @@ public class OwnerController {
     @RequestMapping(value = "updateGoodsInfo", method = RequestMethod.POST)
     public String updateGoodsInfo(HttpSession session,
                                   @RequestParam("id") int id,
-                                  @RequestParam("createTime") String createTime,
-                                  @RequestParam("views") int views,
-                                  @RequestParam("state") int state,
                                   @RequestParam("name") String name,
                                   @RequestParam("desc") String desc,
                                   @RequestParam("price") double price,
@@ -670,40 +670,6 @@ public class OwnerController {
         mOwnerService.updateGoods(entity
                 , callback);
         return "owner/add_goods_success.jsp";
-    }
-
-    /**
-     * 检查店铺是否有广告
-     *
-     * @param userId
-     * @return
-     */
-    private boolean hasAdShop(int userId) {
-        IListBean<AdvertisementDbBean> data = mAdverService.getMyShop(userId, 1, Integer.MAX_VALUE);
-        if (data == null) {
-            return false;
-        }
-        return true;
-    }
-
-    private boolean hasAdGoods(int userId, int goodsId) {
-        IListBean<AdvertisementDbBean> data = mAdverService.getMyGoods(userId, 1, Integer.MAX_VALUE);
-        if (data == null) {
-            return false;
-        }
-        List<AdvertisementDbBean> adGoods = data.getShopList();
-        if (adGoods == null) {
-            return false;
-        }
-        for (AdvertisementDbBean item : adGoods) {
-            GoodsEntity entity = item.getGoodsEntity();
-            if (entity.getGoodsId() == goodsId) {
-                return true;
-            } else {
-                continue;
-            }
-        }
-        return false;
     }
 
 

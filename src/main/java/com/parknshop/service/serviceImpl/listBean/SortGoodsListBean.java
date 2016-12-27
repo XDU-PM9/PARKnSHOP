@@ -7,12 +7,14 @@ import com.parknshop.dao.daoImpl.BaseDao;
 import com.parknshop.entity.GoodsEntity;
 import com.parknshop.entity.OrdersEntity;
 import com.parknshop.service.serviceAbstract.AbstractListBean;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 /**
  * Created by weina on 2016/12/27.
  */
+@Component
 public class SortGoodsListBean extends AbstractListBean {
     @Override
     protected List<GoodsDbBean> initList(int page, int lines) {

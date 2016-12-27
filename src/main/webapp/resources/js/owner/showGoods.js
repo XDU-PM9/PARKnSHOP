@@ -60,10 +60,10 @@ function showGoods() {
                 addTd(i,response.data[i].views);
                 goodId.push(response.data[i].id);
                 if(response.data[i].ad == true){
-                    addOptionAd(i)
+                    addOption(i)
                 }
                 else {
-                    addOption(i)
+                    addOptionAd(i)
                 }
             }
         }
