@@ -52,7 +52,7 @@ public class AdvertisementDbBean {
     }
     private void initGoodsEntity(){
         IBaseDao<GoodsDbBean> goodsEntityIBaseDao = new BaseDao<>();
-        goodsEntity = goodsEntityIBaseDao.get(GoodsDbBean.hql+" and typeId = ?",new Object[]{this.typeId});
+        goodsEntity = goodsEntityIBaseDao.get(GoodsDbBean.hql+" and g.goodsId = ?",new Object[]{this.typeId});
 
     }
     private void initShopEntity(){
