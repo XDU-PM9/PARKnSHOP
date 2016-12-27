@@ -91,7 +91,7 @@ INSERT INTO `advert` VALUES ('5', '1', '1', '2', '16:37:39', '16:37:39', '2016-1
 -- ----------------------------
 DROP TABLE IF EXISTS `cart`;
 CREATE TABLE `cart` (
-  `cartId` int(11) NOT NULL,
+  `cartId` int(11) NOT NULL AUTO_INCREMENT,
   `userId` int(11) NOT NULL,
   `goodsId` int(11) NOT NULL,
   `singleGoodId` int(11) NOT NULL,
