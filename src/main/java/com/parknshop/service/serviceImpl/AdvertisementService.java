@@ -220,7 +220,7 @@ public class AdvertisementService implements IAdvertisement{
 
     public static void main(String[] args){
 //        AdvertisementService advertisementService = new AdvertisementService(new AdvertisementListBean(),new BaseDao<>());
-//        //advertisementService.addAdvertisementGoods(2,12);
+//        //advertisementService.addAdvertisementGoods(2,12);c
 //        System.out.println(advertisementService.addAdvertisementGoods(2,12));
     }
 
