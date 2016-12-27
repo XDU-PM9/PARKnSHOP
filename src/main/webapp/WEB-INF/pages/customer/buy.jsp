@@ -149,7 +149,7 @@
                         <div class="clear"></div>
                         <div class="gwc_foot_links">
                             <a href="" class="go">Back</a>
-                            <a href="" class="op" onclick="confirm()">Confirm</a>
+                            <a href="" class="op" onclick="confirmJumptoPay()">Confirm</a>
                         </div>
                     </td>
                 </tr>
@@ -174,10 +174,10 @@
         })
         console.log(addressId);
         function setAddress(param) {
-            alert($(param).val());
+            addressId=param.val();
         }
 
-        function confirm() {
+        function confirmJumptoPay() {
             window.location.href="/pay?addressId="+addressId;
         }
     </script>
