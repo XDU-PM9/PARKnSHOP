@@ -178,6 +178,11 @@
             </div>
             <div id="xiangqing_content_2" class="xiangqing_contents clearfix">
                 <p>Comment----22222</p>
+                <c:forEach var="c" items="${comments}">
+                    <c:out value="${c.userByUserId.username}"></c:out>
+                    <c:out value="${c.comment}"></c:out>
+                    <c:out value="${c.commentTime}"></c:out>
+                </c:forEach>
             </div>
 
             <div id="xiangqing_content_3" class="xiangqing_contents clearfix">
