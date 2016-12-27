@@ -136,6 +136,16 @@ public class AdvertisementService implements IAdvertisement{
         return getMyList(IAdvertisement.AD_TYOE_GOODS,userId,page,lines);
     }
 
+    @Override
+    public boolean checkAdvertShopExist(int id) {
+        return checkAdvertExist(IAdvertisement.AD_TYPE_SHOP,id);
+    }
+
+    @Override
+    public boolean checkAdvertGoodsExist(int id) {
+        return checkAdvertExist(IAdvertisement.AD_TYOE_GOODS,id);
+    }
+
     private IListBean<AdvertisementDbBean> getMyList(int type,int userId,int page,int lines){
         HqlBean hqlBean = new HqlBean();
         hqlBean.setInnerHql(" and type =? and userId =? ");
@@ -220,7 +230,7 @@ public class AdvertisementService implements IAdvertisement{
 
     public static void main(String[] args){
 //        AdvertisementService advertisementService = new AdvertisementService(new AdvertisementListBean(),new BaseDao<>());
-//        //advertisementService.addAdvertisementGoods(2,12);
+//        //advertisementService.addAdvertisementGoods(2,12);c
 //        System.out.println(advertisementService.addAdvertisementGoods(2,12));
     }
 

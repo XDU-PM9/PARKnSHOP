@@ -23,7 +23,7 @@ public class AdvertisementDbBean {
     private double price;
     private int state;
     //构造函数初始化，获取详细信息
-    GoodsEntity goodsEntity;
+    GoodsDbBean goodsEntity;
     ShopEntity shopEntity;
     OwnerEntity ownerEntity;
 
@@ -51,8 +51,9 @@ public class AdvertisementDbBean {
         }
     }
     private void initGoodsEntity(){
-        IBaseDao<GoodsEntity> goodsEntityIBaseDao = new BaseDao<>();
-        goodsEntity = goodsEntityIBaseDao.get(GoodsEntity.class,this.typeId);
+        IBaseDao<GoodsDbBean> goodsEntityIBaseDao = new BaseDao<>();
+        goodsEntity = goodsEntityIBaseDao.get(GoodsDbBean.hql+" and typeId = ?",new Object[]{this.typeId});
+
     }
     private void initShopEntity(){
         IBaseDao<ShopEntity> shopEntityIBaseDao = new BaseDao<>();
@@ -90,7 +91,7 @@ public class AdvertisementDbBean {
         return state;
     }
 
-    public GoodsEntity getGoodsEntity() {
+    public GoodsDbBean getGoodsEntity() {
         return goodsEntity;
     }
 
