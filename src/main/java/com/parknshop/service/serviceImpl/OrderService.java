@@ -159,9 +159,14 @@ public class OrderService implements IOrderService {
         return getOrderList("and userId = ? and state = ?",new Object[]{userId,STATE_GET}).getShopList();
     }
 
+
     @Override
-    public int payOrder(String orderNum, int addressId) {
-        List<OrdersEntity> list = getOrdersList(orderNum);
+    public int payOrder(String[] orderNum, int addressId) {
+        List<OrdersEntity> list = new ArrayList<>();
+        for(String e:orderNum) {
+            List<OrdersEntity> otherList = getOrdersList(e);
+            list.addAll(otherList);
+        }
         AddressEntity addressEntity = addressEntityIBaseDao.get(AddressEntity.class,addressId);
 //        double price =0.0;//TODO:管理员里面没有 balance
         if(null == list || null == addressEntity){

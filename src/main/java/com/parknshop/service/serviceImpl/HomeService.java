@@ -29,17 +29,17 @@ public class HomeService implements IHomeService {
     }
     @Override
     public IListBean<GoodsDbBean> getMostSales(int page, int lines) {
-        return getOrderList("and g.state = ? order by g.sales desc",new Object[]{GoodsBuilder.GOOD_STATE_USING},page,lines);
+        return getOrderList(" and g.state = ? order by g.sales desc",new Object[]{GoodsBuilder.GOOD_STATE_USING},page,lines);
     }
 
     @Override
     public IListBean<GoodsDbBean> getMostView(int page, int lines) {
-        return getOrderList("and g.state = ? order by g.views desc",new Object[]{GoodsBuilder.GOOD_STATE_USING},page,lines);
+        return getOrderList(" and g.state = ? order by g.views desc",new Object[]{GoodsBuilder.GOOD_STATE_USING},page,lines);
     }
 
     @Override
     public IListBean<GoodsDbBean> getMostValue(int page, int lines) {
-        return getOrderList("and g.state = ? order by g.price desc",new Object[]{GoodsBuilder.GOOD_STATE_USING},page,lines);
+        return getOrderList(" and g.state = ? order by g.price desc",new Object[]{GoodsBuilder.GOOD_STATE_USING},page,lines);
     }
 
 

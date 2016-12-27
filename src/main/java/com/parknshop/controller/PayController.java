@@ -1,10 +1,12 @@
 package com.parknshop.controller;
 
+import com.parknshop.entity.OrdersEntity;
 import com.parknshop.service.IOrderService;
 import com.parknshop.utils.Pay;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,7 +16,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -38,11 +42,9 @@ public class PayController {
                            HttpServletResponse resp,
                            HttpSession session) throws ServletException, IOException {
 
-        String number = "28e3cd11-adce-4943-920c-09affe92a185";
         String address = "2";
         //二维码
-        String url = pay.getQRCode(session,Pay.IP+"/pay/p?orderNum="+number+"&addressId="+address);
-
+        String url = pay.getQRCode(session,Pay.IP+"/pay/p?addressId="+address);
 
 
         req.setAttribute("imgUrl",url);
@@ -52,18 +54,31 @@ public class PayController {
     @RequestMapping(value = "/p",method = RequestMethod.GET)
     public String payButton(Model model,
                             HttpServletRequest req){
-        String number = req.getParameter("orderNum");
         String address = req.getParameter("addressId");
 
-        model.addAttribute("orderNum",number);
         model.addAttribute("addressId",address);
         return "pay.jsp";
     }
     @RequestMapping(value = "/f",method = RequestMethod.GET)
-    public void finalPay(HttpServletRequest req){
-        String number = req.getParameter("orderNum");
-        String address = req.getParameter("addressId");
+    public String finalPay(HttpServletRequest req,
+                           @ModelAttribute("ordersEntityList")List<OrdersEntity> list){
 
-        System.out.println(orderService.payOrder(number,Integer.parseInt(address)));
+
+        String address = req.getParameter("addressId");
+        String msg;
+        List<String> sList = new ArrayList<>();
+        for(OrdersEntity entity:list){
+           sList.add(entity.getOrderNumber());
+        }
+
+        int result = orderService.payOrder((String[])sList.toArray(),Integer.parseInt(address));
+
+        if(result == IOrderService.PAY_SUCCESS){
+            msg = "pay success,thank you!";
+        }else {
+            msg=" pay fail.";
+        }
+        req.setAttribute("msg",msg);
+        return "payResult.jsp";
     }
 }
