@@ -20,7 +20,7 @@ import java.util.List;
 
 
 @Controller
-@SessionAttributes("ordersEntityList")
+@SessionAttributes(value = "ordersEntityList")
 @RequestMapping("/order")
 public class OrderController {
 
@@ -42,45 +42,42 @@ public class OrderController {
         if (ordersNum.equals(null)) {
             return "";
         } else {
-            model.addAttribute("sdsdf",ordersNum);
+            model.addAttribute("sdsdf", ordersNum);
             return "redirect:/order/listCart?OrdersNum={sdsdf}";
         }
     }
 
     @RequestMapping(value = "/listCart", method = RequestMethod.GET)
-    public  String  listCart(@RequestParam("OrdersNum") String ordersNum,Model model)
-    {
-        List<OrdersEntity> ordersEntityList=iOrderService.getOrdersList(ordersNum);
-        List<AddressEntity> addressEntities=iAddressService.getAllAddressByUserId(ordersEntityList.get(0).getUserByUserId().getUserId());
-        model.addAttribute("ordersEntityList",ordersEntityList);
-        model.addAttribute("addressEntityList",addressEntities);
+    public String listCart(@RequestParam("OrdersNum") String ordersNum, Model model) {
+        List<OrdersEntity> ordersEntityList = iOrderService.getOrdersList(ordersNum);
+        List<AddressEntity> addressEntities = iAddressService.getAllAddressByUserId(ordersEntityList.get(0).getUserByUserId().getUserId());
+        model.addAttribute("ordersEntityList", ordersEntityList);
+        model.addAttribute("addressEntityList", addressEntities);
         return "/customer/buy.jsp";
     }
 
 
-
-    @RequestMapping(value = "/saveAddress",method = RequestMethod.POST)
+    @RequestMapping(value = "/saveAddress", method = RequestMethod.POST)
     @ResponseBody
-    public String  saveAddress(  @RequestParam String  province,
-                                 @RequestParam String  country,
-                                 @RequestParam String  others,
-                                 @RequestParam String   name,
-                                 @RequestParam int zip,
-                                 @RequestParam long phoneNum,
-                                 HttpSession session)
-    {
-        int userId=getUserId(session);
-        if(iAddressService.insertAddressEntity(province, country, others, name, phoneNum, zip, userId)) {
+    public String saveAddress(@RequestParam String province,
+                              @RequestParam String country,
+                              @RequestParam String others,
+                              @RequestParam String name,
+                              @RequestParam int zip,
+                              @RequestParam long phoneNum,
+                              HttpSession session) {
+        int userId = getUserId(session);
+        if (iAddressService.insertAddressEntity(province, country, others, name, phoneNum, zip, userId)) {
             return "true";
-        }else {
+        } else {
             return "false";
         }
     }
 
 
-    @RequestMapping(value = "/deleteAddress",method = RequestMethod.GET)
+    @RequestMapping(value = "/deleteAddress", method = RequestMethod.GET)
     @ResponseBody
-    public String  deleteAddress(@RequestParam int addressId,HttpSession session) {
+    public String deleteAddress(@RequestParam int addressId, HttpSession session) {
 //        if (getUserId(session)<0) {
 //             return "redirect:customer/login";
 //        } else {
@@ -89,10 +86,10 @@ public class OrderController {
 //        }
     }
 
-    private int getUserId(HttpSession session){
+    private int getUserId(HttpSession session) {
         try {
             return ((UserEntity) session.getAttribute(IDefineString.SESSION_USER)).getUserId();
-        }catch (Exception e){
+        } catch (Exception e) {
             return -1;
         }
     }
