@@ -29,6 +29,13 @@ public class OrderSearchController {
     private IOrderSearchService iOrderSearchService;
 
 
+    @RequestMapping(value = "/toSearch",method = RequestMethod.GET)
+    public String toSearch(Model model)
+    {
+        model.addAttribute("maxSize",0);
+        return "/customer/user_orders.jsp";
+    }
+
     //分页怎么办？
     @RequestMapping(value = "/dailySearch",method = RequestMethod.GET)
     public  String search(@RequestParam("day") String day,
@@ -63,13 +70,17 @@ public class OrderSearchController {
             int row = 1;
             double d = (sizes) / row + (sizes % row == 0 ? 0 : 1);
             int sina = (int) Math.ceil(d);
+            int masSizes=ordersEntityList.size();
+            String descr="Have "+masSizes+" records In the "+day +" by "+types;
             List<OrdersEntity> ordersEntities = ordersEntityList.subList((page - 1) * row, page * row);
             model.addAttribute("ordersEntityList", ordersEntities);
             model.addAttribute("day", day);
+            model.addAttribute("maxSize",masSizes);
             model.addAttribute("sina", sina);
             model.addAttribute("sizes", sizes);
             model.addAttribute("page", page);
             model.addAttribute("types",types);
+            model.addAttribute("descr",descr);
         }
             return "/customer/user_orders.jsp";
     }

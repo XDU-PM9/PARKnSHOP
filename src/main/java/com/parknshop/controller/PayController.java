@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -64,9 +65,14 @@ public class PayController {
 
 
         String address = req.getParameter("addressId");
-
-        int result = orderService.payOrder("217b4c7b-480e-4c5b-9e2d-b6a085bc7f9d",Integer.parseInt(address));
         String msg;
+        List<String> sList = new ArrayList<>();
+        for(OrdersEntity entity:list){
+           sList.add(entity.getOrderNumber());
+        }
+
+        int result = orderService.payOrder((String[])sList.toArray(),Integer.parseInt(address));
+
         if(result == IOrderService.PAY_SUCCESS){
             msg = "pay success,thank you!";
         }else {
