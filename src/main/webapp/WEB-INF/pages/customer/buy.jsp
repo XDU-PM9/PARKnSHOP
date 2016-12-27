@@ -75,7 +75,7 @@
                             <li>
                                 <label>
                                     <span>
-                                        <input type="radio" name="shdz" onchange="setAddress(this)" value="${addr.addressId}"/></span></label>
+                                        <input class="addressSelectList" type="radio" name="shdz" onchange="setAddress(${addr.addressId})" value="${addr.addressId}"/></span></label>
                                 <em>Hong Kong</em><em>${addr.getProvince()}</em><em>${addr.country}</em>
                                 <em>${addr.getOthers()}</em><em>${addr.getName()}(receive)</em><em>${addr.getPhone()}</em>
                                 <span class="admin_shdz_btn">
@@ -132,11 +132,7 @@
                     <%--<td class="gwc_list_pic"><a href=""><img src="${orderEntity.photo}" /></a></td>--%>
                     <td class="gwc_list_title"><a href="">${orderEntity.goodsName}</a></td>
                     <td class="gwc_list_danjia"><span>$<strong id="danjia_001">${orderEntity.price}</strong></span></td>
-                    <td class="gwc_list_shuliang">
-                        <span>
-                            <input type="button" value="${orderEntity.amount}" id="goods_001" class="good_nums" />
-                        </span>
-                    </td>
+                    <td class="gwc_list_shuliang"><span>${orderEntity.amount}</span></td>
                     <td class="gwc_list_xiaoji"><span>$<strong id="xiaoji_001" class="good_xiaojis">${orderEntity.amount*orderEntity.price}</strong></span></td>
                 </tr>
                 </c:forEach>
@@ -148,8 +144,8 @@
                         <div class="gwc_foot_zongjia">Total<span>$<strong id="good_zongjia">00.00</strong></span></div>
                         <div class="clear"></div>
                         <div class="gwc_foot_links">
-                            <a href="" class="go">Back</a>
-                            <a href="" class="op" onclick="confirmJumptoPay()">Confirm</a>
+                            <input type="button" class="go" value="Back"/>
+                            <input type="button" class="op" onclick="confirmJumptoPay()" value="Confirm"/>
                         </div>
                     </td>
                 </tr>
@@ -163,7 +159,7 @@
     <%@include file="footer.jsp"%>
 
     <script>
-        var addressId=${addressEntityList[0].addressId};
+        var addressId=$('.addressSelectList:first').val();
         $(document).ready(function () {
             var total=0.0;
             $('.good_xiaojis').each(function () {
@@ -172,13 +168,14 @@
             });
             $('#good_zongjia').html(total);
         })
-        console.log(addressId);
-        function setAddress(param) {
-            addressId=param.val();
+        $('.addressSelectList:first').attr('checked',true);
+        function setAddress(address) {
+            addressId=address;
+            console.log(addressId);
         }
 
         function confirmJumptoPay() {
-            window.location.href="/pay?addressId="+addressId;
+            window.location.href="pay?addressId="+addressId;
         }
     </script>
 
