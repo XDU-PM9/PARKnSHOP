@@ -57,6 +57,7 @@ public class OrderService implements IOrderService {
         ordersEntity.setGoodsDescribe(cartEntity.getGoodsEntity().getIntroduction());
         ordersEntity.setPrice(cartEntity.getAmount()*cartEntity.getGoodsEntity().getPrice());
         //地址
+        ordersEntity.setPostWay(cartEntity.getGoodsEntity().getPostWay());
         ordersEntity.setAddress(null);
         ordersEntity.setAmount(cartEntity.getAmount());
         ordersEntity.setCreateTime(new Date());
