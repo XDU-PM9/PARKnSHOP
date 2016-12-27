@@ -9,6 +9,7 @@ import com.parknshop.service.customerService.IAddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -48,9 +49,10 @@ public class OrderController {
     }
 
     @RequestMapping(value = "/listCart", method = RequestMethod.GET)
-    public String listCart(@RequestParam("OrdersNum") String ordersNum, Model model) {
+    public String listCart(@RequestParam("OrdersNum") String ordersNum, Model model, ModelMap modelMap) {
         List<OrdersEntity> ordersEntityList = iOrderService.getOrdersList(ordersNum);
         List<AddressEntity> addressEntities = iAddressService.getAllAddressByUserId(ordersEntityList.get(0).getUserByUserId().getUserId());
+        modelMap.put("ordersEntityList",ordersEntityList);
         model.addAttribute("ordersEntityList", ordersEntityList);
         model.addAttribute("addressEntityList", addressEntities);
         return "/customer/buy.jsp";
