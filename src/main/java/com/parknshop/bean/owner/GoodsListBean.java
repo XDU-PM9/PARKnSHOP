@@ -86,7 +86,15 @@ public class GoodsListBean {
         private String type;
         private String postWay;
         private String[] photos;
+        private boolean ad;
 
+        public boolean isAd() {
+            return ad;
+        }
+
+        public void setAd(boolean ad) {
+            this.ad = ad;
+        }
 
         public String getPostWay() {
             return postWay;

@@ -1,3 +1,8 @@
+<%@ page import="com.parknshop.bean.AdvertisementDbBean" %>
+<%@ page import="com.parknshop.service.IListBean" %>
+<%@ page import="com.parknshop.controller.MainController" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.parknshop.entity.GoodsEntity" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -6,14 +11,14 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
     <title>PARKnSHOP</title>
-    <link rel="stylesheet" href="../../resources/css/base.css" type="text/css"/>
-    <link rel="stylesheet" href="../../resources/css/shop_common.css" type="text/css"/>
-    <link rel="stylesheet" href="../../resources/css/shop_header.css" type="text/css"/>
-    <link rel="stylesheet" href="../../resources/css/shop_home.css" type="text/css"/>
-    <script type="text/javascript" src="../../resources/js/jquery.js"></script>
-    <script type="text/javascript" src="../../resources/js/topNav.js"></script>
-    <script type="text/javascript" src="../../resources/js/focus.js"></script>
-    <script type="text/javascript" src="../../resources/js/shop_home_tab.js"></script>
+    <link rel="stylesheet" href="/resources/css/base.css" type="text/css"/>
+    <link rel="stylesheet" href="/resources/css/shop_common.css" type="text/css"/>
+    <link rel="stylesheet" href="/resources/css/shop_header.css" type="text/css"/>
+    <link rel="stylesheet" href="/resources/css/shop_home.css" type="text/css"/>
+    <script type="text/javascript" src="/resources/js/jquery.js"></script>
+    <script type="text/javascript" src="/resources/js/topNav.js"></script>
+    <script type="text/javascript" src="/resources/js/focus.js"></script>
+    <script type="text/javascript" src="/resources/js/shop_home_tab.js"></script>
 </head>
 <body>
 <%@include file="customer/head.jsp"%>
@@ -86,6 +91,23 @@
                 <!--商品推荐:列表-->
                 <div id="tuijian_content_1" class="tuijian_shangpin" style="display: block;">
                     <ul>
+
+                        <%--<%--%>
+                            <%--IListBean<AdvertisementDbBean> adGoods = (IListBean<AdvertisementDbBean>) request.getAttribute(MainController.AD_GOODS);--%>
+                            <%--if (adGoods!=null && adGoods.getShopList() !=null){--%>
+                                <%--List<AdvertisementDbBean> goodsList = adGoods.getShopList();--%>
+                                <%--for (AdvertisementDbBean item : goodsList){--%>
+                                    <%--GoodsEntity entity = item.getGoodsEntity();--%>
+                                    <%--out.println("<li>");--%>
+                                    <%--out.println("<dl>");--%>
+                                    <%--out.println("<dt>");--%>
+                                    <%--out.println("<a href=\"goods/detail?goodsId="+entity.getGoodsId()+"\">");--%>
+                                    <%--out.println("<img src=\""+entity.get+"\"");--%>
+                                <%--}--%>
+                            <%--}--%>
+
+                        <%--%>--%>
+
                         <li>
                             <dl>
                                 <dt><a href=""><img
