@@ -32,12 +32,14 @@ public class OrderService implements IOrderService {
     private final IBaseDao<CartEntity> cartEntityIBaseDao;
     private final IListBean<OrdersEntity> ordersEntityIListBean;
     private final IBaseDao<AddressEntity> addressEntityIBaseDao;
+    private final IBaseDao<GoodsEntity> goodsEntityIBaseDao;
     @Autowired
-    public OrderService(IBaseDao<OrdersEntity> ordersEntityIBaseDao, IBaseDao<CartEntity> cartEntityIBaseDao, OrderListBean ordersEntityIListBean, IBaseDao<AddressEntity> addressEntityIBaseDao) {
+    public OrderService(IBaseDao<OrdersEntity> ordersEntityIBaseDao, IBaseDao<CartEntity> cartEntityIBaseDao, OrderListBean ordersEntityIListBean, IBaseDao<AddressEntity> addressEntityIBaseDao, IBaseDao<GoodsEntity> goodsEntityIBaseDao) {
         this.ordersEntityIBaseDao = ordersEntityIBaseDao;
         this.cartEntityIBaseDao = cartEntityIBaseDao;
         this.ordersEntityIListBean = ordersEntityIListBean;
         this.addressEntityIBaseDao = addressEntityIBaseDao;
+        this.goodsEntityIBaseDao = goodsEntityIBaseDao;
     }
 
 
@@ -45,6 +47,7 @@ public class OrderService implements IOrderService {
         if(cartEntity.getGoodsEntity().getShopByShopId().getState() != IOwnerService.SHOP_STATE_USING){
             return null;
         }
+
 
         OrdersEntity ordersEntity = new OrdersEntity();
         ordersEntity.setOrderNumber(orderNumber);
@@ -76,6 +79,24 @@ public class OrderService implements IOrderService {
         ordersEntity.setComment(null);
         ordersEntity.setCommentTime(null);
         ordersEntity.setState(IOrderService.STATE_NOT_PAY);//未支付状态
+
+        //判断数量
+        synchronized (this){
+            GoodsEntity goodsEntity = cartEntity.getGoodsEntity();
+            if(cartEntity.getAmount() > goodsEntity.getInventory() || 0  >= goodsEntity.getInventory()){
+                return null;//数量过了
+            }else {
+                goodsEntity.setSales(goodsEntity.getSales()+1);
+                goodsEntity.setInventory(goodsEntity.getInventory()-cartEntity.getAmount());
+                try {
+                    goodsEntityIBaseDao.update(goodsEntity);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            }
+        }
+
         return ordersEntity;
     }
 
@@ -99,8 +120,9 @@ public class OrderService implements IOrderService {
 
         try {
             ordersEntityIBaseDao.save(orderList);
-            for(int i:carts)
-                 cartEntityIBaseDao.delete("delete from cart where cartId=?",i);
+            for(int i:carts) {
+                cartEntityIBaseDao.delete("delete from cart where cartId=?", i);
+            }
             return orderNumber;//ADD_SAVE_SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
@@ -167,6 +189,16 @@ public class OrderService implements IOrderService {
     @Override
     public boolean receive(String orderNum) {
         return updateStatus(orderNum,IOrderService.STATE_GET);
+    }
+
+    @Override
+    public boolean sendGoods(String orderNum) {
+        return updateStatus(orderNum,IOrderService.STATE_SEND);
+    }
+
+    @Override
+    public IListBean<OrdersEntity> getCustomerOrder(int ownerId) {
+        return getOrderList("and ownerId = ? and state = ?",new Object[]{ownerId,STATE_PAY});
     }
 
 

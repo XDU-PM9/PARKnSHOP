@@ -80,4 +80,19 @@ public interface IOrderService {
      * @return
      */
     boolean receive(String orderNum);
+    //商家**************************************************************
+    // *****************************************************************
+    /**
+     * 发货
+     * @param orderNum 订单号
+     * @return
+     */
+    boolean sendGoods(String orderNum);
+
+    /**
+     * 商家获取  已经支付了的订单
+     * @param ownerId
+     * @return
+     */
+    IListBean<OrdersEntity> getCustomerOrder(int ownerId);
 }
