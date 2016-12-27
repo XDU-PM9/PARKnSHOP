@@ -6,6 +6,7 @@ import com.parknshop.utils.Pay;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -60,7 +61,8 @@ public class PayController {
         return "pay.jsp";
     }
     @RequestMapping(value = "/f",method = RequestMethod.GET)
-    public String finalPay(HttpServletRequest req,
+    public String finalPay(ModelMap modelMap,
+            HttpServletRequest req,
                            @ModelAttribute("ordersEntityList")List<OrdersEntity> list){
 
 
@@ -74,10 +76,11 @@ public class PayController {
         int result = orderService.payOrder((String[])sList.toArray(),Integer.parseInt(address));
 
         if(result == IOrderService.PAY_SUCCESS){
-            msg = "pay success,thank you!";
+            msg = "pay success,thank you! you have bought:" + String.valueOf(sList.size());
         }else {
             msg=" pay fail.";
         }
+        modelMap.remove("ordersEntityList");
         req.setAttribute("msg",msg);
         return "payResult.jsp";
     }
