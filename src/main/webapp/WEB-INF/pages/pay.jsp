@@ -15,7 +15,6 @@
 <H1>orderNum:${orderNum}</H1><br>
 <H1>addressId:${addressId}</H1><br>
 <form  action="/pay/f" method="get">
-    <input  type="hidden" name="orderNum" value="${orderNum}">
     <input  type="hidden" name="addressId" value="${addressId}">
     <button  type="submit" style="height:80px;width:400px;"> submit</button>
 </form>

@@ -6,9 +6,11 @@ import com.parknshop.dao.IBaseDao;
 import com.parknshop.dao.daoImpl.BaseDao;
 import com.parknshop.entity.GoodsEntity;
 import com.parknshop.entity.OrdersEntity;
+import com.parknshop.service.IGoodsBuilder;
 import com.parknshop.service.serviceAbstract.AbstractListBean;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,5 +46,14 @@ public class SortGoodsListBean extends AbstractListBean {
         }else {
             return 0;
         }
+    }
+    public static void main(String[] arsg){
+        SortGoodsListBean list =new SortGoodsListBean();
+        HqlBean hqlBean = new HqlBean();
+        hqlBean.setInnerHql("");
+        List<Object> param = new ArrayList<>();
+        param.add(IGoodsBuilder.GOOD_STATE_USING);
+        hqlBean.setInnerParam(param);
+        list.init(hqlBean,1,5);
     }
 }
