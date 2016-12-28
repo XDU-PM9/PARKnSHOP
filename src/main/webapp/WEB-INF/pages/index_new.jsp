@@ -180,17 +180,17 @@
                                 }
                             }
                         %>
-                        <%--<li>--%>
-                            <%--<dl>--%>
-                                <%--<dt>--%>
-                                    <%--<a href="">--%>
-                                    <%--<img class="imgContent" src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/>--%>
-                                    <%--</a>--%>
-                                <%--</dt>--%>
-                                <%--<dd><a href="">Hot Shop</a></dd>--%>
-                                <%--&lt;%&ndash;<dd> price：<em>HK$0.00</em></dd>&ndash;%&gt;--%>
-                            <%--</dl>--%>
-                        <%--</li>--%>
+                        <li>
+                            <dl>
+                                <dt>
+                                    <a href="">
+                                    <img class="imgContent" src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/>
+                                    </a>
+                                </dt>
+                                <dd><a href="">Hot Shop</a></dd>
+                                <%--<dd> price：<em>HK$0.00</em></dd>--%>
+                            </dl>
+                        </li>
 
                     </ul>
                 </div>

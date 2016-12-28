@@ -16,5 +16,5 @@ public interface DatabaseBackupService {
     Boolean deletebackup(String filname);
     /*在controller中用迭代器拿到filename
     * 以防需要其他属性 我直接返回的是file集合 而不是filename集合*/
-    Collection getallfile();
+    List getallfile();
 }
