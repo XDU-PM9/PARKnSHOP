@@ -138,12 +138,12 @@ public class AdvertisementService implements IAdvertisement{
 
     @Override
     public boolean checkAdvertShopExist(int id) {
-        return false;
+        return checkAdvertExist(IAdvertisement.AD_TYPE_SHOP,id);
     }
 
     @Override
     public boolean checkAdvertGoodsExist(int id) {
-        return false;
+        return checkAdvertExist(IAdvertisement.AD_TYOE_GOODS,id);
     }
 
     private IListBean<AdvertisementDbBean> getMyList(int type,int userId,int page,int lines){
