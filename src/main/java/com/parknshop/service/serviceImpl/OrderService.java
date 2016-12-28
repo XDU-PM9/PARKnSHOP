@@ -118,11 +118,15 @@ public class OrderService implements IOrderService {
         }
 
         try {
-            ordersEntityIBaseDao.save(orderList);
-            for(int i:carts) {
-                cartEntityIBaseDao.delete("update cart set state='0' where cartId=?", i);
+            if(orderList.size()>0) {
+                ordersEntityIBaseDao.save(orderList);
+                for (int i : carts) {
+                    cartEntityIBaseDao.delete("update cart set state='0' where cartId=?", i);
+                }
+                return orderNumber;//ADD_SAVE_SUCCESS;
+            }else {
+                return null;
             }
-            return orderNumber;//ADD_SAVE_SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
             return null;//ADD_SAVE_ERRO;

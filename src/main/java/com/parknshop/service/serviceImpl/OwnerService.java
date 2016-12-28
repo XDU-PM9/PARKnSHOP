@@ -2,6 +2,8 @@ package com.parknshop.service.serviceImpl;
 
 import com.parknshop.bean.GoodsDbBean;
 import com.parknshop.bean.ShopAndOwnerDbBean;
+import com.parknshop.bean.ShopBean;
+import com.parknshop.bean.ShopDbBean;
 import com.parknshop.dao.IBaseDao;
 import com.parknshop.dao.IPictureDao;
 import com.parknshop.dao.daoImpl.BaseDao;
@@ -26,6 +28,7 @@ import java.util.List;
 @Scope(value = "prototype")
 @Service
 public class OwnerService implements IOwnerService {
+    private final IPictureDao photoEntityIBaseDao;
     final
     IBaseDao<OwnerEntity> mDao;
     final
@@ -40,7 +43,7 @@ public class OwnerService implements IOwnerService {
     private final IBaseDao<GoodsDbBean> goodsDbBeanIBaseDao;
     private final IAdvertisement advertisement;
     @Autowired
-    public OwnerService(IBaseDao<OwnerEntity> mDao, IBaseDao<ShopEntity> mDaoShop, PitureDao mDaoPhoto, PersonShopListBean listBean, IBaseDao<GoodsEntity> goodDao, GoodsListBean goodsList, IBaseDao<GoodsDbBean> goodsDbBeanIBaseDao, IAdvertisement advertisement) {
+    public OwnerService(IBaseDao<OwnerEntity> mDao, IBaseDao<ShopEntity> mDaoShop, PitureDao mDaoPhoto, PersonShopListBean listBean, IBaseDao<GoodsEntity> goodDao, GoodsListBean goodsList, IBaseDao<GoodsDbBean> goodsDbBeanIBaseDao, IAdvertisement advertisement, IPictureDao photoEntityIBaseDao) {
         this.mDao = mDao;
         this.mDaoShop = mDaoShop;
         this.mDaoPhoto = mDaoPhoto;
@@ -49,6 +52,7 @@ public class OwnerService implements IOwnerService {
         this.goodsList = goodsList;
         this.goodsDbBeanIBaseDao = goodsDbBeanIBaseDao;
         this.advertisement = advertisement;
+        this.photoEntityIBaseDao = photoEntityIBaseDao;
     }
 
     //更新用户
@@ -184,6 +188,16 @@ public class OwnerService implements IOwnerService {
             }).start();
         }
         return entity;
+    }
+
+    @Override
+    public ShopDbBean getShop(int shopId) {
+        ShopEntity shopEntity = mDaoShop.get(ShopEntity.class,shopId);
+        List<PhotoEntity> photoEntities = photoEntityIBaseDao.getPictures(shopEntity.getPhotoGroup());
+        ShopDbBean shopDbBean = new ShopDbBean();
+        shopDbBean.setShopEntity(shopEntity);
+        shopDbBean.setPhotoEntityList(photoEntities);
+        return shopDbBean;
     }
 
 
