@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,10 +18,24 @@ import java.util.Map;
  */
 @Component
 public class Pay {
-    public static final String IP = "192.168.31.62:8080";
+
+    public static String IP = "192.168.31.62:8080";
+
+    public Pay() {
+        try {
+            InetAddress mAddress = InetAddress.getLocalHost();
+            IP = mAddress.getHostAddress();
+            IP += ":8080";
+            Log.debug(IP);
+        } catch (UnknownHostException e) {
+            IP = "192.168.31.62:8080";
+        }
+    }
+
     /**
      * 获取 二维码地址
-     * @param session  param获取的session
+     *
+     * @param session param获取的session
      * @param content 需要转成二维码的一串字符
      * @return
      */

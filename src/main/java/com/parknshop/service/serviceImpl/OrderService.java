@@ -142,8 +142,18 @@ public class OrderService implements IOrderService {
     }
 
     @Override
+    public List<OrdersEntity> getOrdersList(String orderNum) {
+       return getOrdersList(orderNum,1,Integer.MAX_VALUE).getShopList();
+    }
+
+    @Override
     public  IListBean<OrdersEntity> getNotPayList(int userId,int page,int lines) {
         return getOrderList("and userId = ? and state = ?",new Object[]{userId,IOrderService.STATE_NOT_PAY},page,lines);
+    }
+
+    @Override
+    public List<OrdersEntity> getNotPayList(int userId) {
+        return getNotPayList(userId,1,Integer.MAX_VALUE).getShopList();
     }
 
     @Override
@@ -153,9 +163,19 @@ public class OrderService implements IOrderService {
     }
 
     @Override
+    public List<OrdersEntity> getPayList(int userId) {
+        return getPayList(userId,1,Integer.MAX_VALUE).getShopList();
+    }
+
+    @Override
     public  IListBean<OrdersEntity> getNotCommentLit(int userId,int page,int lines) {
         //获取了 邮件 就可以评论
         return getOrderList("and userId = ? and state = ?",new Object[]{userId,STATE_GET},page,lines);
+    }
+
+    @Override
+    public List<OrdersEntity> getNotCommentLit(int userId) {
+        return getNotCommentLit(userId,1,Integer.MAX_VALUE).getShopList();
     }
 
 

@@ -2,6 +2,7 @@ package com.parknshop.controller;
 
 import com.parknshop.entity.OrdersEntity;
 import com.parknshop.entity.OwnerEntity;
+import com.parknshop.service.IAdvertisement;
 import com.parknshop.service.IOrderService;
 import com.parknshop.utils.Pay;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +31,14 @@ import java.util.Map;
 @RequestMapping(value = "/pay")
 public class PayController {
     private final Pay pay;
+    protected final IAdvertisement iAdvertisement;
 
     private final IOrderService orderService;
     @Autowired
-    public PayController(Pay pay, IOrderService orderService) {
+    public PayController(Pay pay, IOrderService orderService, IAdvertisement iAdvertisement) {
         this.pay = pay;
         this.orderService = orderService;
+        this.iAdvertisement = iAdvertisement;
     }
 
     @RequestMapping(value = "",method = RequestMethod.GET)
@@ -43,8 +46,8 @@ public class PayController {
                            HttpServletRequest req,
                            HttpServletResponse resp,
                            HttpSession session) throws ServletException, IOException {
-        String orderNum = (String)req.getParameter("orderNum");
-        String address = (String)req.getParameter("addressId");
+        String orderNum = req.getParameter("orderNum");
+        String address = req.getParameter("addressId");
         //二维码
         String url = pay.getQRCode(session,Pay.IP+"/pay/p?orderNum="+orderNum+"&addressId="+address);
 
@@ -59,6 +62,21 @@ public class PayController {
         String orderNum = req.getParameter("orderNum");
         String address = req.getParameter("addressId");
 
+        String type = req.getParameter("type");
+        String typeId = req.getParameter("typeId");
+        String typeString;
+        if(IAdvertisement.AD_TYPE_SHOP == Integer.parseInt(type)){
+            typeString ="shop";
+        }else if(IAdvertisement.AD_TYOE_GOODS == Integer.parseInt(type)) {
+            typeString="goods";
+        }else{
+            typeString="else";
+        }
+
+
+        model.addAttribute("typeString",typeString);
+        model.addAttribute("type",type);
+        model.addAttribute("typeId",typeId);
         model.addAttribute("addressId",address);
         model.addAttribute("orderNum",orderNum);
         return "pay.jsp";
@@ -90,4 +108,55 @@ public class PayController {
         req.setAttribute("msg",msg);
         return "payResult.jsp";
     }
+
+    //广告****************************************
+    //*******************************************
+    @RequestMapping(value = "/a",method = RequestMethod.GET)
+    public String payAdvert(HttpServletRequest req,
+                            HttpSession session){
+        String type = req.getParameter("type");
+        String typeId = req.getParameter("typeId");
+
+
+        String url = pay.getQRCode(session,Pay.IP+"/pay/p?type="+type+"&typeId="+typeId);
+
+
+        req.setAttribute("imgUrl",url);
+        return "test.jsp";
+    }
+
+    @RequestMapping(value = "/af",method = RequestMethod.GET)
+    public String fianlAdvertPay(HttpServletRequest req){
+        String type = req.getParameter("type");
+        String typeId = req.getParameter("typeId");
+        int result=0;
+        String msg;
+        if(type.equals(String .valueOf(IAdvertisement.AD_TYPE_SHOP))){
+            result  = iAdvertisement.addAdvertisementShop(Integer.parseInt(typeId));
+        }else if(type.equals(String .valueOf(IAdvertisement.AD_TYOE_GOODS))){
+            result = iAdvertisement.addAdvertisementGoods(Integer.parseInt(typeId));
+        }else {
+            msg = "else erro";
+        }
+        switch (result) {
+            case IAdvertisement.ALREADY_EXISTS:
+                msg = "already exist";
+                break;
+            case IAdvertisement.ILLEGAL_SHOP:
+            case IAdvertisement.ILLEGAl_GOODS:
+                msg = "illegal apply";
+                break;
+            case IAdvertisement.ADD_SUCCESS:
+                msg = "success";
+                break;
+            default:
+                msg = "else erro";
+                break;
+
+        }
+        req.setAttribute("msg",msg);
+
+        return "payResult.jsp";
+    }
+
 }
