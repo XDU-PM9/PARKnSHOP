@@ -41,6 +41,7 @@ public class GetList implements IGetList {
                 .setPicture(getPhoto(goodsEntity.getPhotoGroup()))
                 .setShopId(shopEntity.getShopId())
                 .setShopName(shopEntity.getShopName())
+                .setGoodsAmount(goodsEntity.getInventory())
                 .setTips(String.valueOf(goodsEntity.getState()));
     }
 
