@@ -1,44 +1,45 @@
 package com.parknshop.service.serviceImpl;
 
 import com.parknshop.service.DatabaseBackupService;
+import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.io.*;
 import java.text.SimpleDateFormat;
-import java.util.Collection;
 
 /**
  * Created by niewenzhi on 2016/12/24.
  */
+@Service
 public class BackupImpl implements DatabaseBackupService {
     File directory = new File("");//设定为当前文件夹
-    String filepath=directory.getAbsolutePath()+"\\databasebackup";
+    String filepath=directory.getAbsolutePath()+File.separator+"databasebackup";
     String username = "";
     String password = "";
 
 
-    /*加载数据库密码账号*/
-    {
 
+    @Override
+    public  Boolean backup(HttpSession session) {
+        String contextPath = session.getServletContext().getRealPath("/");
         Properties props = new Properties();
         try {
-            props.load(new FileInputStream(directory.getAbsolutePath()+ "\\src\\main\\java\\database.ini"));
+            props.load(new FileInputStream(contextPath+ File.separator+"database.ini"));
             username=props.getProperty("username");
             password=props.getProperty("password");
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-    @Override
-    public  Boolean backup() {
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MMM-dd-HH-mm-ss-SSS",Locale.ENGLISH);
         String filename =formatter.format(new Date());
 
-       String cmd="mysqldump"+" -u"+username+" -p"+password+" parknshop>"+filepath+"\\"+filename+".sql";
+       String cmd="mysqldump"+" -u"+username+" -p"+password+" parknshop>"+filepath+File.separator+filename+".sql";
         try {
             Runtime rt = Runtime.getRuntime();
             Process pr = rt.exec("cmd /c"+cmd);
@@ -55,8 +56,8 @@ public class BackupImpl implements DatabaseBackupService {
     }
 
     @Override
-    public Boolean rollback(String filename) {
-        String cmd="mysql"+" -u"+username+" -p"+password+" parknshop<"+filepath+"\\"+filename+".sql";
+    public Boolean rollback(HttpSession session,String filename) {
+        String cmd="mysql"+" -u"+username+" -p"+password+" parknshop<"+filepath+File.separator+filename+".sql";
         try {
             Runtime rt = Runtime.getRuntime();
             Process pr = rt.exec("cmd /c"+cmd);
@@ -75,7 +76,7 @@ public class BackupImpl implements DatabaseBackupService {
 
 
     @Override
-    public Boolean deletebackup(String filename) {
+    public Boolean deletebackup(HttpSession session,String filename) {
         Path path = Paths.get(filepath,filename);
         try {
             if (Files.deleteIfExists(path))
@@ -94,9 +95,19 @@ public class BackupImpl implements DatabaseBackupService {
     }
 
     @Override
-    public List getallfile() {
-        List list = new ArrayList();
-        File file = new File(filepath+"\\");
+    public List<File> getallfile(HttpSession session) {
+        String contextPath = session.getServletContext().getRealPath("/");
+        Properties props = new Properties();
+        try {
+            props.load(new FileInputStream(contextPath+ File.separator+"database.ini"));
+            username=props.getProperty("username");
+            password=props.getProperty("password");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        List<File> list = new ArrayList<>();
+        File file = new File(filepath+"/");
         File[] files=file.listFiles();
         for (File targe : files){
             if (targe.getName().endsWith(".sql"))
@@ -108,7 +119,6 @@ public class BackupImpl implements DatabaseBackupService {
 
     public static void main(String[] args) {
         BackupImpl backup = new BackupImpl();
-        backup.backup();
-        backup.getallfile();
+
     }
 }

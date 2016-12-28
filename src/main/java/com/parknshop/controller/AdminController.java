@@ -12,6 +12,7 @@ import com.parknshop.service.IAdvertisement;
 import com.parknshop.service.IListBean;
 import com.parknshop.service.IUserService;
 import com.parknshop.service.baseImpl.IDefineString;
+import com.parknshop.service.serviceImpl.BackupImpl;
 import com.parknshop.utils.DateFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -38,6 +41,8 @@ public class AdminController {
     IAdminService mAdminService;
     @Autowired
     IAdvertisement mAdvert;
+    @Autowired
+    BackupImpl backupService;
 
     Gson mGson = new GsonBuilder()
             .setDateFormat(DateFormat.getDateFormat())
@@ -921,6 +926,34 @@ public class AdminController {
         }
         return true;
     }
+
+
+    @RequestMapping(value = "/getallbackup",method = RequestMethod.POST)
+    public @ResponseBody String getallbackup(HttpSession session){
+        boolean isLogin = mService.isLogin();
+        GetBackupResponseBean getBackupResponseBean = new GetBackupResponseBean();
+        List<GetBackupResponseBean.DataBean> data = new ArrayList<>();
+        if (isLogin){
+            List<File> backuplist = backupService.getallfile(session);
+            if (!backuplist.isEmpty()){
+                for (File file :backuplist){
+                    GetBackupResponseBean.DataBean dataBean = new GetBackupResponseBean.DataBean();
+                    dataBean.setFilename(file.getName().substring(0,file.getName().lastIndexOf(".")));
+                    data.add(dataBean);
+                }
+                File f =backuplist.get(backuplist.size()-1);
+                long time = f.lastModified();//返回文件最后修改时间，是以个long型毫秒数
+                String lastbackuptime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date(time));
+                getBackupResponseBean.setError(false);
+                getBackupResponseBean.setData(data);
+                getBackupResponseBean.setLastbackuptime(lastbackuptime);
+            }
+        }
+        else
+            getBackupResponseBean.setError(true);
+         return mGson.toJson(getBackupResponseBean);
+    }
+
 
 
 }
