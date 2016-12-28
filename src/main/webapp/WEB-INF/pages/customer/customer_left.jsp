@@ -27,6 +27,7 @@
     </dl>
     <dl>
         <dt>Order Center</dt>
+        <dd><span><a href="/order/toOrdersCenter">Order Center</a></span></dd>
         <dd><span><a href="/viewBuyHistory/toSearch">view Buy History</a></span></dd>
         <dd><span><a href="/listProduct?requestPage=1">My Cart</a></span></dd>
     </dl>

@@ -47,8 +47,6 @@ public class OrderService implements IOrderService {
         if(cartEntity.getGoodsEntity().getShopByShopId().getState() != IOwnerService.SHOP_STATE_USING){
             return null;
         }
-
-
         OrdersEntity ordersEntity = new OrdersEntity();
         ordersEntity.setOrderNumber(orderNumber);
         ordersEntity.setOwnerId(cartEntity.getGoodsEntity().getShopByShopId().getOwnerByOwnerId().getOwnerId());
@@ -109,9 +107,10 @@ public class OrderService implements IOrderService {
             try {
                 CartEntity entity = cartEntityIBaseDao.get(CartEntity.class, i);
                 OrdersEntity ordersEntity = addOerder(orderNumber, entity);
-                if (null != orderList) {
+                if (null != ordersEntity) {
                     orderList.add(ordersEntity);
                 }
+
             } catch (Exception e) {
                 e.printStackTrace();
                 return null;//ADD_PARAM_ERRO;

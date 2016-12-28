@@ -52,7 +52,7 @@ li:after{
 
 .top,.header, #mian ,#user,.Menu_style,.index_style,.Inside_pages,.user_style,.footerbox{ width:1200px; margin:0 auto;}
 .left_style{ width:220px; margin-right:10px; float:left}
-.right_style{ width:960px; float:right;_display: inline;_overflow: hidden;}
+.right_style{ width:780px; float:right;_display: inline;_overflow: hidden;}
 .Slide_style{ height:645px; position:relative;}
 .Menu_style{ z-index:1111; top:0px; }
 .AD_tu{ margin-bottom:20px}
