@@ -637,3 +637,44 @@ index：按照size分页后的数据第index页
 		//}
    }]
 }
+
+
+
+#数据库备份模块
+
+展示备份文件
+url:/admin/getallfile
+参数:null
+return:
+        error:
+        //lastbackuptime是最新备份文件时间,error=true的话lastbackuptime为null
+         lastbackuptime:"String"
+        //data是所有文件名集合
+        data:[{
+        filename:"String"
+       } ]
+        从service拿到的是个List
+        File f =(File) list.get(list.size()-1);拿到最新备份文件
+        long time = file.lastModified();//返回文件最后修改时间，是以个long型毫秒数
+        String lastbackuptime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date(time));
+
+
+备份
+url:/admin/backup
+参数：null
+return:
+        error:true/false
+
+
+
+回滚
+url:/admin/rollback
+参数:filename:"String"
+return:
+    error:true/false
+
+删除备份
+url:/admin/deletebackup
+参数:filename:"String"
+return:
+    error:true/false

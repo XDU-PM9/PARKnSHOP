@@ -175,7 +175,7 @@
         }
 
         function confirmJumptoPay() {
-            window.location.href="/pay?orderNum=${ordersEntityList[0].orderNumber}addressId="+addressId;
+            window.location.href="/pay?orderNum=${ordersEntityList[0].orderNumber}&addressId="+addressId;
         }
     </script>
 

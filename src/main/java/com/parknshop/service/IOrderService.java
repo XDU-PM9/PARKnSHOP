@@ -39,28 +39,28 @@ public interface IOrderService {
      * @param orderNum
      * @return
      */
-    List<OrdersEntity> getOrdersList(String orderNum);
+    IListBean<OrdersEntity> getOrdersList(String orderNum,int page,int lines);
 
     /**
      * 获取未支付的 订单
      * @param userId
      * @return
      */
-    List<OrdersEntity> getNotPayList(int userId);
+    IListBean<OrdersEntity> getNotPayList(int userId,int page,int lines);
 
     /**
      * 获取 已经支付的订单， 包括已经支付，正在发货，已经收货，已经评论的订单
      * @param userId
      * @return
      */
-    List<OrdersEntity> getPayList(int userId);
+    IListBean<OrdersEntity> getPayList(int userId,int page,int lines);
 
     /**
      * 获取 已经支付，但是未评论的订单
      * @param userId
      * @return
      */
-    List<OrdersEntity> getNotCommentLit(int userId);
+    IListBean<OrdersEntity> getNotCommentLit(int userId,int page,int lines);
 
     /**
      * 支付函数， 调用此函数 就代表已经完成了支付，
@@ -72,7 +72,8 @@ public interface IOrderService {
     int PAY_SUCCESS=1000;
     int PAY_FAIL=1001;
     int PAY_WRONG_PARAM =1002;
-    int payOrder(String[] orderNum,int addressId);
+
+    int payOrder(List<String> orderNum, int addressId);
 
     /**
      * 收到物品
@@ -94,5 +95,14 @@ public interface IOrderService {
      * @param ownerId
      * @return
      */
-    IListBean<OrdersEntity> getCustomerOrder(int ownerId);
+    IListBean<OrdersEntity> getCustomerOrder(int ownerId,int page,int lines);
+
+    /**
+     * 商家获取 已经发货的订单
+     * @param ownerId
+     * @param page
+     * @param lines
+     * @return
+     */
+    IListBean<OrdersEntity> getFinishOrder(int ownerId,int page,int lines);
 }
