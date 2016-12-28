@@ -253,6 +253,10 @@ h1 .action-span1 {
 /*
 表单部分
 */
+.advertisment{
+  color: black;
+  display: block;
+}
 .notice-span {
   color: #666;
 }

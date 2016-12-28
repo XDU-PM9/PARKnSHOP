@@ -1,6 +1,7 @@
 package com.parknshop.service;
 
 import com.parknshop.bean.ShopAndOwnerDbBean;
+import com.parknshop.entity.CommissionEntity;
 import com.parknshop.entity.OwnerEntity;
 import com.parknshop.entity.UserEntity;
 
@@ -98,4 +99,18 @@ public interface IAdminService {
     boolean blackOwner(int ownerId);//拉黑
     boolean whiteOwner(int ownerId);//取消拉黑
     boolean deleteOwner(int ownerId);//删除
+
+    /**
+     * 获取 佣金率 商店 商品广告费用
+     * @return 返回 实体
+     */
+    CommissionEntity getCommission();
+
+    /**
+     * 更新 佣金率 商店商品广告费用
+     * @param entity
+     * @return
+     */
+    boolean updateCommission(CommissionEntity entity);
+
 }

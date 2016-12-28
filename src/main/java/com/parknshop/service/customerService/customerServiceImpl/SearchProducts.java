@@ -279,7 +279,7 @@ public class SearchProducts implements ISearchProducts {
         String type = (String) map.get("type");
         String startString = (String) map.get("start");
         String countString = (String) map.get("count");
-        String shopIdString = (String) map.get("shopID");
+        String shopIdString = (String) map.get("shopId");
         if (stringNotNull(shopIdString)) {
             setShopId(Integer.parseInt(shopIdString));
         }

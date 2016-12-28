@@ -52,11 +52,13 @@ function search() {
     //searchText不为空，则进行搜索
     if (undefined != searchText && null != searchText && '' != searchText) {
         searchOption.shopName=searchText;
+    }else {
+        searchOption.shopName='';
+    }
         // searchOption.start='0';
         // searchOption.count=onePageCount.toString();
         getShopCount();
         getOnePage(0);
-    }
 }
 
 //获取搜索到的店铺数量

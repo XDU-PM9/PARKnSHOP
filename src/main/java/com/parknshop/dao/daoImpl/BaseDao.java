@@ -9,6 +9,7 @@ import org.hibernate.cfg.Configuration;
 import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -147,12 +148,50 @@ public class BaseDao<T> implements IBaseDao<T> {
         }
         return;
     }
+    @Override
+    public Serializable update(List<T> o) throws Exception {
+        Session session = null;
+        try {
+            session = this.getCurrentSession();
+            session.beginTransaction();
+            for(T t:o){
+                session.update(t);
+            }
+            session.getTransaction().commit();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            // 回滚事务
+            session.getTransaction().rollback();
+            throw new Exception("HWN:erro when save object");
+        } finally {
+            // 关闭session
+            session.close();
+        }
+        return session;
+    }
 
     /*
     此功能尚未实现完全
      */
     public void saveOrUpdate(T o) {
         this.getCurrentSession().saveOrUpdate(o);
+    }
+
+    @Override
+    public List<Object> executeSQL(String sql, Object[] param) {
+        Session session = null;
+        try {
+            session = this.getCurrentSession();
+            session.beginTransaction();
+            Query query = session.createSQLQuery(sql);
+            for (int i = 0; i < param.length; i++)
+                query.setParameter(i, param[i]);
+            return  query.list();
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            return  null;
+        }
     }
 
     public List<T> find(String hql) {

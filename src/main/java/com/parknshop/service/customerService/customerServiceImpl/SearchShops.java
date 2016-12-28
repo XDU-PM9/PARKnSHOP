@@ -113,15 +113,22 @@ public class SearchShops implements ISearchShops {
 
     //根据set的情况生成hql语句
     private String getHql() {
-        int status = 0;
+        int count = 0;
         String hql="";
+        if (!anyState) {
+            hql += " state = 3";
+            count++;
+        }
         if (stringNotNull(shopName)) {
+            if(count>0){
+                hql+=" and";
+            }
             hql+=" shopName like ?";
             param=new Object[]{"%" + shopName + "%"};
-            status++;
+            count++;
         }
-        if (status < 1) {
-            return null;
+        if (count< 1) {
+            return mergerRulertoHql("from ShopEntity");
         }
         return mergerRulertoHql("from ShopEntity where" + hql);
     }
@@ -131,9 +138,6 @@ public class SearchShops implements ISearchShops {
         //有效排序计数
         int count = 0;
         StringBuilder order = new StringBuilder("");
-        if (!anyState) {
-            hql += " and state = 3";
-        }
         if (orderByTimeDesc) {
             if (count > 0) {
                 order.append(" ,");

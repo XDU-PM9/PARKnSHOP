@@ -1,6 +1,7 @@
 package com.parknshop.service;
 
 import com.parknshop.entity.OrdersEntity;
+import com.sun.org.apache.xpath.internal.operations.Or;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public interface IOrderService {
     int STATE_PAY = 2;//支付成功
     int STATE_SEND = 3;//发货
     int STATE_GET = 4;//确认收货
-    int STATE_COMMENT = 5;//评论
+    int STATE_COMMENT = 5;//已经评论
 
 
     /**
@@ -25,6 +26,73 @@ public interface IOrderService {
     int ADD_PARAM_ERRO = 999;//参数错误
     int ADD_SAVE_ERRO = 1000;//保存失败
     int ADD_SAVE_SUCCESS = 1001;//保存成功
-    public  String addOrders(int[] carts);
-    public List<OrdersEntity> getOrdersList(String orderNum);
+
+    /**
+     *
+     * @param carts
+     * @return
+     */
+    String addOrders(int[] carts);
+
+    /**
+     *获取某个订单
+     * @param orderNum
+     * @return
+     */
+    List<OrdersEntity> getOrdersList(String orderNum);
+
+    /**
+     * 获取未支付的 订单
+     * @param userId
+     * @return
+     */
+    List<OrdersEntity> getNotPayList(int userId);
+
+    /**
+     * 获取 已经支付的订单， 包括已经支付，正在发货，已经收货，已经评论的订单
+     * @param userId
+     * @return
+     */
+    List<OrdersEntity> getPayList(int userId);
+
+    /**
+     * 获取 已经支付，但是未评论的订单
+     * @param userId
+     * @return
+     */
+    List<OrdersEntity> getNotCommentLit(int userId);
+
+    /**
+     * 支付函数， 调用此函数 就代表已经完成了支付，
+     * 支付的金额 交付给 parknShop ,当订单完成 收货，支付给商家
+     * @param orderNum 订单号
+     * @param addressId 收件地址
+     * @return
+     */
+    int PAY_SUCCESS=1000;
+    int PAY_FAIL=1001;
+    int PAY_WRONG_PARAM =1002;
+    int payOrder(String[] orderNum,int addressId);
+
+    /**
+     * 收到物品
+     * @param orderNum
+     * @return
+     */
+    boolean receive(String orderNum);
+    //商家**************************************************************
+    // *****************************************************************
+    /**
+     * 发货
+     * @param orderNum 订单号
+     * @return
+     */
+    boolean sendGoods(String orderNum);
+
+    /**
+     * 商家获取  已经支付了的订单
+     * @param ownerId
+     * @return
+     */
+    IListBean<OrdersEntity> getCustomerOrder(int ownerId);
 }

@@ -55,7 +55,7 @@ public class CartService implements ICartService {
 
     public List<CartEntity> getProducts(int userId, int first, int count) {
         try {
-            return cartEntityDao.findNumberRows("from CartEntity where userByUserId = ?", new Object[]{getUserEntity(userId)}, first, count);
+            return cartEntityDao.findNumberRows("from CartEntity where userByUserId = ? and state='1' ", new Object[]{getUserEntity(userId)}, first, count);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -78,6 +78,7 @@ public class CartService implements ICartService {
                 cartEntity.setGoodsEntity(getGoodsEntity(goodsId));
                 cartEntity.setUserByUserId(getUserEntity(userId));
                 cartEntity.setSingleGoodId(0);
+                cartEntity.setState("1");
                 cartEntityDao.save(cartEntity);
                 return true;
             } catch (Exception e) {
@@ -85,14 +86,28 @@ public class CartService implements ICartService {
                 return false;
             }
         } else {
-            return changeAmount(userId, goodsId, amount + cart.getAmount());
+            if(cart.getState().equals("0")) {
+                try {
+                    cart.setState("1");
+                    cart.setAmount(amount);
+                    cartEntityDao.update(cart);
+                    return true;
+                }catch (Exception e)
+                {
+                    e.printStackTrace();
+                    return false;
+                }
+            }
+            else {
+                return changeAmount(userId, goodsId, amount + cart.getAmount());
+            }
         }
     }
 
     public boolean removeProduct(int cartId) {
         try {
             //若成功执行且影响的行数大于0,返回true，否则返回false
-            return cartEntityDao.delete("delete from cart where cartId = ?",new Integer(cartId));
+            return cartEntityDao.delete("update cart set state='0' where cartId=?",new Integer(cartId));
         } catch (Exception e) {
             e.printStackTrace();
             return false;

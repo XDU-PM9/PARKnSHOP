@@ -18,8 +18,8 @@
         <li><a href="#" class="headList list2"><i class="iconfont leftIco">&#xe62c;</i>Shop<i class="iconfont rightIco">&#xe613;</i></a></li>
         <li  class="hiden">
             <ul>
-                <li><a href="/owner/query" target="main-frame"><i class="iconfont leftIco">&#xe620;</i>Apply shop</a></li>
-                <li><a href="/owner/goodsPage" target="main-frame"><i class="iconfont leftIco">&#xe620;</i>Manage product</a></li>
+                <li><a href="/owner/query" target="main-frame"><i class="iconfont leftIco">&#xe620;</i> Shop</a></li>
+                <li><a href="/owner/goodsPage" target="main-frame"><i class="iconfont leftIco">&#xe620;</i>Product</a></li>
             </ul>
         </li>
         <li><a href="#" class="headList list3"><i class="iconfont leftIco">&#xe62c;</i>Order<i class="iconfont rightIco">&#xe613;</i></a></li>
