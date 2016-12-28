@@ -43,6 +43,15 @@ public interface IOrderService {
     List<OrdersEntity> getOrdersList(String orderNum);
 
     /**
+     * 获取所有订单
+     * @param userId
+     * @param page
+     * @param lines
+     * @return
+     */
+    IListBean<OrdersEntity> getAllList(int userId,int page,int lines);
+
+    /**
      * 获取未支付的 订单
      * @param userId
      * @return
