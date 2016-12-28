@@ -62,7 +62,10 @@ public interface IAdvertisement {
      * @return 返回商品，店铺列表
      */
     List<AdvertisementDbBean> getTopShop();
+    IListBean<AdvertisementDbBean> getTopShop(int pahe,int lines);
+
     List<AdvertisementDbBean> getTopGoods();
+    IListBean<AdvertisementDbBean> getTopGoods(int pahe,int lines);
 
     /**
      * 获取所有  商品或商店信息
