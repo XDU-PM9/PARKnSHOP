@@ -76,7 +76,7 @@ public class PayController {
 
         model.addAttribute("typeString",typeString);
         model.addAttribute("type",type);
-        model.addAttribute("typeId",type);
+        model.addAttribute("typeId",typeId);
         model.addAttribute("addressId",address);
         model.addAttribute("orderNum",orderNum);
         return "pay.jsp";
@@ -154,6 +154,7 @@ public class PayController {
                 break;
 
         }
+        req.setAttribute("msg",msg);
 
         return "payResult.jsp";
     }

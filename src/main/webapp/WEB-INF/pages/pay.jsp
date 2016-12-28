@@ -12,7 +12,7 @@
     <title>Title</title>
 </head>
 <body>
-<c:if test="${type}==''">
+<c:if test="${empty type}">
     <H1>please pay the money</H1><br>
     <H1>orderNum:${orderNum}</H1><br>
     <H1>addressId:${addressId}</H1><br>
@@ -23,7 +23,7 @@
         <button  type="submit" style="height:80px;width:400px;"> submit</button>
     </form>
 </c:if>
-<c:if test="${type}!=''">
+<c:if test="${not empty type}">
     <H1>AdervitismentType: ${typeString}</H1>
     <H1>Id: ${typeId}</H1>
 
