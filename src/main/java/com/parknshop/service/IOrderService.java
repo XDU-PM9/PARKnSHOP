@@ -40,6 +40,7 @@ public interface IOrderService {
      * @return
      */
     IListBean<OrdersEntity> getOrdersList(String orderNum,int page,int lines);
+    List<OrdersEntity> getOrdersList(String orderNum);
 
     /**
      * 获取未支付的 订单
@@ -47,21 +48,21 @@ public interface IOrderService {
      * @return
      */
     IListBean<OrdersEntity> getNotPayList(int userId,int page,int lines);
-
+    List<OrdersEntity> getNotPayList(int userId);
     /**
      * 获取 已经支付的订单， 包括已经支付，正在发货，已经收货，已经评论的订单
      * @param userId
      * @return
      */
     IListBean<OrdersEntity> getPayList(int userId,int page,int lines);
-
+    List<OrdersEntity> getPayList(int userId);
     /**
      * 获取 已经支付，但是未评论的订单
      * @param userId
      * @return
      */
     IListBean<OrdersEntity> getNotCommentLit(int userId,int page,int lines);
-
+    List<OrdersEntity> getNotCommentLit(int userId);
     /**
      * 支付函数， 调用此函数 就代表已经完成了支付，
      * 支付的金额 交付给 parknShop ,当订单完成 收货，支付给商家
