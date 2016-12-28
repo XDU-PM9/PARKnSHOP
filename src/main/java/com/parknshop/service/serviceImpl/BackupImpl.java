@@ -94,21 +94,21 @@ public class BackupImpl implements DatabaseBackupService {
     }
 
     @Override
-    public Collection getallfile() {
-        Collection collection = new HashSet();
+    public List getallfile() {
+        List list = new ArrayList();
         File file = new File(filepath+"\\");
         File[] files=file.listFiles();
         for (File targe : files){
-
             if (targe.getName().endsWith(".sql"))
                 System.out.println("文件名: "+targe.getName());
-                collection.add(targe);
+                list.add(targe);
         }
-        return collection;
+        return list;
     }
 
     public static void main(String[] args) {
         BackupImpl backup = new BackupImpl();
         backup.backup();
+        backup.getallfile();
     }
 }
