@@ -11,7 +11,7 @@
     <title>Title</title>
 </head>
 <body>
-<H1>this is test</H1><br>
+<H1>this is QRCode</H1><br>
 <img src="${imgUrl}">
 
 </body>
