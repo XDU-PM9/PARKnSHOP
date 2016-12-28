@@ -2,20 +2,17 @@ package com.parknshop.service.serviceImpl;
 
 import com.parknshop.bean.HqlBean;
 import com.parknshop.dao.IBaseDao;
+import com.parknshop.dao.IPictureDao;
 import com.parknshop.dao.daoImpl.BaseDao;
 import com.parknshop.entity.*;
 import com.parknshop.service.IListBean;
 import com.parknshop.service.IOrderService;
 import com.parknshop.service.IOwnerService;
-import com.parknshop.service.customerService.Cart;
 import com.parknshop.service.serviceImpl.listBean.OrderListBean;
-import com.sun.org.apache.xpath.internal.operations.Or;
-import org.hibernate.internal.CriteriaImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -33,13 +30,15 @@ public class OrderService implements IOrderService {
     private final IListBean<OrdersEntity> ordersEntityIListBean;
     private final IBaseDao<AddressEntity> addressEntityIBaseDao;
     private final IBaseDao<GoodsEntity> goodsEntityIBaseDao;
+    private final IPictureDao pictureDao;
     @Autowired
-    public OrderService(IBaseDao<OrdersEntity> ordersEntityIBaseDao, IBaseDao<CartEntity> cartEntityIBaseDao, OrderListBean ordersEntityIListBean, IBaseDao<AddressEntity> addressEntityIBaseDao, IBaseDao<GoodsEntity> goodsEntityIBaseDao) {
+    public OrderService(IBaseDao<OrdersEntity> ordersEntityIBaseDao, IBaseDao<CartEntity> cartEntityIBaseDao, OrderListBean ordersEntityIListBean, IBaseDao<AddressEntity> addressEntityIBaseDao, IBaseDao<GoodsEntity> goodsEntityIBaseDao, IPictureDao pictureDao) {
         this.ordersEntityIBaseDao = ordersEntityIBaseDao;
         this.cartEntityIBaseDao = cartEntityIBaseDao;
         this.ordersEntityIListBean = ordersEntityIListBean;
         this.addressEntityIBaseDao = addressEntityIBaseDao;
         this.goodsEntityIBaseDao = goodsEntityIBaseDao;
+        this.pictureDao = pictureDao;
     }
 
 
@@ -53,7 +52,7 @@ public class OrderService implements IOrderService {
         ordersEntity.setUserByUserId(cartEntity.getUserByUserId());
         ordersEntity.setSingleGoodId(cartEntity.getSingleGoodId());
         ordersEntity.setGoodsByGoodsId(cartEntity.getGoodsEntity());
-        ordersEntity.setPhoto(cartEntity.getGoodsEntity().getPhotoGroup());//TODO:
+        ordersEntity.setPhoto(pictureDao.getPictures(cartEntity.getGoodsEntity().getPhotoGroup()).get(0).getAddress());
         ordersEntity.setGoodsName(cartEntity.getGoodsEntity().getGoodsName());
         ordersEntity.setGoodsDescribe(cartEntity.getGoodsEntity().getIntroduction());
         ordersEntity.setPrice(cartEntity.getAmount()*cartEntity.getGoodsEntity().getPrice());

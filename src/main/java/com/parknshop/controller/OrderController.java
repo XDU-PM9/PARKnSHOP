@@ -116,7 +116,7 @@ public class OrderController {
             Log.debug("listOrder参数转换为int异常");
         }
         int userId=getUserId(session);
-        IListBean<OrdersEntity> ordersList = null;
+        IListBean<OrdersEntity> ordersList =null;
         switch (type){
             //所有订单
             case "":;break;
@@ -132,7 +132,7 @@ public class OrderController {
             model.addAttribute("pages",ordersList.getMaxPages());
             model.addAttribute("page",ordersList.getCurrentPage());
         }
-        return "/customer/order_center.jsp";
+        return "/customer/orders_center.jsp";
     }
 
     private int getUserId(HttpSession session) {
