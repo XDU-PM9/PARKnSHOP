@@ -1,11 +1,13 @@
 package com.parknshop.controller;
 
 import com.parknshop.entity.OrdersEntity;
+import com.parknshop.entity.OwnerEntity;
 import com.parknshop.service.IOrderService;
 import com.parknshop.utils.Pay;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -41,10 +43,10 @@ public class PayController {
                            HttpServletRequest req,
                            HttpServletResponse resp,
                            HttpSession session) throws ServletException, IOException {
-
-        String address = "2";
+        String orderNum = (String)req.getAttribute("orderNum");
+        String address = (String)req.getAttribute("addressId");
         //二维码
-        String url = pay.getQRCode(session,Pay.IP+"/pay/p?addressId="+address);
+        String url = pay.getQRCode(session,Pay.IP+"/pay/p?orderNum="+orderNum+"&addressId="+address);
 
 
         req.setAttribute("imgUrl",url);
@@ -54,27 +56,35 @@ public class PayController {
     @RequestMapping(value = "/p",method = RequestMethod.GET)
     public String payButton(Model model,
                             HttpServletRequest req){
+        String orderNum = (String)req.getAttribute("orderNum");
         String address = req.getParameter("addressId");
 
         model.addAttribute("addressId",address);
+        model.addAttribute("orderNum",orderNum);
         return "pay.jsp";
     }
-    @RequestMapping(value = "/f",method = RequestMethod.GET)
-    public String finalPay(HttpServletRequest req,
-                           @ModelAttribute("ordersEntityList")List<OrdersEntity> list){
 
+
+    @RequestMapping(value = "/f",method = RequestMethod.GET)
+    public String finalPay(ModelMap modelMap,
+            HttpServletRequest req, HttpSession session){
+        String orderNum = (String)req.getAttribute("orderNum");
+        List<String> sList = new ArrayList<>();
+        sList.add(orderNum);
+        String msg;
+        if(null == sList){
+            msg = "error , i am sorry";
+            req.setAttribute("msg",msg);
+            return "payResult.jsp";
+        }
 
         String address = req.getParameter("addressId");
-        String msg;
-        List<String> sList = new ArrayList<>();
-        for(OrdersEntity entity:list){
-           sList.add(entity.getOrderNumber());
-        }
+
 
         int result = orderService.payOrder((String[])sList.toArray(),Integer.parseInt(address));
 
         if(result == IOrderService.PAY_SUCCESS){
-            msg = "pay success,thank you!";
+            msg = "pay success,thank you! you have bought:" + String.valueOf(sList.size());
         }else {
             msg=" pay fail.";
         }

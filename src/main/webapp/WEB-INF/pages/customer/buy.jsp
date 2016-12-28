@@ -130,7 +130,7 @@
                 <c:forEach var="orderEntity" items="${ordersEntityList}">
                 <tr>
                     <%--<td class="gwc_list_pic"><a href=""><img src="${orderEntity.photo}" /></a></td>--%>
-                    <td class="gwc_list_title"><a href="">${orderEntity.goodsName}</a></td>
+                    <td class="gwc_list_title"><a href="#">${orderEntity.goodsName}</a></td>
                     <td class="gwc_list_danjia"><span>$<strong id="danjia_001">${orderEntity.price}</strong></span></td>
                     <td class="gwc_list_shuliang"><span>${orderEntity.amount}</span></td>
                     <td class="gwc_list_xiaoji"><span>$<strong id="xiaoji_001" class="good_xiaojis">${orderEntity.amount*orderEntity.price}</strong></span></td>
@@ -175,7 +175,7 @@
         }
 
         function confirmJumptoPay() {
-            window.location.href="pay?addressId="+addressId;
+            window.location.href="/pay?orderNum=${ordersEntityList[0].orderNumber}addressId="+addressId;
         }
     </script>
 
