@@ -64,13 +64,16 @@ public class PayController {
 
         String type = req.getParameter("type");
         String typeId = req.getParameter("typeId");
-        String typeString;
-        if(IAdvertisement.AD_TYPE_SHOP == Integer.parseInt(type)){
-            typeString ="shop";
-        }else if(IAdvertisement.AD_TYOE_GOODS == Integer.parseInt(type)) {
-            typeString="goods";
-        }else{
-            typeString="else";
+        String typeString="";
+        if(null !=type && null !=typeId ) {
+
+            if (IAdvertisement.AD_TYPE_SHOP == Integer.parseInt(type)) {
+                typeString = "shop";
+            } else if (IAdvertisement.AD_TYOE_GOODS == Integer.parseInt(type)) {
+                typeString = "goods";
+            } else {
+                typeString = "else";
+            }
         }
 
 
