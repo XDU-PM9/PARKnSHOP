@@ -43,6 +43,15 @@ public class ShopBean {
         private String desc;
         private String logo;
         private String state;
+        private int id;
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
 
         public String getName() {
             return name;
