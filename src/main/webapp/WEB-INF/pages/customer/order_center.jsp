@@ -41,10 +41,10 @@
              line-height:40px; font-size:18px;">Order Management</span></div>
             <div class="Order_Sort">
                 <ul>
-                    <li><a href=""><img src="../../../resources/images/customer/icon-dingdan1.png"><br>待付款（2）</a></li>
-                    <li><a href=""><img src="../../../resources/images/customer/icon-dingdan.png"><br>已完成（2）</a></li>
-                    <li><a href=""><img src="../../../resources/images/customer/icon-kuaidi.png"><br>运输中（2）</a></li>
-                    <li class=""><a href=""><img src="../../../resources/images/customer/icon-weibiaoti101.png"><br>派件中（2）</a></li>
+                    <li><a href="/order/listOrder?type=notPay"><img src="../../../resources/images/customer/icon-dingdan1.png"><br>Obligation</a></li>
+                    <li><a href="/order/listOrder?type=pay"><img src="../../../resources/images/customer/icon-dingdan.png"><br>Paid</a></li>
+                    <%--<li><a href=""><img src="../../../resources/images/customer/icon-kuaidi.png"><br>运输中（2）</a></li>--%>
+                    <%--<li class=""><a href=""><img src="../../../resources/images/customer/icon-weibiaoti101.png"><br>派件中（2）</a></li>--%>
                 </ul>
             </div>
             <div class="Order_form_list">
@@ -58,7 +58,7 @@
                         <td class="list_name_title6">Operation</td>
                     </tr></thead>
                     <%int i=0;%>
-                    <c:forEach  var="u" items="${orders}">
+                    <c:forEach  var="u" items="${orderList}">
 
                         <tbody>
                         <tr class="Order_info"><td colspan="6" class="Order_form_time">createTime：${u.createTime}| OrderNum：${u.orderNumber} <em onclick="display1(<%=i%>)"></em></td></tr>
@@ -82,7 +82,16 @@
                                 </table>
                             </td>
                             <td class="split_line">${u.price*u.amount}</td>
-                            <td class="split_line">state state state</td>
+                            <td class="split_line">
+                                <c:choose>
+                                    <c:when test="${orders.getState()==-1}">deleted</c:when>
+                                    <c:when test="${orders.getState()==1}">Processing Orders</c:when>
+                                    <c:when test="${orders.getState()==2}">Preparing for Shippment</c:when>
+                                    <c:when test="${orders.getState()==3}">Shipped</c:when>
+                                    <c:when test="${orders.getState()==4}">Complete</c:when>
+                                    <c:when test="${orders.getState()==5}">Commented</c:when>
+                                </c:choose>
+                            </td>
                             <td class="operating">
                                 <a href="#">Detail</a>
 
@@ -97,14 +106,18 @@
         </div>
         <div class="Paging">
             <div class="Pagination">
-                <a href="#">首页</a>
-                <a href="#" class="pn-prev disabled">&lt;上一页</a>
-                <a href="#" class="on">1</a>
-                <a href="#">2</a>
-                <a href="#">3</a>
-                <a href="#">4</a>
-                <a href="#">下一页&gt;</a>
-                <a href="#">尾页</a>
+                <c:if test="${page>1}">
+                    <li><input type='button' onclick='window.location=href="/order/listOrder?type=${type}&page=${page-1}"' value='Previous'></input></li>
+                </c:if>
+
+                <li><span class='currentpage' id='currentPage'>${page} of ${pages}</span></li>
+
+                <c:if test="${page<pages}">
+                    <li><input type='button' onclick='window.location=href="/order/listOrder?type=${type}"' value='Next'></input></li>
+                </c:if>
+
+                <li><input id='pageNumber' name='jump' type='number' value='1' min='1' max='${pages}'></li>")
+                <li><input type='button' name='jump' value='jump' onclick='window.location.href="/order/listOrder?type=${type}&pag="+$("#pageNumber").val()'></li>
             </div>
         </div>
     </div>
