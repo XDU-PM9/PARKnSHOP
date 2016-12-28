@@ -56,13 +56,6 @@ public class OrderController {
     }
 
 
-    @RequestMapping(value ="/toOrdersCenter",method = RequestMethod.GET)
-    public String  toOrdersCenter(Model model)
-    {
-        List<OrdersEntity>  ordersEntityList=iOrderService.getOrdersList("1");
-        model.addAttribute("orders",ordersEntityList);
-        return "/customer/orders_center.jsp";
-    }
     @RequestMapping(value = "/listCart", method = RequestMethod.GET)
     public String listCart(@RequestParam("OrdersNum") String ordersNum, Model model, ModelMap modelMap) {
         List<OrdersEntity> ordersEntityList = iOrderService.getOrdersList(ordersNum);
@@ -104,7 +97,7 @@ public class OrderController {
     }
 
     @RequestMapping("/listOrder")
-    public String listOrder(@RequestParam String type,HttpSession session,Model model){
+    public String listOrder(HttpSession session,Model model){
         int page=1;
         int lines=2;
         String  pageString = request.getParameter("page");
@@ -116,17 +109,17 @@ public class OrderController {
             Log.debug("listOrder参数转换为int异常");
         }
         int userId=getUserId(session);
-        IListBean<OrdersEntity> ordersList =null;
-        switch (type){
-            //所有订单
-            case "":;break;
-            //未支付订单
-            case "notPay":ordersList= iOrderService.getNotPayList(userId,page,lines);break;
-            //已支付订单
-            case "pay":ordersList=iOrderService.getPayList(userId,page,lines);break;
-            //已支付未评论订单
-            case "notComment":ordersList=iOrderService.getNotCommentLit(userId,page,lines);break;
-        }
+        IListBean<OrdersEntity> ordersList =iOrderService.getAllList(userId,page,lines);
+//        switch (type){
+//            //所有订单
+//            case "":;break;
+//            //未支付订单
+//            case "notPay":ordersList= iOrderService.getNotPayList(userId,page,lines);break;
+//            //已支付订单
+//            case "pay":ordersList=iOrderService.getPayList(userId,page,lines);break;
+//            //已支付未评论订单
+//            case "notComment":ordersList=iOrderService.getNotCommentLit(userId,page,lines);break;
+//        }
         if(ordersList.getNumer()>0) {
             model.addAttribute("orderList", ordersList.getShopList());
             model.addAttribute("pages",ordersList.getMaxPages());

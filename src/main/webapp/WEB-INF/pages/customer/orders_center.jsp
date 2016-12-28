@@ -46,12 +46,11 @@
                                 <td class="dingdan_zongjia">$<strong>${order.amount*order.price}</strong><br />(免运费)</td>
                                 <td class="digndan_caozuo"><span>
                                     <c:choose>
-                                        <c:when test="${orders.getState()==-1}">deleted</c:when>
-                                        <c:when test="${orders.getState()==1}">Processing Orders</c:when>
-                                        <c:when test="${orders.getState()==2}">Preparing for Shippment</c:when>
-                                        <c:when test="${orders.getState()==3}">Shipped</c:when>
-                                        <c:when test="${orders.getState()==4}">Complete</c:when>
-                                        <c:when test="${orders.getState()==5}">Commented</c:when>
+                                        <c:when test="${order.state==1}"><a href="listCart?&OrdersNum=${order.orderNumber}">Processing Orders</a></c:when>
+                                        <c:when test="${order.state==2}">Preparing for Shippment</c:when>
+                                        <c:when test="${order.state==3}">Shipped</c:when>
+                                        <c:when test="${order.state==4}"><a href="/comment?orderId=${order.ordersId}">Complete</a></c:when>
+                                        <c:when test="${order.state==5}">Commented</c:when>
                                     </c:choose>
                                 </span></td>
                             </tr>
@@ -77,7 +76,7 @@
                     <li><input type='button' onclick='window.location=href="/order/listOrder?page=${page+1}"' value='Next'></input></li>
                 </c:if>
 
-                <li><input id='pageNumber' name='jump' type='number' value='1' min='1' max='${pages}'></li>")
+                <li><input id='pageNumber' name='jump' type='number' value='1' min='1' max='${pages}'></li>
                 <li><input type='button' name='jump' value='jump' onclick='window.location.href="/order/listOrder?pag="+$("#pageNumber").val()'></li>
             </div>
         </div>
