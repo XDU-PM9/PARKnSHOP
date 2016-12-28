@@ -175,7 +175,7 @@
         }
 
         function confirmJumptoPay() {
-            window.location.href="pay?addressId="+addressId;
+            window.location.href="/pay?addressId="+addressId;
         }
     </script>
 
