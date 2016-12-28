@@ -131,10 +131,10 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public List<OrdersEntity> getOrdersList(String orderNum) {
+    public  IListBean<OrdersEntity> getOrdersList(String orderNum,int page,int lines) {
         try {
 //           return ordersEntityIBaseDao.find("from OrdersEntity o where o.orderNumber=?", new Object[]{orderNum});
-           return getOrderList(" and orderNumber =?",new Object[]{orderNum}).getShopList();
+           return getOrderList(" and orderNumber =?",new Object[]{orderNum},page,lines);
         }catch (Exception e)
         {
             e.printStackTrace();
@@ -143,28 +143,28 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public List<OrdersEntity> getNotPayList(int userId) {
-        return getOrderList("and userId = ? and state = ?",new Object[]{userId,IOrderService.STATE_NOT_PAY}).getShopList();
+    public  IListBean<OrdersEntity> getNotPayList(int userId,int page,int lines) {
+        return getOrderList("and userId = ? and state = ?",new Object[]{userId,IOrderService.STATE_NOT_PAY},page,lines);
     }
 
     @Override
-    public List<OrdersEntity> getPayList(int userId) {
+    public  IListBean<OrdersEntity> getPayList(int userId,int page,int lines) {
         //大于未支付的都是已经支付的
-        return getOrderList("and userId = ? and state > ?",new Object[]{userId,STATE_NOT_PAY}).getShopList();
+        return getOrderList("and userId = ? and state > ?",new Object[]{userId,STATE_NOT_PAY},page,lines);
     }
 
     @Override
-    public List<OrdersEntity> getNotCommentLit(int userId) {
+    public  IListBean<OrdersEntity> getNotCommentLit(int userId,int page,int lines) {
         //获取了 邮件 就可以评论
-        return getOrderList("and userId = ? and state = ?",new Object[]{userId,STATE_GET}).getShopList();
+        return getOrderList("and userId = ? and state = ?",new Object[]{userId,STATE_GET},page,lines);
     }
 
 
     @Override
-    public int payOrder(String[] orderNum, int addressId) {
+    public int payOrder(List<String> orderNum, int addressId) {
         List<OrdersEntity> list = new ArrayList<>();
         for(String e:orderNum) {
-            List<OrdersEntity> otherList = getOrdersList(e);
+            List<OrdersEntity> otherList = getOrdersList(e,1,Integer.MAX_VALUE).getShopList();
             list.addAll(otherList);
         }
         AddressEntity addressEntity = addressEntityIBaseDao.get(AddressEntity.class,addressId);
@@ -175,6 +175,10 @@ public class OrderService implements IOrderService {
 
         for(OrdersEntity entity:list){
 //            price += entity.getPrice()*entity.getAmount();
+            if(entity.getState() == IOrderService.STATE_PAY){
+                return PAY_FAIL;
+            }
+
             entity.setAddress(addressEntity.getCountry()+addressEntity.getProvince()+addressEntity.getOthers());
             entity.setReciver(addressEntity.getName());
             entity.setReciverPhone(String.valueOf(addressEntity.getPhone()));
@@ -201,9 +205,15 @@ public class OrderService implements IOrderService {
         return updateStatus(orderNum,IOrderService.STATE_SEND);
     }
 
+
     @Override
-    public IListBean<OrdersEntity> getCustomerOrder(int ownerId) {
-        return getOrderList("and ownerId = ? and state = ?",new Object[]{ownerId,STATE_PAY});
+    public IListBean<OrdersEntity> getFinishOrder(int ownerId, int page, int lines) {
+        return getOrderList("and ownerId = ? and state > ?",new Object[]{ownerId,STATE_PAY,page,lines});
+    }
+
+    @Override
+    public IListBean<OrdersEntity> getCustomerOrder(int ownerId,int page,int lines) {
+        return getOrderList("and ownerId = ? and state = ?",new Object[]{ownerId,STATE_PAY,page,lines});
     }
 
 
@@ -227,7 +237,7 @@ public class OrderService implements IOrderService {
         return getOrderList(hql,param,1,1000);
     }
     private boolean updateStatus(String orderNum,int status) {
-        List<OrdersEntity> list = getOrdersList(orderNum);
+        List<OrdersEntity> list = getOrdersList(orderNum,1,Integer.MAX_VALUE).getShopList();
         for (OrdersEntity entity : list) {
             entity.setState(status);
         }
