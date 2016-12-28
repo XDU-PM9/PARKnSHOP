@@ -41,13 +41,22 @@ public class OrderController {
         }
         String ordersNum = iOrderService.addOrders(nums);
         if (ordersNum.equals(null)) {
-            return "";
+            model.addAttribute("message","Check out failure,please check out again!");
+            return "redirect:../listProduct?requestPage=1";
         } else {
             model.addAttribute("sdsdf", ordersNum);
             return "redirect:/order/listCart?OrdersNum={sdsdf}";
         }
     }
 
+
+    @RequestMapping(value ="/toOrdersCenter",method = RequestMethod.GET)
+    public String  toOrdersCenter(Model model)
+    {
+        List<OrdersEntity>  ordersEntityList=iOrderService.getOrdersList("1");
+        model.addAttribute("orders",ordersEntityList);
+        return "/customer/order_center.jsp";
+    }
     @RequestMapping(value = "/listCart", method = RequestMethod.GET)
     public String listCart(@RequestParam("OrdersNum") String ordersNum, Model model, ModelMap modelMap) {
         List<OrdersEntity> ordersEntityList = iOrderService.getOrdersList(ordersNum);
