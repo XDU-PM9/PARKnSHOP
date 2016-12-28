@@ -150,6 +150,11 @@ public class OrderService implements IOrderService {
     }
 
     @Override
+    public IListBean<OrdersEntity> getAllList(int userId, int page, int lines) {
+        return getOrderList("and userId = ? and state > ?",new Object[]{userId,IOrderService.STATE_BUY},page,lines);
+    }
+
+    @Override
     public  IListBean<OrdersEntity> getNotPayList(int userId,int page,int lines) {
         return getOrderList("and userId = ? and state = ?",new Object[]{userId,IOrderService.STATE_NOT_PAY},page,lines);
     }
