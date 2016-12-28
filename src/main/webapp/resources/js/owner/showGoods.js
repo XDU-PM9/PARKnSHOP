@@ -7,6 +7,7 @@ var allPage;
 var curPage;
 var goodId = [];
 var Max;
+var Min = 1;
 /*加载*/
 $(function () {
     showGoods();
@@ -30,13 +31,25 @@ function showGoods() {
         url:'/owner/goods',
         success:function (data) {
             var response =JSON.parse(data);
-            var length = response.data.length;
             if(response.success == true){
                 $("#addBtn").show();
             }
             allPage = response.total;
             Max = allPage;
             curPage = index;
+            if(curPage <= Min){
+                $("#prev").hide();
+            }
+            else {
+                $("#prev").show();
+            }
+            if(curPage >= Max){
+                $("#next").hide();
+            }
+            else{
+                $("#next").show();
+            }
+            var length = response.data.length;
             pageNum(allPage,curPage);
             addSel(allPage);
             for(var i=0;i<length;i++){
@@ -86,7 +99,28 @@ function edit() {
     
 }
 function del() {
-    
+    $("body").on('click','.delete',function () {
+        var id = $(this).parent().parent().index();
+        var data = {};
+        data.goodsId = goodId[id];
+        /*测试成功*/
+        $.ajax({
+            type:'post',
+            contentType : 'application/json',
+            data: JSON.stringify(data),
+            url:'/owner/deleteGoods',
+            success: function (data) {
+                var response =JSON.parse(data);
+                console.log(response);
+                if(response.error==false) {
+                    location.reload();
+                }
+                else {
+                    location.reload();
+                }
+            }
+        })
+    })
 }
 /*添加标签方法*/
 function addTr(i) {
@@ -104,7 +138,7 @@ function addTd(i,str) {
 }
 function addOption(i) {
     var className = "tr"+i;
-    var str = "<td><a href='#' class='agree'>Edit</a> | <a href='#' class='disagree'>Delete</a> </td>"
+    var str = "<td><!--<a href='#' class='edit'>Edit</a> |--><a href='#' class='delete'>Delete</a></td>"
     $("."+className+"").append(str);
 }
 function addImg(i,url) {

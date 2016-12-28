@@ -56,7 +56,7 @@
                     ShopBean shopList = mGson.fromJson(listStr, ShopBean.class);
                     for (ShopBean.Shop item : shopList.getShops()) {
                         out.println("<tr class=\"shopInfor\">");
-                        out.println("<td class=\"logoHead\"><img src=\"" + item.getLogo() + "\" alt=\"\" class=\"shopLogo\"/></td>");
+                        out.println("<td class=\"logoHead\"><img src=\"" + item.getLogo() + "\" alt=\"\" style=\"width:120px;height:100px;\" class=\"shopLogo\"/></td>");
                         out.println("<td class=\"shopName\">" + item.getName() + "</td>");
                         out.println("<td class=\"shopDes\">" + item.getDesc() + "</td>");
                         out.println("<td class=\"shopState\">" + item.getState() + "</td>");

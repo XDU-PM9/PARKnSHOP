@@ -24,58 +24,7 @@
 <body onload="search()">
 <!-- Header  -wll-2013/03/24 -->
 <div class="shop_hd">
-    <!-- Header TopNav -->
-    <div class="shop_hd_topNav">
-        <div class="shop_hd_topNav_all">
-            <!-- Header TopNav Left -->
-
-            <!-- Header TopNav Left End -->
-
-            <!-- Header TopNav Right -->
-            <div class="shop_hd_topNav_all_right">
-                <ul class="topNav_quick_menu">
-
-                    <li>
-                        <div class="topNav_menu">
-                            <a href="#" class="topNavHover">Username<i></i></a>
-
-                        </div>
-                    </li>
-                    <li>
-                        <div class="topNav_menu">
-                            <a href="#" class="topNavHover">Customer Center<i></i></a>
-                            <div class="topNav_menu_bd" style="display:none;">
-                                <!--<ul>-->
-                                <!--<li><a title="已售出的商品" target="_top" href="#">已售出的商品</a></li>-->
-                                <!--<li><a title="销售中的商品" target="_top" href="#">销售中的商品</a></li>-->
-                                <!--</ul>-->
-                            </div>
-                        </div>
-                    </li>
-
-                    <li>
-                        <div class="topNav_menu">
-                            <a href="#" class="topNavHover">Cart</a>
-                            <div class="topNav_menu_bd" style="display:none;">
-                                <!--
-                                <ul>
-                                  <li><a title="已售出的商品" target="_top" href="#">已售出的商品</a></li>
-                                  <li><a title="销售中的商品" target="_top" href="#">销售中的商品</a></li>
-                                </ul>
-                                -->
-                                <!--<p>还没有商品，赶快去挑选！</p>-->
-                            </div>
-                        </div>
-                    </li>
-
-
-                </ul>
-            </div>
-            <!-- Header TopNav Right End -->
-        </div>
-        <div class="clear"></div>
-    </div>
-    <div class="clear"></div>
+    <%@include file="customer/top.jsp"%>
     <!-- Header TopNav End -->
 
     <!-- TopHeader Center -->
@@ -508,123 +457,23 @@
 
 <!-- List Body 2013/03/27 -->
 <div class="shop_bd clearfix">
-    <div class="shop_bd_list_left clearfix">
-        <!-- 左边商品分类 -->
-        <%--<div class="shop_bd_list_bk clearfix">--%>
-        <%--<div class="title">Categories</div>--%>
-        <%--<div class="contents clearfix">--%>
-        <%--<dl class="shop_bd_list_type_links clearfix">--%>
-        <%--<dd>--%>
-        <%--<span><input type="radio"> TV& Home Theater</span>--%>
-        <%--<span><input type="radio"> Computers & Tablets</span>--%>
-        <%--<span><input type="radio"> Cell Phones</span>--%>
-        <%--<span><input type="radio"> Cameras & Camcorders</span>--%>
-        <%--<span><input type="radio"> Audio</span>--%>
-        <%--<span><input type="radio"> Car Electronics & GPS</span>--%>
-        <%--<span><input type="radio"> Video, Games, Movies & Music</span>--%>
-        <%--<span><input type="radio"> Health, Fitness & Sports</span>--%>
-        <%--<span><input type="radio"> Home & Office</span>--%>
-        <%--</dd>--%>
-        <%--</dl>--%>
-        <%--</div>--%>
-        <%--</div>--%>
-        <!-- 左边商品分类 End -->
 
-        <!-- 热卖推荐商品 -->
-        <!--<div class="shop_bd_list_bk clearfix">-->
-        <!--<div class="title">热卖推荐商品</div>-->
-        <!--<div class="contents clearfix">-->
-        <!--<ul class="clearfix">-->
-        <!---->
-        <!--<li class="clearfix">-->
-        <!--<div class="goods_name"><a href="">Gap经典弹力纯色长袖T恤|000891347|原价149元</a></div>-->
-        <!--<div class="goods_pic"><span class="goods_price">¥ 279.00 </span><a href=""><img src="/resources/images/images/89a6d6466b00ae32d3c826b9ec639084.jpg_small.jpg" /></a></div>-->
-        <!--<div class="goods_xiaoliang">-->
-        <!--<span class="goods_xiaoliang_link"><a href="">去看看</a></span>-->
-        <!--<span class="goods_xiaoliang_nums">已销售<strong>99</strong>笔</span>-->
-        <!--</div>-->
-        <!--</li>-->
-
-        <!--<li class="clearfix">-->
-        <!--<div class="goods_name"><a href="">Gap经典弹力纯色长袖T恤|000891347|原价149元</a></div>-->
-        <!--<div class="goods_pic"><span class="goods_price">¥ 279.00 </span><a href=""><img src="/resources/images/images/89a6d6466b00ae32d3c826b9ec639084.jpg_small.jpg" /></a></div>-->
-        <!--<div class="goods_xiaoliang">-->
-        <!--<span class="goods_xiaoliang_link"><a href="">去看看</a></span>-->
-        <!--<span class="goods_xiaoliang_nums">已销售<strong>99</strong>笔</span>-->
-        <!--</div>-->
-        <!--</li>-->
-
-        <!--<li class="clearfix">-->
-        <!--<div class="goods_name"><a href="">Gap经典弹力纯色长袖T恤|000891347|原价149元</a></div>-->
-        <!--<div class="goods_pic"><span class="goods_price">¥ 279.00 </span><a href=""><img src="/resources/images/images/89a6d6466b00ae32d3c826b9ec639084.jpg_small.jpg" /></a></div>-->
-        <!--<div class="goods_xiaoliang">-->
-        <!--<span class="goods_xiaoliang_link"><a href="">去看看</a></span>-->
-        <!--<span class="goods_xiaoliang_nums">已销售<strong>99</strong>笔</span>-->
-        <!--</div>-->
-        <!--</li>-->
-
-        <!--</ul>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--&lt;!&ndash; 热卖推荐商品 &ndash;&gt;-->
-        <div class="clear"></div>
-
-        <!-- 浏览过的商品 -->
-        <!--<div class="shop_bd_list_bk clearfix">-->
-        <!--<div class="title">浏览过的商品</div>-->
-        <!--<div class="contents clearfix">-->
-        <!--<ul class="clearfix">-->
-        <!---->
-        <!--<li class="clearfix">-->
-        <!--<div class="goods_name"><a href="">Gap经典弹力纯色长袖T恤|000891347|原价149元</a></div>-->
-        <!--<div class="goods_pic"><span class="goods_price">¥ 279.00 </span><a href=""><img src="/resources/images/images/89a6d6466b00ae32d3c826b9ec639084.jpg_small.jpg" /></a></div>-->
-        <!--<div class="goods_xiaoliang">-->
-        <!--<span class="goods_xiaoliang_link"><a href="">去看看</a></span>-->
-        <!--<span class="goods_xiaoliang_nums">已销售<strong>99</strong>笔</span>-->
-        <!--</div>-->
-        <!--</li>-->
-
-        <!--<li class="clearfix">-->
-        <!--<div class="goods_name"><a href="">Gap经典弹力纯色长袖T恤|000891347|原价149元</a></div>-->
-        <!--<div class="goods_pic"><span class="goods_price">¥ 279.00 </span><a href=""><img src="/resources/images/images/89a6d6466b00ae32d3c826b9ec639084.jpg_small.jpg" /></a></div>-->
-        <!--<div class="goods_xiaoliang">-->
-        <!--<span class="goods_xiaoliang_link"><a href="">去看看</a></span>-->
-        <!--<span class="goods_xiaoliang_nums">已销售<strong>99</strong>笔</span>-->
-        <!--</div>-->
-        <!--</li>-->
-
-        <!--<li class="clearfix">-->
-        <!--<div class="goods_name"><a href="">Gap经典弹力纯色长袖T恤|000891347|原价149元</a></div>-->
-        <!--<div class="goods_pic"><span class="goods_price">¥ 279.00 </span><a href=""><img src="/resources/images/images/89a6d6466b00ae32d3c826b9ec639084.jpg_small.jpg" /></a></div>-->
-        <!--<div class="goods_xiaoliang">-->
-        <!--<span class="goods_xiaoliang_link"><a href="">去看看</a></span>-->
-        <!--<span class="goods_xiaoliang_nums">已销售<strong>99</strong>笔</span>-->
-        <!--</div>-->
-        <!--</li>-->
-
-        <!--</ul>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!-- 浏览过的商品 -->
-
-    </div>
-
-    <div class="shop_bd_list_right clearfix">
+    <div class="shop_bd_list_right clearfix" style="width: 100%">
 
         <!-- 显示菜单 -->
-        <div class="sort-bar">
+        <div class="sort-bar" style="width: 100%">
             <div class="bar-l">
                 <!-- 查看方式S -->
                 <!--<div class="switch"><span class="selected"><a title="以方格显示" ecvalue="squares" nc_type="display_mode" class="pm" href="javascript:void(0)">大图</a></span><span style="border-left:none;"><a title="以列表显示" ecvalue="list" nc_type="display_mode" class="lm" href="javascript:void(0)">列表</a></span></div>-->
                 <!-- 查看方式E -->
                 <!-- 排序方式S -->
                 <ul class="array">
-                    <li class="selected"><a title="默认排序" onclick="orderByDefault()"
+                    <li class="selected" id="defaultOrder"><a title="默认排序" onclick="orderByDefault()"
                                             class="nobg" href="javascript:void(0)">Default</a></li>
                     <%--<li><a title="点击按销量从高到低排序"--%>
                     <%--onclick="javascript:replaceParam(['key','order'],['sales','desc'],'array');"--%>
                     <%--href="javascript:void(0)">Sales</a></li>--%>
-                    <li><a title="点击按人气从高到低排序"
+                    <li id="viewsHightoLowOrder"><a title="点击按人气从高到低排序"
                            onclick="orderByViewHightoLow()"
                            href="javascript:void(0)">Hot</a></li>
                     <%--<li><a title="点击按信用从高到低排序"--%>
@@ -649,7 +498,7 @@
         <!-- 显示菜单 End -->
 
         <!-- 商品列表 -->
-        <div class="shop_bd_list_content clearfix">
+        <div class="shop_bd_list_content clearfix" style="width: 100%">
             <ul id="productList">
                 <!--<li>-->
                 <!--<dl>-->
@@ -966,7 +815,7 @@
             <ul id="pageList">
                 <%--<li><span onclick="search()">First page</span></li>--%>
                 <%--<li><span>Previous</span></li>--%>
-                <li><span class="currentpage">1 of 1</span></li>
+                <%--<li><span class="currentpage">1 of 1</span></li>--%>
                 <%--<li><span>Last page</span></li>--%>
             </ul>
         </div>

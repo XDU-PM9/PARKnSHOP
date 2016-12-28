@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
@@ -99,13 +100,15 @@
                 <table>
                     <thead>
                     <tr>
-                        <th colspan="2"><span>Product</span></th>
+                        <th><a onclick="selectAll()">select all</a></th>
+                        <th colspan="1"><span>Product</span></th>
                         <th><span>Price($)</span></th>
                         <th><span>amount</span></th>
                         <th><span>summary</span></th>
                         <th><span>operation</span></th>
                     </tr>
                     </thead>
+
                     <tbody>
                     <c:forEach var="cart" items="${cartList}">
                         <tr>
@@ -123,20 +126,20 @@
                     </c:forEach>
                     </tbody>
                     <tfoot>
-                    <!--
+
                     <tr>
                         <td colspan="6">
                             <div class="clear"></div>
                             <div class="gwc_foot_links">
 
-                                <form action="" method="post">
-                                    <input type="hidden" name="ch" id="abc" value="">
+                                <form action="/order/cartSubmit" method="post">
+                                    <input type="hidden" name="ch" id="abc" value="" required>
                                     <a href="" class="go">Go Shopping</a>
                                     <input type="submit" onclick="getValue()" style="background: none repeat scroll 0 0 #FE8502; border: 1px solid #FF6633; border-radius: 5px 5px 5px 5px; color: #FFFFFF !important; display: inline-block; font-size: 14px; font-weight: 600; height: 36px; line-height: 36px; padding: 4px 12px;" value="Confirm & Fill out the Orders"></input>
                                 </form>
                             </div>
                         </td>
-                    </tr>-->
+                    </tr>
                     </tfoot>
                 </table>
                 <!-- 购物车列表 End -->

@@ -46,7 +46,7 @@ public class AddressService implements IAddressService{
     }
 
     @Override
-    public void updateAddressEntity(int addressId, String province, String country, String others, String name, long phone, int zip, int userId) {
+    public boolean updateAddressEntity(int addressId, String province, String country, String others, String name, long phone, int zip, int userId) {
         Object[] params=new Object[8];
         params[7]=addressId;
         params[0]=userId;
@@ -57,16 +57,17 @@ public class AddressService implements IAddressService{
         params[5]=name;
         params[6]=zip;
         try {
-        addressEntityBaseDao.insert("update  address  SET  userId=?,province=?,country=?,others=?,phone=?,name=?,postcode=? where addressId=?",params);
-        return;
+         return addressEntityBaseDao.insert("update  address  SET  userId=?,province=?,country=?,others=?,phone=?,name=?,postcode=? where addressId=?",params);
+
       }catch (Exception e)
       {
           e.printStackTrace();
+          return false;
       }
     }
 
     @Override
-    public void insertAddressEntity(String province, String country, String others, String name, long phone, int zip, int userId) {
+    public boolean insertAddressEntity(String province, String country, String others, String name, long phone, int zip, int userId) {
         Object[] params = new Object[7];
         params[0] = userId;
         params[1] = province;
@@ -76,24 +77,23 @@ public class AddressService implements IAddressService{
         params[5] = name;
         params[6] = zip;
         try {
-          addressEntityBaseDao.insert("insert into address(userId,province,country,others,phone,name,postcode) values(?,?,?,?,?,?,?)", params);
-          return;
+          return addressEntityBaseDao.insert("insert into address(userId,province,country,others,phone,name,postcode) values(?,?,?,?,?,?,?)", params);
       }catch (Exception e)
       {
           e.printStackTrace();
-          return;
+          return false;
       }
     }
 
 
     @Override
-    public void deleteAddressEntity(int addressId) {
+    public boolean deleteAddressEntity(int addressId) {
         try {
-            addressEntityBaseDao.delete("delete from address where addressId=?", new Integer(addressId));
+            return  addressEntityBaseDao.delete("delete from address where addressId=?", new Integer(addressId));
         }catch (Exception e)
         {
             e.printStackTrace();
-            return;
+            return false;
         }
     }
 

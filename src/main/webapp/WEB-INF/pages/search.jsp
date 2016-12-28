@@ -21,62 +21,13 @@
     <script src="/resources/js/search.js"></script>
 </head>
 <%--页面加载完成后立即执行搜索--%>
-<body onload="search()">
+<body onload="firstSearch()">
 <!-- Header  -wll-2013/03/24 -->
 <div class="shop_hd">
     <!-- Header TopNav -->
-    <div class="shop_hd_topNav">
-        <div class="shop_hd_topNav_all">
-            <!-- Header TopNav Left -->
 
-            <!-- Header TopNav Left End -->
+      <%@include file="customer/top.jsp"%>
 
-            <!-- Header TopNav Right -->
-            <div class="shop_hd_topNav_all_right">
-                <ul class="topNav_quick_menu">
-
-                    <li>
-                        <div class="topNav_menu">
-                            <a href="#" class="topNavHover">Username<i></i></a>
-
-                        </div>
-                    </li>
-                    <li>
-                        <div class="topNav_menu">
-                            <a href="#" class="topNavHover">Customer Center<i></i></a>
-                            <div class="topNav_menu_bd" style="display:none;">
-                                <!--<ul>-->
-                                <!--<li><a title="已售出的商品" target="_top" href="#">已售出的商品</a></li>-->
-                                <!--<li><a title="销售中的商品" target="_top" href="#">销售中的商品</a></li>-->
-                                <!--</ul>-->
-                            </div>
-                        </div>
-                    </li>
-
-                    <li>
-                        <div class="topNav_menu">
-                            <a href="#" class="topNavHover">Cart</a>
-                            <div class="topNav_menu_bd" style="display:none;">
-                                <!--
-                                <ul>
-                                  <li><a title="已售出的商品" target="_top" href="#">已售出的商品</a></li>
-                                  <li><a title="销售中的商品" target="_top" href="#">销售中的商品</a></li>
-                                </ul>
-                                -->
-                                <!--<p>还没有商品，赶快去挑选！</p>-->
-                            </div>
-                        </div>
-                    </li>
-
-
-                </ul>
-            </div>
-            <!-- Header TopNav Right End -->
-        </div>
-        <div class="clear"></div>
-    </div>
-    <div class="clear"></div>
-    <!-- Header TopNav End -->
 
     <!-- TopHeader Center -->
     <div class="shop_hd_header">
@@ -117,369 +68,36 @@
                 <ul class="shop_hd_menu_all_category_hd_menu clearfix">
                     <!-- 单个菜单项 -->
                     <li id="cat_1" class="">
-                        <h3><a href="" title="男女服装">TV& Home Theater</a></h3>
-                        <!--<div id="cat_1_menu" class="cat_menu clearfix" style="">-->
-                        <!--<dl class="clearfix">-->
-                        <!--<dt><a href="女装" href="">女装</a></dt>-->
-                        <!--<dd>-->
-                        <!--<input type="radio" name="sex" value="male" checked> 风衣-->
-                        <!--<a href="">长袖连衣裙</a>-->
-                        <!--<a href="">毛呢连衣裙</a>-->
-                        <!--<a href="">半身裙</a>-->
-                        <!--<a href="">小脚裤</a>-->
-                        <!--<a href="">加绒打底裤</a>-->
-                        <!--<a href="">牛仔裤</a>-->
-                        <!--<a href="">打底衫</a>-->
-                        <!--<a href="">情侣装</a>-->
-                        <!--<a href="">棉衣</a>-->
-                        <!--<a href="">毛呢大衣</a>-->
-                        <!--<a href="">毛呢短裤</a>-->
-                        <!--</dd>-->
-                        <!--</dl>-->
-
-                        <!--<dl class="clearfix">-->
-                        <!--<dt><a href="男装" href="">男装</a></dt>-->
-                        <!--<dd>-->
-                        <!--<a href="">风衣</a>-->
-                        <!--<a href="">长袖连衣裙</a>-->
-                        <!--<a href="">毛呢连衣裙</a>-->
-                        <!--<a href="">半身裙</a>-->
-                        <!--<a href="">小脚裤</a>-->
-                        <!--<a href="">加绒打底裤</a>-->
-                        <!--<a href="">牛仔裤</a>-->
-                        <!--<a href="">打底衫</a>-->
-                        <!--<a href="">情侣装</a>-->
-                        <!--<a href="">棉衣</a>-->
-                        <!--<a href="">毛呢大衣</a>-->
-                        <!--<a href="">毛呢短裤</a>-->
-                        <!--</dd>-->
-                        <!--</dl>-->
-                        <!--</div>-->
+                        <h3><a href="search?type=TV%26%20Home%20Theater" title="男女服装">TV& Home Theater</a></h3>
                     </li>
                     <!-- 单个菜单项 End -->
                     <li id="cat_2" class="">
-                        <h3><a href="" title="鞋包配饰">Computers & Tablets</a></h3>
-                        <!--<div id="cat_1_menu" class="cat_menu clearfix" style="">-->
-                        <!--<dl class="clearfix">-->
-                        <!--<dt><a href="鞋子" href="">鞋子</a></dt>-->
-                        <!--<dd>-->
-                        <!--<a href="">风衣</a>-->
-                        <!--<a href="">长袖连衣裙</a>-->
-                        <!--<a href="">毛呢连衣裙</a>-->
-                        <!--<a href="">半身裙</a>-->
-                        <!--<a href="">小脚裤</a>-->
-                        <!--<a href="">加绒打底裤</a>-->
-                        <!--<a href="">牛仔裤</a>-->
-                        <!--<a href="">打底衫</a>-->
-                        <!--<a href="">情侣装</a>-->
-                        <!--<a href="">棉衣</a>-->
-                        <!--<a href="">毛呢大衣</a>-->
-                        <!--<a href="">毛呢短裤</a>-->
-                        <!--</dd>-->
-                        <!--</dl>-->
-
-                        <!--<dl class="clearfix">-->
-                        <!--<dt><a href="包包" href="">包包</a></dt>-->
-                        <!--<dd>-->
-                        <!--<a href="">风衣</a>-->
-                        <!--<a href="">长袖连衣裙</a>-->
-                        <!--<a href="">毛呢连衣裙</a>-->
-                        <!--<a href="">半身裙</a>-->
-                        <!--<a href="">小脚裤</a>-->
-                        <!--<a href="">加绒打底裤</a>-->
-                        <!--<a href="">牛仔裤</a>-->
-                        <!--<a href="">打底衫</a>-->
-                        <!--<a href="">情侣装</a>-->
-                        <!--<a href="">棉衣</a>-->
-                        <!--<a href="">毛呢大衣</a>-->
-                        <!--<a href="">毛呢短裤</a>-->
-                        <!--</dd>-->
-                        <!--</dl>-->
-                        <!--</div>-->
+                        <h3><a href="search?type=Computers%20%26%20Tablets" title="Computers & Tablets">Computers & Tablets</a></h3>
                     </li>
 
                     <li id="cat_3" class="">
-                        <h3><a href="" title="美容美妆">Cell Phones</a></h3>
-                        <!--<div id="cat_1_menu" class="cat_menu clearfix" style="">-->
-                        <!--<dl class="clearfix">-->
-                        <!--<dt><a href="美容" href="">美容</a></dt>-->
-                        <!--<dd>-->
-                        <!--<a href="">风衣</a>-->
-                        <!--<a href="">长袖连衣裙</a>-->
-                        <!--<a href="">毛呢连衣裙</a>-->
-                        <!--<a href="">半身裙</a>-->
-                        <!--<a href="">小脚裤</a>-->
-                        <!--<a href="">加绒打底裤</a>-->
-                        <!--<a href="">牛仔裤</a>-->
-                        <!--<a href="">打底衫</a>-->
-                        <!--<a href="">情侣装</a>-->
-                        <!--<a href="">棉衣</a>-->
-                        <!--<a href="">毛呢大衣</a>-->
-                        <!--<a href="">毛呢短裤</a>-->
-                        <!--</dd>-->
-                        <!--</dl>-->
-
-                        <!--<dl class="clearfix">-->
-                        <!--<dt><a href="美妆" href="">美妆</a></dt>-->
-                        <!--<dd>-->
-                        <!--<a href="">风衣</a>-->
-                        <!--<a href="">长袖连衣裙</a>-->
-                        <!--<a href="">毛呢连衣裙</a>-->
-                        <!--<a href="">半身裙</a>-->
-                        <!--<a href="">小脚裤</a>-->
-                        <!--<a href="">加绒打底裤</a>-->
-                        <!--<a href="">牛仔裤</a>-->
-                        <!--<a href="">打底衫</a>-->
-                        <!--<a href="">情侣装</a>-->
-                        <!--<a href="">棉衣</a>-->
-                        <!--<a href="">毛呢大衣</a>-->
-                        <!--<a href="">毛呢短裤</a>-->
-                        <!--</dd>-->
-                        <!--</dl>-->
-                        <!--</div>-->
+                        <h3><a href="search?type=Cell%20Phones" title="Cell Phones">Cell Phones</a></h3>
                     </li>
 
                     <li id="cat_4" class="">
-                        <h3><a href="" title="美容美妆">Cameras & Camcorders</a></h3>
-                        <!--<div id="cat_1_menu" class="cat_menu clearfix" style="">-->
-                        <!--<dl class="clearfix">-->
-                        <!--<dt><a href="美容" href="">美容</a></dt>-->
-                        <!--<dd>-->
-                        <!--<a href="">风衣</a>-->
-                        <!--<a href="">长袖连衣裙</a>-->
-                        <!--<a href="">毛呢连衣裙</a>-->
-                        <!--<a href="">半身裙</a>-->
-                        <!--<a href="">小脚裤</a>-->
-                        <!--<a href="">加绒打底裤</a>-->
-                        <!--<a href="">牛仔裤</a>-->
-                        <!--<a href="">打底衫</a>-->
-                        <!--<a href="">情侣装</a>-->
-                        <!--<a href="">棉衣</a>-->
-                        <!--<a href="">毛呢大衣</a>-->
-                        <!--<a href="">毛呢短裤</a>-->
-                        <!--</dd>-->
-                        <!--</dl>-->
-
-                        <!--<dl class="clearfix">-->
-                        <!--<dt><a href="美妆" href="">美妆</a></dt>-->
-                        <!--<dd>-->
-                        <!--<a href="">风衣</a>-->
-                        <!--<a href="">长袖连衣裙</a>-->
-                        <!--<a href="">毛呢连衣裙</a>-->
-                        <!--<a href="">半身裙</a>-->
-                        <!--<a href="">小脚裤</a>-->
-                        <!--<a href="">加绒打底裤</a>-->
-                        <!--<a href="">牛仔裤</a>-->
-                        <!--<a href="">打底衫</a>-->
-                        <!--<a href="">情侣装</a>-->
-                        <!--<a href="">棉衣</a>-->
-                        <!--<a href="">毛呢大衣</a>-->
-                        <!--<a href="">毛呢短裤</a>-->
-                        <!--</dd>-->
-                        <!--</dl>-->
-                        <!--</div>-->
+                        <h3><a href="search?type=Cameras%20%26%20Camcorders" title="Cameras & Camcorders">Cameras & Camcorders</a></h3>
                     </li>
 
                     <li id="cat_5" class="">
-                        <h3><a href="" title="美容美妆">Audio</a></h3>
-                        <!--<div id="cat_1_menu" class="cat_menu clearfix" style="">-->
-                        <!--<dl class="clearfix">-->
-                        <!--<dt><a href="美容" href="">美容</a></dt>-->
-                        <!--<dd>-->
-                        <!--<a href="">风衣</a>-->
-                        <!--<a href="">长袖连衣裙</a>-->
-                        <!--<a href="">毛呢连衣裙</a>-->
-                        <!--<a href="">半身裙</a>-->
-                        <!--<a href="">小脚裤</a>-->
-                        <!--<a href="">加绒打底裤</a>-->
-                        <!--<a href="">牛仔裤</a>-->
-                        <!--<a href="">打底衫</a>-->
-                        <!--<a href="">情侣装</a>-->
-                        <!--<a href="">棉衣</a>-->
-                        <!--<a href="">毛呢大衣</a>-->
-                        <!--<a href="">毛呢短裤</a>-->
-                        <!--</dd>-->
-                        <!--</dl>-->
-
-                        <!--<dl class="clearfix">-->
-                        <!--<dt><a href="美妆" href="">美妆</a></dt>-->
-                        <!--<dd>-->
-                        <!--<a href="">风衣</a>-->
-                        <!--<a href="">长袖连衣裙</a>-->
-                        <!--<a href="">毛呢连衣裙</a>-->
-                        <!--<a href="">半身裙</a>-->
-                        <!--<a href="">小脚裤</a>-->
-                        <!--<a href="">加绒打底裤</a>-->
-                        <!--<a href="">牛仔裤</a>-->
-                        <!--<a href="">打底衫</a>-->
-                        <!--<a href="">情侣装</a>-->
-                        <!--<a href="">棉衣</a>-->
-                        <!--<a href="">毛呢大衣</a>-->
-                        <!--<a href="">毛呢短裤</a>-->
-                        <!--</dd>-->
-                        <!--</dl>-->
-                        <!--</div>-->
+                        <h3><a href="search?type=Audio" title="Audio">Audio</a></h3>
                     </li>
 
                     <li id="cat_6" class="">
-                        <h3><a href="" title="美容美妆">Car Electronics & GPS</a></h3>
-                        <!--<div id="cat_1_menu" class="cat_menu clearfix" style="">-->
-                        <!--<dl class="clearfix">-->
-                        <!--<dt><a href="美容" href="">美容</a></dt>-->
-                        <!--<dd>-->
-                        <!--<a href="">风衣</a>-->
-                        <!--<a href="">长袖连衣裙</a>-->
-                        <!--<a href="">毛呢连衣裙</a>-->
-                        <!--<a href="">半身裙</a>-->
-                        <!--<a href="">小脚裤</a>-->
-                        <!--<a href="">加绒打底裤</a>-->
-                        <!--<a href="">牛仔裤</a>-->
-                        <!--<a href="">打底衫</a>-->
-                        <!--<a href="">情侣装</a>-->
-                        <!--<a href="">棉衣</a>-->
-                        <!--<a href="">毛呢大衣</a>-->
-                        <!--<a href="">毛呢短裤</a>-->
-                        <!--</dd>-->
-                        <!--</dl>-->
-
-                        <!--<dl class="clearfix">-->
-                        <!--<dt><a href="美妆" href="">美妆</a></dt>-->
-                        <!--<dd>-->
-                        <!--<a href="">风衣</a>-->
-                        <!--<a href="">长袖连衣裙</a>-->
-                        <!--<a href="">毛呢连衣裙</a>-->
-                        <!--<a href="">半身裙</a>-->
-                        <!--<a href="">小脚裤</a>-->
-                        <!--<a href="">加绒打底裤</a>-->
-                        <!--<a href="">牛仔裤</a>-->
-                        <!--<a href="">打底衫</a>-->
-                        <!--<a href="">情侣装</a>-->
-                        <!--<a href="">棉衣</a>-->
-                        <!--<a href="">毛呢大衣</a>-->
-                        <!--<a href="">毛呢短裤</a>-->
-                        <!--</dd>-->
-                        <!--</dl>-->
-                        <!--</div>-->
+                        <h3><a href="search?type=Car%20Electronics%20%26%20GPS" title="Car Electronics & GPS">Car Electronics & GPS</a></h3>
                     </li>
                     <li id="cat_7" class="">
-                        <h3><a href="" title="美容美妆">Video, Games, Movies & Music</a></h3>
-                        <!--<div id="cat_1_menu" class="cat_menu clearfix" style="">-->
-                        <!--<dl class="clearfix">-->
-                        <!--<dt><a href="美容" href="">美容</a></dt>-->
-                        <!--<dd>-->
-                        <!--<a href="">风衣</a>-->
-                        <!--<a href="">长袖连衣裙</a>-->
-                        <!--<a href="">毛呢连衣裙</a>-->
-                        <!--<a href="">半身裙</a>-->
-                        <!--<a href="">小脚裤</a>-->
-                        <!--<a href="">加绒打底裤</a>-->
-                        <!--<a href="">牛仔裤</a>-->
-                        <!--<a href="">打底衫</a>-->
-                        <!--<a href="">情侣装</a>-->
-                        <!--<a href="">棉衣</a>-->
-                        <!--<a href="">毛呢大衣</a>-->
-                        <!--<a href="">毛呢短裤</a>-->
-                        <!--</dd>-->
-                        <!--</dl>-->
-
-                        <!--<dl class="clearfix">-->
-                        <!--<dt><a href="美妆" href="">美妆</a></dt>-->
-                        <!--<dd>-->
-                        <!--<a href="">风衣</a>-->
-                        <!--<a href="">长袖连衣裙</a>-->
-                        <!--<a href="">毛呢连衣裙</a>-->
-                        <!--<a href="">半身裙</a>-->
-                        <!--<a href="">小脚裤</a>-->
-                        <!--<a href="">加绒打底裤</a>-->
-                        <!--<a href="">牛仔裤</a>-->
-                        <!--<a href="">打底衫</a>-->
-                        <!--<a href="">情侣装</a>-->
-                        <!--<a href="">棉衣</a>-->
-                        <!--<a href="">毛呢大衣</a>-->
-                        <!--<a href="">毛呢短裤</a>-->
-                        <!--</dd>-->
-                        <!--</dl>-->
-                        <!--</div>-->
-                    </li>
-                    <li id="cat_9" class="">
-                        <h3><a href="" title="美容美妆">Health, Fitness & Sports</a></h3>
-                        <!--<div id="cat_1_menu" class="cat_menu clearfix" style="">-->
-                        <!--<dl class="clearfix">-->
-                        <!--<dt><a href="美容" href="">美容</a></dt>-->
-                        <!--<dd>-->
-                        <!--<a href="">风衣</a>-->
-                        <!--<a href="">长袖连衣裙</a>-->
-                        <!--<a href="">毛呢连衣裙</a>-->
-                        <!--<a href="">半身裙</a>-->
-                        <!--<a href="">小脚裤</a>-->
-                        <!--<a href="">加绒打底裤</a>-->
-                        <!--<a href="">牛仔裤</a>-->
-                        <!--<a href="">打底衫</a>-->
-                        <!--<a href="">情侣装</a>-->
-                        <!--<a href="">棉衣</a>-->
-                        <!--<a href="">毛呢大衣</a>-->
-                        <!--<a href="">毛呢短裤</a>-->
-                        <!--</dd>-->
-                        <!--</dl>-->
-
-                        <!--<dl class="clearfix">-->
-                        <!--<dt><a href="美妆" href="">美妆</a></dt>-->
-                        <!--<dd>-->
-                        <!--<a href="">风衣</a>-->
-                        <!--<a href="">长袖连衣裙</a>-->
-                        <!--<a href="">毛呢连衣裙</a>-->
-                        <!--<a href="">半身裙</a>-->
-                        <!--<a href="">小脚裤</a>-->
-                        <!--<a href="">加绒打底裤</a>-->
-                        <!--<a href="">牛仔裤</a>-->
-                        <!--<a href="">打底衫</a>-->
-                        <!--<a href="">情侣装</a>-->
-                        <!--<a href="">棉衣</a>-->
-                        <!--<a href="">毛呢大衣</a>-->
-                        <!--<a href="">毛呢短裤</a>-->
-                        <!--</dd>-->
-                        <!--</dl>-->
-                        <!--</div>-->
+                        <h3><a href="search?type=Video,%20Games,%20Movies" title="Video, Games, Movies">Video, Games, Movies</a></h3>
                     </li>
                     <li id="cat_8" class="">
-                        <h3><a href="" title="美容美妆">Home & Office</a></h3>
-                        <!--<div id="cat_1_menu" class="cat_menu clearfix" style="">-->
-                        <!--<dl class="clearfix">-->
-                        <!--<dt><a href="美容" href="">美容</a></dt>-->
-                        <!--<dd>-->
-                        <!--<a href="">风衣</a>-->
-                        <!--<a href="">长袖连衣裙</a>-->
-                        <!--<a href="">毛呢连衣裙</a>-->
-                        <!--<a href="">半身裙</a>-->
-                        <!--<a href="">小脚裤</a>-->
-                        <!--<a href="">加绒打底裤</a>-->
-                        <!--<a href="">牛仔裤</a>-->
-                        <!--<a href="">打底衫</a>-->
-                        <!--<a href="">情侣装</a>-->
-                        <!--<a href="">棉衣</a>-->
-                        <!--<a href="">毛呢大衣</a>-->
-                        <!--<a href="">毛呢短裤</a>-->
-                        <!--</dd>-->
-                        <!--</dl>-->
-
-                        <!--<dl class="clearfix">-->
-                        <!--<dt><a href="美妆" href="">美妆</a></dt>-->
-                        <!--<dd>-->
-                        <!--<a href="">风衣</a>-->
-                        <!--<a href="">长袖连衣裙</a>-->
-                        <!--<a href="">毛呢连衣裙</a>-->
-                        <!--<a href="">半身裙</a>-->
-                        <!--<a href="">小脚裤</a>-->
-                        <!--<a href="">加绒打底裤</a>-->
-                        <!--<a href="">牛仔裤</a>-->
-                        <!--<a href="">打底衫</a>-->
-                        <!--<a href="">情侣装</a>-->
-                        <!--<a href="">棉衣</a>-->
-                        <!--<a href="">毛呢大衣</a>-->
-                        <!--<a href="">毛呢短裤</a>-->
-                        <!--</dd>-->
-                        <!--</dl>-->
-                        <!--</div>-->
+                        <h3><a href="search?type=Health,%20Fitness%20%26%20Sports" title="Health, Fitness & Sports">Health, Fitness & Sports</a></h3>
+                    </li>
+                    <li id="cat_9" class="">
+                        <h3><a href="search?type=Home%20%26%20Office" title="Home & Office">Home & Office</a></h3>
                     </li>
                 </ul>
             </div>
@@ -514,17 +132,18 @@
             <div class="title">Categories</div>
             <div class="contents clearfix">
                 <dl class="shop_bd_list_type_links clearfix">
-                    <dd>
-                        <span onclick="setType('')">All</span>
-                        <span onclick="setType('TV& Home Theater')">TV& Home Theater</span>
-                        <span onclick="setType('Computers & Tablets')">Computers & Tablets</span>
-                        <span onclick="setType('Cell Phones')">Cell Phones</span>
-                        <span onclick="setType('Cameras & Camcorders')">Cameras & Camcorders</span>
-                        <span onclick="setType('Audio')">Audio</span>
-                        <span onclick="setType('Car Electronics & GPS')">Car Electronics & GPS</span>
-                        <span onclick="setType('Video, Games, Movies & Music')">Video, Games, Movies & Music</span>
-                        <span onclick="setType('Health, Fitness & Sports')">Health, Fitness & Sports</span>
-                        <span onclick="setType('Home & Office')">Home & Office</span>
+                    <dd id="productType" style="cursor: pointer">
+                        <span id="typeSelectFirst" class="typeSelected" onclick="setType(this,'')">All&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+                        <span onclick="setType(this,'TV& Home Theater')">TV& Home Theater</span>
+                        <span onclick="setType(this,'Computers & Tablets')">Computers & Tablets</span>
+                        <span onclick="setType(this,'Cell Phones')">Cell Phones</span>
+                        <span onclick="setType(this,'Cameras & Camcorders')">Cameras & Camcorders</span>
+                        <span onclick="setType(this,'Audio')">Audio</span>
+                        <span onclick="setType(this,'Car Electronics & GPS')">Car Electronics & GPS</span>
+                        <span onclick="setType(this,'Video, Games, Movies & Music')">Video, Games, Movies & Music</span>
+                        <span onclick="setType(this,'Health, Fitness & Sports')">Health, Fitness & Sports</span>
+                        <span onclick="setType(this,'Home & Office')">Home & Office&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+                        <span onclick="setType(this,'other')">Others</span>
                     </dd>
                 </dl>
             </div>
@@ -620,18 +239,15 @@
                 <!-- 查看方式E -->
                 <!-- 排序方式S -->
                 <ul class="array">
-                    <li class="selected"><a title="默认排序" onclick="orderByDefault()"
+                    <li class="selected" id='defaultOrder' ><a title="默认排序" onclick="orderByDefault()"
                                             class="nobg" href="javascript:void(0)">Default</a></li>
-                    <li><a title="点击按销量从高到低排序"
+                    <li id="salesHightoLowOrder"><a title="点击按销量从高到低排序"
                            onclick="orderBySalesHightoLow()"
                            href="javascript:void(0)">Sales</a></li>
-                    <li><a title="点击按人气从高到低排序"
-                           onclick="orderByViewHightoLow()"
+                    <li id="viewsHightoLowOrder"><a title="点击按人气从高到低排序"
+                           onclick="orderByViewsHightoLow()"
                            href="javascript:void(0)">Hot</a></li>
-                    <%--<li><a title="点击按信用从高到低排序"--%>
-                           <%--onclick="javascript:replaceParam(['key','order'],['credit','desc'],'array');"--%>
-                           <%--href="javascript:void(0)">Credit</a></li>--%>
-                    <li><a title="点击按价格从高到低排序"
+                    <li id="priceHightoLowOrder"><a title="点击按价格从高到低排序"
                            onclick="orderByPriceHightoLow()"
                            href="javascript:void(0)">Price</a></li>
                 </ul>
@@ -968,7 +584,7 @@
             <ul id="pageList">
 
                 <%--<li><span>Previous</span></li>--%>
-                <li><span class="currentpage">1 of 1</span></li>
+                <%--<li><span class="currentpage">1 of 1</span></li>--%>
                 <%--<li><span>Next</span></li>--%>
 
                 <%--<li>--%>

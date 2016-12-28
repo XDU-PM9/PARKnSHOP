@@ -2,7 +2,7 @@
  * Created by wei on 16-12-11.
  */
 var pageCount=1;
-var onePageCount = 2;
+var onePageCount = 8;
 var currentPage = 1;
 
 //下一页
@@ -114,7 +114,7 @@ function listShopSearchResult(result) {
             "<dd class='title'><a href=" + "/shop/detail?shopId=" + result.goodsId + ">" + result.shopName + "</a></dd>" +
             "<dd class='content'>" +
             // "<span class='goods_jiage'>$<strong>" + result.price + "</strong></span>" +
-            "<span class='goods_chengjiao'>" + result.views + "view</span>" +
+            "<span class='goods_chengjiao'>" + result.viewss + "view</span>" +
             "</dd>" +
             "</dl>" +
             "</li>"
@@ -126,7 +126,7 @@ function listShopSearchResult(result) {
 function displayCount() {
     if (pageCount <= 1) {
         $('#pageList').find('li').remove();
-        $('#pageList').append("<li><span class='currentpage' id='currentPage'>1 of 1</span></li>");
+        // $('#pageList').append("<li><span class='currentpage' id='currentPage'>1 of 1</span></li>");
         // $('#pageList').append("<li><p>A total of 1 page</p></li>");
     } else {
         $('#pageList').find('li').remove();
@@ -147,8 +147,8 @@ function displayCount() {
 var searchOption = {
     time: 'false',   //(按时间排序,新的在后面)
     timeDesc: 'false',   //（按时间降序排序，新的在前面）
-    view: 'false',   //(浏览量)
-    viewDesc: 'false',
+    views: 'false',   //(浏览量)
+    viewsDesc: 'false',
     // sales: 'false',  //（销量）
     // salesDesc: 'false',
     shopName: '',    //（商品名）
@@ -160,11 +160,14 @@ var searchOption = {
 function initOrder() {
     searchOption.time='false';
     searchOption.timeDesc='false';
-    searchOption.view='false';
-    searchOption.viewDesc='false';
+    searchOption.views='false';
+    searchOption.viewsDesc='false';
+    $('#defaultOrder').removeClass('selected');
+    $('#viewsHightoLowOrder').removeClass('selected');
 }
 function orderByDefault() {
     initOrder();
+    $('#defaultOrder').addClass('selected');
     search();
 }
 function orderByTimeNewtoOld() {
@@ -181,7 +184,8 @@ function orderByTimeOldtoNew() {
 
 function orderByViewHightoLow() {
     initOrder();
-    searchOption.viewDesc='true';
+    $('#viewsHightoLowOrder').addClass('selected');
+    searchOption.viewsDesc='true';
     search();
 }
 

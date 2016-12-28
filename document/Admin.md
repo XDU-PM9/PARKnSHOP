@@ -366,3 +366,274 @@ index：按照size分页后的数据第index页
 {
 	"error":boolean
 }
+
+#管理商品的广告申请，管理员可以处理为：同意、拒绝
+网址：/admin/replyGoodsAdvert
+方法：POST
+数据格式：json
+参数描述：
+{
+  "id":12345，	  //广告的id
+  "result":0/1    //0代表管理员传入拒绝该请求，1代表允许请求
+}
+响应格式：json
+参数描述：
+{
+  "error":true/false  //代表拒绝或允许的处理结果
+}
+
+
+#取消商品的广告位置，即将正在广告位展示的广告取消
+网址：/admin/cancelGoodsAdvert
+方法：POST
+数据格式：json
+参数描述：
+{
+  "id":12345，	//根据广告的id，删除正在展示的广告
+}
+响应格式：json
+参数描述：
+{
+  "error":true/false  
+}
+
+
+#获取Top10商品广告列表，即正在展示的广告
+网址：/admin/getTop10GoodsAdvert
+方法：POST
+数据格式：json
+参数描述：
+{
+  //不需要请求参数，直接发送请求给上述URL即可
+}
+响应格式：json
+参数描述：
+{
+   "error":true/false,
+   "total":2,		
+   "realSize":5,
+   "data":[{
+		"advertId":	12		//广告id
+		"userId":12			//广告对应的店主
+		"startTime":"Date"		//广告开始时间，Data类型
+		"price":12.5			//广告的花费
+		"state":state
+		"detail":{			//该广告的商品的信息
+			"id":12
+			"name":"name"
+			"introduction"："intro"
+		}
+		//"detailOfOwner":{	//提出申请的店家的信息，暂时不用
+		//	"ownerid":12,
+		//	"realname":"realname",
+		//	"phone":"029-8083028"
+		//}
+   }]
+}
+
+
+#获取广告的商品的列表（正在申请的、展示的、取消展示的。。。）
+网址：/admin/getAllGoodsAdvert
+方法：POST
+数据格式：json
+参数描述：
+{
+  "index":12345,	//请求第几页
+  "size":5			//请求多少条
+}
+响应格式：json
+参数描述：
+{
+   "error":true/false,
+   "total":2,		
+   "realSize":5,
+   "data":[{
+		"advertId":	12		//广告id
+		"userId":12			//广告对应的店主
+		"startTime":"Date"		//广告开始时间，Data类型
+		"price":12.5			//广告的花费
+		"state":state
+		"detail":{			//该广告的商品的信息
+			"id":12
+			"name":"name"
+			"introduction"："intro"
+		}
+		//"detailOfOwner":{	//提出申请的店家的信息，暂时不用
+		//	"ownerid":12,
+		//	"realname":"realname",
+		//	"phone":"029-8083028"
+		//}
+   }]
+}
+
+
+#获取某个店主对应的广告的商品的列表，（正在申请的、展示的、取消展示的。。。）
+网址：/admin/getUserGoodsAdvert
+方法：POST
+数据格式：json
+参数描述：
+{
+  "userId":12			//店主的id,对应数据库中的userId
+  "index":12345,	//请求第几页
+  "size":5			//请求多少条
+}
+响应格式：json
+参数描述：
+{
+   "error":true/false,
+   "total":2,		
+   "realSize":5,
+   "data":[{
+		"advertId":	12		//广告id
+		"userId":12			//广告对应的店主
+		"startTime":"Date"		//广告开始时间，Data类型
+		"price":12.5			//广告的花费
+		"state":state
+		"detail":{			//该广告的商品的信息
+			"id":12
+			"name":"name"
+			"introduction"："intro"
+		}
+		//"detailOfOwner":{	//提出申请的店家的信息，暂时不用
+		//	"ownerid":12,
+		//	"realname":"realname",
+		//	"phone":"029-8083028"
+		//}
+   }]
+}
+
+
+#管理商店的广告，管理员可以处理为：同意、拒绝
+网址：/admin/replyShopAdvert
+方法：POST
+数据格式：json
+参数描述：
+{
+  "id":12345，//广告的id
+  "result":0/1    //0代表管理员传入拒绝该请求，1代表允许请求
+}
+响应格式：json
+参数描述：
+{
+  "error":true/false  //代表拒绝或允许的处理结果
+}
+
+
+#取消商店的广告位置，即将正在广告位展示的广告取消
+网址：/admin/cancelShopAdvert
+方法：POST
+数据格式：json
+参数描述：
+{
+  "id":12345，	//根据广告的id，删除正在展示的广告
+}
+响应格式：json
+参数描述：
+{
+  "error":true/false  
+}
+
+
+#获取Top5商店广告列表，即正在展示的商店
+网址：/admin/getTop5ShopAdvert
+方法：POST
+数据格式：json
+参数描述：
+{
+  //不需要请求参数，直接发送请求给上述URL即可
+}
+响应格式：json
+参数描述：
+{
+   "error":true/false,
+   "total":2,		
+   "realSize":5,
+   "data":[{
+		"advertId":	12		//广告id
+		"userId":12			//广告对应的店主
+		"startTime":"Date"		//广告开始时间，Data类型
+		"price":12.5			//广告的花费
+		"state":state
+		"detail":{			//该广告的商品的信息
+			"id":12
+			"name":"name"
+			"introduction"："intro"
+		}
+		//"detailOfOwner":{	//提出申请的店家的信息，暂时不用
+		//	"ownerid":12,
+		//	"realname":"realname",
+		//	"phone":"029-8083028"
+		//}
+   }]
+}
+
+
+#获取广告的商店的列表（正在申请的、展示的、取消展示的。。。）
+网址：/admin/getAllShopAdvert
+方法：POST
+数据格式：json
+参数描述：
+{
+  "index":12345,	//请求第几页
+  "size":5			//请求多少条
+}
+响应格式：json
+参数描述：
+{
+   "error":true/false,
+   "total":2,		
+   "realSize":5,
+   "data":[{
+		"advertId":12			//广告id
+		"userId":12			//广告对应的店主
+		"startTime":"Date"		//广告开始时间
+		"price":12.5			//广告的花费
+		"state":state
+		"detail":{			//该广告的商店信息
+			"id":12,
+			"name":"name",
+			"introduction"："intro"
+		}
+		//"detailOfOwner":{	//提出申请的店家的信息，暂时不用
+		//	"ownerid":12,
+		//	"realname":"realname",
+		//	"phone":"029-8083028"
+		//}
+   }]
+}
+
+
+#获取某个店主对应的广告的商店的列表
+网址：/admin/getUserShopAdvert
+方法：POST
+数据格式：json
+参数描述：
+{
+  "userId":12			//店主的id,对应数据库中的userId
+  "index":12345,	//请求第几页
+  "size":5			//请求多少条
+}
+响应格式：json
+参数描述：
+{
+   "error":true/false,
+   "total":2,		
+   "realSize":5,
+   "data":[{
+		"advertId":12			//广告id
+		"userId":12			//广告对应的店主
+		"startTime":"Date"		//广告开始时间
+		"price":12.5			//广告的花费
+		"state":state
+		"detail":{			//该广告的商店信息
+			"id":12
+			"name":"name"
+			"introduction"："intro"
+		}
+		//"detailOfOwner":{	//提出申请的店家的信息，暂时不用
+		//	"ownerid":12,
+		//	"realname":"realname",
+		//	"phone":"029-8083028"
+		//}
+   }]
+}

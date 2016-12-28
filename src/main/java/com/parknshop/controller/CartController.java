@@ -2,11 +2,13 @@ package com.parknshop.controller;
 
 import com.parknshop.entity.CartEntity;
 import com.parknshop.entity.UserEntity;
+import com.parknshop.service.IOrderService;
 import com.parknshop.service.IUserService;
 import com.parknshop.service.baseImpl.IDefineString;
 import com.parknshop.service.customerService.Cart;
 import com.parknshop.service.customerService.ICartService;
 import com.parknshop.service.customerService.IGetList;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,7 +29,7 @@ public class CartController {
     @Autowired
     IGetList productsList;
 
-    private  IUserService mUserService;
+    private IUserService mUserService;
 
 //    @RequestMapping(value = "/changeAmount",method = RequestMethod.POST)
 //    public @ResponseBody String changeAmount(HttpServletRequest request, HttpSession session)
@@ -44,63 +46,62 @@ public class CartController {
 //        }
 //    }
 
-    @RequestMapping(value = "/changeAmount",method = RequestMethod.GET)
-    public  String changeAmount(@RequestParam int cartId, @RequestParam int amount, HttpSession session, Model model)
-    {
-        int userId=getUserId(session);
-        if (userId<0) {
-            return "redirect:/customer/login";
-        }else {
-            if(amount>0) {
-                cartService.changeAmount(cartId, amount);
-                return "redirect:/listProduct?requestPage=1";
-            }else
-            {
-                model.addAttribute("husdfdskljaf",cartId);
-                return "redirect:/removeProduct?goodsId={husdfdskljaf}";
-            }
+    @RequestMapping(value = "/changeAmount", method = RequestMethod.GET)
+    public String changeAmount(@RequestParam int cartId, @RequestParam int amount, HttpSession session, Model model) {
+//        int userId=getUserId(session);
+//        if (userId<0) {
+//            return "redirect:/customer/login";
+//        }else {
+        if (amount > 0) {
+            cartService.changeAmount(cartId, amount);
+            return "redirect:/listProduct?requestPage=1";
+        } else {
+            model.addAttribute("husdfdskljaf", cartId);
+            return "redirect:/removeProduct?goodsId={husdfdskljaf}";
         }
+//        }
     }
 
-    @RequestMapping(value = "/listProduct",method = RequestMethod.GET)
-    public  String listCart(@RequestParam int requestPage,HttpSession session,Model model)
-    {
-        int userId=getUserId(session);
+    @RequestMapping(value = "/listProduct", method = RequestMethod.GET)
+    public String listCart(@RequestParam int requestPage, HttpSession session, Model model) {
+//        int userId=getUserId(session);
 //        if (userId<0) {
 //            return "forward:/customer/login";
 //        }else {
-            List<CartEntity> cartEntityList=cartService.getProductsByPage(getUserId(session),requestPage,10);
-            if(null!=cartEntityList) {
-                List<Cart> products=productsList.getCarts(cartEntityList);
-                model.addAttribute("cartList",products);
-            }
+        List<CartEntity> cartEntityList = cartService.getProductsByPage(getUserId(session), requestPage, 10);
+        if (null != cartEntityList) {
+            List<Cart> products = productsList.getCarts(cartEntityList);
+            model.addAttribute("cartList", products);
+        }
 //        }
         return "/customer/cart.jsp";
     }
 
-    @RequestMapping(value = "/addProduct",method = RequestMethod.GET)
-    public  String addCart(@RequestParam int goodsId,@RequestParam int amount,HttpSession session) {
+    @RequestMapping(value = "/addProduct", method = RequestMethod.GET)
+    public String addCart(@RequestParam int goodsId, @RequestParam int amount, HttpSession session) {
         int userId = getUserId(session);
-        if (userId<0) {
-            return "redirect:/customer/login";
-        } else {
-            cartService.addProduct(userId, goodsId, amount);
-            return "redirect:/listProduct?requestPage=1";
-        }
+//        if (userId<0) {
+//            return "redirect:/customer/login";
+//        } else {
+        cartService.addProduct(userId, goodsId, amount);
+        return "redirect:/listProduct?requestPage=1";
+//        }
     }
 
 
-    @RequestMapping(value = "/removeProduct",method = RequestMethod.GET)
-    public  String removeProduct(@RequestParam int goodsId,HttpSession session){
-        int userId = getUserId(session);
-        if (userId<0) {
-            return "redirect:/customer/login";
-        }
-        else {
-            cartService.removeProduct(goodsId);
-            return "redirect:/listProduct?requestPage=1";
-        }
+    @RequestMapping(value = "/removeProduct", method = RequestMethod.GET)
+    public String removeProduct(@RequestParam int goodsId, HttpSession session) {
+//        int userId = getUserId(session);
+//        if (userId<0) {
+//            return "redirect:/customer/login";
+//        }
+//        else {
+        cartService.removeProduct(goodsId);
+        return "redirect:/listProduct?requestPage=1";
+//        }
     }
+
+
 
     private int getUserId(HttpSession session){
         try {

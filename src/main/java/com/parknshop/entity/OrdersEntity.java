@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * Created by weina on 2016/11/30.
@@ -19,13 +20,13 @@ public class OrdersEntity {
     private String goodsName;
     private String goodsDescribe;
     private Integer amount;
-    private Timestamp createTime;
-    private Timestamp paidTime;
+    private Date createTime;
+    private Date paidTime;
     private Double price;
     private Double commission;
     private Double commissionRate;
     private String comment;
-    private Timestamp commentTime;
+    private Date commentTime;
     private Integer state;
     private UserEntity userByUserId;
     private GoodsEntity goodsByGoodsId;
@@ -107,21 +108,21 @@ public class OrdersEntity {
 
     @Basic
     @Column(name = "createTime", nullable = false)
-    public Timestamp getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Timestamp createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
     @Basic
     @Column(name = "paidTime", nullable = true)
-    public Timestamp getPaidTime() {
+    public Date getPaidTime() {
         return paidTime;
     }
 
-    public void setPaidTime(Timestamp paidTime) {
+    public void setPaidTime(Date paidTime) {
         this.paidTime = paidTime;
     }
 
@@ -167,11 +168,11 @@ public class OrdersEntity {
 
     @Basic
     @Column(name = "commentTime", nullable = true)
-    public Timestamp getCommentTime() {
+    public Date getCommentTime() {
         return commentTime;
     }
 
-    public void setCommentTime(Timestamp commentTime) {
+    public void setCommentTime(Date commentTime) {
         this.commentTime = commentTime;
     }
 

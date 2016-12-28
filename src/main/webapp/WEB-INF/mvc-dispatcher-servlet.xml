@@ -30,7 +30,27 @@
     <mvc:interceptors>
         <mvc:interceptor>
             <!--如需要加入拦截器请参照下面这条添加-->
+            <mvc:mapping path="/changeAmount"/>
             <mvc:mapping path="/listProduct"/>
+            <mvc:mapping path="/addProduct"/>
+            <mvc:mapping path="/removeProduct"/>
+            <mvc:mapping path="/listUserInfo"/>
+            <mvc:mapping path="/uploadPicture"/>
+            <mvc:mapping path="/goPassword"/>
+            <mvc:mapping path="/changePassword"/>
+            <mvc:mapping path="/listCollect"/>
+            <mvc:mapping path="/listCollectShop"/>
+            <mvc:mapping path="/insertCollectShop"/>
+            <mvc:mapping path="/insertCollect"/>
+            <mvc:mapping path="/removeCollect"/>
+            <mvc:mapping path="/removeCollectShop"/>
+            <mvc:mapping path="/jumpPage"/>
+            <mvc:mapping path="/listAddress"/>
+            <mvc:mapping path="/editAddress"/>
+            <mvc:mapping path="/updateAddress"/>
+            <mvc:mapping path="/saveAddress"/>
+            <mvc:mapping path="/deleteAddress"/>
+            <mvc:mapping path="/order/listCart"/>
 
             <bean class="com.parknshop.configure.LoginFilter"/>
         </mvc:interceptor>

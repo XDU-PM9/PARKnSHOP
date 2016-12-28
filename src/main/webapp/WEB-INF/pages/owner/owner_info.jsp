@@ -25,7 +25,7 @@
                 <div class="arrow"></div>
             </div>
         </a>
-        <a href="/owner/ownerPasswordEdit" class="button lightbg-blue clearfix"><span>Modify password</span>
+        <a href="/owner/ownerPasswordEdit" class="button lightbg-blue clearfix"><span>Modify pwd</span>
             <div class="icon">
                 <div class="arrow"></div>
             </div>

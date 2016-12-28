@@ -148,7 +148,6 @@ function disagree() {
                 console.log(response);
                 if(response.error==false) {
                     location.reload();
-                    alert("disagree success");
                 }
                 else {
                     alert("error");

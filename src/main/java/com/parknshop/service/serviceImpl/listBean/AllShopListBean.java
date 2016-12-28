@@ -35,16 +35,16 @@ public class AllShopListBean extends AbstractListBean<ShopAndOwnerDbBean> {
 
     @Override
     protected long count(){
-        String hql ="select count(*) from ShopEntity where state !=?";
-        Object[] param = {IOwnerService.SHOP_STATE_DELETE};
+        String hql ="select count(*) from ShopEntity where state > ?";
+        Object[] param = {IOwnerService.SHOP_STATE_CHECKING};
         return mDao.count(hql,param);
     }
     @Override
     protected List<ShopAndOwnerDbBean> initList(int page, int lines){
         String hql =PersonShopListBean.hql+
-                " and s.state != ?"+//
+                " and s.state > ?"+//
                 " order by s.shopId desc ";
-        Object[] param = {IOwnerService.SHOP_STATE_DELETE};
+        Object[] param = {IOwnerService.SHOP_STATE_CHECKING};
 
         return  mDao.find(hql,param,page,lines);
     }

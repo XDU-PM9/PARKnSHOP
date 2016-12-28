@@ -124,7 +124,7 @@ public class AdvertisementService implements IAdvertisement{
 
     private IListBean<AdvertisementDbBean> getMyList(int type,int userId,int page,int lines){
         HqlBean hqlBean = new HqlBean();
-        hqlBean.setInnerHql(" and typeId =? and userId =? ");
+        hqlBean.setInnerHql(" and type =? and userId =? ");
         hqlBean.getInnerParam().add(type);
         hqlBean.getInnerParam().add(userId);
         advertisementDbBeanIListBean.init(hqlBean,page,lines);
@@ -132,14 +132,14 @@ public class AdvertisementService implements IAdvertisement{
     }
     private IListBean<AdvertisementDbBean> getAllList(int type,int page,int lines){
         HqlBean hqlBean = new HqlBean();
-        hqlBean.setInnerHql(" and typeId =? ");
+        hqlBean.setInnerHql(" and type =? ");
         hqlBean.getInnerParam().add(type);
         advertisementDbBeanIListBean.init(hqlBean,page,lines);
         return  advertisementDbBeanIListBean;
     }
     private IListBean<AdvertisementDbBean> getTopList(int type,int page,int lines){
         HqlBean hqlBean = new HqlBean();
-        hqlBean.setInnerHql(" and typeId =? and state = ?");
+        hqlBean.setInnerHql(" and type =? and state = ?");
         hqlBean.getInnerParam().add(type);
         hqlBean.getInnerParam().add(IAdvertisement.AD_STATUS_EFFECT);
         advertisementDbBeanIListBean.init(hqlBean,page,lines);
@@ -149,6 +149,9 @@ public class AdvertisementService implements IAdvertisement{
     private boolean updateAdert(int id,int state){
         IBaseDao<AdvertEntity> dao = new BaseDao<>();
         AdvertEntity entity = dao.get(AdvertEntity.class,id);
+        if(null == entity){
+            return false;
+        }
         entity.setState(state);
 
         if(state == IAdvertisement.AD_STATUS_EFFECT){//生效时间

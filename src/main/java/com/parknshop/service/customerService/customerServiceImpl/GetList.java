@@ -9,6 +9,7 @@ import com.parknshop.service.customerService.Cart;
 import com.parknshop.service.customerService.IGetList;
 import com.parknshop.service.customerService.Product;
 import com.parknshop.service.customerService.Shop;
+import com.parknshop.utils.Log;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -61,7 +62,7 @@ public class GetList implements IGetList {
                 .setDiscount(goodsEntity.getDiscount())
                 .setGoodsIntroduction(goodsEntity.getIntroduction())
                 .setPicture(getPhoto(goodsEntity.getPhotoGroup()))
-                .setView(goodsEntity.getViews())
+                .setViews(goodsEntity.getViews())
                 .setSales(goodsEntity.getSales())
                 .setShopId(goodsEntity.getShopByShopId().getShopId())
                 .setShopName(goodsEntity.getShopByShopId().getShopName())
@@ -103,7 +104,8 @@ public class GetList implements IGetList {
 //                return pictureDao.getPictures(photogroup).get(0).getAddress();
                 return photoEntityBaseDao.find("from PhotoEntity where photoGroup=? order by photoId desc", new Object[]{photogroup}).get(0).getAddress();
             }catch (Exception e){
-                e.printStackTrace();
+                Log.debug("photogroup \""+photogroup+"\" 不存在");
+//                e.printStackTrace();
                 return "";
             }
         }

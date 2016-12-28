@@ -35,13 +35,13 @@ public class UserCenterController {
     public String  listUserInfo(Model model, HttpSession session)
     {
         int userId=getUserId(session);
-        if (userId<0) {
-            return "redirect:customer/login";
-        }else{
+//        if (userId<0) {
+//            return "redirect:customer/login";
+//        }else{
             UserEntity userEntity=customerService.getCustomerById(new Integer(userId));
             model.addAttribute("user", userEntity);
             return "customer/user_info.jsp";
-        }
+//        }
 
     }
 
@@ -49,9 +49,9 @@ public class UserCenterController {
     public  String uploadPicture(@RequestParam MultipartFile picture, HttpSession session, Model model)
     {
         int userId=getUserId(session);
-        if (userId<0) {
-            return "redirect:customer/login";
-        }else {
+//        if (userId<0) {
+//            return "redirect:customer/login";
+//        }else {
             String contextPath = session.getServletContext().getRealPath("/");
             String person, logo;
             try {
@@ -71,7 +71,7 @@ public class UserCenterController {
             } finally {
                 return "/customer/user_info.jsp";
             }
-        }
+//        }
     }
     @RequestMapping(value="/goPassword",method = RequestMethod.GET)
     public String  goPassword(){
@@ -103,9 +103,9 @@ public class UserCenterController {
     public String listCollect(@RequestParam int requestPage, Model  model,HttpSession session)
     {
         int userId=getUserId(session);
-        if (userId<0) {
-            return "redirect:customer/login";
-        }else{
+//        if (userId<0) {
+//            return "redirect:customer/login";
+//        }else{
             int size = customerService.querySize(userId);
             double d =  (size) / 4+(size%4==0?0:1);
             int  sina =(int) Math.ceil(d);
@@ -115,7 +115,7 @@ public class UserCenterController {
             model.addAttribute("maxSize", size);
             model.addAttribute("sina", sina);
             return "customer/good_collection.jsp";
-        }
+//        }
 
     }
 
@@ -123,9 +123,9 @@ public class UserCenterController {
     public String listCollectShop(@RequestParam int requestPage, Model  model,HttpSession session)
     {
         int userId=getUserId(session);
-        if (userId<0) {
-            return "redirect:customer/login";
-        }else{
+//        if (userId<0) {
+//            return "redirect:customer/login";
+//        }else{
             int size = customerService.queryShopsize(new Integer(userId));
             double d =  (size) / 4+(size%4==0?0:1);
             int  sina =(int) Math.ceil(d);
@@ -135,20 +135,20 @@ public class UserCenterController {
             model.addAttribute("maxSize", size);
             model.addAttribute("sina", sina);
             return "customer/shop_collection.jsp";
-        }
+//        }
     }
 
     @RequestMapping(value="/insertCollectShop",method = RequestMethod.GET)
     public String  insertCollectShop(@RequestParam int  shopId,HttpSession session)
     {
 
-        if (getUserId(session)<0) {
-            return "redirect:customer/login";
-        }else{
+//        if (getUserId(session)<0) {
+//            return "redirect:customer/login";
+//        }else{
             int userId=getUserId(session);
             customerService.insertShop(shopId,userId);
             return "redirect:listCollectShop?requestPage=1";
-        }
+//        }
     }
 
 
@@ -156,36 +156,36 @@ public class UserCenterController {
     public String  insertCollect(@RequestParam int  goodsId,HttpSession session)
     {
         int userId=getUserId(session);
-        if (userId<0) {
-            return "redirect:customer/login";
-        }else{
+//        if (userId<0) {
+//            return "redirect:customer/login";
+//        }else{
             customerService.insertCollect(goodsId, userId);
             return "redirect:listCollect?requestPage=1";
-        }
+//        }
     }
 
     @RequestMapping(value="/removeCollect",method = RequestMethod.GET)
     public String removeCollect(@RequestParam int collectionId,HttpSession session)
     {
-        if (getUserId(session)<0) {
-            return "redirect:customer/login";
-        }
-        else{
+//        if (getUserId(session)<0) {
+//            return "redirect:customer/login";
+//        }
+//        else{
             customerService.removeCollect(new Integer(collectionId));
             return "redirect:listCollect?requestPage=1";
-        }
+//        }
     }
 
     @RequestMapping(value="/removeCollectShop",method = RequestMethod.GET)
     public String removeCollectShop(@RequestParam int shopId,HttpSession session)
     {
-        if (getUserId(session)<0) {
-            return "redirect:customer/login";
-        }
-        else {
+//        if (getUserId(session)<0) {
+//            return "redirect:customer/login";
+//        }
+//        else {
             customerService.removeShop(new Integer(shopId));
             return "redirect:listCollectShop?requestPage=1";
-        }
+//        }
     }
     @RequestMapping(value="/jumpPage",method = RequestMethod.POST)
     public String jumpPage(@RequestParam int jump,@RequestParam int ty, Model model)
@@ -199,6 +199,7 @@ public class UserCenterController {
             return "redirect:listCollectShop?requestPage={gdhdsfs}";
         }
     }
+
     private int getUserId(HttpSession session){
         try {
             return ((UserEntity) session.getAttribute(IDefineString.SESSION_USER)).getUserId();

@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>注册成功</title>
+    <title>Register Success</title>
 </head>
 <body>
 <p>Register successfully,please check your email to acvitate</p>

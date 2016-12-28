@@ -78,3 +78,7 @@
 .pagination ul li{float:left; margin:0 3px;}
 .pagination ul li span{display: inline-block; padding:5px 5px; border:1px solid #CCCCCC; color:#999999;}
 .pagination ul li span.currentpage{background-color:#FEA900; color:#FFF; font-weight: bold; border-color:#FEA900;}
+.typeSelected{
+ color:#FF6600;
+ font-weight: bold;
+}
