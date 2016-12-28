@@ -437,7 +437,6 @@ public class OwnerController {
         }
         goodsList.setData(list);
         String temp = mGson.toJson(goodsList);
-        Log.debug(temp);
         return mGson.toJson(goodsList);
     }
 
@@ -670,6 +669,33 @@ public class OwnerController {
         mOwnerService.updateGoods(entity
                 , callback);
         return "owner/add_goods_success.jsp";
+    }
+
+    /**
+     * 处理广告
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "applyAd")
+    public String applyAd(HttpServletRequest request){
+        int type = Integer.parseInt(request.getParameter("type"));
+        int id = Integer.parseInt(request.getParameter("id"));
+        Log.debug("type:"+type+"    id:"+id);
+        int state = 0;
+        switch (type){
+            case 0://商店广告
+                state = mAdverService.addAdvertisementShop(id);
+                break;
+            case 1://商品广告
+                state = mAdverService.addAdvertisementGoods(id);
+            default:
+                break;
+        }
+        Log.debug("state:"+state);
+        if (state == IAdvertisement.ADD_SUCCESS){
+            return "owner/add_goods_success.jsp";
+        }
+        return "owner/add_goods_fail.jsp";
     }
 
 

@@ -66,7 +66,7 @@ public class AdvertisementService implements IAdvertisement{
         if(null == goodsEntity || goodsEntity.getState() != IGoodsBuilder.GOOD_STATE_USING){
             return ILLEGAl_GOODS;
         }else {
-            ShopEntity entity = shopDao.get(ShopEntity.class,id);
+            ShopEntity entity = shopDao.get(ShopEntity.class,goodsEntity.getShopByShopId().getShopId());
             if(null == entity ||entity.getState() != IOwnerService.SHOP_STATE_USING){//商店正在使用才能申请
                 return ILLEGAL_SHOP;
             }else {
