@@ -5,6 +5,7 @@ import com.parknshop.bean.HqlBean;
 import com.parknshop.dao.IBaseDao;
 import com.parknshop.dao.daoImpl.BaseDao;
 import com.parknshop.service.serviceAbstract.AbstractListBean;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
  * Created by weina on 2016/12/19.
  */
 @Component
+@Scope(value = "prototype")
 public class AdvertisementListBean extends AbstractListBean<AdvertisementDbBean> {
     @Override
     protected List<AdvertisementDbBean> initList(int page, int lines) {

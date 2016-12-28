@@ -774,17 +774,17 @@
 .modify_Addresss ul li span{ color:#F30; margin:0px 10px}
 /***********璁㈠崟绠＄悊鐣岄潰************/
 .Order_Sort{ border-bottom:1px solid #ddd;border-left:1px solid #ddd;border-right:1px solid #ddd; padding:10px;}
-.Order_Sort li{ float:left; text-align:center; width:238px; border-right:1px solid #ddd;}
+.Order_Sort li{ float:left; text-align:center; width:181px; border-right:1px solid #ddd;}
 .Order_Sort li.noborder{border-right:0px;}
 .Order_form_list{ border-bottom:1px solid #ddd; border-left:1px solid #ddd; border-right:1px solid #ddd}
 .Order_form_list table{ width:100%; font-family:"鏂伴�佷綋"}
 .Order_form_list table thead td{ line-height:40px; height:40px; padding:0px; text-align:center; background: #ECECEC}
-.Order_form_list table thead td.list_name_title0{ width:400px;}
+.Order_form_list table thead td.list_name_title0{ width:200px;}
 .Order_form_list table thead td.list_name_title1{ width:80px;}
 .Order_form_list table thead td.list_name_title2{ width:80px;}
-.Order_form_list table thead td.list_name_title4{ width:130px}
-.Order_form_list table thead td.list_name_title5{ width:200px;}
-.Order_form_list table thead td.list_name_title6{ width:108px;}
+.Order_form_list table thead td.list_name_title4{ width:80px}
+.Order_form_list table thead td.list_name_title5{ width:130px;}
+.Order_form_list table thead td.list_name_title6{ width:100px;}
 .Order_form_list table  td.Order_form_time{ border-top:1px solid #ddd; height:30px; background: #ECFBD7; text-align:left; line-height:30px; padding:0px 10px; color: #333}
 .Order_form_list table tr.Order_info em {
     float: right;
@@ -798,13 +798,13 @@
 .Order_form_list table tr.Order_info.on{ height:30px}
 .Order_form_list table tr.Order_info{ height:40px;}
 .Order_form_list table tr.Order_Details{ display:none}
-.Order_form_list table  td{ padding:20px 20px; position:relative; text-align:center}
+.Order_form_list table  td{ padding:1px 1px; position:relative; text-align:center}
 .Order_form_list table  td.operating a{ line-height:30px; display:block}
-.Order_form_list table  td.split_line{ border-left:1px solid #ddd; border-right:1px solid #ddd}
-.Order_form_list table  td .product_name{  position:relative}
+.Order_form_list table  td.split_line{ border-left:1px solid #ddd;border-right:1px solid #ddd}
+.Order_form_list table  td .product_name{  position:relative;width:120px;}
 .Order_form_list table  td .specification{ position:absolute; bottom:10px; left:90px; color:#999}
 .Order_form_list table  td .product_name a{ display:block; float:left; margin-right:10px; color:#333;}
-.Order_form_list table  td .product_name a.product_img{ border:1px solid #ddd; width:82px; height:82px;}
+.Order_form_list table  td .product_name a.product_img{ border:1px solid #ddd; width:42px; height:42px;}
 .Order_form_list table  td .product_name a:hover{ color:#F60}
 .Order_form_list table  td .Order_product_style tr{border-bottom:1px dotted #ddd;}
 /************鍒嗛〉鏍峰紡*****************/

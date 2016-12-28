@@ -25,7 +25,7 @@
     <script language="JavaScript">
         function getValue(){
             var hobbies = document.getElementsByName("id1");
-            var value;
+            var value="";
             for (i=0; i<hobbies.length; i++){
                 if (hobbies[i].checked){
                     if (!value){
@@ -35,8 +35,15 @@
                     }
                 }
             }
-            var che=document.getElementById("abc");
-            che.value=value;
+            if(""==value){
+                alert("Please select the checkBox which you want to check out!");
+                return false;
+            }
+            else {
+                var che = document.getElementById("abc");
+                che.value = value;
+                document.getElementById("cartSubmitForm").submit();
+            }
         }
 
         function isSelectAll(){
@@ -72,6 +79,7 @@
                 }
             }
         }
+
     </script>
 </head>
 <body>
@@ -132,10 +140,10 @@
                             <div class="clear"></div>
                             <div class="gwc_foot_links">
 
-                                <form action="/order/cartSubmit" method="post">
+                                <form action="/order/cartSubmit"  id="cartSubmitForm" method="post">
                                     <input type="hidden" name="ch" id="abc" value="" required>
                                     <a href="" class="go">Go Shopping</a>
-                                    <input type="submit" onclick="getValue()" style="background: none repeat scroll 0 0 #FE8502; border: 1px solid #FF6633; border-radius: 5px 5px 5px 5px; color: #FFFFFF !important; display: inline-block; font-size: 14px; font-weight: 600; height: 36px; line-height: 36px; padding: 4px 12px;" value="Confirm & Fill out the Orders"></input>
+                                    <input type="button" onclick="getValue()" style="background: none repeat scroll 0 0 #FE8502; border: 1px solid #FF6633; border-radius: 5px 5px 5px 5px; color: #FFFFFF !important; display: inline-block; font-size: 14px; font-weight: 600; height: 36px; line-height: 36px; padding: 4px 12px;" value="Confirm & Fill out the Orders"></input>
                                 </form>
                             </div>
                         </td>
@@ -143,7 +151,7 @@
                     </tfoot>
                 </table>
                 <!-- 购物车列表 End -->
-
+        <div name="message" style="font-family: 'Microsoft YaHei';font-size: larger;color: red"></div>
 
             </c:when>
         </c:choose>

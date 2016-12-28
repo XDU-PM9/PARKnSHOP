@@ -43,8 +43,8 @@ public class PayController {
                            HttpServletRequest req,
                            HttpServletResponse resp,
                            HttpSession session) throws ServletException, IOException {
-        String orderNum = (String)req.getAttribute("orderNum");
-        String address = (String)req.getAttribute("addressId");
+        String orderNum = (String)req.getParameter("orderNum");
+        String address = (String)req.getParameter("addressId");
         //二维码
         String url = pay.getQRCode(session,Pay.IP+"/pay/p?orderNum="+orderNum+"&addressId="+address);
 
@@ -56,7 +56,7 @@ public class PayController {
     @RequestMapping(value = "/p",method = RequestMethod.GET)
     public String payButton(Model model,
                             HttpServletRequest req){
-        String orderNum = (String)req.getAttribute("orderNum");
+        String orderNum = req.getParameter("orderNum");
         String address = req.getParameter("addressId");
 
         model.addAttribute("addressId",address);
@@ -68,7 +68,7 @@ public class PayController {
     @RequestMapping(value = "/f",method = RequestMethod.GET)
     public String finalPay(ModelMap modelMap,
             HttpServletRequest req, HttpSession session){
-        String orderNum = (String)req.getAttribute("orderNum");
+        String orderNum = req.getParameter("orderNum");
         List<String> sList = new ArrayList<>();
         sList.add(orderNum);
         String msg;
@@ -81,8 +81,7 @@ public class PayController {
         String address = req.getParameter("addressId");
 
 
-        int result = orderService.payOrder((String[])sList.toArray(),Integer.parseInt(address));
-
+        int result = orderService.payOrder(sList,Integer.parseInt(address));
         if(result == IOrderService.PAY_SUCCESS){
             msg = "pay success,thank you! you have bought:" + String.valueOf(sList.size());
         }else {
