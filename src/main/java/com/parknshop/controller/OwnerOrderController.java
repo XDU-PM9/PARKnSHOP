@@ -48,7 +48,7 @@ public class OwnerOrderController {
             return "redirect:/owner/login";
         }
         OwnerEntity entity = (OwnerEntity) session.getAttribute(IDefineString.SESSION_USER);
-        IListBean<OrdersEntity> orderList = mOrderService.getCustomerOrder(entity.getOwnerId());
+        IListBean<OrdersEntity> orderList = mOrderService.getCustomerOrder(entity.getOwnerId(),0,10);
         request.setAttribute(UNCHECKED_ORDER,orderList);
 
         return "order/unchecked.jsp";
