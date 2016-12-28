@@ -16,6 +16,7 @@ $(function () {
     turn();
     edit();
     del();
+    adver();
 })
 /*加载需要的方法*/
 function showGoods() {
@@ -132,6 +133,14 @@ function del() {
         })
     })
 }
+function adver() {
+    $("body").on('click','.ad',function () {
+        var indexId = $(this).parent().parent().index();
+        console.log(indexId);
+        var id = goodId[indexId];
+        $(this).attr("href","/owner/applyAd?type=1&id="+id);
+    })
+}
 /*添加标签方法*/
 function addTr(i) {
     var className = "tr"+i;
@@ -153,7 +162,7 @@ function addOption(i) {
 }
 function addOptionAd(i) {
     var className = "tr"+i;
-    var str = "<td><a href='#' class='edit'>Edit</a> |<a href='#' class='delete'>Delete</a>|<a href='#' class='adver'>Advertisment</a></td>"
+    var str = "<td><a href='#' class='edit'>Edit</a> |<a href='#' class='delete'>Delete</a> |<a href='#' class='ad'>Advertisment</a></td>"
     $("."+className+"").append(str);
 }
 function addImg(i,url) {

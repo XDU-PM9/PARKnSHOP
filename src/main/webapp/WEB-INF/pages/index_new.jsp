@@ -3,6 +3,9 @@
 <%@ page import="com.parknshop.controller.MainController" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.parknshop.entity.GoodsEntity" %>
+<%@ page import="com.parknshop.bean.GoodsDbBean" %>
+<%@ page import="com.parknshop.utils.Log" %>
+<%@ page import="com.parknshop.entity.ShopEntity" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -38,30 +41,46 @@
                 <div id="xifan_bd1lfimg">
                     <div>
                         <dl class=""></dl>
-                        <dl class="">
-                            <dt><a href="#" title="" target="_blank"><img
-                                    src="../../resources/images/index-example/1.jpg"
-                                    alt="New Goods"></a></dt>
-                            <dd><h2><a href="#" target="_blank">New Goods</a></h2></dd>
-                        </dl>
-                        <dl class="">
-                            <dt><a href="#" title="" target="_blank"><img
-                                    src="../../resources/images/index-example/2.jpg"
-                                    alt="New Goods"></a></dt>
-                            <dd><h2><a href="#" target="_blank">New Goods</a></h2></dd>
-                        </dl>
-                        <dl class="">
-                            <dt><a href="#" title="" target="_blank"><img
-                                    src="../../resources/images/index-example/3.jpg"
-                                    alt="New Goods"></a></dt>
-                            <dd><h2><a href="#" target="_blank">New Goods</a></h2></dd>
-                        </dl>
-                        <dl class="">
-                            <dt><a href="#" title="" target="_blank"><img
-                                    src="../../resources/images/index-example/4.jpg"
-                                    alt="New Goods"></a></dt>
-                            <dd><h2><a href="#" target="_blank">New Goods</a></h2></dd>
-                        </dl>
+
+                        <%--加载浏览量最高的商品--%>
+                        <%
+                            IListBean<GoodsDbBean> hot = (IListBean<GoodsDbBean>) request.getAttribute(MainController.HOT);
+                            if (hot != null && hot.getShopList()!=null){
+                                List<GoodsDbBean> hotGoods = hot.getShopList();
+                                for (GoodsDbBean item : hotGoods){
+                                    out.println("<dl class=\"\">");
+                                    out.println("<dt>");
+                                    out.println("<a href=\"/goods/detail?goodsId="+item.getGoodsId()+"\" title=\""+item.getGoodsName()+"\" target=\"_blank\">");
+                                    out.println("<img");
+                                    out.println("src=\""+item.getPicturePath().get(0).getAddress()+"\"");
+                                    out.println("alt=\"New Goods\">");
+                                    out.println(" </a>");
+                                    out.println("</dt>");
+                                    out.println("<dd>");
+                                    out.println("<h2>");
+                                    out.println("<a href=\"/goods/detail?goodsId="+item.getGoodsId()+"\" target=\"_blank\">"+item.getGoodsName()+"</a>");
+                                    out.println("</h2>");
+                                    out.println("</dd>");
+                                    out.println("</dl>");
+                                }
+                            }
+                        %>
+
+                        <%--<dl class="">--%>
+                            <%--<dt>--%>
+                                <%--<a href="#" title="" target="_blank">--%>
+                                <%--<img--%>
+                                    <%--src="../../resources/images/index-example/1.jpg"--%>
+                                    <%--alt="New Goods">--%>
+                                <%--</a>--%>
+                            <%--</dt>--%>
+                            <%--<dd>--%>
+                                <%--<h2>--%>
+                                    <%--<a href="#" target="_blank">New Goods</a>--%>
+                                <%--</h2>--%>
+                            <%--</dd>--%>
+                        <%--</dl>--%>
+
                     </div>
                 </div>
             </div>
@@ -90,121 +109,48 @@
 
                 <!--商品推荐:列表-->
                 <div id="tuijian_content_1" class="tuijian_shangpin" style="display: block;">
-                    <ul>
+                    <ul class="goodsList">
 
-                        <%--<%--%>
-                            <%--IListBean<AdvertisementDbBean> adGoods = (IListBean<AdvertisementDbBean>) request.getAttribute(MainController.AD_GOODS);--%>
-                            <%--if (adGoods!=null && adGoods.getShopList() !=null){--%>
-                                <%--List<AdvertisementDbBean> goodsList = adGoods.getShopList();--%>
-                                <%--for (AdvertisementDbBean item : goodsList){--%>
-                                    <%--GoodsEntity entity = item.getGoodsEntity();--%>
-                                    <%--out.println("<li>");--%>
-                                    <%--out.println("<dl>");--%>
-                                    <%--out.println("<dt>");--%>
-                                    <%--out.println("<a href=\"goods/detail?goodsId="+entity.getGoodsId()+"\">");--%>
-                                    <%--out.println("<img src=\""+entity.get+"\"");--%>
-                                <%--}--%>
-                            <%--}--%>
+                        <%
+                            IListBean<AdvertisementDbBean> adGoods = (IListBean<AdvertisementDbBean>) request.getAttribute(MainController.AD_GOODS);
+                            if (adGoods!=null && adGoods.getShopList()!=null){
+                                List<AdvertisementDbBean> goodsList = adGoods.getShopList();
 
-                        <%--%>--%>
-
-                        <li>
-                            <dl>
-                                <dt><a href=""><img
-                                        src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
-                                </dt>
-                                <dd><a href="">Hot Goods</a></dd>
-                                <dd> price：<em>HK$0.00</em></dd>
-                            </dl>
-                        </li>
-                        <li>
-                            <dl>
-                                <dt><a href=""><img
-                                        src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
-                                </dt>
-                                <dd><a href="">Hot Goods</a></dd>
-                                <dd> price：<em>HK$0.00</em></dd>
-                            </dl>
-                        </li>
-
-                        <li>
-                            <dl>
-                                <dt><a href=""><img
-                                        src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
-                                </dt>
-                                <dd><a href="">Hot Goods</a></dd>
-                                <dd> price：<em>HK$0.00</em></dd>
-                            </dl>
-                        </li>
-
-                        <li>
-                            <dl>
-                                <dt><a href=""><img
-                                        src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
-                                </dt>
-                                <dd><a href="">Hot Goods</a></dd>
-                                <dd> price：<em>HK$0.00</em></dd>
-                            </dl>
-                        </li>
-                        <li>
-                        <dl>
-                            <dt><a href=""><img
-                                    src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
-                            </dt>
-                            <dd><a href="">Hot Goods</a></dd>
-                            <dd> price：<em>HK$0.00</em></dd>
-                        </dl>
-                    </li>
-
-                        <li>
-                            <dl>
-                                <dt><a href=""><img
-                                        src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
-                                </dt>
-                                <dd><a href="">Hot Goods</a></dd>
-                                <dd> price：<em>HK$0.00</em></dd>
-                            </dl>
-                        </li>
-
-                        <li>
-                            <dl>
-                                <dt><a href=""><img
-                                        src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
-                                </dt>
-                                <dd><a href="">Hot Goods</a></dd>
-                                <dd> price：<em>HK$0.00</em></dd>
-                            </dl>
-                        </li>
-                        <li>
-                        <dl>
-                            <dt><a href=""><img
-                                    src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
-                            </dt>
-                            <dd><a href="">Hot Goods</a></dd>
-                            <dd> price：<em>HK$0.00</em></dd>
-                        </dl>
-                    </li>
-
-                        <li>
-                            <dl>
-                                <dt><a href=""><img
-                                        src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
-                                </dt>
-                                <dd><a href="">Hot Goods</a></dd>
-                                <dd> price：<em>HK$0.00</em></dd>
-                            </dl>
-                        </li>
-
-                        <li>
-                            <dl>
-                                <dt><a href=""><img
-                                        src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
-                                </dt>
-                                <dd><a href="">Hot Goods</a></dd>
-                                <dd> price：<em>HK$0.00</em></dd>
-                            </dl>
-                        </li>
-
+                                for (AdvertisementDbBean item : goodsList){
+                                    GoodsDbBean goods = item.getGoodsEntity();
+                                    if (goods!=null) {
+                                        out.println("<li>");
+                                        out.println("<dl>");
+                                        out.println("<dt>");
+                                        out.println("<a href=\"/goods/detail?goodsId=" + goods.getGoodsId() + "\">");
+                                        out.println("<img class='imgContent' src=\"" + goods.getPicturePath().get(0).getAddress() + "\"/>");
+                                        out.println("</a>");
+                                        out.println("</dt>");
+                                        out.println("<dd>");
+                                        out.println("<a href=\"/goods/detail?goodsId=" + goods.getGoodsId() + "\">" + goods.getGoodsName() + "</a>");
+                                        out.println("</dd>");
+                                        out.println("<dd> price：<em>HK$" + goods.getPrice() + "</em>");
+                                        out.println("</dd>");
+                                        out.println("</dl>");
+                                        out.println("</li>");
+                                    }
+                                }
+                            }
+                        %>
+                        <%--<li>--%>
+                            <%--<dl>--%>
+                                <%--<dt>--%>
+                                    <%--<a href="">--%>
+                                        <%--<img class="imgContent" src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/>--%>
+                                    <%--</a>--%>
+                                <%--</dt>--%>
+                                <%--<dd>--%>
+                                    <%--<a href="">Hot Goods</a>--%>
+                                <%--</dd>--%>
+                                <%--<dd> price：<em>HK$0.00</em>--%>
+                                <%--</dd>--%>
+                            <%--</dl>--%>
+                        <%--</li>--%>
                     </ul>
                 </div>
                <!--商品推荐:列表-->
@@ -212,99 +158,39 @@
 
                 <!--店铺推荐:列表-->
                 <div id="tuijian_content_2" class="tuijian_shangpin">
-                    <ul>
-                        <li>
-                            <dl>
-                                <dt><a href=""><img
-                                        src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
-                                </dt>
-                                <dd><a href="">Hot Shop</a></dd>
-                                <dd> price：<em>HK$0.00</em></dd>
-                            </dl>
-                        </li>
-                        <li>
-                            <dl>
-                                <dt><a href=""><img
-                                        src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
-                                </dt>
-                                <dd><a href="">Hot Shop</a></dd>
-                                <dd> price：<em>HK$0.00</em></dd>
-                            </dl>
-                        </li>
-                        <li>
-                            <dl>
-                                <dt><a href=""><img
-                                        src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
-                                </dt>
-                                <dd><a href="">Hot Shop</a></dd>
-                                <dd> price：<em>HK$0.00</em></dd>
-                            </dl>
-                        </li>
-                        <li>
-                            <dl>
-                                <dt><a href=""><img
-                                        src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
-                                </dt>
-                                <dd><a href="">Hot Shop</a></dd>
-                                <dd> price：<em>HK$0.00</em></dd>
-                            </dl>
-                        </li>
-                        <li>
-                            <dl>
-                                <dt><a href=""><img
-                                        src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
-                                </dt>
-                                <dd><a href="">Hot Shop</a></dd>
-                                <dd> price：<em>HK$0.00</em></dd>
-                            </dl>
-                        </li>
-                        <li>
-                            <dl>
-                                <dt><a href=""><img
-                                        src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
-                                </dt>
-                                <dd><a href="">Hot Shop</a></dd>
-                                <dd> price：<em>HK$0.00</em></dd>
-                            </dl>
-                        </li>
-                        <li>
-                            <dl>
-                                <dt><a href=""><img
-                                        src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
-                                </dt>
-                                <dd><a href="">Hot Shop</a></dd>
-                                <dd> price：<em>HK$0.00</em></dd>
-                            </dl>
-                        </li>
-
-                        <li>
-                            <dl>
-                                <dt><a href=""><img
-                                        src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
-                                </dt>
-                                <dd><a href="">Hot Shop</a></dd>
-                                <dd> price：<em>HK$0.00</em></dd>
-                            </dl>
-                        </li>
-                        <li>
-                            <dl>
-                                <dt><a href=""><img
-                                        src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
-                                </dt>
-                                <dd><a href="">Hot Shop</a></dd>
-                                <dd> price：<em>HK$0.00</em></dd>
-                            </dl>
-                        </li>
-
-                        <li>
-                            <dl>
-                                <dt><a href=""><img
-                                        src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
-                                </dt>
-                                <dd><a href="">Hot Shop</a></dd>
-                                <dd> price：<em>HK$0.00</em></dd>
-                            </dl>
-                        </li>
+                    <ul class="goodsList">
+                        <%
+                            IListBean<AdvertisementDbBean> adShop = (IListBean<AdvertisementDbBean>) request.getAttribute(MainController.AD_SHOP);
+                            if (adShop!=null && adShop.getShopList()!=null){
+                                List<AdvertisementDbBean> shopList = adShop.getShopList();
+                                for (AdvertisementDbBean item :  shopList){
+                                    ShopEntity shop  = item.getShopEntity();
+                                    if (shop!=null) {
+                                        out.println("<li>");
+                                        out.println("<dl>");
+                                        out.println("<dt>");
+                                        out.println("<a href=\"/shop/detail?shopId=" + shop.getShopId() + "\">");
+                                        out.println("<img class='imgContent' src=\"" + shop.getLogo() + "\"/>");
+                                        out.println("</a>");
+                                        out.println("</dt>");
+                                        out.println("<dd><a href=\"/shop/detail?shopId=" + shop.getShopId() + "\">" + shop.getShopName() + "</a></dd>");
+                                        out.println("</dl>");
+                                        out.println("</li>");
+                                    }
+                                }
+                            }
+                        %>
+                        <%--<li>--%>
+                            <%--<dl>--%>
+                                <%--<dt>--%>
+                                    <%--<a href="">--%>
+                                    <%--<img class="imgContent" src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/>--%>
+                                    <%--</a>--%>
+                                <%--</dt>--%>
+                                <%--<dd><a href="">Hot Shop</a></dd>--%>
+                                <%--&lt;%&ndash;<dd> price：<em>HK$0.00</em></dd>&ndash;%&gt;--%>
+                            <%--</dl>--%>
+                        <%--</li>--%>
 
                     </ul>
                 </div>
@@ -323,90 +209,6 @@
                                 <dd> 商城价：<em>256.00</em>元</dd>
                             </dl>
                         </li>
-                        <li>
-                            <dl>
-                                <dt><a href=""><img
-                                        src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
-                                </dt>
-                                <dd><a href="">外贸田园绗缝全棉布艺双人沙发垫沙发巾飘窗垫素雅黄花</a></dd>
-                                <dd> 商城价：<em>256.00</em>元</dd>
-                            </dl>
-                        </li>
-                        <li>
-                            <dl>
-                                <dt><a href=""><img
-                                        src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
-                                </dt>
-                                <dd><a href="">3333333全棉布艺双人沙发垫沙发巾飘窗垫素雅黄花</a></dd>
-                                <dd> 商城价：<em>256.00</em>元</dd>
-                            </dl>
-                        </li>
-                        <li>
-                            <dl>
-                                <dt><a href=""><img
-                                        src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
-                                </dt>
-                                <dd><a href="">外贸田园绗缝全棉布艺双人沙发垫沙发巾飘窗垫素雅黄花</a></dd>
-                                <dd> 商城价：<em>256.00</em>元</dd>
-                            </dl>
-                        </li>
-                        <li>
-                            <dl>
-                                <dt><a href=""><img
-                                        src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
-                                </dt>
-                                <dd><a href="">3333333全棉布艺双人沙发垫沙发巾飘窗垫素雅黄花</a></dd>
-                                <dd> 商城价：<em>256.00</em>元</dd>
-                            </dl>
-                        </li>
-                        <li>
-                            <dl>
-                                <dt><a href=""><img
-                                        src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
-                                </dt>
-                                <dd><a href="">外贸田园绗缝全棉布艺双人沙发垫沙发巾飘窗垫素雅黄花</a></dd>
-                                <dd> 商城价：<em>256.00</em>元</dd>
-                            </dl>
-                        </li>
-                        <li>
-                            <dl>
-                                <dt><a href=""><img
-                                        src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
-                                </dt>
-                                <dd><a href="">外贸田园绗缝全棉布艺双人沙发垫沙发巾飘窗垫素雅黄花</a></dd>
-                                <dd> 商城价：<em>256.00</em>元</dd>
-                            </dl>
-                        </li>
-
-                        <li>
-                            <dl>
-                                <dt><a href=""><img
-                                        src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
-                                </dt>
-                                <dd><a href="">外贸田园绗缝全棉布艺双人沙发垫沙发巾飘窗垫素雅黄花</a></dd>
-                                <dd> 商城价：<em>256.00</em>元</dd>
-                            </dl>
-                        </li>
-                        <li>
-                            <dl>
-                                <dt><a href=""><img
-                                        src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
-                                </dt>
-                                <dd><a href="">外贸田园绗缝全棉布艺双人沙发垫沙发巾飘窗垫素雅黄花</a></dd>
-                                <dd> 商城价：<em>256.00</em>元</dd>
-                            </dl>
-                        </li>
-
-                        <li>
-                            <dl>
-                                <dt><a href=""><img
-                                        src="../../resources/images/images/365_7d5e08127b8d6799209674ecffbfc624.jpg_small.jpg"/></a>
-                                </dt>
-                                <dd><a href="">外贸田园绗缝全棉布艺双人沙发垫沙发巾飘窗垫素雅黄花</a></dd>
-                                <dd> 商城价：<em>256.00</em>元</dd>
-                            </dl>
-                        </li>
-
                     </ul>
                 </div>
             </div>
