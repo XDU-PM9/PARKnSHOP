@@ -173,6 +173,7 @@ public class AdminController {
             String infoStr = new String(info);
             ReplyRequestBean requestBean=mGson.fromJson(infoStr,ReplyRequestBean.class);
             if(0!=requestBean.getResult()){
+                System.out.println("agree"+requestBean.getShopId());
                boolean state = mAdminService.suggestShop(requestBean.getShopId());
                 if (state)
                     replyReponseBean.setError(false);
@@ -181,6 +182,7 @@ public class AdminController {
 
             }
             else {
+                System.out.println("disagree"+requestBean.getShopId());
                 boolean state=mAdminService.rejectShop(requestBean.getShopId());
                 if (state)
                     replyReponseBean.setError(false);
@@ -919,5 +921,6 @@ public class AdminController {
         }
         return true;
     }
+
 
 }

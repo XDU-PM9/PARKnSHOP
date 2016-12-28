@@ -637,3 +637,36 @@ index：按照size分页后的数据第index页
 		//}
    }]
 }
+
+
+
+#数据库备份模块
+
+展示备份文件
+url:/admin/getallfile
+参数:null
+return:
+        error:
+        data:[{
+        filename:"String"}]
+
+
+备份
+url:/admin/backup
+参数：null
+return:
+        error:true/false
+
+
+
+回滚
+url:/admin/rollback
+参数:filename:"String"
+return:
+    error:true/false
+
+删除备份
+url:/admin/deletebackup
+参数:filename:"String"
+return:
+    error:true/false

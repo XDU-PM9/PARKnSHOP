@@ -126,7 +126,6 @@ function agree() {
                     location.reload();
                 }
                 else {
-                    alter("error");
                 }
             }
         })
@@ -151,7 +150,7 @@ function disagree() {
                     location.reload();
                 }
                 else {
-                   alert("error");
+                    alert("error");
                 }
             }
         })
