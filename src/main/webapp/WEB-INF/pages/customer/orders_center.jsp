@@ -29,31 +29,56 @@
                 </thead>
                 <tbody>
 
-                <tr><td colspan="5">
-                    <table class="good">
-                        <thead >
-                        <tr><th colspan="6">
-                            <span><strong>Order Num：</strong>2013032905510051</span>
-                        </th></tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td class="dingdan_pic"><img src="images/1dbc94fa0d60cba3990b89ccb01f82c2.jpg_tiny.jpg" /></td>
-                            <td class="dingdan_title"><span><a href="">李宁 lining 专柜正品 足球鞋 女式运动鞋【演示数据】</a></span><br />鞋码:37 颜色:黑色 </td>
-                            <td class="dingdan_danjia">$<strong>25.00</strong></td>
-                            <td class="dingdan_shuliang">1</td>
-                            <td class="dingdan_zongjia">$<strong>25.00</strong><br />(免运费)</td>
-                            <td class="digndan_caozuo"><a href="">等待买家付款</a></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </td></tr>
-
+                <c:forEach var="order" items="${orderList}">
+                    <tr><td colspan="5">
+                        <table class="good">
+                            <thead >
+                            <tr><th colspan="6">
+                                <span><strong>Order Num：</strong>${order.orderNumber}</span>
+                            </th></tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td class="dingdan_pic"><img src="${order.photo}" /></td>
+                                <td class="dingdan_title"><span>${order.goodsName}</span></td>
+                                <td class="dingdan_danjia">$<strong>${order.price}</strong></td>
+                                <td class="dingdan_shuliang">${order.amount}</td>
+                                <td class="dingdan_zongjia">$<strong>${order.amount*order.price}</strong><br />(免运费)</td>
+                                <td class="digndan_caozuo"><span>
+                                    <c:choose>
+                                        <c:when test="${order.state==1}"><a href="listCart?&OrdersNum=${order.orderNumber}">Processing Orders</a></c:when>
+                                        <c:when test="${order.state==2}">Preparing for Shippment</c:when>
+                                        <c:when test="${order.state==3}">Shipped</c:when>
+                                        <c:when test="${order.state==4}"><a href="/comment?orderId=${order.ordersId}">Complete</a></c:when>
+                                        <c:when test="${order.state==5}">Commented</c:when>
+                                    </c:choose>
+                                </span></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td></tr>
+                </c:forEach>
 
 
 
                 </tbody>
             </table>
+        </div>
+        <div class="Paging">
+            <div class="Pagination">
+                <c:if test="${page>1}">
+                    <li><input type='button' onclick='window.location=href="/order/listOrder?page=${page-1}"' value='Previous'></input></li>
+                </c:if>
+
+                <li><span class='currentpage' id='currentPage'>${page} of ${pages}</span></li>
+
+                <c:if test="${page<pages}">
+                    <li><input type='button' onclick='window.location=href="/order/listOrder?page=${page+1}"' value='Next'></input></li>
+                </c:if>
+
+                <li><input id='pageNumber' name='jump' type='number' value='1' min='1' max='${pages}'></li>
+                <li><input type='button' name='jump' value='jump' onclick='window.location.href="/order/listOrder?pag="+$("#pageNumber").val()'></li>
+            </div>
         </div>
     </div>
     <!-- 右边购物列表 End -->
