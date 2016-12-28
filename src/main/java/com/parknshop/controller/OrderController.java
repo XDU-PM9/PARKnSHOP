@@ -55,7 +55,7 @@ public class OrderController {
     {
         List<OrdersEntity>  ordersEntityList=iOrderService.getOrdersList("1");
         model.addAttribute("orders",ordersEntityList);
-        return "/customer/order_center.jsp";
+        return "/customer/orders_center.jsp";
     }
     @RequestMapping(value = "/listCart", method = RequestMethod.GET)
     public String listCart(@RequestParam("OrdersNum") String ordersNum, Model model, ModelMap modelMap) {
