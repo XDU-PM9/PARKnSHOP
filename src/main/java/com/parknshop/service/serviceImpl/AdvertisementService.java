@@ -111,8 +111,18 @@ public class AdvertisementService implements IAdvertisement{
     }
 
     @Override
+    public IListBean<AdvertisementDbBean> getTopShop(int pahe, int lines) {
+        return getTopList(IAdvertisement.AD_TYPE_SHOP,pahe,lines);
+    }
+
+    @Override
     public List<AdvertisementDbBean> getTopGoods() {
         return getTopList(IAdvertisement.AD_TYOE_GOODS,1,10).getShopList();
+    }
+
+    @Override
+    public IListBean<AdvertisementDbBean> getTopGoods(int pahe, int lines) {
+        return getTopList(IAdvertisement.AD_TYOE_GOODS,pahe,lines);
     }
 
 
@@ -138,12 +148,12 @@ public class AdvertisementService implements IAdvertisement{
 
     @Override
     public boolean checkAdvertShopExist(int id) {
-        return false;
+        return checkAdvertExist(IAdvertisement.AD_TYPE_SHOP,id);
     }
 
     @Override
     public boolean checkAdvertGoodsExist(int id) {
-        return false;
+        return checkAdvertExist(IAdvertisement.AD_TYOE_GOODS,id);
     }
 
     private IListBean<AdvertisementDbBean> getMyList(int type,int userId,int page,int lines){

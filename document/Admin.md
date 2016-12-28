@@ -647,8 +647,16 @@ url:/admin/getallfile
 参数:null
 return:
         error:
+        //lastbackuptime是最新备份文件时间,error=true的话lastbackuptime为null
+         lastbackuptime:"String"
+        //data是所有文件名集合
         data:[{
-        filename:"String"}]
+        filename:"String"
+       } ]
+        从service拿到的是个List
+        File f =(File) list.get(list.size()-1);拿到最新备份文件
+        long time = file.lastModified();//返回文件最后修改时间，是以个long型毫秒数
+        String lastbackuptime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date(time));
 
 
 备份

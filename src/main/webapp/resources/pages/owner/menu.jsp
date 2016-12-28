@@ -25,20 +25,11 @@
         <li><a href="#" class="headList list3"><i class="iconfont leftIco">&#xe62c;</i>Order<i class="iconfont rightIco">&#xe613;</i></a></li>
         <li class="hiden">
             <ul>
-                <li><a href="#"><i class="iconfont leftIco">&#xe620;</i>Main</a></li>
-                <li><a href="#"><i class="iconfont leftIco">&#xe620;</i>Main</a></li>
-                <li><a href="#"><i class="iconfont leftIco">&#xe620;</i>Main</a></li>
+                <li><a href="/owner/uncheckedOrder" target="main-frame"><i class="iconfont leftIco">&#xe620;</i>Unchecked Order</a></li>
+                <li><a href="#"><i class="iconfont leftIco">&#xe620;</i>Checked Order</a></li>
             </ul>
         </li>
         <li><a href="#" class="headList list4"><i class="iconfont leftIco">&#xe62c;</i>Advertisement<i class="iconfont rightIco">&#xe613;</i></a></li>
-        <li class="hiden">
-            <ul>
-                <li><a href="#"><i class="iconfont leftIco">&#xe620;</i>Main</a></li>
-                <li><a href="#"><i class="iconfont leftIco">&#xe620;</i>Main</a></li>
-                <li><a href="#"><i class="iconfont leftIco">&#xe620;</i>Main</a></li>
-            </ul>
-        </li>
-        <li><a href="#" class="headList list5"><i class="iconfont leftIco">&#xe62c;</i>Analysis<i class="iconfont rightIco">&#xe613;</i></a></li>
         <li class="hiden">
             <ul>
                 <li><a href="#"><i class="iconfont leftIco">&#xe620;</i>Main</a></li>

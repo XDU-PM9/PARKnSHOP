@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: weina
@@ -11,13 +12,28 @@
     <title>Title</title>
 </head>
 <body>
-<H1>please pay the money</H1><br>
-<H1>orderNum:${orderNum}</H1><br>
-<H1>addressId:${addressId}</H1><br>
-<form  action="/pay/f" method="get">
-    <input  type="hidden" name="addressId" value="${addressId}">
-    <input  type="hidden" name="orderNum" value="${orderNum}">
-    <button  type="submit" style="height:80px;width:400px;"> submit</button>
-</form>
+<c:if test="${empty type}">
+    <H1>please pay the money</H1><br>
+    <H1>orderNum:${orderNum}</H1><br>
+    <H1>addressId:${addressId}</H1><br>
+    <form  action="/pay/f" method="get">
+
+        <input  type="hidden" name="addressId" value="${addressId}">
+        <input  type="hidden" name="orderNum" value="${orderNum}">
+        <button  type="submit" style="height:80px;width:400px;"> submit</button>
+    </form>
+</c:if>
+<c:if test="${not empty type}">
+    <H1>AdervitismentType: ${typeString}</H1>
+    <H1>Id: ${typeId}</H1>
+
+    <form  action="/pay/af" method="get">
+
+        <input  type="hidden" name="type" value="${type}">
+        <input  type="hidden" name="typeId" value="${typeId}">
+        <button  type="submit" style="height:80px;width:400px;"> submit</button>
+    </form>
+</c:if>
+
 </body>
 </html>

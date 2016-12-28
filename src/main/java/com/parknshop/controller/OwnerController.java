@@ -29,7 +29,6 @@ import java.util.List;
  * Created by fallblank on 16-11-28.
  */
 @Controller
-@RequestMapping("/owner")
 public class OwnerController {
     private static final String REQ_METHOD_GET = "GET";
     private static final String REQ_METHOD_POST = "POST";
@@ -60,12 +59,12 @@ public class OwnerController {
         this.mAdverService = adService;
     }
 
-    @RequestMapping("")
+    @RequestMapping("/owner")
     public String dispatcher() {
         return "redirect:/owner/index";
     }
 
-    @RequestMapping("/index")
+    @RequestMapping("/owner/index")
     public String index(HttpSession session) {
         if (!checkLogin(session)) {
             return "redirect:/owner/login";
@@ -73,7 +72,7 @@ public class OwnerController {
         return "owner/index.jsp";
     }
 
-    @RequestMapping("/login")
+    @RequestMapping("/owner/login")
     public String login(HttpServletRequest request) {
         String method = request.getMethod();
         switch (method) {
@@ -105,13 +104,13 @@ public class OwnerController {
         }
     }
 
-    @RequestMapping("logout")
+    @RequestMapping("/owner/logout")
     public String logout() {
         mUserService.loginOut();
         return "redirect:/owner/login";
     }
 
-    @RequestMapping("/register")
+    @RequestMapping("/owner/register")
     public String regist(HttpServletRequest request) {
         String method = request.getMethod();
         switch (method) {
@@ -146,7 +145,7 @@ public class OwnerController {
         }
     }
 
-    @RequestMapping("/ownerInfo")
+    @RequestMapping("/owner/ownerInfo")
     public String OwnerInfo(HttpSession session) {
         if (!checkLogin(session)) {
             return "redirect:/owner/login";
@@ -158,7 +157,7 @@ public class OwnerController {
         return "owner/owner_info.jsp";
     }
 
-    @RequestMapping(value = "/ownerInfoEdit", method = RequestMethod.GET)
+    @RequestMapping(value = "/owner/ownerInfoEdit", method = RequestMethod.GET)
     public String OwnerInfoEditGet(HttpSession session) {
         if (!checkLogin(session)) {
             return "redirect:/owner/login";
@@ -167,7 +166,7 @@ public class OwnerController {
     }
 
 
-    @RequestMapping(value = "/ownerInfoEdit", method = RequestMethod.POST)
+    @RequestMapping(value = "/owner/ownerInfoEdit", method = RequestMethod.POST)
     public String OwnerInfoEditPost(HttpServletRequest request, HttpSession session,
                                     @RequestParam("username") String username,
                                     @RequestParam("email") String email,
@@ -191,7 +190,7 @@ public class OwnerController {
 
     }
 
-    @RequestMapping("/ownerPasswordEdit")
+    @RequestMapping("/owner/ownerPasswordEdit")
     public String OwnerPasswordEdit(HttpServletRequest request) {
         if (!checkLogin(request.getSession())) {
             return "redirect:/owner/login";
@@ -237,7 +236,7 @@ public class OwnerController {
      *
      * @return 根据用户信息返回具体页面
      */
-    @RequestMapping("/query")
+    @RequestMapping("/owner/query")
     public String query(HttpSession session, HttpServletRequest request) {
         if (!checkLogin(session)) {
             return "redirect:/owner/login";
@@ -258,6 +257,7 @@ public class OwnerController {
         for (ShopAndOwnerDbBean item : list) {
             ShopBean.Shop shop = new ShopBean.Shop();
             shop.setName(item.getShopName());
+            shop.setId(item.getShopId());
             shop.setDesc(item.getIntroduction());
             shop.setLogo(item.getLogo());
             switch (item.getShopState()) {
@@ -291,7 +291,7 @@ public class OwnerController {
         return "owner/query_shops.jsp";
     }
 
-    @RequestMapping(value = "/apply", method = RequestMethod.GET)
+    @RequestMapping(value = "/owner/apply", method = RequestMethod.GET)
     public String applyGet(HttpSession session) {
         //处理未登陆的意外情况
         if (!checkLogin(session)) {
@@ -301,7 +301,7 @@ public class OwnerController {
     }
 
 
-    @RequestMapping(value = "/apply", method = RequestMethod.POST)
+    @RequestMapping(value = "/owner/apply", method = RequestMethod.POST)
     public String applyPost(HttpSession session,
                             @RequestParam(value = "person") MultipartFile personImage,
                             @RequestParam(value = "logo") MultipartFile logoImage,
@@ -359,7 +359,7 @@ public class OwnerController {
     }
 
 
-    @RequestMapping(value = "goodsPage")
+    @RequestMapping(value = "/owner/goodsPage")
     public String getGoodsPage(HttpSession session) {
         if (!checkLogin(session)) {
             return "redirect:/";
@@ -374,7 +374,7 @@ public class OwnerController {
      * @param request
      * @return
      */
-    @RequestMapping("/goods")
+    @RequestMapping("/owner/goods")
     public
     @ResponseBody
     String listGoods(HttpServletRequest request, @RequestBody String dataStr) {
@@ -437,10 +437,11 @@ public class OwnerController {
         }
         goodsList.setData(list);
         String temp = mGson.toJson(goodsList);
+        Log.debug(temp);
         return mGson.toJson(goodsList);
     }
 
-    @RequestMapping(value = "/addGoods", method = RequestMethod.GET)
+    @RequestMapping(value = "/owner/addGoods", method = RequestMethod.GET)
     public String addGoodsGet(HttpSession session) {
         if (!checkLogin(session)) {
             return "redirect:/owner/login";
@@ -449,7 +450,7 @@ public class OwnerController {
     }
 
 
-    @RequestMapping(value = "/addGoods", method = RequestMethod.POST)
+    @RequestMapping(value = "/owner/addGoods", method = RequestMethod.POST)
     public String addGoodsPost(HttpSession session,
                                @RequestParam("name") String name,
                                @RequestParam("desc") String desc,
@@ -508,7 +509,7 @@ public class OwnerController {
      * @param data
      * @return
      */
-    @RequestMapping(value = "/deleteGoods", method = RequestMethod.POST)
+    @RequestMapping(value = "/owner/deleteGoods", method = RequestMethod.POST)
     public
     @ResponseBody
     String deleteGoods(HttpServletRequest request, @RequestBody byte[] data) {
@@ -525,7 +526,7 @@ public class OwnerController {
         return mGson.toJson(responseBean);
     }
 
-    @RequestMapping(value = "goodDetail", method = RequestMethod.POST)
+    @RequestMapping(value = "/owner/goodDetail", method = RequestMethod.POST)
     public
     @ResponseBody
     String goodDetail(HttpServletRequest request, @RequestBody String data) {
@@ -567,7 +568,7 @@ public class OwnerController {
      *
      * @return
      */
-    @RequestMapping(value = "showInfo")
+    @RequestMapping(value = "/owner/showInfo")
     public String showGoodsInfo() {
         return "owner/showInfor.html";
     }
@@ -575,7 +576,7 @@ public class OwnerController {
     /**
      * 更新商品信息
      */
-    @RequestMapping(value = "updateGoods", method = RequestMethod.POST)
+    @RequestMapping(value = "/owner/updateGoods", method = RequestMethod.POST)
     public
     @ResponseBody
     String updateGoods(@RequestBody String idStr) {
@@ -621,7 +622,7 @@ public class OwnerController {
      * @param photos
      * @return
      */
-    @RequestMapping(value = "updateGoodsInfo", method = RequestMethod.POST)
+    @RequestMapping(value = "/owner/updateGoodsInfo", method = RequestMethod.POST)
     public String updateGoodsInfo(HttpSession session,
                                   @RequestParam("id") int id,
                                   @RequestParam("name") String name,
@@ -670,35 +671,6 @@ public class OwnerController {
                 , callback);
         return "owner/add_goods_success.jsp";
     }
-
-    /**
-     * 处理广告
-     * @param request
-     * @return
-     */
-    @RequestMapping(value = "applyAd")
-    public String applyAd(HttpServletRequest request){
-        int type = Integer.parseInt(request.getParameter("type"));
-        int id = Integer.parseInt(request.getParameter("id"));
-        Log.debug("type:"+type+"    id:"+id);
-        int state = 0;
-        switch (type){
-            case 0://商店广告
-                state = mAdverService.addAdvertisementShop(id);
-                break;
-            case 1://商品广告
-                state = mAdverService.addAdvertisementGoods(id);
-            default:
-                break;
-        }
-        Log.debug("state:"+state);
-        if (state == IAdvertisement.ADD_SUCCESS){
-            return "owner/add_goods_success.jsp";
-        }
-        return "owner/add_goods_fail.jsp";
-    }
-
-
     /**
      * 检查是否能开店
      */
@@ -716,7 +688,7 @@ public class OwnerController {
      * @param session 请求携带的session
      * @return false未登陆，true已登录
      */
-    private boolean checkLogin(HttpSession session) {
+     boolean checkLogin(HttpSession session) {
         if (!mUserService.isLogin()) {
             return false;
         }

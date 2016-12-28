@@ -40,7 +40,7 @@ public class OrderController {
             nums[i] = new Integer(ch[i]).intValue();
         }
         String ordersNum = iOrderService.addOrders(nums);
-        if (ordersNum.equals(null)) {
+        if (null== ordersNum) {
             model.addAttribute("message","Check out failure,please check out again!");
             return "redirect:../listProduct?requestPage=1";
         } else {
