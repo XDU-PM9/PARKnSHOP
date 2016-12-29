@@ -128,6 +128,12 @@ public class OrderController {
         return "/customer/orders_center.jsp";
     }
 
+    @RequestMapping("/cancel")
+    public String cancleOrder(@RequestParam String OrdersNum){
+        iOrderService.cancelOrder(OrdersNum);
+        return "redirect:/listProduct?requestPage=1";
+    }
+
     private int getUserId(HttpSession session) {
         try {
             return ((UserEntity) session.getAttribute(IDefineString.SESSION_USER)).getUserId();

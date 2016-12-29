@@ -605,7 +605,8 @@ public class AdminController {
     private boolean AddInfoToAdvertDataBean(GetAdvertListResponseBean.DataBean dateBean,
                                          AdvertisementDbBean advertBean,int state){
         dateBean.setAdvertId(advertBean.getAdvertId());
-        dateBean.setStartTime(advertBean.getStartTime());
+        dateBean.setStartTime(advertBean.getStartTime().toString().substring(11));
+
         dateBean.setPrice(advertBean.getPrice());
         dateBean.setState(advertBean.getState());
 
