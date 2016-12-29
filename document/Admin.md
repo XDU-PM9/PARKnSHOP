@@ -534,7 +534,7 @@ index：按照size分页后的数据第index页
 }
 
 
-#获取正在展示的商品广告列表
+#获取正在展示的商店广告列表
 网址：/admin/getShowingShopAdvert
 方法：POST
 数据格式：json
@@ -568,7 +568,7 @@ index：按照size分页后的数据第index页
 }
 
 
-#获取正在申请的商品广告列表
+#获取正在申请的店铺广告列表
 网址：/admin/getApplyingShopAdvert
 方法：POST
 数据格式：json
