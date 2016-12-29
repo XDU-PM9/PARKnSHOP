@@ -93,6 +93,22 @@ public class AdminController {
         }
         return "admin/index.jsp";
     }
+    @RequestMapping(value = "/shopadapply", method = RequestMethod.GET)
+    public String shopadapply() {
+        return "admin/applymanage.jsp";
+    }
+    @RequestMapping(value = "goodsadapply", method = RequestMethod.GET)
+    public String goodsadapply() {
+        return "admin/goodsadapply.jsp";
+    }
+    @RequestMapping(value = "shopadlist", method = RequestMethod.GET)
+    public String shopadlist() {
+        return "admin/applymanage.jsp";
+    }
+    @RequestMapping(value = "goodsadlist", method = RequestMethod.GET)
+    public String goodsadlist() {
+        return "admin/applymanage.jsp";
+    }
 
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     public @ResponseBody String login(@RequestBody byte[] info, HttpSession session){
@@ -954,12 +970,12 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/getallbackup",method = RequestMethod.POST)
-    public @ResponseBody String getallbackup(HttpSession session){
+    public @ResponseBody String getallbackup(){
         boolean isLogin = mService.isLogin();
         GetBackupResponseBean getBackupResponseBean = new GetBackupResponseBean();
         List<GetBackupResponseBean.DataBean> data = new ArrayList<>();
         if (isLogin){
-            List<File> backuplist = backupService.getallfile(session);
+            List<File> backuplist = backupService.getallfile();
             if (!backuplist.isEmpty()){
                 for (File file :backuplist){
                     GetBackupResponseBean.DataBean dataBean = new GetBackupResponseBean.DataBean();
@@ -973,13 +989,30 @@ public class AdminController {
                 getBackupResponseBean.setData(data);
                 getBackupResponseBean.setLastbackuptime(lastbackuptime);
             }
+            else
+                getBackupResponseBean.setError(true);
         }
         else
             getBackupResponseBean.setError(true);
          return mGson.toJson(getBackupResponseBean);
     }
 
+    @RequestMapping(value = "/backup",method = RequestMethod.POST)
+    @ResponseBody String backup(){
+        BackupResponseBean backupResponseBean = new BackupResponseBean();
+        boolean islogin = mService.isLogin();
+        if(islogin){
+            if (backupService.backup())
+            {
+                backupResponseBean.setError(false);
+            }
+            else backupResponseBean.setError(true);
 
+        }
+        else
+        backupResponseBean.setError(true);
+        return mGson.toJson(backupResponseBean);
+    }
 
     //设置佣金率
     @RequestMapping( value = "/setRate" , method = RequestMethod.POST)
