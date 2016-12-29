@@ -223,6 +223,44 @@ public class OrderService implements IOrderService {
     }
 
     @Override
+    public int cancelOrder(String orderNum) {
+        List<Object> saveList =new ArrayList<>();
+        List<OrdersEntity> ordersEntities = getOrdersList(orderNum);
+        //置于删除状态
+        try {
+            for (OrdersEntity entity : ordersEntities) {
+                entity.setState(IOrderService.STATE_DELETE);//删除订单
+                CartEntity cartEntity = getCart(entity.getUserByUserId().getUserId(), entity.getGoodsByGoodsId().getGoodsId());
+                cartEntity.setState("1");
+                GoodsEntity goodsEntity = goodsEntityIBaseDao.get(GoodsEntity.class, entity.getGoodsByGoodsId().getGoodsId());
+                goodsEntity.setInventory(goodsEntity.getInventory() + entity.getAmount());
+                saveList.add(entity);
+                saveList.add(cartEntity);
+                saveList.add(goodsEntity);
+            }
+            IBaseDao<Object> objectIBaseDao = new BaseDao<>();
+            objectIBaseDao.update(saveList);
+            return CANCEL_SUCCESS;
+        }catch (Exception e) {
+            e.printStackTrace();
+            return CANCEL_FAIL;
+        }
+    }
+
+    /**
+     * 获取 指定 购物车
+     * @param userId
+     * @param goodsId
+     * @return
+     */
+
+    private CartEntity getCart(int userId,int goodsId){
+        String hql = "from CartEntity where userId = ? and goodsId = ? and state = ? order by cartId desc";
+        Object[] param = {userId,goodsId,"0"};
+        return cartEntityIBaseDao.find(hql,param,1,1).get(0);
+    }
+
+    @Override
     public boolean receive(String orderNum) {
         return updateStatus(orderNum,IOrderService.STATE_GET);
     }
