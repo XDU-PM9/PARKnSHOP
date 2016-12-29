@@ -415,7 +415,7 @@ index：按照size分页后的数据第index页
    "data":[{
 		"advertId":	12		//广告id
 		"userId":12			//广告对应的店主
-		"startTime":"Date"		//广告开始时间，Data类型
+		"startTime":String		//广告开始时间，Data类型
 		"price":12.5			//广告的花费
 		"state":state
 		"detail":{			//该广告的商品的信息
@@ -450,7 +450,7 @@ index：按照size分页后的数据第index页
    "data":[{
 		"advertId":	12		//广告id
 		"userId":12			//广告对应的店主
-		"startTime":"Date"		//广告开始时间，Data类型
+		"startTime":String		//广告开始时间，Data类型
 		"price":12.5			//广告的花费
 		"state":state
 		"detail":{			//该广告的商品的信息
@@ -486,7 +486,7 @@ index：按照size分页后的数据第index页
    "data":[{
 		"advertId":	12		//广告id
 		"userId":12			//广告对应的店主
-		"startTime":"Date"		//广告开始时间，Data类型
+		"startTime":String		//广告开始时间，Data类型
 		"price":12.5			//广告的花费
 		"state":state
 		"detail":{			//该广告的商品的信息
@@ -551,7 +551,7 @@ index：按照size分页后的数据第index页
    "data":[{
 		"advertId":	12		//广告id
 		"userId":12			//广告对应的店主
-		"startTime":"Date"		//广告开始时间，Data类型
+		"startTime":String		//广告开始时间，Data类型
 		"price":12.5			//广告的花费
 		"state":state
 		"detail":{			//该广告的商品的信息
@@ -586,7 +586,7 @@ index：按照size分页后的数据第index页
    "data":[{
 		"advertId":12			//广告id
 		"userId":12			//广告对应的店主
-		"startTime":"Date"		//广告开始时间
+		"startTime":String		//广告开始时间
 		"price":12.5			//广告的花费
 		"state":state
 		"detail":{			//该广告的商店信息
@@ -622,7 +622,7 @@ index：按照size分页后的数据第index页
    "data":[{
 		"advertId":12			//广告id
 		"userId":12			//广告对应的店主
-		"startTime":"Date"		//广告开始时间
+		"startTime":String		//广告开始时间
 		"price":12.5			//广告的花费
 		"state":state
 		"detail":{			//该广告的商店信息

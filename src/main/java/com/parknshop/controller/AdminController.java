@@ -584,7 +584,8 @@ public class AdminController {
     private boolean AddInfoToAdvertDataBean(GetAdvertListResponseBean.DataBean dateBean,
                                          AdvertisementDbBean advertBean,int state){
         dateBean.setAdvertId(advertBean.getAdvertId());
-        dateBean.setStartTime(advertBean.getStartTime());
+        dateBean.setStartTime(advertBean.getStartTime().toString().substring(11));
+
         dateBean.setPrice(advertBean.getPrice());
         dateBean.setState(advertBean.getState());
 
@@ -697,7 +698,7 @@ public class AdminController {
     public @ResponseBody String getAllGoodsAdvert(@RequestBody byte[] info,HttpSession session){
         boolean isLogin = mService.isLogin();
         GetAdvertListResponseBean responseBean = new GetAdvertListResponseBean();
-//        isLogin = true;
+        isLogin = true;
         if(isLogin){
             String infoStr = new String(info);
             ApplyAllRequestBean requestBean = mGson.fromJson(infoStr,ApplyAllRequestBean.class);

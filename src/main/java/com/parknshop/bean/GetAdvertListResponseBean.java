@@ -63,7 +63,7 @@ public class GetAdvertListResponseBean {
          */
 
         private int advertId;
-        private Date startTime;
+        private String startTime;
         private double price;
         private int state;
         private DetailBean detail;
@@ -77,11 +77,11 @@ public class GetAdvertListResponseBean {
             this.advertId = advertId;
         }
 
-        public Date getStartTime() {
+        public String getStartTime() {
             return startTime;
         }
 
-        public void setStartTime(Date startTime) {
+        public void setStartTime(String startTime) {
             this.startTime = startTime;
         }
 
