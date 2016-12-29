@@ -63,7 +63,7 @@
                         out.println("<td class=\"shopDes\">" + item.getDesc() + "</td>");
                         out.println("<td class=\"shopState\">" + item.getState() + "</td>");
                         if (item.getState().equals("Normal")){
-                            out.println("<td class=\"option\"><a href=\"/pay/a?type=0&id="+item.getId()+"\">Advertisment</a></td>");
+                            out.println("<td class=\"option\"><a href=\"/pay/a?type=0&typeId="+item.getId()+"\">Advertisment</a></td>");
                         }
 
                         out.println("</tr>");

@@ -19,6 +19,9 @@ public class ShopController {
     @RequestMapping(value = "detail",method = RequestMethod.GET)
     public String showDetails(Model model){
         model.addAttribute("shopId",request.getParameter("shopId"));
+        int id = Integer.parseInt(request.getParameter("shopId"));
+
+
         return "shop/shop.jsp";
     }
 }

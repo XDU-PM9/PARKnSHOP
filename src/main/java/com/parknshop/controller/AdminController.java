@@ -4,9 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.parknshop.bean.*;
 import com.parknshop.bean.CancelAdvertRequestBean;
-import com.parknshop.entity.AdminEntity;
-import com.parknshop.entity.OwnerEntity;
-import com.parknshop.entity.UserEntity;
+import com.parknshop.entity.*;
 import com.parknshop.service.IAdminService;
 import com.parknshop.service.IAdvertisement;
 import com.parknshop.service.IListBean;
@@ -16,10 +14,7 @@ import com.parknshop.service.serviceImpl.BackupImpl;
 import com.parknshop.utils.DateFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.io.File;
@@ -630,7 +625,7 @@ public class AdminController {
     }
 
     /**
-     * 管理广告--top10商品
+     * 管理商品广告
      * */
     @RequestMapping(value = "/replyGoodsAdvert",method = RequestMethod.POST)
     public @ResponseBody String replyGoogsAdvert(@RequestBody byte[] info,HttpSession session){
@@ -673,25 +668,29 @@ public class AdminController {
         return mGson.toJson(responseBean);
     }
 
-    @RequestMapping(value = "/getTop10GoodsAdvert")
-    public @ResponseBody String getTop10GoodsAdvert(HttpSession session){
+    @RequestMapping(value = "/getShowingGoodsAdvert")
+    public @ResponseBody String getShowingGoodsAdvert(HttpSession session){
         boolean isLogin = mService.isLogin();
         GetAdvertListResponseBean responseBean = new GetAdvertListResponseBean();
 //        isLogin = true;
         if(isLogin){
-            List<AdvertisementDbBean> dataList =
-                    mAdvert.getTopGoods();
-            int size = dataList.size();
+            IListBean<AdvertisementDbBean> dataList =
+                    mAdvert.getAllGoods(1,10);
+            long size = dataList.getNumer();
             List<GetAdvertListResponseBean.DataBean> responseDataList = new ArrayList<>();
-            for (AdvertisementDbBean advertBean : dataList) {
+            for (AdvertisementDbBean advertBean : dataList.getShopList()) {
                 GetAdvertListResponseBean.DataBean dateBean = new GetAdvertListResponseBean.DataBean();
-                boolean result = AddInfoToAdvertDataBean(dateBean,advertBean,1);
-                if(result == true) responseDataList.add(dateBean);
-                else size--;
+                if(advertBean.getState() == IAdvertisement.AD_STATUS_EFFECT) {
+                    boolean result = AddInfoToAdvertDataBean(dateBean, advertBean, 1);
+                    if (result == true) responseDataList.add(dateBean);
+                    else size--;
+                }else{
+                    size--;
+                }
             }
             responseBean.setError(false);
             responseBean.setTotal(1);
-            responseBean.setRealSize(size);
+            responseBean.setRealSize((int) size);
             responseBean.setData(responseDataList);
         }else {
             responseBean.setError(true);
@@ -699,7 +698,7 @@ public class AdminController {
         return mGson.toJson(responseBean);
     }
 
-    @RequestMapping(value = "/getAllGoodsAdvert",method = RequestMethod.POST)
+    @RequestMapping(value = "/getApplyingGoodsAdvert",method = RequestMethod.POST)
     public @ResponseBody String getAllGoodsAdvert(@RequestBody byte[] info,HttpSession session){
         boolean isLogin = mService.isLogin();
         GetAdvertListResponseBean responseBean = new GetAdvertListResponseBean();
@@ -716,10 +715,14 @@ public class AdminController {
             }else {
                 List<GetAdvertListResponseBean.DataBean> dataBeanList = new ArrayList<>();
                 for (AdvertisementDbBean advertBean : dataList.getShopList()) {
-                    GetAdvertListResponseBean.DataBean dateBean = new GetAdvertListResponseBean.DataBean();
-                    boolean result = AddInfoToAdvertDataBean(dateBean,advertBean,1);
-                    if(result == true) dataBeanList.add(dateBean);
-                    else size--;
+                    if(advertBean.getState() == IAdvertisement.AD_STATUS_APPLYING) {
+                        GetAdvertListResponseBean.DataBean dateBean = new GetAdvertListResponseBean.DataBean();
+                        boolean result = AddInfoToAdvertDataBean(dateBean, advertBean, 1);
+                        if (result == true) dataBeanList.add(dateBean);
+                        else size--;
+                    }else{
+                        size--;
+                    }
                 }
                 responseBean.setError(false);
                 responseBean.setTotal((int) total);
@@ -732,43 +735,43 @@ public class AdminController {
         return mGson.toJson(responseBean);
     }
 
-    @RequestMapping(value = "/getUserGoodsAdvert",method = RequestMethod.POST)
-    public @ResponseBody String getUserGoodsAdvert(@RequestBody byte[] info,HttpSession session){
-        boolean isLogin = mService.isLogin();
-        GetAdvertListResponseBean responseBean = new GetAdvertListResponseBean();
-//        isLogin = true;
-        if(isLogin){
-            String infoStr = new String(info);
-            GetUserAdvertListRequestBean requestBean = mGson.fromJson(infoStr,GetUserAdvertListRequestBean.class);
-            IListBean<AdvertisementDbBean> dataList =
-                    mAdvert.getMyGoods(requestBean.getUserId(),requestBean.getIndex(),requestBean.getSize());
-            long total = dataList.getMaxPages();
-            long size = dataList.getNumer();
-            if(requestBean.getIndex()>total){
-                responseBean.setError(true);
-            }else {
-                List<GetAdvertListResponseBean.DataBean> dataBeanList = new ArrayList<>();
-                for (AdvertisementDbBean advertBean : dataList.getShopList()) {
-                    System.out.println("total:"+total+"size:"+size);
-                    GetAdvertListResponseBean.DataBean dateBean = new GetAdvertListResponseBean.DataBean();
-                    boolean result = AddInfoToAdvertDataBean(dateBean,advertBean,1);
-                    if(result == true) dataBeanList.add(dateBean);
-                    else size--;
-                }
-                responseBean.setError(false);
-                responseBean.setTotal((int) total);
-                responseBean.setRealSize((int) size);
-                responseBean.setData(dataBeanList);
-            }
-        }else {
-            responseBean.setError(true);
-        }
-        return mGson.toJson(responseBean);
-    }
+//    @RequestMapping(value = "/getUserGoodsAdvert",method = RequestMethod.POST)
+//    public @ResponseBody String getUserGoodsAdvert(@RequestBody byte[] info,HttpSession session){
+//        boolean isLogin = mService.isLogin();
+//        GetAdvertListResponseBean responseBean = new GetAdvertListResponseBean();
+////        isLogin = true;
+//        if(isLogin){
+//            String infoStr = new String(info);
+//            GetUserAdvertListRequestBean requestBean = mGson.fromJson(infoStr,GetUserAdvertListRequestBean.class);
+//            IListBean<AdvertisementDbBean> dataList =
+//                    mAdvert.getMyGoods(requestBean.getUserId(),requestBean.getIndex(),requestBean.getSize());
+//            long total = dataList.getMaxPages();
+//            long size = dataList.getNumer();
+//            if(requestBean.getIndex()>total){
+//                responseBean.setError(true);
+//            }else {
+//                List<GetAdvertListResponseBean.DataBean> dataBeanList = new ArrayList<>();
+//                for (AdvertisementDbBean advertBean : dataList.getShopList()) {
+//                    System.out.println("total:"+total+"size:"+size);
+//                    GetAdvertListResponseBean.DataBean dateBean = new GetAdvertListResponseBean.DataBean();
+//                    boolean result = AddInfoToAdvertDataBean(dateBean,advertBean,1);
+//                    if(result == true) dataBeanList.add(dateBean);
+//                    else size--;
+//                }
+//                responseBean.setError(false);
+//                responseBean.setTotal((int) total);
+//                responseBean.setRealSize((int) size);
+//                responseBean.setData(dataBeanList);
+//            }
+//        }else {
+//            responseBean.setError(true);
+//        }
+//        return mGson.toJson(responseBean);
+//    }
 
 
     /**
-     * 管理广告--top5商店
+     * 管理店铺的广告
      * */
     @RequestMapping(value = "/replyShopAdvert",method = RequestMethod.POST)
     public @ResponseBody String replyShopAdvert(@RequestBody byte[] info,HttpSession session){
@@ -811,25 +814,28 @@ public class AdminController {
         return mGson.toJson(responseBean);
     }
 
-    @RequestMapping(value = "/getTop5ShopAdvert")
-    public @ResponseBody String getTop5ShopAdvert(HttpSession session){
+    @RequestMapping(value = "/getShowingShopAdvert")
+    public @ResponseBody String getShowingShopAdvert(HttpSession session){
         boolean isLogin = mService.isLogin();
         GetAdvertListResponseBean responseBean = new GetAdvertListResponseBean();
 //        isLogin = true;
         if(isLogin){
-            List<AdvertisementDbBean> dataList = mAdvert.getTopShop();
-            int size = dataList.size();
-            System.out.println(size);
+            IListBean<AdvertisementDbBean> dataList = mAdvert.getAllShop(1,5);
+            long size = dataList.getNumer();
             List<GetAdvertListResponseBean.DataBean> dataBeanList = new ArrayList<>();
-            for (AdvertisementDbBean advertBean : dataList) {
+            for (AdvertisementDbBean advertBean : dataList.getShopList()) {
                 GetAdvertListResponseBean.DataBean dateBean = new GetAdvertListResponseBean.DataBean();
-                boolean result = AddInfoToAdvertDataBean(dateBean,advertBean,0);
-                if(result == true) dataBeanList.add(dateBean);
-                else size--;
+                if(advertBean.getState() == IAdvertisement.AD_STATUS_EFFECT) {
+                    boolean result = AddInfoToAdvertDataBean(dateBean, advertBean, 0);
+                    if (result == true) dataBeanList.add(dateBean);
+                    else size--;
+                }else{
+                    size--;
+                }
             }
             responseBean.setError(false);
             responseBean.setTotal(1);
-            responseBean.setRealSize(size);
+            responseBean.setRealSize((int) size);
             responseBean.setData(dataBeanList);
         }else {
             responseBean.setError(true);
@@ -837,7 +843,7 @@ public class AdminController {
         return mGson.toJson(responseBean);
     }
 
-    @RequestMapping(value = "/getAllShopAdvert",method = RequestMethod.POST)
+    @RequestMapping(value = "/getApplyingShopAdvert",method = RequestMethod.POST)
     public @ResponseBody String getAllShopAdvert(@RequestBody byte[] info,HttpSession session){
         boolean isLogin = mService.isLogin();
         GetAdvertListResponseBean responseBean = new GetAdvertListResponseBean();
@@ -854,11 +860,14 @@ public class AdminController {
             }else {
                 List<GetAdvertListResponseBean.DataBean> dataBeanList = new ArrayList<>();
                 for (AdvertisementDbBean advertBean : dataList.getShopList()) {
-                    System.out.println("total:"+total+"size:"+size);
                     GetAdvertListResponseBean.DataBean dateBean = new GetAdvertListResponseBean.DataBean();
-                    boolean result = AddInfoToAdvertDataBean(dateBean,advertBean,0);
-                    if(result == true) dataBeanList.add(dateBean);
-                    else size--;
+                    if(advertBean.getState() == IAdvertisement.AD_STATUS_APPLYING) {
+                        boolean result = AddInfoToAdvertDataBean(dateBean, advertBean, 0);
+                        if (result == true) dataBeanList.add(dateBean);
+                        else size--;
+                    }else{
+                        size--;
+                    }
                 }
                 responseBean.setError(false);
                 responseBean.setTotal((int) total);
@@ -871,38 +880,38 @@ public class AdminController {
         return mGson.toJson(responseBean);
     }
 
-    @RequestMapping(value = "/getUserShopAdvert",method = RequestMethod.POST)
-    public @ResponseBody String getUserShopAdvert(@RequestBody byte[] info,HttpSession session){
-        boolean isLogin = mService.isLogin();
-        GetAdvertListResponseBean responseBean = new GetAdvertListResponseBean();
-//        isLogin = true;
-        if(isLogin){
-            String infoStr = new String(info);
-            GetUserAdvertListRequestBean requestBean = mGson.fromJson(infoStr,GetUserAdvertListRequestBean.class);
-            IListBean<AdvertisementDbBean> dataList =
-                    mAdvert.getMyShop(requestBean.getUserId(),requestBean.getIndex(),requestBean.getSize());
-            long total = dataList.getMaxPages();
-            long size = dataList.getNumer();
-            if(requestBean.getIndex()>total){
-                responseBean.setError(true);
-            }else {
-                List<GetAdvertListResponseBean.DataBean> data = new ArrayList<>();
-                for (AdvertisementDbBean bean : dataList.getShopList()) {
-                    GetAdvertListResponseBean.DataBean dateBean = new GetAdvertListResponseBean.DataBean();
-                    boolean result = AddInfoToAdvertDataBean(dateBean,bean,0);
-                    if(result == true) data.add(dateBean);
-                    else size--;
-                }
-                responseBean.setError(false);
-                responseBean.setTotal((int) total);
-                responseBean.setRealSize((int) size);
-                responseBean.setData(data);
-            }
-        }else {
-            responseBean.setError(true);
-        }
-        return mGson.toJson(responseBean);
-    }
+//    @RequestMapping(value = "/getUserShopAdvert",method = RequestMethod.POST)
+//    public @ResponseBody String getUserShopAdvert(@RequestBody byte[] info,HttpSession session){
+//        boolean isLogin = mService.isLogin();
+//        GetAdvertListResponseBean responseBean = new GetAdvertListResponseBean();
+////        isLogin = true;
+//        if(isLogin){
+//            String infoStr = new String(info);
+//            GetUserAdvertListRequestBean requestBean = mGson.fromJson(infoStr,GetUserAdvertListRequestBean.class);
+//            IListBean<AdvertisementDbBean> dataList =
+//                    mAdvert.getMyShop(requestBean.getUserId(),requestBean.getIndex(),requestBean.getSize());
+//            long total = dataList.getMaxPages();
+//            long size = dataList.getNumer();
+//            if(requestBean.getIndex()>total){
+//                responseBean.setError(true);
+//            }else {
+//                List<GetAdvertListResponseBean.DataBean> data = new ArrayList<>();
+//                for (AdvertisementDbBean bean : dataList.getShopList()) {
+//                    GetAdvertListResponseBean.DataBean dateBean = new GetAdvertListResponseBean.DataBean();
+//                    boolean result = AddInfoToAdvertDataBean(dateBean,bean,0);
+//                    if(result == true) data.add(dateBean);
+//                    else size--;
+//                }
+//                responseBean.setError(false);
+//                responseBean.setTotal((int) total);
+//                responseBean.setRealSize((int) size);
+//                responseBean.setData(data);
+//            }
+//        }else {
+//            responseBean.setError(true);
+//        }
+//        return mGson.toJson(responseBean);
+//    }
 
 
     /**
@@ -927,6 +936,22 @@ public class AdminController {
         return true;
     }
 
+    //获取佣金率
+    @RequestMapping( value = "/getRate")
+    @ResponseBody String getRate(HttpSession session){
+        boolean isLogin = mService.isLogin();
+        GetRateorShoporGoodsPriceResponseBean responseBean
+                = new GetRateorShoporGoodsPriceResponseBean();
+//        isLogin = true;
+        if(isLogin) {
+            CommissionEntity entity = mAdminService.getCommission();
+            responseBean.setError(false);
+            responseBean.setRateorPrice(entity.getRate());
+        }else{
+            responseBean.setError(true);
+        }
+        return mGson.toJson(responseBean);
+    }
 
     @RequestMapping(value = "/getallbackup",method = RequestMethod.POST)
     public @ResponseBody String getallbackup(HttpSession session){
@@ -956,4 +981,100 @@ public class AdminController {
 
 
 
+    //设置佣金率
+    @RequestMapping( value = "/setRate" , method = RequestMethod.POST)
+    @ResponseBody String setRate(@RequestBody byte[] info , HttpSession session){
+        boolean isLogin = mService.isLogin();
+        SetRateorShoporGoodsPriceResponseBean responseBean
+                = new SetRateorShoporGoodsPriceResponseBean();
+//        isLogin = true;
+        if(isLogin) {
+            String infoStr = new String(info);
+            SetRateorShoporGoodsPriceRequestBean requestBean
+                    = mGson.fromJson(infoStr,SetRateorShoporGoodsPriceRequestBean.class);
+            CommissionEntity entity = mAdminService.getCommission();
+            entity.setRate(requestBean.getRateorPrice());
+            boolean state = mAdminService.updateCommission(entity);
+            responseBean.setError(!state);
+        }else{
+            responseBean.setError(true);
+        }
+        return mGson.toJson(responseBean);
+    }
+
+    //获取店铺广告的价格
+    @RequestMapping( value = "/getShopPrice")
+    @ResponseBody String getShopPrice(HttpSession session){
+        boolean isLogin = mService.isLogin();
+        GetRateorShoporGoodsPriceResponseBean responseBean
+                = new GetRateorShoporGoodsPriceResponseBean();
+//        isLogin = true;
+        if(isLogin) {
+            CommissionEntity entity = mAdminService.getCommission();
+            responseBean.setError(false);
+            responseBean.setRateorPrice(entity.getShopPrice());
+        }else{
+            responseBean.setError(true);
+        }
+        return mGson.toJson(responseBean);
+    }
+
+    //设置店铺广告的价格
+    @RequestMapping( value = "/setShopPrice" , method = RequestMethod.POST)
+    @ResponseBody String setShopPrice(@RequestBody byte[] info , HttpSession session){
+        boolean isLogin = mService.isLogin();
+        SetRateorShoporGoodsPriceResponseBean responseBean
+                = new SetRateorShoporGoodsPriceResponseBean();
+//        isLogin = true;
+        if(isLogin) {
+            String infoStr = new String(info);
+            SetRateorShoporGoodsPriceRequestBean requestBean
+                    = mGson.fromJson(infoStr,SetRateorShoporGoodsPriceRequestBean.class);
+            CommissionEntity entity = mAdminService.getCommission();
+            entity.setShopPrice(requestBean.getRateorPrice());
+            boolean state = mAdminService.updateCommission(entity);
+            responseBean.setError(!state);
+        }else{
+            responseBean.setError(true);
+        }
+        return mGson.toJson(responseBean);
+    }
+
+    //获取商品广告的价格
+    @RequestMapping( value = "/getGoodsPrice")
+    @ResponseBody String getGoodsPrice(HttpSession session){
+        boolean isLogin = mService.isLogin();
+        GetRateorShoporGoodsPriceResponseBean responseBean
+                = new GetRateorShoporGoodsPriceResponseBean();
+//        isLogin = true;
+        if(isLogin) {
+            CommissionEntity entity = mAdminService.getCommission();
+            responseBean.setError(false);
+            responseBean.setRateorPrice(entity.getGoodsPrice());
+        }else{
+            responseBean.setError(true);
+        }
+        return mGson.toJson(responseBean);
+    }
+
+    //设置商品广告的价格
+    @RequestMapping( value = "/setGoodsPrice" , method = RequestMethod.POST)
+    @ResponseBody String setGoodsPrice(@RequestBody byte[] info , HttpSession session){
+        boolean isLogin = mService.isLogin();
+        SetRateorShoporGoodsPriceResponseBean responseBean
+                = new SetRateorShoporGoodsPriceResponseBean();
+//        isLogin = true;
+        if(isLogin) {
+            String infoStr = new String(info);
+            SetRateorShoporGoodsPriceRequestBean requestBean
+                    = mGson.fromJson(infoStr,SetRateorShoporGoodsPriceRequestBean.class);
+            CommissionEntity entity = mAdminService.getCommission();
+            entity.setGoodsPrice(requestBean.getRateorPrice());
+            boolean state = mAdminService.updateCommission(entity);
+            responseBean.setError(!state);
+        }else{
+            responseBean.setError(true);
+        }
+        return mGson.toJson(responseBean);
+    }
 }

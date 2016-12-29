@@ -22,14 +22,15 @@ public class MainController {
     public static final String AD_SHOP = "AD_SHOP";
     public static final String AD_GOODS = "AD_GOODS";
     public static final String HOT = "HOT_GOODS";
-
-    private final IAdvertisement mAdveService;
+    private final IAdvertisement mAdveServiceOne;
+    private final IAdvertisement mAdveServiceTwo;
     private final IHomeService mHomeService;
 
     @Autowired
-    public MainController(IAdvertisement adveService, IHomeService iHomeService) {
-        mAdveService = adveService;
+    public MainController( IHomeService iHomeService, IAdvertisement mAdveServiceTwo, IAdvertisement mAdveServiceOne) {
         mHomeService = iHomeService;
+        this.mAdveServiceTwo = mAdveServiceTwo;
+        this.mAdveServiceOne = mAdveServiceOne;
     }
 
 
@@ -40,12 +41,12 @@ public class MainController {
         request.setAttribute(HOT,hotGoods);
 
         //广告店铺
-        IListBean<AdvertisementDbBean> adShop = mAdveService.getAllShop(1,10);
+        IListBean<AdvertisementDbBean> adShop = mAdveServiceOne.getTopShop(1,10);
         request.setAttribute(AD_SHOP,adShop);
         Log.debug(adShop);
 
         //广告商品
-        IListBean<AdvertisementDbBean> adGoods = mAdveService.getAllGoods(1,10);
+        IListBean<AdvertisementDbBean> adGoods = mAdveServiceTwo.getTopGoods(1,10);
         request.setAttribute(AD_GOODS,adGoods);
         Log.debug(adGoods);
 

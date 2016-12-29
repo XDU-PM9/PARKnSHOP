@@ -17,24 +17,24 @@
 
  .shop_member_bd_right{float:left; width:765px; padding-bottom: 10px; border:1px solid #D5E5F5;}
  .shop_meber_bd_good_lists{width:765px; margin:0 auto;}
- .shop_meber_bd_good_lists div.title{width:712px; padding-left:15px; font-size: 14px; margin:0 auto; border-bottom:1px solid #AED2FF; line-height: 30px; height:30px;}
+ .shop_meber_bd_good_lists div.title{width:720px; padding-left:15px; font-size: 14px; margin:0 auto; border-bottom:1px solid #AED2FF; line-height: 30px; height:30px;}
  .shop_meber_bd_good_lists div.title h3{font-weight:700; }
 
- .shop_meber_bd_good_lists table{width:815px; margin:10px auto 0;}
+ .shop_meber_bd_good_lists table{width:730px; margin:10px auto 0;}
  .shop_meber_bd_good_lists table thead.tab_title th{height:30px; background:url("../images/images/ncus_repeat_x.png") repeat-x scroll center -40px transparent; line-height:30px; text-align: center; border:1px solid #AED2FF; border-left:none; border-right:none;}
 
- .shop_meber_bd_good_lists table tbody table.good{width:815px; height:120px; border:1px solid #C4D5E0; margin-top:10px;}
+ .shop_meber_bd_good_lists table tbody table.good{width:765px; height:120px; border:1px solid #C4D5E0; margin-top:10px;}
  .shop_meber_bd_good_lists table tbody table.good thead tr th{height:25px;  line-height:25px; padding-left:15px; background-color:#EDF5FF; color:#339900;}
  .shop_meber_bd_good_lists table tbody table.good thead tr th strong{color:#333333;}
  .shop_meber_bd_good_lists table tbody table.good tr td{border:1px solid #C4D5E0;}
 
  .shop_meber_bd_good_lists table tbody table.good tbody tr td.dingdan_pic{width:80px; text-align: center;}
  .shop_meber_bd_good_lists table tbody table.good tbody tr td.dingdan_pic img{width:60px; height:60px; display: inline-block; border:1px solid #E7E7E7;}
- .shop_meber_bd_good_lists table tbody table.good tbody tr td.dingdan_title{line-height: 22px; color:#999999; width:310px; padding:0 10px;}
+ .shop_meber_bd_good_lists table tbody table.good tbody tr td.dingdan_title{line-height: 22px; color:#999999; width:270px; padding:0 10px;}
  .shop_meber_bd_good_lists table tbody table.good tbody tr td.dingdan_title a{color:#0579C6;}
- .shop_meber_bd_good_lists table tbody table.good tbody tr td.dingdan_danjia{width:100px; text-align: center;}
- .shop_meber_bd_good_lists table tbody table.good tbody tr td.dingdan_shuliang{width:80px; text-align: center;}
- .shop_meber_bd_good_lists table tbody table.good tbody tr td.dingdan_zongjia{width:100px; line-height:18px; color:#999999; text-align: center;}
+ .shop_meber_bd_good_lists table tbody table.good tbody tr td.dingdan_danjia{width:70px; text-align: center;}
+ .shop_meber_bd_good_lists table tbody table.good tbody tr td.dingdan_shuliang{width:70px; text-align: center;}
+ .shop_meber_bd_good_lists table tbody table.good tbody tr td.dingdan_zongjia{width:70px; line-height:18px; color:#999999; text-align: center;}
  .shop_meber_bd_good_lists table tbody table.good tbody tr td.dingdan_zongjia strong{color:#FF6600; font-weight:700; font-size:14px;}
  
  td.pingjia_pic span.pingjia_type{width:24px; height:24px; display:block; margin:0 auto; background:url("../images/images/credit_smile.png") no-repeat scroll 0 0 transparent;}

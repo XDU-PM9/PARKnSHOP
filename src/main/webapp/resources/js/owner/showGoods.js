@@ -138,7 +138,7 @@ function adver() {
         var indexId = $(this).parent().parent().index();
         console.log(indexId);
         var id = goodId[indexId];
-        $(this).attr("href","/pay/a?type=1&id="+id);
+        $(this).attr("href","/pay/a?type=1&typeId="+id);
     })
 }
 /*添加标签方法*/

@@ -2,6 +2,7 @@ package com.parknshop.service;
 
 import com.parknshop.bean.GoodsDbBean;
 import com.parknshop.bean.ShopAndOwnerDbBean;
+import com.parknshop.bean.ShopDbBean;
 import com.parknshop.entity.GoodsEntity;
 import com.parknshop.entity.OwnerEntity;
 import com.parknshop.entity.ShopEntity;
@@ -103,5 +104,10 @@ public interface IOwnerService {
      */
     GoodsDbBean getGoods(int goodsId);
 
-
+    /**
+     * 获取商店详细信息
+     * @param shopId 商店id
+     * @return
+     */
+    ShopDbBean getShop(int shopId);
 }

@@ -432,8 +432,8 @@ index：按照size分页后的数据第index页
 }
 
 
-#获取商品的广告列表（正在申请的、展示的、取消展示的。。。）
-网址：/admin/getAllGoodsAdvert
+#获取正在申请中的商品广告列表
+网址：/admin/getApplyingGoodsAdvert
 方法：POST
 数据格式：json
 参数描述：
@@ -467,7 +467,7 @@ index：按照size分页后的数据第index页
 }
 
 
-#获取某个店主对应的广告的商品的列表，（正在申请的、展示的、取消展示的。。。）
+#获取某个店主对应的广告的商品的列表，目前不使用该功能
 网址：/admin/getUserGoodsAdvert
 方法：POST
 数据格式：json
@@ -534,8 +534,8 @@ index：按照size分页后的数据第index页
 }
 
 
-#获取Top5商店广告列表，即正在展示的商店
-网址：/admin/getTop5ShopAdvert
+#获取正在展示的商品广告列表
+网址：/admin/getShowingShopAdvert
 方法：POST
 数据格式：json
 参数描述：
@@ -568,8 +568,8 @@ index：按照size分页后的数据第index页
 }
 
 
-#获取商店的列表（正在申请的、展示的、取消展示的。。。）
-网址：/admin/getAllShopAdvert
+#获取正在申请的商品广告列表
+网址：/admin/getApplyingShopAdvert
 方法：POST
 数据格式：json
 参数描述：
@@ -603,7 +603,7 @@ index：按照size分页后的数据第index页
 }
 
 
-#获取某个店主对应的广告的商店的列表
+#获取某个店主对应的广告的商店的列表，目前不使用该功能
 网址：/admin/getUserShopAdvert
 方法：POST
 数据格式：json
@@ -671,10 +671,58 @@ return:
 url:/admin/rollback
 参数:filename:"String"
 return:
-    error:true/false
-
+        error:true/false
 删除备份
 url:/admin/deletebackup
 参数:filename:"String"
 return:
     error:true/false
+
+
+#获取佣金比率
+url:/admin/getRate
+请求参数：无（直接发送请求给上述url即可）
+响应参数：
+{
+    error:true/false
+    rate:0.2
+}
+
+#设置佣金比率
+url:/admin/setRate
+请求参数：
+    { rate:0.5 }
+响应参数：
+    { error:true/false }
+
+#获取店铺广告费用
+url:/admin/getShopPrice
+请求参数：无（直接发送请求给上述url即可）
+响应参数：
+{
+    error:true/false
+    shopPrice:12.5
+}
+
+#设置店铺广告费用
+url:/admin/setShopPrice
+请求参数：
+    { shopPrice:13.5 }
+响应参数：
+    { error:true/false }
+
+#获取商品广告费用
+url:/admin/getGoodsPrice
+请求参数：无（直接发送请求给上述url即可）
+响应参数：
+{
+    error:true/false
+    goodsPrice:12.5
+}
+
+#设置商品广告费用
+url:/admin/setGoodsPrice
+请求参数：
+    { goodsPrice:13.5 }
+响应参数：
+    { error:true/false }
