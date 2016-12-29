@@ -18,10 +18,10 @@ $(function () {
 });
 /*工具方法*/
 function uploadApply() {
-    goodsAd.splice(0,shopId.length);
+    goodsAd.splice(0,goodsAd.length);
     clearTable();
     var data={};
-    data.size = 2;
+    data.size = 5;
     data.index = index;
     $.ajax({
         type:'post',
@@ -52,12 +52,12 @@ function uploadApply() {
             addSel(allPage);
             for(var i=0;i<length;i++){
                 addTr(i);
-                addTd(i,response.data.advertId);
-                addTd(i,response.data.detail.name);
-                addTd(i,response.data.userId);
-                addTd(i,response.data.startTime);
-                addTd(i,response.data.price);
-                addTd(i,response.data.detail.introduction);
+                addTd(i,response.data[i].advertId);
+                addTd(i,response.data[i].detail.name);
+                addTd(i,response.data[i].userId);
+                addTd(i,response.data[i].startTime);
+                addTd(i,response.data[i].price);
+                addTd(i,response.data[i].detail.introduction);
                 goodsAd.push(response.data[i].shopId);
                 addOption(i);
             }
@@ -109,8 +109,9 @@ function clearTable(){
 function agree() {
     $("body").on('click','.agree',function () {
         var id = $(this).parent().parent().index();
+        console.log('id= '+id)
         var data = {};
-        data.shopId = goodsAd[id];
+        data.id = goodsAd[id-1];
         data.result = 1;
         console.log(data);
         /*测试成功*/
@@ -118,7 +119,7 @@ function agree() {
             type:'post',
             contentType : 'application/json',
             data: JSON.stringify(data),
-            url:'',
+            url:'/admin/replyGoodsAdvert',
             success: function (data) {
                 var response =JSON.parse(data);
                 console.log(response);
@@ -135,7 +136,7 @@ function disagree() {
     $("body").on('click','.disagree',function () {
         var id = $(this).parent().parent().index();
         var data = {};
-        data.shopId = goodsAd[id];
+        data.id = goodsAd[id-1];
         data.result = 0;
         console.log(data)
         /*测试成功*/
@@ -143,7 +144,7 @@ function disagree() {
             type:'post',
             contentType : 'application/json',
             data: JSON.stringify(data),
-            url:'',
+            url:'/admin/replyGoodsAdvert',
             success: function (data) {
                 var response =JSON.parse(data);
                 console.log(response);
