@@ -43,7 +43,9 @@
                                 <td class="dingdan_title"><span>${order.goodsName}</span></td>
                                 <td class="dingdan_danjia">$<strong>${order.price}</strong></td>
                                 <td class="dingdan_shuliang">${order.amount}</td>
-                                <td class="dingdan_zongjia">$<strong>${order.amount*order.price}</strong><br />(免运费)</td>
+                                <td class="dingdan_zongjia">$<strong>${order.amount*order.price}</strong><br />
+                                    <%--(免运费)--%>
+                                </td>
                                 <td class="digndan_caozuo"><span>
                                     <c:choose>
                                         <c:when test="${order.state==1}"><a href="listCart?&OrdersNum=${order.orderNumber}">Processing Orders</a></c:when>
@@ -64,25 +66,25 @@
                 </tbody>
             </table>
         </div>
-        <div class="Paging">
-            <div class="Pagination">
-                <c:if test="${page>1}">
-                    <li><input type='button' onclick='window.location=href="/order/listOrder?page=${page-1}"' value='Previous'></input></li>
-                </c:if>
 
-                <li><span class='currentpage' id='currentPage'>${page} of ${pages}</span></li>
-
-                <c:if test="${page<pages}">
-                    <li><input type='button' onclick='window.location=href="/order/listOrder?page=${page+1}"' value='Next'></input></li>
-                </c:if>
-
-                <li><input id='pageNumber' name='jump' type='number' value='1' min='1' max='${pages}'></li>
-                <li><input type='button' name='jump' value='jump' onclick='window.location.href="/order/listOrder?pag="+$("#pageNumber").val()'></li>
-            </div>
-        </div>
     </div>
     <!-- 右边购物列表 End -->
+        <div class="Paging" style="text-align: right">
+            <div class="Pagination">
+                <c:if test="${page>1}">
+                    <<input type='button' onclick='window.location=href="/order/listOrder?page=${page-1}"' value='Previous'></input>
+                </c:if>
 
+                <span class='currentpage' id='currentPage'>${page} of ${pages}</span>
+
+                <c:if test="${page<pages}">
+                    <input type='button' onclick='window.location=href="/order/listOrder?page=${page+1}"' value='Next'></input>
+                </c:if>
+
+                <input id='pageNumber' name='jump' type='number' value='1' min='1' max='${pages}'>
+                <input type='button' name='jump' value='jump' onclick='window.location.href="/order/listOrder?pag="+$("#pageNumber").val()'>
+            </div>
+        </div>
 </div>
 </body>
 </html>
