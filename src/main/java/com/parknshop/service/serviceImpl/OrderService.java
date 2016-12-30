@@ -232,6 +232,7 @@ public class OrderService implements IOrderService {
                 entity.setState(IOrderService.STATE_DELETE);//删除订单
                 CartEntity cartEntity = getCart(entity.getUserByUserId().getUserId(), entity.getGoodsByGoodsId().getGoodsId());
                 cartEntity.setState("1");
+                cartEntity.setAmount(entity.getAmount());
                 GoodsEntity goodsEntity = goodsEntityIBaseDao.get(GoodsEntity.class, entity.getGoodsByGoodsId().getGoodsId());
                 goodsEntity.setInventory(goodsEntity.getInventory() + entity.getAmount());
                 saveList.add(entity);
