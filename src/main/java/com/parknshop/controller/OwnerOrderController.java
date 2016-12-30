@@ -44,6 +44,14 @@ public class OwnerOrderController {
         this.mUserService = userService;
     }
 
+    @RequestMapping("/owner/getUncheckedOrderPage")
+    public String getUncheckedOrderPage(HttpSession session){
+        if (!checkLogin(session)){
+            return "redirect:/owner/login";
+        }
+        return "order/uncheckedOrder.html";
+    }
+
     /**
      * 获取店铺未处理订单
      * @param request
@@ -63,6 +71,7 @@ public class OwnerOrderController {
 
         OwnerEntity entity = (OwnerEntity) session.getAttribute(IDefineString.SESSION_USER);
         IListBean<OrdersEntity> orderList = mOrderService.getCustomerOrder(entity.getOwnerId(),bean.getPage(),bean.getLines());
+
         response.setCount((int) orderList.getNumer());
         response.setCurrent((int) orderList.getCurrentPage());
         response.setTotal((int) orderList.getMaxPages());
@@ -95,6 +104,7 @@ public class OwnerOrderController {
             dataList.add(dataBean);
         }
         response.setData(dataList);
+        Log.debug(mGson.toJson(response));
         return mGson.toJson(response);
     }
 

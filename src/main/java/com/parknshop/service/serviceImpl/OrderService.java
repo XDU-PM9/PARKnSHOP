@@ -273,12 +273,12 @@ public class OrderService implements IOrderService {
 
     @Override
     public IListBean<OrdersEntity> getFinishOrder(int ownerId, int page, int lines) {
-        return getOrderList("and ownerId = ? and state > ?",new Object[]{ownerId,STATE_PAY,page,lines});
+        return getOrderList(" and ownerId = ? and state > ? ",new Object[]{ownerId,STATE_PAY},page,lines);
     }
 
     @Override
     public IListBean<OrdersEntity> getCustomerOrder(int ownerId,int page,int lines) {
-        return getOrderList("and ownerId = ? and state = ?",new Object[]{ownerId,STATE_PAY,page,lines});
+        return getOrderList(" and ownerId = ? and state = ? ",new Object[]{ownerId,STATE_PAY},page,lines);
     }
 
 
