@@ -1,3 +1,5 @@
+<%@ page import="com.parknshop.bean.ShopDbBean" %>
+<%@ page import="com.parknshop.controller.ShopController" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -20,7 +22,11 @@
 <!-- shop -->
 <div class="shop_member_bd clearfix">
 
-    <img src="/resources/images/test.jpg" alt="" style="width: 1000px; height: 500px;">
+    <%
+        ShopDbBean shop = (ShopDbBean) request.getAttribute(ShopController.SHOP);
+        String photo = shop.getPhotoEntityList().get(0).getAddress();
+    %>
+    <img src="<%out.print(photo);%>" alt="" style="width: 1000px; height: 500px;">
     <div>
         <div class="shop_bd_list_left clearfix">
             <!-- 左边商品分类 -->

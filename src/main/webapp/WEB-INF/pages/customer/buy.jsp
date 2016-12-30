@@ -63,8 +63,10 @@
             <div class="clear"></div>
             <!-- 收货地址 title -->
             <div class="shop_bd_shdz_title">
-                <h3>收货人地址</h3>
-                <p><a href="javasrcipt:void(0);" id="new_add_shdz_btn">Add address</a><a href="javascript:void(0);">Manager address</a></p>
+                <h3>Address</h3>
+                <p><a href="javasrcipt:void(0);" id="new_add_shdz_btn">Add address</a>
+                    <%--<a href="javascript:void(0);">Manager address</a>--%>
+                </p>
             </div>
             <div class="clear"></div>
             <!-- 收货人地址 Title End -->
@@ -78,10 +80,10 @@
                                         <input class="addressSelectList" type="radio" name="shdz" onchange="setAddress(${addr.addressId})" value="${addr.addressId}"/></span></label>
                                 <em>Hong Kong</em><em>${addr.getProvince()}</em><em>${addr.country}</em>
                                 <em>${addr.getOthers()}</em><em>${addr.getName()}(receive)</em><em>${addr.getPhone()}</em>
-                                <span class="admin_shdz_btn">
-                                <a href="/editAddress?addressId=${addr.getAddressId()}">edit</a>
-                                <a href="/deleteAddress?addressId=${addr.getAddressId()}">delete</a>
-                            </span>
+                                <%--<span class="admin_shdz_btn">--%>
+                                <%--<a href="/editAddress?addressId=${addr.getAddressId()}">edit</a>--%>
+                                <%--<a href="/deleteAddress?addressId=${addr.getAddressId()}">delete</a>--%>
+                            <%--</span>--%>
                             </li>
                         </c:forEach>
 
@@ -112,7 +114,7 @@
             <div class="clear"></div>
             <!-- 购物车列表 -->
             <div class="shop_bd_shdz_title">
-                <h3>确认购物清单</h3>
+                <h3>Confirm checklist</h3>
             </div>
             <div class="clear"></div>
             <table>
@@ -144,7 +146,7 @@
                         <div class="gwc_foot_zongjia">Total<span>$<strong id="good_zongjia">00.00</strong></span></div>
                         <div class="clear"></div>
                         <div class="gwc_foot_links">
-                            <input type="button" class="go" value="Back"/>
+                            <input type="button" class="go" value="Cancel" onclick="window.location.href='cancel?OrdersNum=${ordersEntityList[0].orderNumber}'"/>
                             <input type="button" class="op" onclick="confirmJumptoPay()" value="Confirm"/>
                         </div>
                     </td>

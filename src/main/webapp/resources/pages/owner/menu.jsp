@@ -29,12 +29,10 @@
                 <li><a href="#"><i class="iconfont leftIco">&#xe620;</i>Checked Order</a></li>
             </ul>
         </li>
-        <li><a href="#" class="headList list4"><i class="iconfont leftIco">&#xe62c;</i>Advertisement<i class="iconfont rightIco">&#xe613;</i></a></li>
+        <li><a href="#" class="headList list4"><i class="iconfont leftIco">&#xe62c;</i>Income<i class="iconfont rightIco">&#xe613;</i></a></li>
         <li class="hiden">
             <ul>
-                <li><a href="#"><i class="iconfont leftIco">&#xe620;</i>Main</a></li>
-                <li><a href="#"><i class="iconfont leftIco">&#xe620;</i>Main</a></li>
-                <li><a href="#"><i class="iconfont leftIco">&#xe620;</i>Main</a></li>
+                <li><a href="/resources/pages/owner/echarts/frame.html"  target="main-frame"><i class="iconfont leftIco">&#xe620;</i>Analysis</a></li>
             </ul>
         </li>
     </ul>

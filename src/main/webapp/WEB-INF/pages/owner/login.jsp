@@ -47,7 +47,6 @@
     <p><%=msg%></p>
 
     <div class="forAndRe">
-        <a href="">Forget your account or password</a><br>
         <a href="/owner/register">Click here to register a new account</a>
     </div>
 </div>

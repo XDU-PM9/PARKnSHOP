@@ -15,6 +15,17 @@ public class Cart {
     String picture;
     String shopName;
     int shopId;
+
+    public int getGoodsAmount() {
+        return goodsAmount;
+    }
+
+    public Cart setGoodsAmount(int goodsAmount) {
+        this.goodsAmount = goodsAmount;
+        return this;
+    }
+
+    int goodsAmount;
     String tips = "";
 
     public int getCartId() {

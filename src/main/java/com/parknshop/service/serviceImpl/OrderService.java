@@ -240,7 +240,7 @@ public class OrderService implements IOrderService {
                 saveList.add(goodsEntity);
             }
             IBaseDao<Object> objectIBaseDao = new BaseDao<>();
-            objectIBaseDao.save(saveList);
+            objectIBaseDao.update(saveList);
             return CANCEL_SUCCESS;
         }catch (Exception e) {
             e.printStackTrace();
@@ -256,7 +256,7 @@ public class OrderService implements IOrderService {
      */
 
     private CartEntity getCart(int userId,int goodsId){
-        String hql = "from CartEntity where userId = ? and goodsId = ? and state = ? order by cardId desc";
+        String hql = "from CartEntity where userId = ? and goodsId = ? and state = ? order by cartId desc";
         Object[] param = {userId,goodsId,"0"};
         return cartEntityIBaseDao.find(hql,param,1,1).get(0);
     }
