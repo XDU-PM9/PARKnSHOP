@@ -10,8 +10,7 @@ var Min = 1;
 /*加载方法*/
 $(function () {
     uploadApply();
-    agree();
-    disagree();
+    cancel();
     next();
     prev();
     turn();
@@ -27,12 +26,13 @@ function uploadApply() {
         type:'post',
         contentType : 'application/json',
         data: JSON.stringify(data),
-        url:'/admin/getApplyingShopAdvert',
+        url:'/admin/getShowingShopAdvert',
         success: function (data) {
             var response =JSON.parse(data);
             console.log(response);
             Max = response.total;
             allPage = response.total;
+            console.log(Max);
             curPage = index;
             if(curPage <= Min){
                 $("#prev").hide();
@@ -57,7 +57,7 @@ function uploadApply() {
                 addTd(i,response.data[i].startTime);
                 addTd(i,response.data[i].price);
                 addTd(i,response.data[i].detail.introduction);
-                shopAd.push(response.data[i].advertId);
+                goodsAd.push(response.data[i].adverId);
                 addOption(i);
             }
         }
@@ -74,7 +74,7 @@ function addTd(i,str) {
 }
 function addOption(i) {
     var className = "tr"+i;
-    var str = "<td><a href='#' class='agree'>Agree</a> | <a href='#' class='disagree'>DisAgree</a> </td>"
+    var str = "<td><a href='#' class='cancel'>Cancel</a></td>"
     $("."+className+"").append(str);
 }
 function addImg(i,url) {
@@ -105,19 +105,19 @@ function clearTable(){
     $("#gotoPage").html("");
 }
 /*页面链接方法*/
-function agree() {
+/*function agree() {
     $("body").on('click','.agree',function () {
         var id = $(this).parent().parent().index();
         var data = {};
-        data.id = shopAd[id];
+        data.shopId = shopAd[id];
         data.result = 1;
         console.log(data);
-        /*测试成功*/
+        /!*测试成功*!/
         $.ajax({
             type:'post',
             contentType : 'application/json',
             data: JSON.stringify(data),
-            url:'/admin/replyShopAdvert',
+            url:'',
             success: function (data) {
                 var response =JSON.parse(data);
                 console.log(response);
@@ -134,15 +134,15 @@ function disagree() {
     $("body").on('click','.disagree',function () {
         var id = $(this).parent().parent().index();
         var data = {};
-        data.id = shopAd[id];
+        data.shopId = shopAd[id];
         data.result = 0;
         console.log(data)
-        /*测试成功*/
+        /!*测试成功*!/
         $.ajax({
             type:'post',
             contentType : 'application/json',
             data: JSON.stringify(data),
-            url:'/admin/replyShopAdvert',
+            url:'',
             success: function (data) {
                 var response =JSON.parse(data);
                 console.log(response);
@@ -151,6 +151,30 @@ function disagree() {
                 }
                 else {
                     alert("error");
+                }
+            }
+        })
+    })
+}*/
+function cancel() {
+    $("body").on('click','.cancel',function () {
+        var id = $(this).parent().parent().index();
+        var data = {};
+        data.id = goodsAd[id];
+        console.log(data);
+        /!*测试成功*!/
+        $.ajax({
+            type:'post',
+            contentType : 'application/json',
+            data: JSON.stringify(data),
+            url:'/admin/cancelShopAdvert',
+            success: function (data) {
+                var response =JSON.parse(data);
+                console.log(response);
+                if(response.error==false) {
+                    location.reload();
+                }
+                else {
                 }
             }
         })

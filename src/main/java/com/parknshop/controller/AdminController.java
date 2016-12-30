@@ -95,7 +95,7 @@ public class AdminController {
     }
     @RequestMapping(value = "/shopadapply", method = RequestMethod.GET)
     public String shopadapply() {
-        return "admin/applymanage.jsp";
+        return "admin/shopadapply.jsp";
     }
     @RequestMapping(value = "goodsadapply", method = RequestMethod.GET)
     public String goodsadapply() {
@@ -103,11 +103,15 @@ public class AdminController {
     }
     @RequestMapping(value = "shopadlist", method = RequestMethod.GET)
     public String shopadlist() {
-        return "admin/applymanage.jsp";
+        return "admin/shopadlist.jsp";
     }
     @RequestMapping(value = "goodsadlist", method = RequestMethod.GET)
     public String goodsadlist() {
-        return "admin/applymanage.jsp";
+        return "admin/goodsadlist.jsp";
+    }
+    @RequestMapping(value = "datamanage", method = RequestMethod.GET)
+    public String datamanage() {
+        return "admin/datamanage.jsp";
     }
 
     @RequestMapping(value = "/login",method = RequestMethod.POST)
@@ -970,6 +974,12 @@ public class AdminController {
         return mGson.toJson(responseBean);
     }
 
+
+    /*数据库回滚模块*/
+
+
+
+
     @RequestMapping(value = "/getallbackup",method = RequestMethod.POST)
     public @ResponseBody String getallbackup(){
         boolean isLogin = mService.isLogin();
@@ -985,7 +995,7 @@ public class AdminController {
                 }
                 File f =backuplist.get(backuplist.size()-1);
                 long time = f.lastModified();//返回文件最后修改时间，是以个long型毫秒数
-                String lastbackuptime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date(time));
+                String lastbackuptime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss:SSS").format(new Date(time));
                 getBackupResponseBean.setError(false);
                 getBackupResponseBean.setData(data);
                 getBackupResponseBean.setLastbackuptime(lastbackuptime);
@@ -999,7 +1009,7 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/backup",method = RequestMethod.POST)
-    @ResponseBody String backup(){
+    public @ResponseBody String backup(){
         BackupResponseBean backupResponseBean = new BackupResponseBean();
         boolean islogin = mService.isLogin();
         if(islogin){
@@ -1014,6 +1024,44 @@ public class AdminController {
         backupResponseBean.setError(true);
         return mGson.toJson(backupResponseBean);
     }
+
+    @RequestMapping(value = "/rollback",method = RequestMethod.POST)
+    public @ResponseBody String rollback(@RequestBody byte[] info){
+        boolean islogin = mService.isLogin();
+        RollbackResponseBean rollbackResponseBean = new RollbackResponseBean();
+        RollbackRequestBean rollbackRequestBean = new RollbackRequestBean();
+        String infoStr = new String(info);
+        if (islogin){
+            rollbackRequestBean = mGson.fromJson(infoStr,RollbackRequestBean.class);
+            if(backupService.rollback(rollbackRequestBean.getFilename())){
+                rollbackResponseBean.setError(false);
+            }
+            else
+                rollbackResponseBean.setError(true);
+        }
+        else
+            rollbackResponseBean.setError(true);
+        return mGson.toJson(rollbackResponseBean);
+    }
+    @RequestMapping(value = "/deletebackup",method = RequestMethod.POST)
+    @ResponseBody String deletebackup(@RequestBody byte[] info){
+        boolean islogin = mService.isLogin();
+        DelBackupRequestBean delBackupRequestBean = new DelBackupRequestBean();
+       DelBackupResponseBean delBackupResponseBean = new DelBackupResponseBean();
+        String infoStr = new String(info);
+        if (islogin){
+            delBackupRequestBean = mGson.fromJson(infoStr,DelBackupRequestBean.class);
+            if(backupService.deletebackup(delBackupRequestBean.getFilename())){
+                delBackupResponseBean.setError(false);
+            }
+            else
+                delBackupResponseBean.setError(true);
+        }
+        else
+            delBackupResponseBean.setError(true);
+        return mGson.toJson(delBackupResponseBean);
+    }
+
 
     //设置佣金率
     @RequestMapping( value = "/setRate" , method = RequestMethod.POST)

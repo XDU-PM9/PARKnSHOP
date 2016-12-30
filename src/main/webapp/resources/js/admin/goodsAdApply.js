@@ -33,7 +33,6 @@ function uploadApply() {
             console.log(response);
             Max = response.total;
             allPage = response.total;
-            console.log(Max);
             curPage = index;
             if(curPage <= Min){
                 $("#prev").hide();
@@ -58,7 +57,7 @@ function uploadApply() {
                 addTd(i,response.data[i].startTime);
                 addTd(i,response.data[i].price);
                 addTd(i,response.data[i].detail.introduction);
-                goodsAd.push(response.data[i].shopId);
+                goodsAd.push(response.data[i].advertId);
                 addOption(i);
             }
         }
@@ -111,7 +110,7 @@ function agree() {
         var id = $(this).parent().parent().index();
         console.log('id= '+id)
         var data = {};
-        data.id = goodsAd[id-1];
+        data.id = goodsAd[id];
         data.result = 1;
         console.log(data);
         /*测试成功*/
@@ -136,9 +135,10 @@ function disagree() {
     $("body").on('click','.disagree',function () {
         var id = $(this).parent().parent().index();
         var data = {};
-        data.id = goodsAd[id-1];
+        console.log("id="+id);
+        data.id = goodsAd[id];
         data.result = 0;
-        console.log(data)
+        console.log(data);
         /*测试成功*/
         $.ajax({
             type:'post',
