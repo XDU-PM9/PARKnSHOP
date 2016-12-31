@@ -49,6 +49,7 @@ public class OrdersEntity {
     private String reciverPhone;
     private String reciver;
     private String postWay;
+    private Integer  commentType;
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -179,6 +180,17 @@ public class OrdersEntity {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+
+    @Basic
+    @Column(name = "commentType", nullable = true)
+    public Integer getCommentType() {
+        return commentType;
+    }
+
+    public void setCommentType(Integer comment) {
+        this.commentType = comment;
     }
 
     @Basic

@@ -14,7 +14,9 @@ public class DateFormat {
 
     /*时间可视化格式为：2016-12-01 10:45 32*/
     static final String sDataFormat = "yyyy-MM-dd HH:mm ss";
+    static final String sAnalysisFormat = "MM.dd";
     static final SimpleDateFormat sFormatter = new SimpleDateFormat(sDataFormat);
+    static final SimpleDateFormat sAnalysicFormatter = new SimpleDateFormat(sAnalysisFormat);
 
     /**
      * 获取时间格式串
@@ -39,5 +41,9 @@ public class DateFormat {
     public static Timestamp parseToTimestamp(Date time){
         Timestamp timestamp = new Timestamp(time.getTime());
         return timestamp;
+    }
+
+    public static String getAnalysisY(Date date){
+        return sAnalysicFormatter.format(date);
     }
 }

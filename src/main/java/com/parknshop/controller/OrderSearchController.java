@@ -70,7 +70,8 @@ public class OrderSearchController {
             int row = 1;
             double d = (sizes) / row + (sizes % row == 0 ? 0 : 1);
             int sina = (int) Math.ceil(d);
-            int masSizes=ordersEntityList.size();
+            int masSizes=0;
+            masSizes=ordersEntityList.size();
             String descr="Have "+masSizes+" records In the "+day +" by "+types;
             List<OrdersEntity> ordersEntities = ordersEntityList.subList((page - 1) * row, page * row);
             model.addAttribute("ordersEntityList", ordersEntities);
