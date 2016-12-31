@@ -266,7 +266,7 @@ public class CustomerService implements ICustomerService {
                 parans[1] = userId;
                 parans[2] = new Timestamp(System.currentTimeMillis());
                 parans[3] = getPictureLocation(shopEntity.getPhotoGroup());
-                return  collectshopEntityBaseDao.insert("insert into collectShop(shopId,userId,createTime) values(?,?,?,?)", parans);
+                return  collectshopEntityBaseDao.insert("insert into collectShop(shopId,userId,createTime,picture) values(?,?,?,?)", parans);
             } else {
                 Object[] parans = new Object[2];
                 parans[0] = new Timestamp(System.currentTimeMillis());

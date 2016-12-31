@@ -23,7 +23,7 @@
 <!-- Header  -wll-2013/03/24 -->
 <div class="shop_hd">
     <!-- Header TopNav -->
-
+<a href="/insertCollectShop?shopId=2">adfasdf</a>
     <%@include file="top.jsp"%>
     <div class="clear"></div>
     <!-- Header TopNav End -->

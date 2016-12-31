@@ -33,9 +33,9 @@
             <table>
                 <thead class="tab_title">
                 <th style="width:80px;"><span>&nbsp;</span></th>
-                <th style="width:320px;"><span>评价内容</span></th>
-                <th style="width:180px;"><span>评价人</span></th>
-                <th style="width:100px;"><span>宝贝信息</span></th>
+                <th style="width:320px;"><span>Comment Content</span></th>
+                <th style="width:180px;"><span>Commenter</span></th>
+                <th style="width:180px;"><span>Goods Information</span></th>
                 </thead>
                 <tbody>
                 <c:forEach var="t" items="${orders}">
@@ -49,7 +49,7 @@
                                 <c:if test="${t.commentType==3}"><span class="pingjia_type pingjia_type_3"></span></td></c:if>
                             <td class="pingjia_title"><span>${t.comment}</span><br />[${t.commentTime}]</td>
                             <td class="pingjia_danjia"><strong>${t.reciver}</strong></td>
-                            <td class="pingjia_shuliang"><a href="/goods/detail?goodsId=${t.goodsByGoodsId}">${t.goodsName}</a><br />${t.price*t.amount}</td>
+                            <td class="pingjia_shuliang"><a href="/goods/detail?goodsId=${t.goodsByGoodsId.goodsId}">${t.goodsName}</a><br />${t.price*t.amount}</td>
                         </tr>
                         </tbody>
                     </table>
