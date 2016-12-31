@@ -81,4 +81,15 @@ public class OrderSearchService implements IOrderSearchService{
         Date date=new Date(year+1,1,1);
         return  find(new Object[]{timeformat.format(start),timeformat.format(date),userId});
     }
+
+    @Override
+    public OrdersEntity getOrderById(int ordersId) {
+        try {
+            return   ordersEntityBaseDao.get(OrdersEntity.class,ordersId);
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

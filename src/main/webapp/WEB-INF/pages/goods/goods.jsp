@@ -18,7 +18,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
-    <title>商品详细页面</title>
+    <title>Product Details</title>
     <link rel="stylesheet" href="/resources/css/base.css" type="text/css" />
     <link rel="stylesheet" href="/resources/css/shop_common.css" type="text/css" />
     <link rel="stylesheet" href="/resources/css/shop_header.css" type="text/css" />
@@ -177,12 +177,38 @@
                 <p>Details----11111</p>
             </div>
             <div id="xiangqing_content_2" class="xiangqing_contents clearfix">
-                <p>Comment----22222</p>
-                <c:forEach var="c" items="${comments}">
-                    <c:out value="${c.userByUserId.username}"></c:out>
-                    <c:out value="${c.comment}"></c:out>
-                    <c:out value="${c.commentTime}"></c:out>
-                </c:forEach>
+                <div class="shop_member_bd_right clearfix">
+
+                    <div class="shop_meber_bd_good_lists clearfix">
+                        <div class="title"><h3>Comment List</h3></div>
+                        <table>
+                            <thead class="tab_title">
+                            <th style="width:80px;"><span>&nbsp;</span></th>
+                            <th style="width:563px;"><span>Comment Content</span></th>
+                            <th style="width:200px;"><span>Commenter</span></th>
+                            </thead>
+                            <tbody>
+                            <c:forEach var="t" items="${comments}">
+                                <tr><td colspan="5">
+                                    <table class="good" style="height:50px">
+                                        <tbody>
+                                        <tr>
+                                            <td class="pingjia_pic">
+                                                <c:if test="${t.commentType==1}"><span class="pingjia_type pingjia_type_1"></span></td></c:if>
+                                                <c:if test="${t.commentType==2}"><span class="pingjia_type pingjia_type_2"></span></td></c:if>
+                                                <c:if test="${t.commentType==3}"><span class="pingjia_type pingjia_type_3"></span></td></c:if>
+                                            <td class="pingjia_title"><span>${t.comment}</span><br />[${t.commentTime}]</td>
+                                            <td class="pingjia_danjia"><strong>${t.reciver}</strong></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td></tr>
+                            </c:forEach>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
 
             <div id="xiangqing_content_3" class="xiangqing_contents clearfix">

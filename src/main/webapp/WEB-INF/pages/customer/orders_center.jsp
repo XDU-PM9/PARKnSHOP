@@ -51,7 +51,7 @@
                                         <c:when test="${order.state==1}"><a href="listCart?&OrdersNum=${order.orderNumber}">Processing Orders</a></c:when>
                                         <c:when test="${order.state==2}">Preparing for Shippment</c:when>
                                         <c:when test="${order.state==3}">Shipped</c:when>
-                                        <c:when test="${order.state==4}"><a href="/comment?orderId=${order.ordersId}">Complete</a></c:when>
+                                        <c:when test="${order.state==4}"><a href="/comment/toComment?ordersId=${order.ordersId}">Complete</a></c:when>
                                         <c:when test="${order.state==5}">Commented</c:when>
                                     </c:choose>
                                 </span></td>

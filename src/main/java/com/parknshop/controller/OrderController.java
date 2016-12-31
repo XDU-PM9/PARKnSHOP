@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -59,11 +60,21 @@ public class OrderController {
     @RequestMapping(value = "/listCart", method = RequestMethod.GET)
     public String listCart(@RequestParam("OrdersNum") String ordersNum, Model model, ModelMap modelMap) {
         List<OrdersEntity> ordersEntityList = iOrderService.getOrdersList(ordersNum);
-        List<AddressEntity> addressEntities = iAddressService.getAllAddressByUserId(ordersEntityList.get(0).getUserByUserId().getUserId());
-        modelMap.put("ordersEntityList",ordersEntityList);
-        model.addAttribute("ordersEntityList", ordersEntityList);
-        model.addAttribute("addressEntityList", addressEntities);
-        return "/customer/buy.jsp";
+        for (Iterator<OrdersEntity> it = ordersEntityList.iterator(); it.hasNext();) {
+            OrdersEntity val = it.next();
+            if (val.getState() !=IOrderService.STATE_NOT_PAY) {
+                it.remove();
+            }
+        }
+        if(ordersEntityList.size()>0) {
+            List<AddressEntity> addressEntities = iAddressService.getAllAddressByUserId(ordersEntityList.get(0).getUserByUserId().getUserId());
+            modelMap.put("ordersEntityList", ordersEntityList);
+            model.addAttribute("ordersEntityList", ordersEntityList);
+            model.addAttribute("addressEntityList", addressEntities);
+            return "/customer/buy.jsp";
+        }else {
+            return "redirect:/";
+        }
     }
 
 

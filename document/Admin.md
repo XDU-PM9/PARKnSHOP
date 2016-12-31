@@ -398,8 +398,8 @@ index：按照size分页后的数据第index页
 }
 
 
-#获取正在展示的商品广告列表
-网址：/admin/getShowingGoodsAdvert
+#获取Top10商品广告列表，即正在展示的广告
+网址：/admin/getTop10GoodsAdvert
 方法：POST
 数据格式：json
 参数描述：
@@ -534,7 +534,7 @@ index：按照size分页后的数据第index页
 }
 
 
-#获取正在展示的商品广告列表
+#获取正在展示的商店广告列表
 网址：/admin/getShowingShopAdvert
 方法：POST
 数据格式：json
@@ -568,7 +568,7 @@ index：按照size分页后的数据第index页
 }
 
 
-#获取正在申请的商品广告列表
+#获取正在申请的店铺广告列表
 网址：/admin/getApplyingShopAdvert
 方法：POST
 数据格式：json
@@ -677,8 +677,8 @@ url:/admin/deletebackup
 参数:filename:"String"
 return:
     error:true/false
-    
-    
+
+
 #获取佣金比率
 url:/admin/getRate
 请求参数：无（直接发送请求给上述url即可）
@@ -687,14 +687,14 @@ url:/admin/getRate
     error:true/false
     rate:0.2
 }
-    
+
 #设置佣金比率
 url:/admin/setRate
 请求参数：
     { rate:0.5 }
 响应参数：
     { error:true/false }
-    
+
 #获取店铺广告费用
 url:/admin/getShopPrice
 请求参数：无（直接发送请求给上述url即可）
@@ -703,14 +703,14 @@ url:/admin/getShopPrice
     error:true/false
     shopPrice:12.5
 }
-    
+
 #设置店铺广告费用
 url:/admin/setShopPrice
 请求参数：
     { shopPrice:13.5 }
 响应参数：
     { error:true/false }
-    
+
 #获取商品广告费用
 url:/admin/getGoodsPrice
 请求参数：无（直接发送请求给上述url即可）
@@ -719,10 +719,66 @@ url:/admin/getGoodsPrice
     error:true/false
     goodsPrice:12.5
 }
-    
+
 #设置商品广告费用
 url:/admin/setGoodsPrice
 请求参数：
     { goodsPrice:13.5 }
 响应参数：
-    { error:true/false }
+    { error:true/false 
+    
+#获取当天利润
+url:/admin/getTodayCalculate
+请求参数：无，直接发请求给上述url即可
+响应参数：
+{
+    "error": true,
+    "data": [
+        {
+            "date": String
+            "earn": "double"
+        }
+    ]
+}
+
+#获取当月利润
+url:/admin/getMonthCalculate
+请求参数：无，直接发请求给上述url即可
+响应参数：
+{
+    "error": true,
+    "data": [
+        {
+            "date": String
+            "earn": "double"
+        }
+    ]
+}
+
+#获取本周利润
+url:/admin/getWeekCalculate
+请求参数：无，直接发请求给上述url即可
+响应参数：
+{
+    "error": true,
+    "data": [
+        {
+            "date": String
+            "earn": "double"
+        }
+    ]
+}
+
+#获取当年利润
+url:/admin/getYearCalculate
+请求参数：无，直接发请求给上述url即可
+响应参数：
+{
+    "error": true,
+    "data": [
+        {
+            "date": String
+            "earn": "double"
+        }
+    ]
+}

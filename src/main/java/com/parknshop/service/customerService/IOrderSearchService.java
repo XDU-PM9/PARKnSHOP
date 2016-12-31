@@ -2,6 +2,7 @@ package com.parknshop.service.customerService;
 
 import com.parknshop.entity.OrdersEntity;
 
+import javax.persistence.criteria.Order;
 import java.util.List;
 
 /**
@@ -13,4 +14,6 @@ public interface IOrderSearchService {
     public List<OrdersEntity> weeklySearch(String s,int userId);
     public List<OrdersEntity> monthlySearch(String s,int userId);
     public List<OrdersEntity> yearlySearch(String s,int userId);
+
+    public OrdersEntity getOrderById(int ordersId);
 }

@@ -184,6 +184,51 @@ h1 .action-span1 {
 .shopDesc,.goodDesc{
   width: 550px;
 }
+#backUpBtn{
+  width: 7.5em;
+  display: inline-block;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  -ie-border-radius: 6px;
+  border-radius: 6px;
+  padding: .48em .8em;
+  text-shadow: rgba(0,0,0,.5) 0px -1px 0px;
+  font-size: 12px;
+  -webkit-transition-property: background-color;
+  -webkit-transition-duration: .15s;
+  -webkit-transition-timing-function: ease-in-out;
+  cursor: pointer;
+  text-decoration: none;
+  margin-left: 440px;
+  outline: none;
+}
+#rate>td,#shopPrice>td,#goodsPrice>td{
+  height:75px;
+  font-size: 20px;
+  font-family: 新宋体;
+}
+#editeRate,#editeShopPrice,#editGoodsPrice{
+  font-size: 20px;
+  font-family: 新宋体;
+}
+.hide-block{
+  position: absolute;
+  top: 10%;
+  left: 30%;
+  width: 45%;
+  height: 50%;
+  border: 1px solid #a7a7a7;
+  background: #ffffff;
+  display: none;
+}
+.rate-block,.shopPrice-block,.goodPrice-block{
+  position: absolute;
+  z-index: 999;
+  display: none;
+}
+.shopPrice-block,.goodPrice-block{
+  display: none;
+}
 /*
  标签部分的样式
  */
