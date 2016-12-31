@@ -2,6 +2,15 @@
  * Created by wei on 16-12-31.
  */
 
+function selectAll() {
+    $(':checkbox').each(function () {
+            if (!$(this).is(':disabled')) {
+                $(this).attr("checked","checked");
+            }
+        }
+    )
+}
+
 function amountChange(cartId, amount, goodsAmount) {
     $.ajax({
         url: "/changeAmount",
@@ -14,38 +23,33 @@ function amountChange(cartId, amount, goodsAmount) {
             if ('success' == msg) {
                 if (amount > goodsAmount) {
                     document.getElementById(cartId).setAttribute("disabled", "disabled");
-                    document.getElementById(cartId).style.cursor="not-allowed";
+                    document.getElementById(cartId).style.cursor = "not-allowed";
                     document.getElementById(cartId).removeAttribute("checked");
                 } else {
                     document.getElementById(cartId).removeAttribute("disabled");
-                    document.getElementById(cartId).style.cursor="auto";
+                    document.getElementById(cartId).style.cursor = "auto";
                 }
             }
         }
     })
 }
 
-// $(document).ready(function () {
-//     $('#cartSubmitForm').bind('submit',
 function submitCart() {
     var data = "";
     $(':checkbox').each(function () {
             if ($(this).is(':checked')) {
-                // alert("enter");
-                // alert(this.value);
-                data += this.value + "," ;
-                // data.push($(this).val());
+                data += this.value + ",";
             }
         }
     )
-    if(""==data){
+    if ("" == data) {
         alert("Please select at least one item");
         return;
     }
     $.ajax({
         url: "/order/cartSubmit",
         data: {
-            ch:data
+            ch: data
         },
         type: 'POST',
         success: function (msg) {
@@ -58,6 +62,3 @@ function submitCart() {
         }
     })
 }
-// return false;
-//     })
-// })

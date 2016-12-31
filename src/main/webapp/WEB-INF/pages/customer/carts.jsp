@@ -51,8 +51,7 @@
                 <table>
                     <thead>
                     <tr>
-                        <th><a onclick="selectAll()">select all</a></th>
-                        <th colspan="1"><span>Product</span></th>
+                        <th colspan="2"><span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspProduct</span></th>
                         <th><span>Price($)</span></th>
                         <th><span>amount</span></th>
                         <th><span>summary</span></th>
@@ -73,7 +72,7 @@
                                        value="${cart.getCartId()}"/>
                                     <%--</c:if>--%>
                             </td>
-                            <td class="gwc_list_title"><a href="">${cart.getGoodsName()} </a></td>
+                            <td class="gwc_list_title"><a href="/goods/detail?goodsId=${cart.goodsId}">${cart.goodsName} </a></td>
                             <td class="gwc_list_danjia"><span>$<strong
                                     id="danjia_001">${cart.getPrice()}</strong></span></td>
                             <td class="gwc_list_shuliang"><span>
@@ -107,12 +106,19 @@
                     </tfoot>
                 </table>
                 <%--<form id="cartSubmitForm" method="put">--%>
+                    <input id="confirmButton" type="button"
+                           style="background: none repeat scroll 0 0 #FE8502; border: 1px solid #FF6633; border-radius: 5px 5px 5px 5px; color: #FFFFFF !important; display: inline-block; font-size: 14px; font-weight: 100; height: 36px; line-height: 36px; padding: 4px 12px;"
+                           onclick="selectAll()" value="Select All"></input>
+                        <%--<button onclick="selectAll()">select all</button>--%>
                 <div style="text-align: right">
-                    <a href="" class="go">Go Shopping</a>
+                    <%--<a href="" class="go">Go Shopping</a>--%>
+                        <input id="confirmButton" type="button"
+                               style="background: none repeat scroll 0 0 #082bff; border: 1px solid #082bff; border-radius: 5px 5px 5px 5px; color: #FFFFFF !important; display: inline-block; font-size: 14px; font-weight: 300; height: 36px; line-height: 36px; padding: 4px 12px;"
+                               onclick="window.location.href='/'" value="Go Shopping"></input>
                     <input id="confirmButton" type="button"
                            style="background: none repeat scroll 0 0 #FE8502; border: 1px solid #FF6633; border-radius: 5px 5px 5px 5px; color: #FFFFFF !important; display: inline-block; font-size: 14px; font-weight: 600; height: 36px; line-height: 36px; padding: 4px 12px;"
-                          onclick="submitCart()" value="Confirm & Fill out the Orders"></input>
-                <%--</form>--%>
+                           onclick="submitCart()" value="Confirm & Fill out the Orders"></input>
+                        <%--</form>--%>
                 </div>
 
                 <!-- 购物车列表 End -->
