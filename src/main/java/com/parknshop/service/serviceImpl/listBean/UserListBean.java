@@ -24,16 +24,16 @@ public class UserListBean extends AbstractListBean<UserEntity>{
 
     @Override
     protected List<UserEntity> initList(int page, int lines) {
-        String hql = " from UserEntity where 1=1 and state > ?";
-        Object[] param = {IUserService.STATE_DELETE};
+        String hql = " from UserEntity where 1=1 and (state = ? or state =?)";
+        Object[] param = {IUserService.STATE_BLAKENAME,IUserService.STATE_USING};
 
         return mDao.find(hql,param,page,lines);
     }
 
     @Override
     protected long count() {
-        String hql ="select count(*) from UserEntity where 1=1 and state > ?";
-        Object[] param = {IUserService.STATE_DELETE};
+        String hql ="select count(*) from UserEntity where 1=1 and (state = ? or state =?)";
+        Object[] param = {IUserService.STATE_BLAKENAME,IUserService.STATE_USING};
         return mDao.count(hql,param);
     }
 }

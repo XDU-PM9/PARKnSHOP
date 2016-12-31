@@ -25,16 +25,16 @@ public class OwnerListBean extends AbstractListBean<OwnerEntity> {
 
     @Override
     protected List<OwnerEntity> initList(int page, int lines) {
-        String hql = " from OwnerEntity where 1=1 and state > ?";
-        Object[] param = {IUserService.STATE_DELETE};
+        String hql = " from OwnerEntity where 1=1 and (state = ? or state =?) ";
+        Object[] param = {IUserService.STATE_BLAKENAME,IUserService.STATE_USING};
 
         return mDao.find(hql,param,page,lines);
     }
 
     @Override
     protected long count() {
-        String hql ="select count(*) from OwnerEntity where 1=1 and state > ?";
-        Object[] param = {IUserService.STATE_DELETE};
+        String hql ="select count(*) from OwnerEntity where 1=1 and (state = ? or state =?)";
+        Object[] param = {IUserService.STATE_BLAKENAME,IUserService.STATE_USING};
         return mDao.count(hql,param);
     }
 }
