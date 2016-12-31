@@ -10,12 +10,15 @@ import com.parknshop.service.IAdvertisement;
 import com.parknshop.service.IListBean;
 import com.parknshop.service.IUserService;
 import com.parknshop.service.baseImpl.IDefineString;
+import com.parknshop.service.serviceImpl.BackupImpl;
 import com.parknshop.utils.DateFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -33,6 +36,8 @@ public class AdminController {
     IAdminService mAdminService;
     @Autowired
     IAdvertisement mAdvert;
+    @Autowired
+    BackupImpl backupService;
 
     Gson mGson = new GsonBuilder()
             .setDateFormat(DateFormat.getDateFormat())
@@ -80,6 +85,10 @@ public class AdminController {
     public String shopmanage() {
         return "admin/shopmanage.jsp";
     }
+    @RequestMapping(value = "incomemanage", method = RequestMethod.GET)
+    public String incomemanage() {
+        return "admin/incomemanage.jsp";
+    }
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index(HttpSession session) {
@@ -87,6 +96,26 @@ public class AdminController {
             return "redirect:/admin/login";
         }
         return "admin/index.jsp";
+    }
+    @RequestMapping(value = "/shopadapply", method = RequestMethod.GET)
+    public String shopadapply() {
+        return "admin/shopadapply.jsp";
+    }
+    @RequestMapping(value = "goodsadapply", method = RequestMethod.GET)
+    public String goodsadapply() {
+        return "admin/goodsadapply.jsp";
+    }
+    @RequestMapping(value = "shopadlist", method = RequestMethod.GET)
+    public String shopadlist() {
+        return "admin/shopadlist.jsp";
+    }
+    @RequestMapping(value = "goodsadlist", method = RequestMethod.GET)
+    public String goodsadlist() {
+        return "admin/goodsadlist.jsp";
+    }
+    @RequestMapping(value = "datamanage", method = RequestMethod.GET)
+    public String datamanage() {
+        return "admin/datamanage.jsp";
     }
 
     @RequestMapping(value = "/login",method = RequestMethod.POST)
@@ -948,6 +977,95 @@ public class AdminController {
         }
         return mGson.toJson(responseBean);
     }
+
+
+    /*数据库回滚模块*/
+
+
+
+
+    @RequestMapping(value = "/getallbackup",method = RequestMethod.POST)
+    public @ResponseBody String getallbackup(){
+        boolean isLogin = mService.isLogin();
+        GetBackupResponseBean getBackupResponseBean = new GetBackupResponseBean();
+        List<GetBackupResponseBean.DataBean> data = new ArrayList<>();
+        if (isLogin){
+            List<File> backuplist = backupService.getallfile();
+            if (!backuplist.isEmpty()){
+                for (File file :backuplist){
+                    GetBackupResponseBean.DataBean dataBean = new GetBackupResponseBean.DataBean();
+                    dataBean.setFilename(file.getName().substring(0,file.getName().lastIndexOf(".")));
+                    data.add(dataBean);
+                }
+                File f =backuplist.get(backuplist.size()-1);
+                long time = f.lastModified();//返回文件最后修改时间，是以个long型毫秒数
+                String lastbackuptime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss:SSS").format(new Date(time));
+                getBackupResponseBean.setError(false);
+                getBackupResponseBean.setData(data);
+                getBackupResponseBean.setLastbackuptime(lastbackuptime);
+            }
+            else
+                getBackupResponseBean.setError(true);
+        }
+        else
+            getBackupResponseBean.setError(true);
+         return mGson.toJson(getBackupResponseBean);
+    }
+
+    @RequestMapping(value = "/backup",method = RequestMethod.POST)
+    public @ResponseBody String backup(){
+        BackupResponseBean backupResponseBean = new BackupResponseBean();
+        boolean islogin = mService.isLogin();
+        if(islogin){
+            if (backupService.backup())
+            {
+                backupResponseBean.setError(false);
+            }
+            else backupResponseBean.setError(true);
+
+        }
+        else
+        backupResponseBean.setError(true);
+        return mGson.toJson(backupResponseBean);
+    }
+
+    @RequestMapping(value = "/rollback",method = RequestMethod.POST)
+    public @ResponseBody String rollback(@RequestBody byte[] info){
+        boolean islogin = mService.isLogin();
+        RollbackResponseBean rollbackResponseBean = new RollbackResponseBean();
+        RollbackRequestBean rollbackRequestBean = new RollbackRequestBean();
+        String infoStr = new String(info);
+        if (islogin){
+            rollbackRequestBean = mGson.fromJson(infoStr,RollbackRequestBean.class);
+            if(backupService.rollback(rollbackRequestBean.getFilename())){
+                rollbackResponseBean.setError(false);
+            }
+            else
+                rollbackResponseBean.setError(true);
+        }
+        else
+            rollbackResponseBean.setError(true);
+        return mGson.toJson(rollbackResponseBean);
+    }
+    @RequestMapping(value = "/deletebackup",method = RequestMethod.POST)
+    @ResponseBody String deletebackup(@RequestBody byte[] info){
+        boolean islogin = mService.isLogin();
+        DelBackupRequestBean delBackupRequestBean = new DelBackupRequestBean();
+       DelBackupResponseBean delBackupResponseBean = new DelBackupResponseBean();
+        String infoStr = new String(info);
+        if (islogin){
+            delBackupRequestBean = mGson.fromJson(infoStr,DelBackupRequestBean.class);
+            if(backupService.deletebackup(delBackupRequestBean.getFilename())){
+                delBackupResponseBean.setError(false);
+            }
+            else
+                delBackupResponseBean.setError(true);
+        }
+        else
+            delBackupResponseBean.setError(true);
+        return mGson.toJson(delBackupResponseBean);
+    }
+
 
     //设置佣金率
     @RequestMapping( value = "/setRate" , method = RequestMethod.POST)

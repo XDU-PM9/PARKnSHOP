@@ -1,5 +1,6 @@
 package com.parknshop.service;
 
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.util.Collection;
 import java.util.List;
@@ -16,5 +17,5 @@ public interface DatabaseBackupService {
     Boolean deletebackup(String filname);
     /*在controller中用迭代器拿到filename
     * 以防需要其他属性 我直接返回的是file集合 而不是filename集合*/
-    List getallfile();
+    List<File> getallfile();
 }

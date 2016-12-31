@@ -1,4 +1,11 @@
-<!DOCTYPE html>
+<%--
+  Created by IntelliJ IDEA.
+  User: niewenzhi
+  Date: 2016/12/28
+  Time: 15:28
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,12 +15,12 @@
 </head>
 <body>
 <h1>
-    <span class="action-span1"><a href="">Unchecked Order</a> </span>
+    <span class="action-span1"><a href="">Apply List</a> </span>
     <div style="clear:both"></div>
 </h1>
 
 <div class="form-div">
-    <form action="" name="searchForm">
+    <form action="javascript:search_brand()" name="searchForm">
         <img src="/resources/images/ico/icon_search.gif" width="26" height="22" border="0" alt="SEARCH">
         <input type="text" name="brand_name" size="35" placeholder="Please input the shopId">
         <input type="submit" value="Search" class="button">
@@ -26,13 +33,13 @@
     <div class="list-div" id="listDiv">
         <table cellpadding="3" cellspacing="1">
             <tr class="queryHead">
-                <th>Index</th>
-                <th>GoodsName</th>
-                <th>Time</th>
-                <th>Adress</th>
-                <th>Reciver</th>
-                <th>ReciverPhone</th>
-                <th>Option</th>
+                <th class="adId">AdvertId</th>
+                <th class="adName">Name</th>
+                <th class="logoHead">User</th>
+                <th class="shopName">StartTime</th>
+                <th class="shopDes">Price</th>
+                <th class="introduction">Introduction</th>
+                <th class="option">Option</th>
             </tr>
             <tbody id="tableInfor">
 
@@ -50,6 +57,6 @@
     </div>
 </form>
 <script src="/resources/libs/jquery.js"></script>
-<script src="/resources/js/order/uncheckedOrder.js"></script>
+<script src="/resources/js/admin/goodsAdApply.js"></script>
 </body>
 </html>

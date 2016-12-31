@@ -11,6 +11,7 @@ IUserService {
     int SESSION_TIME = 1*60*60;
     /*
     用户 权限分级
+
      */
     int ROLE_VISITOR = 1;
     int ROLE_CUSTOMER = 2;

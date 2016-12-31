@@ -1,8 +1,7 @@
 /**
- * Created by jk on 2016/12/30.
+ * Created by jk on 2016/12/29.
  */
-/*全局变量*/
-var orderNum = [];
+var shopAd = [];
 var allPage;
 var curPage;
 var index = 1;
@@ -10,24 +9,24 @@ var Max;
 var Min = 1;
 /*加载方法*/
 $(function () {
-    uploadOrder();
-    checked();
+    uploadApply();
+    cancel();
     next();
     prev();
     turn();
-})
-/*数据加载*/
-function uploadOrder() {
+});
+/*工具方法*/
+function uploadApply() {
+    shopAd.splice(0,shopAd.length);
     clearTable();
-    orderNum.splice(0,orderNum.length);
     var data={};
-    data.lines = 5;
-    data.page = index;
+    data.size = 5;
+    data.index = index;
     $.ajax({
         type:'post',
         contentType : 'application/json',
         data: JSON.stringify(data),
-        url:'/owner/uncheckedOrder',
+        url:'/admin/getShowingShopAdvert',
         success: function (data) {
             var response =JSON.parse(data);
             console.log(response);
@@ -47,30 +46,24 @@ function uploadOrder() {
             else{
                 $("#next").show();
             }
+            var length = response.data.length;
             pageNum(allPage,curPage);
             addSel(allPage);
-            var length = response.data.length;
             for(var i=0;i<length;i++){
                 addTr(i);
-                addTdIndex(i);
-                addTd(i,response.data[i].goodsName);
-                addTd(i,response.data[i].paidTime);
-                addTd(i,response.data[i].adress);
-                addTd(i,response.data[i].reciver);
-                addTd(i,response.data[i].reciverPhone);
-                orderNum.push(response.data[i].orderNumber)
+                addTd(i,response.data[i].advertId);
+                addTd(i,response.data[i].detail.name);
+                addTd(i,response.data[i].userId);
+                addTd(i,response.data[i].startTime);
+                addTd(i,response.data[i].price);
+                addTd(i,response.data[i].detail.introduction);
+                shopAd.push(response.data[i].adverId);
                 addOption(i);
             }
         }
     })
 }
-/*增加标签的方法*/
 /*添加标签的方法*/
-function addTdIndex(i) {
-    var className = "tr"+i;
-    var trIndex = i+1;
-    $("."+className+"").append("<td>"+trIndex+"</td>");
-}
 function addTr(i) {
     var className = "tr"+i;
     $("#tableInfor").append("<tr class="+className+"></tr>");
@@ -81,7 +74,7 @@ function addTd(i,str) {
 }
 function addOption(i) {
     var className = "tr"+i;
-    var str = "<td><a href='#' class='checked'>Check</a></td>"
+    var str = "<td><a href='#' class='cancel'>Cancel</a></td>"
     $("."+className+"").append(str);
 }
 function addImg(i,url) {
@@ -107,23 +100,74 @@ function pageNum(all,cur) {
     $("#allPage").html(all);
     $("#pageCurrent").html(cur);
 }
-function clearTable() {
+function clearTable(){
     $("#tableInfor").html("");
     $("#gotoPage").html("");
 }
 /*页面链接方法*/
-function checked() {
-    $("body").on('click','.checked',function () {
+/*function agree() {
+    $("body").on('click','.agree',function () {
         var id = $(this).parent().parent().index();
         var data = {};
-        data.orderNumber = orderNum[id];
+        data.shopId = shopAd[id];
+        data.result = 1;
         console.log(data);
         /!*测试成功*!/
         $.ajax({
             type:'post',
             contentType : 'application/json',
             data: JSON.stringify(data),
-            url:'/owner/check',
+            url:'',
+            success: function (data) {
+                var response =JSON.parse(data);
+                console.log(response);
+                if(response.error==false) {
+                    location.reload();
+                }
+                else {
+                }
+            }
+        })
+    })
+}
+function disagree() {
+    $("body").on('click','.disagree',function () {
+        var id = $(this).parent().parent().index();
+        var data = {};
+        data.shopId = shopAd[id];
+        data.result = 0;
+        console.log(data)
+        /!*测试成功*!/
+        $.ajax({
+            type:'post',
+            contentType : 'application/json',
+            data: JSON.stringify(data),
+            url:'',
+            success: function (data) {
+                var response =JSON.parse(data);
+                console.log(response);
+                if(response.error==false) {
+                    location.reload();
+                }
+                else {
+                    alert("error");
+                }
+            }
+        })
+    })
+}*/
+function cancel() {
+    $("body").on('click','.cancel',function () {
+        var id = $(this).parent().parent().index();
+        var data = {};
+        data.id = goodsAd[id];
+        console.log(data);
+        /!*测试成功*!/
+        $.ajax({
+            type:'post',
+            contentType : 'application/json',
+            data: JSON.stringify(data),
+            url:'/admin/cancelShopAdvert',
             success: function (data) {
                 var response =JSON.parse(data);
                 console.log(response);
