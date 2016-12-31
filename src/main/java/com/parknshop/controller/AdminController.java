@@ -85,6 +85,10 @@ public class AdminController {
     public String shopmanage() {
         return "admin/shopmanage.jsp";
     }
+    @RequestMapping(value = "incomemanage", method = RequestMethod.GET)
+    public String incomemanage() {
+        return "admin/incomemanage.jsp";
+    }
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index(HttpSession session) {
