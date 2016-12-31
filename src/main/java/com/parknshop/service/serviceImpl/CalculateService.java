@@ -41,13 +41,13 @@ public class CalculateService implements ICalculateService {
     public static final String headHqlAdmin = "select t.day ,t.earn+t2.earn as earn  from( select DATE_FORMAT(createTime,'%Y-%m-%d') as day,sum(commission) as earn  from orders  where YEAR(createTime)=YEAR(NOW()) GROUP BY day) as t" +
             ",(select DATE_FORMAT(startTime,'%Y-%m-%d') as day,sum(price) as earn from advert  where YEAR(startTime)=YEAR(NOW()) GROUP BY day) as t2";
     public static final String year = " where YEAR(createTime)=YEAR(NOW()) ";
-    public static final String yearAdmin = " where YEAR(startTime)=YEAR(NOW()) ";
+    public static final String yearAdmin = " where YEAR(startDate)=YEAR(NOW()) ";
     public static final String month = " where DATE_SUB(CURDATE(), INTERVAL 30 DAY) <= date(createTime) ";
-    public static final String monthAdmin = " where DATE_SUB(CURDATE(), INTERVAL 30 DAY) <= date(startTime) ";
+    public static final String monthAdmin = " where DATE_SUB(CURDATE(), INTERVAL 30 DAY) <= date(startDate) ";
     public static final String week = " where DATE_SUB(CURDATE(), INTERVAL 7 DAY) <= date(createTime)  ";
-    public static final String weekAdmin = " where DATE_SUB(CURDATE(), INTERVAL 7 DAY) <= date(startTime)  ";
+    public static final String weekAdmin = " where DATE_SUB(CURDATE(), INTERVAL 7 DAY) <= date(startDate)  ";
     public static final String toDay =" where to_days(createTime) = to_days(now()) ";
-    public static final String toDayAdmin =" where to_days(startTime) = to_days(now()) ";
+    public static final String toDayAdmin =" where to_days(startDate) = to_days(now()) ";
     public static final String finalHql =" GROUP BY date ";
 
     private List<Object> calculate(String dayHql,int ownerId){
@@ -66,8 +66,8 @@ public class CalculateService implements ICalculateService {
 //        List<Object> list = baseDao.executeSQL(hql,new Object[]{});
 //        Log.debug("success" +((Object[])list.get(0))[0]);
         CalculateService calculateService = new CalculateService(new BaseDao<>());
-        System.out.println(calculateService.getMonthAdmin().get(0).getDate());
-        System.out.println(calculateService.getMonthAdmin().get(0).getPrice());
+        System.out.println(calculateService.getMonthAdmin().size());
+
 
     }
 
