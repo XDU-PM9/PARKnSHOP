@@ -17,15 +17,23 @@ import java.text.SimpleDateFormat;
 public class BackupImpl implements DatabaseBackupService {
     File directory;
     String filepath;
-    String username = "";
-    String password = "";
+    {
+         directory = new File("\\databasebackup");
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
 
+        filepath = directory.getAbsolutePath() ;
+        System.out.println("备份文件保存路径:"+filepath);
+    }
+    String username = "root";
+    String password = "123456";
 
-
-    /*加载数据库密码账号*/
+/*
+    *//*加载数据库密码账号*//*
     {
          directory = new File("E:/mygit");//设定为当前文件夹
-         filepath=directory.getAbsolutePath()+File.separator+"databasebackup";
+         filepath=
 
         Properties props = new Properties();
         try {
@@ -37,7 +45,7 @@ public class BackupImpl implements DatabaseBackupService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
     @Override
     public  Boolean backup() {
 
@@ -49,7 +57,7 @@ public class BackupImpl implements DatabaseBackupService {
             Runtime rt = Runtime.getRuntime();
             Process pr = rt.exec("cmd /c"+cmd);
             pr.waitFor();
-            System.out.println(filepath);
+            System.out.println("备份文件保存路径:"+filepath);
             System.out.println(cmd);
             System.out.println("Backup success");
             return true;
@@ -101,9 +109,10 @@ public class BackupImpl implements DatabaseBackupService {
 
     @Override
     public List<File> getallfile() {
+
+        System.out.println("备份文件保存路径:"+filepath);
         List<File> list = new ArrayList<>();
         File file = new File(filepath+"/");
-        System.out.println(filepath);
         File[] files=file.listFiles();
         for (File targe : files){
             if (targe.getName().endsWith(".sql"))
