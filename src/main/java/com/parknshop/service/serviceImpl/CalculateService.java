@@ -56,7 +56,7 @@ public class CalculateService implements ICalculateService {
     }
     private List<Object> calculateAdmin(String orderDays,String advertDays){
         String hql = createAdminHql(orderDays,advertDays);//已经发送 的 商品 和申请过的广告
-        return ordersEntityIBaseDao.executeSQL(hql,new Object[]{IOrderService.STATE_SEND, IAdvertisement.AD_STATUS_APPLYING});
+        return ordersEntityIBaseDao.executeSQL(hql,new Object[]{IOrderService.STATE_SEND});
     }
 
     public static void main(String[] args){
@@ -72,8 +72,8 @@ public class CalculateService implements ICalculateService {
     }
 
     private String createAdminHql(String orderDays,String advertDays){
-        String headHqlAdmin = "select t.day ,t.earn+t2.earn as earn  from( select DATE_FORMAT(createTime,'%Y-%m-%d') as day,sum(commission) as earn  from orders  " + orderDays + " and state > ?  GROUP BY day) as t" +
-                ",(select DATE_FORMAT(startTime,'%Y-%m-%d') as day,sum(price) as earn from advert  " + advertDays + " and state > ?  GROUP BY day) as t2";
+        String headHqlAdmin = "select t.day ,t.earn as earn  from( select DATE_FORMAT(createTime,'%Y-%m-%d') as day,sum(commission) as earn  from orders  " + orderDays + " and state > ?  GROUP BY day) as t" ;
+             //   ",(select DATE_FORMAT(startTime,'%Y-%m-%d') as day,sum(price) as earn from advert  " + advertDays + " and state > ?  GROUP BY day) as t2";
         return headHqlAdmin;
     }
 
