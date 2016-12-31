@@ -37,21 +37,23 @@
           <li><a href="#" class="headList list4"><i class="iconfont leftIco">&#xe62c;</i>AD Manage<i class="iconfont rightIco">&#xe613;</i></a></li>
           <li class="hiden">
               <ul>
-                  <li><a href="#"><i class="iconfont leftIco">&#xe620;</i>ShopAd Apply</a></li>
-                  <li><a href="#"><i class="iconfont leftIco">&#xe620;</i>GoodsAd Apply</a></li>
-                  <li><a href="#"><i class="iconfont leftIco">&#xe620;</i>ShopAd List</a></li>
-                  <li><a href="#"><i class="iconfont leftIco">&#xe620;</i>GoodsAd List</a></li>
+                  <li><a href="/admin/shopadapply" target="main-frame"><i class="iconfont leftIco">&#xe620;</i>ShopAd Apply</a></li>
+                  <li><a href="/admin/goodsadapply" target="main-frame"><i class="iconfont leftIco">&#xe620;</i>GoodsAd Apply</a></li>
+                  <li><a href="/admin/shopadlist" target="main-frame"><i class="iconfont leftIco">&#xe620;</i>ShopAd List</a></li>
+                  <li><a href="/admin/goodsadlist" target="main-frame"><i class="iconfont leftIco">&#xe620;</i>GoodsAd List</a></li>
 
               </ul>
           </li>
           <li><a href="#" class="headList list5"><i class="iconfont leftIco">&#xe62c;</i>Data Manage<i class="iconfont rightIco">&#xe613;</i></a></li>
           <li class="hiden">
               <ul>
-                  <li><a href="#"><i class="iconfont leftIco">&#xe620;</i>Operation</a></li>
+                  <li><a href="/admin/datamanage" target="main-frame"><i class="iconfont leftIco">&#xe620;</i>Backup Manage</a></li>
+                  <li><a href="/admin/incomemanage" target="main-frame"><i class="iconfont leftIco">&#xe620;</i>Income Manage</a></li>
                  <%-- <li><a href="#"><i class="iconfont leftIco">&#xe620;</i>Main</a></li>
                   <li><a href="#"><i class="iconfont leftIco">&#xe620;</i>Main</a></li>--%>
               </ul>
           </li>
+
     </ul>
 </div>
 <script src="/resources/libs/jquery.js"></script>

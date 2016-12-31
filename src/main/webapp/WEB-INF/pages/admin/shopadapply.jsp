@@ -6,15 +6,14 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<html lang="en">
 <head>
-    <title></title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link href="/resources/css/admin/menu.css" rel="stylesheet" type="text/css" />
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="/resources/css/admin/top.css" rel="stylesheet" type="text/css" />
     <link href="/resources/css/admin/main.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-
 <h1>
     <span class="action-span1"><a href="">Apply List</a> </span>
     <div style="clear:both"></div>
@@ -28,39 +27,21 @@
     </form>
 </div>
 
+
 <form method="post" action="" name="listForm">
     <!-- start brand list -->
     <div class="list-div" id="listDiv">
         <table cellpadding="3" cellspacing="1">
-            <tr>
-                <th>ownerName</th>
-                <th>realName</th>
-                <th>realImg</th>
-                <th>shopName</th>
-                <th>shopImg</th>
-                <th>shopDescription</th>
-                <th>Option</th>
+            <tr class="queryHead">
+                <th class="adId">AdvertId</th>
+                <th class="adName">Name</th>
+                <th class="logoHead">User</th>
+                <th class="shopName">StartTime</th>
+                <th class="shopDes">Price</th>
+                <th class="introduction">Introduction</th>
+                <th class="option">Option</th>
             </tr>
-            <%--<tr>
-                <td class="first-cell">
-                    <span>WYH</span>
-                </td>
-                <td><span>WYH</span></td>
-                <td class="imgTd"><img src="/resources/images/portrait/a.png" alt=""></td>
-                <td><span>WYH Android Flagship store</span></td>
-                <td class="imgTd"><img src="/resources/images/portrait/b.png" alt=""></td>
-                <td class="shopDesc">
-                    Android是一种基于Linux的自由及开放源代码的操作系统，主要使用于移动设备，如智能手机和平板电脑，由Google公司和开放手机联
-                </td>
-                <td>
-                    <a href="" class="agree">Agree</a> |
-                    <a href="">DisAgree</a>
-                </td>
-
-            </tr>--%>
-            <!--end，这些都是显示代码，没有格式化，开发时会删除 -->
             <tbody id="tableInfor">
-
 
             </tbody>
         </table>
@@ -68,20 +49,14 @@
             <span id="page-link">
                 <a href="#" id="prev" style="margin-right: 20px;">Prev Page</a>
                 <a href="#" id="next" style="margin-right: 20px;">Next Page</a>
-                <select name="" id="gotoPage">
+                <select id="gotoPage">
                 </select>
                 <a href="#" id="turnPage">Turn</a>
             </span>
         </div>
-
-        <!-- end brand list -->
     </div>
 </form>
-<div id="footer">
-    &copy; 2016-2017 Group9-PARKnSHOP </div>
-</div>
 <script src="/resources/libs/jquery.js"></script>
-<script type="text/javascript" src="/resources/js/admin/apply.js"></script>
-
+<script src="/resources/js/admin/shopAdApply.js"></script>
 </body>
 </html>

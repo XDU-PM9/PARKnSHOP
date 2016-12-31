@@ -1,0 +1,87 @@
+form{
+    padding-bottom: 2em;
+}
+.formInfor{
+    margin: 22px 28px 0 3em;
+    width: 100%;
+}
+.formInfor input[type=text],.formInfor input[type=email],.formInfor input[type=password],.formInfor input[type=number] {
+    font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    width:80%;
+    padding: 0.7em 2em 0.7em 1em;
+    border:none;
+    color: #000;
+    font-size:15px;
+    outline: none;
+}
+.formInfor li{
+    display:block;
+    color:#4D4949;
+    border:1px solid #EBEBEB;
+    border-radius: 0.3em;
+    -webkit-border-radius:0.3em;
+    -moz-border-radius:0.3em;
+    -o-border-radius:0.3em;
+    margin-bottom: 14px;
+}
+#rate-submitBtn,#shopPrice-submitBtn,#goodsPrice-submitBtn{
+    padding:10px 19px;
+    border-radius:0.3em;
+    -webkit-border-radius:0.3em;
+    -moz-border-radius:0.3em;
+    -o-border-radius:0.3em;
+    color:#4D4949;
+    background:#F3F3F3;
+    border:1px solid #EBEBEB;
+    font-weight:bold;
+    font-size:15px;
+    font-family: Arial;
+    outline:none;
+    transition: all 0.5s ease-out;
+    -webkit-transition: all 0.5s ease-out;
+    -moz-transition: all 0.5s ease-out;
+    -ms-transition: all 0.5s ease-out;
+    -o-transition: all 0.5s ease-out;
+    margin-top:15px;
+    cursor: pointer;
+    margin-left: 50px;
+}
+#rate-submitBtn:hover,#shopPrice-submitBtn:hover,#goodsPrice-submitBtn:hover{
+    background:#2E2D2D;
+    color:#fff;
+}
+.forAndRe{
+    position: relative;
+    margin: 10px 10px 80px 18em;
+}
+.forAndRe>a{
+    margin: 10px 10px 20px 0;
+    font-size: 19px;
+    color: #313131;
+    text-decoration: underline;
+}
+/*update Infor*/
+.iconfont{
+    font-size: 22px;
+    font-family: 华文楷体;
+}
+.inforBlock{
+    margin: 4% 0 0 0;
+}
+.inforBlock>i,.inforBlock>li{
+    display: inline-block;
+}
+.inforBlock>li{
+    width: 60%;
+}
+.filed{
+    margin: 10% 0 10% 0;
+}
+.yes{
+    color: green;
+    display: none;
+}
+.no {
+    color: red;
+    display: none;
+}

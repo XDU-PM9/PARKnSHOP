@@ -57,7 +57,7 @@ function uploadApply() {
                 addTd(i,response.data[i].startTime);
                 addTd(i,response.data[i].price);
                 addTd(i,response.data[i].detail.introduction);
-                goodsAd.push(response.data[i].adverId);
+                shopAd.push(response.data[i].adverId);
                 addOption(i);
             }
         }
