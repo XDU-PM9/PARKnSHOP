@@ -21,7 +21,7 @@
 <div class="form-div">
     <form action="" name="backup">
         <span style="color: #686869;font-size: 18px;">The Last Backup Time:</span>
-        <span id="backUpTime" style="color: #686869;font-size: 18px">16.12.12 13:44</span>
+            <span id="backUpTime" style="color: #686869;font-size: 18px">Sorry, there is no backup file.</span>
         <button id="backUpBtn">BackUp</button>
     </form>
 </div>
