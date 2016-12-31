@@ -67,12 +67,10 @@
             </table>
         </div>
 
-    </div>
-    <!-- 右边购物列表 End -->
         <div class="Paging" style="text-align: right">
             <div class="Pagination">
                 <c:if test="${page>1}">
-                    <<input type='button' onclick='window.location=href="/order/listOrder?page=${page-1}"' value='Previous'></input>
+                    <input type='button' onclick='window.location=href="/order/listOrder?page=${page-1}"' value='Previous'></input>
                 </c:if>
 
                 <span class='currentpage' id='currentPage'>${page} of ${pages}</span>
@@ -85,6 +83,9 @@
                 <input type='button' name='jump' value='jump' onclick='window.location.href="/order/listOrder?pag="+$("#pageNumber").val()'>
             </div>
         </div>
+    </div>
+    <!-- 右边购物列表 End -->
+
 </div>
 </body>
 </html>
