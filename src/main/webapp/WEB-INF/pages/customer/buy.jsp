@@ -120,7 +120,7 @@
             <table>
                 <thead>
                 <tr>
-                    <th colspan="2"><span>Product</span></th>
+                    <th colspan="1"><span>Product</span></th>
                     <th><span>Price(dollers)</span></th>
                     <th><span>Amount</span></th>
                     <th><span>Subtotal</span></th>

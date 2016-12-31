@@ -232,6 +232,7 @@ public class OrderService implements IOrderService {
                 entity.setState(IOrderService.STATE_DELETE);//删除订单
                 CartEntity cartEntity = getCart(entity.getUserByUserId().getUserId(), entity.getGoodsByGoodsId().getGoodsId());
                 cartEntity.setState("1");
+                cartEntity.setAmount(entity.getAmount());
                 GoodsEntity goodsEntity = goodsEntityIBaseDao.get(GoodsEntity.class, entity.getGoodsByGoodsId().getGoodsId());
                 goodsEntity.setInventory(goodsEntity.getInventory() + entity.getAmount());
                 saveList.add(entity);
@@ -273,12 +274,12 @@ public class OrderService implements IOrderService {
 
     @Override
     public IListBean<OrdersEntity> getFinishOrder(int ownerId, int page, int lines) {
-        return getOrderList("and ownerId = ? and state > ?",new Object[]{ownerId,STATE_PAY,page,lines});
+        return getOrderList(" and ownerId = ? and state > ? ",new Object[]{ownerId,STATE_PAY},page,lines);
     }
 
     @Override
     public IListBean<OrdersEntity> getCustomerOrder(int ownerId,int page,int lines) {
-        return getOrderList("and ownerId = ? and state = ?",new Object[]{ownerId,STATE_PAY,page,lines});
+        return getOrderList(" and ownerId = ? and state = ? ",new Object[]{ownerId,STATE_PAY},page,lines);
     }
 
 

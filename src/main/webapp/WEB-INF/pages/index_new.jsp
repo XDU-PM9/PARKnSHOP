@@ -52,7 +52,12 @@
                                     out.println("<dt>");
                                     out.println("<a href=\"/goods/detail?goodsId="+item.getGoodsId()+"\" title=\""+item.getGoodsName()+"\" target=\"_blank\">");
                                     out.println("<img");
-                                    out.println("src=\""+item.getPicturePath().get(0).getAddress()+"\"");
+                                    if(item.getPicturePath().size() > 0) {
+                                        out.println("src=\"" + item.getPicturePath().get(0).getAddress() + "\"");
+                                    }else{
+                                        //没有图片的情况
+                                        out.println("src=\"\"");
+                                    }
                                     out.println("alt=\"New Goods\">");
                                     out.println(" </a>");
                                     out.println("</dt>");

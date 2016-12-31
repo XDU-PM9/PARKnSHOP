@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface ICommentService {
 
-    public boolean                insertComment(String s,int ordersId);
-    public List<OrdersEntity>    listComment(int goodsId);
-
+    public boolean                insertComment(String s,int commentType,int ordersId);
+    public List<OrdersEntity>     listComment(int goodsId);
+    public List<OrdersEntity>     listCom(int userId);
 }

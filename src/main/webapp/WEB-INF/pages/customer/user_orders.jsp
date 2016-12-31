@@ -110,7 +110,6 @@
 <body>
 
 
-<a href="/comment/insertComment?content=very&ordersId=1">hajdsfhsj</a>
 <%@include file="head.jsp"%>
 <div class="shop_member_bd clearfix">
 <%@include file="customer_left.jsp"%>
@@ -118,7 +117,7 @@
 <div class="user_info_p_s  clearfix">
     <!--订单记录-->
     <c:choose>
-        <c:when test="${maxSize==0}">
+        <c:when test="${maxSize<=0}">
     <div class="left_user_cont">
         <div class="us_Orders left clearfix">
             <div  class="Orders_name">
@@ -146,7 +145,7 @@
     </div>
         </c:when>
         <c:when test="${maxSize>0}">
-            <div class="left_user_cont">
+            <div: class="left_user_cont">
                 <div class="us_Orders left clearfix">
                     <div  class="Orders_name">
                         <script defer type="text/javascript">
@@ -235,15 +234,14 @@
                         </ul>
 
                     </div>
-
                 </div>
-            </div>
-
+            </div:>
         </c:when>
 
     </c:choose>
 
 </div>
 </div>
+
 </body>
 </html>
