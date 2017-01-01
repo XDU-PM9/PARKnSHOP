@@ -123,4 +123,10 @@ public interface IOrderService {
      * @return
      */
     IListBean<OrdersEntity> getFinishOrder(int ownerId,int page,int lines);
+
+    /**
+     * 管理员
+     */
+    IListBean<OrdersEntity> getFinishOrderAdmin(int page,int lines);
+
 }
