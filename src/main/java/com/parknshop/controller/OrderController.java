@@ -65,6 +65,19 @@ public class OrderController {
     }
 
 
+    @RequestMapping(value = "/confirmReceive",method = RequestMethod.POST)
+    @ResponseBody
+    public  String  confirmReceive(@RequestParam("orderNum") String  orderNum)
+    {
+        if(iOrderService.receive(orderNum))
+        {
+            return "success";
+        }
+        else {
+            return "fail";
+        }
+    }
+
     @RequestMapping(value = "/listCart", method = RequestMethod.GET)
     public String listCart(@RequestParam("OrdersNum") String ordersNum, Model model, ModelMap modelMap) {
         List<OrdersEntity> ordersEntityList = iOrderService.getOrdersList(ordersNum);

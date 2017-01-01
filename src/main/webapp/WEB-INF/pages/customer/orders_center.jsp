@@ -9,6 +9,25 @@
 <html>
 <head>
     <title>Title</title>
+    <script>
+        function confirmReceiveOrder(orderNumber) {
+            $.ajax({
+                url:"/order/confirmReceive",
+                type:'POST',
+                data:{
+                    orderNum:orderNumber
+                },
+                success:function (msg) {
+                    if("success"==msg){
+                        alert("Confirm receive success");
+                        window.location.reload();
+                    }else {
+                        alert("Confirm receive fail");
+                    }
+                }
+            })
+        }
+    </script>
 </head>
 <body>
 
@@ -50,7 +69,10 @@
                                     <c:choose>
                                         <c:when test="${order.state==1}"><a href="listCart?&OrdersNum=${order.orderNumber}">Processing Orders</a></c:when>
                                         <c:when test="${order.state==2}">Preparing for Shippment</c:when>
-                                        <c:when test="${order.state==3}">Shipped</c:when>
+                                        <c:when test="${order.state==3}">Shipped
+                                            <%--<a onclick="confirmReceiveOrder('${order.orderNumber}')">Confirm receive</a>--%>
+                                            <button  onclick="confirmReceiveOrder('${order.orderNumber}')">confirm receive</button>
+                                        </c:when>
                                         <c:when test="${order.state==4}"><a href="/comment/toComment?ordersId=${order.ordersId}">Complete</a></c:when>
                                         <c:when test="${order.state==5}">Commented</c:when>
                                     </c:choose>
@@ -79,13 +101,14 @@
                     <input type='button' onclick='window.location=href="/order/listOrder?page=${page+1}"' value='Next'></input>
                 </c:if>
 
-                <input id='pageNumber' name='jump' type='number' value='1' min='1' max='${pages}'>
-                <input type='button' name='jump' value='jump' onclick='window.location.href="/order/listOrder?pag="+$("#pageNumber").val()'>
+                <input id='pageNumber' name='jump' type='number' value="${page}" value='1' min='1' max='${pages}'>
+                <input type='button' name='jump' value='jump' onclick='window.location.href="/order/listOrder?page="+$("#pageNumber").val()'>
             </div>
         </div>
     </div>
     <!-- 右边购物列表 End -->
 
 </div>
+
 </body>
 </html>
