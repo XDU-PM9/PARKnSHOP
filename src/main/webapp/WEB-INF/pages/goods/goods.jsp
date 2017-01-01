@@ -18,7 +18,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
-    <title>Product Details</title>
+    <title><%out.print(goods.getGoodsName());%></title>
     <link rel="stylesheet" href="/resources/css/base.css" type="text/css" />
     <link rel="stylesheet" href="/resources/css/shop_common.css" type="text/css" />
     <link rel="stylesheet" href="/resources/css/shop_header.css" type="text/css" />
@@ -141,7 +141,11 @@
                 </li>
                 <li>
                     <label>Comment：</label>
-                    <span>0 comments</span>
+                    <span>
+                    <c:if test="${comments.size()>0}">${comments.size()} comments</c:if>
+                    <c:if test="${comments.size()==0}">0 comments</c:if> </span></span>
+
+
                 </li>
 
                 <li class="goods_num">
@@ -169,14 +173,24 @@
             <ul>
                 <li id="xiangqing_tab_1" onmouseover="shop_goods_easytabs('1', '1');" onfocus="shop_goods_easytabs('1', '1');" onclick="return false;"><a href=""><span>Details</span></a></li>
                 <li id="xiangqing_tab_2" onmouseover="shop_goods_easytabs('1', '2');" onfocus="shop_goods_easytabs('1', '2');" onclick="return false;"><a href=""><span>Comment</span></a></li>
-                <li id="xiangqing_tab_3" onmouseover="shop_goods_easytabs('1', '3');" onfocus="shop_goods_easytabs('1', '3');" onclick="return false;"><a href=""><span>Advisory</span></a></li>
+                <li id="xiangqing_tab_3" style="display: none" onmouseover="shop_goods_easytabs('1', '3');" onfocus="shop_goods_easytabs('1', '3');" onclick="return false;"><a href=""><span>Advisory</span></a></li>
             </ul>
         </div>
         <div class="shop_goods_bd_xiangqing_content clearfix">
             <div id="xiangqing_content_1" class="xiangqing_contents clearfix">
-                <p>Details----11111</p>
+                <p><%out.print(goods.getIntroduction());%></p>
             </div>
             <div id="xiangqing_content_2" class="xiangqing_contents clearfix">
+               <c:if test="${comments.size()==0}">
+                   <div>
+                       <img src="/resources/images/customer/shoucang.png"/>
+                       <div  style="width: 700px;margin-left:280px;margin-top: -160px;padding-bottom:100px;margin-bottom: 100px;">
+                           <font style="font-family: 'Microsoft Yahei';font-size:24px;line-height: 48px;"> There are zero comments now!<br/></font>
+                       </div>
+                   </div>
+
+               </c:if>
+                <c:if test="${comments.size()>0}">
                 <div class="shop_member_bd_right clearfix">
 
                     <div class="shop_meber_bd_good_lists clearfix">
@@ -209,6 +223,7 @@
                         </table>
                     </div>
                 </div>
+                </c:if>
             </div>
 
             <div id="xiangqing_content_3" class="xiangqing_contents clearfix">

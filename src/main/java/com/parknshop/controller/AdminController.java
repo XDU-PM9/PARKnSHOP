@@ -5,10 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.parknshop.bean.*;
 import com.parknshop.bean.CancelAdvertRequestBean;
 import com.parknshop.entity.*;
-import com.parknshop.service.IAdminService;
-import com.parknshop.service.IAdvertisement;
-import com.parknshop.service.IListBean;
-import com.parknshop.service.IUserService;
+import com.parknshop.service.*;
 import com.parknshop.service.baseImpl.IDefineString;
 import com.parknshop.service.serviceImpl.BackupImpl;
 import com.parknshop.utils.DateFormat;
@@ -38,6 +35,8 @@ public class AdminController {
     IAdvertisement mAdvert;
     @Autowired
     BackupImpl backupService;
+    @Autowired
+    ICalculateService mCalculate;
 
     Gson mGson = new GsonBuilder()
             .setDateFormat(DateFormat.getDateFormat())
@@ -1158,6 +1157,114 @@ public class AdminController {
             entity.setGoodsPrice(requestBean.getRateorPrice());
             boolean state = mAdminService.updateCommission(entity);
             responseBean.setError(!state);
+        }else{
+            responseBean.setError(true);
+        }
+        return mGson.toJson(responseBean);
+    }
+
+
+    @RequestMapping(value = "/getTodayCalculate")
+    @ResponseBody String getTodayCalculate(HttpSession session){
+        boolean isLogin = mService.isLogin();
+        GetAdminCalculateResponseBean responseBean = new  GetAdminCalculateResponseBean();
+        isLogin = true;
+        if(isLogin){
+            List<GetAdminCalculateResponseBean.DataBean> dateBeanList = new ArrayList<>();
+            List<CalculateDbBean> calculateDbBeanList = mCalculate.getTodayAdmin();
+            for(CalculateDbBean bean : calculateDbBeanList){
+                GetAdminCalculateResponseBean.DataBean dateBean
+                        = new GetAdminCalculateResponseBean.DataBean();
+                System.out.println(bean.getDate().toString());
+                SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+                Date date = bean.getDate();
+                String strDate=sdf.format(date);
+                dateBean.setDate(strDate);
+                dateBean.setEarn(bean.getPrice());
+                dateBeanList.add(dateBean);
+            }
+            responseBean.setError(false);
+            responseBean.setData(dateBeanList);
+        }else{
+            responseBean.setError(true);
+        }
+        return mGson.toJson(responseBean);
+    }
+
+    @RequestMapping(value = "/getMonthCalculate")
+    @ResponseBody String getMonthCalculate(HttpSession session){
+        boolean isLogin = mService.isLogin();
+        GetAdminCalculateResponseBean responseBean = new GetAdminCalculateResponseBean();
+        isLogin = true;
+        if(isLogin){
+            List<GetAdminCalculateResponseBean.DataBean> dateBeanList = new ArrayList<>();
+            List<CalculateDbBean> calculateDbBeanList = mCalculate.getMonthAdmin();
+            for(CalculateDbBean bean : calculateDbBeanList){
+                GetAdminCalculateResponseBean.DataBean dateBean
+                        = new GetAdminCalculateResponseBean.DataBean();
+                SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+                Date date = bean.getDate();
+                String strDate=sdf.format(date);
+                dateBean.setDate(strDate);
+                dateBean.setEarn(bean.getPrice());
+                dateBeanList.add(dateBean);
+            }
+            responseBean.setError(false);
+            responseBean.setData(dateBeanList);
+        }else{
+            responseBean.setError(true);
+        }
+        return mGson.toJson(responseBean);
+    }
+
+    @RequestMapping(value = "/getYearCalculate")
+    @ResponseBody String getYearCalculate(HttpSession session){
+        boolean isLogin = mService.isLogin();
+        GetAdminCalculateResponseBean responseBean = new GetAdminCalculateResponseBean();
+        isLogin = true;
+        if(isLogin){
+            List<GetAdminCalculateResponseBean.DataBean> dateBeanList = new ArrayList<>();
+            List<CalculateDbBean> calculateDbBeanList = mCalculate.getYearAdmin();
+            System.out.println("Total of size:"+calculateDbBeanList.size());
+            for(CalculateDbBean bean : calculateDbBeanList){
+                GetAdminCalculateResponseBean.DataBean dateBean
+                        = new GetAdminCalculateResponseBean.DataBean();
+                SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+                Date date = bean.getDate();
+                String strDate=sdf.format(date);
+                dateBean.setDate(strDate);
+                dateBean.setEarn(bean.getPrice());
+                dateBeanList.add(dateBean);
+            }
+            responseBean.setError(false);
+            responseBean.setData(dateBeanList);
+        }else{
+            responseBean.setError(true);
+        }
+        return mGson.toJson(responseBean);
+    }
+
+    @RequestMapping(value = "/getWeekCalculate")
+    @ResponseBody String getWeekCalculate(HttpSession session){
+        boolean isLogin = mService.isLogin();
+        GetAdminCalculateResponseBean responseBean = new GetAdminCalculateResponseBean();
+        isLogin = true;
+        if(isLogin){
+            List<GetAdminCalculateResponseBean.DataBean> dateBeanList = new ArrayList<>();
+            List<CalculateDbBean> calculateDbBeanList = mCalculate.getWeekAdmin();
+            System.out.println(calculateDbBeanList.size());
+            for(CalculateDbBean bean : calculateDbBeanList){
+                GetAdminCalculateResponseBean.DataBean dateBean
+                        = new GetAdminCalculateResponseBean.DataBean();
+                SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+                Date date = bean.getDate();
+                String strDate=sdf.format(date);
+                dateBean.setDate(strDate);
+                dateBean.setEarn(bean.getPrice());
+                dateBeanList.add(dateBean);
+            }
+            responseBean.setError(false);
+            responseBean.setData(dateBeanList);
         }else{
             responseBean.setError(true);
         }

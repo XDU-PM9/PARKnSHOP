@@ -261,12 +261,20 @@ public class CustomerService implements ICustomerService {
             params[1] = shopEntity;
             List<CollectshopEntity> ces = collectshopEntityBaseDao.find("from CollectshopEntity ce  where ce.userByUserId=? and ce.shopByShopId=?", params);
             if (ces.size() == 0) {
-                Object[] parans = new Object[4];
-                parans[0] = id;
-                parans[1] = userId;
-                parans[2] = new Timestamp(System.currentTimeMillis());
-                parans[3] = getPictureLocation(shopEntity.getPhotoGroup());
-                return  collectshopEntityBaseDao.insert("insert into collectShop(shopId,userId,createTime) values(?,?,?,?)", parans);
+                CollectshopEntity collectshopEntity=new CollectshopEntity();
+                collectshopEntity.setCreateTime(new Timestamp(System.currentTimeMillis()));
+                collectshopEntity.setPicture(getPictureLocation(shopEntity.getPhotoGroup()));
+                collectshopEntity.setShopByShopId(shopEntityBaseDao.get(ShopEntity.class,id));
+                collectshopEntity.setUserByUserId(userEntityBaseDao.get(UserEntity.class,userId));
+                try {
+                    collectshopEntityBaseDao.save(collectshopEntity);
+                    return true;
+                }catch (Exception e)
+                {
+                    e.printStackTrace();
+                    return false;
+                }
+
             } else {
                 Object[] parans = new Object[2];
                 parans[0] = new Timestamp(System.currentTimeMillis());

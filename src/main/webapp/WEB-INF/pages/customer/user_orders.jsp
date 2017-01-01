@@ -193,7 +193,7 @@
                                         <c:when test="${orders.getState()==1}">Processing Orders</c:when>
                                         <c:when test="${orders.getState()==2}">Preparing for Shippment</c:when>
                                         <c:when test="${orders.getState()==3}">Shipped</c:when>
-                                        <c:when test="${orders.getState()==4}">Complete</c:when>
+                                        <c:when test="${orders.getState()==4}"><a href="/comment/toComment?ordersId=${order.ordersId}">Complete</a></c:when>
                                         <c:when test="${orders.getState()==5}">Commented</c:when>
                                     </c:choose>
                                 </td>
