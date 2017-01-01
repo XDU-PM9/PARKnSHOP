@@ -97,6 +97,9 @@ public class OrderController {
             return "error";
         }
         String orderNum = iOrderService.addOrders(orders);
+        if(null==orderNum){
+            return "Generator order fail,please try again";
+        }
         return "/order/listCart?OrdersNum="+orderNum;
     }
 
