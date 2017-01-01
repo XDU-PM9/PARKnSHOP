@@ -1,18 +1,23 @@
 package com.parknshop.service.serviceImpl;
 
 import com.parknshop.bean.HqlBean;
+import com.parknshop.bean.OrderDbBean;
 import com.parknshop.dao.IBaseDao;
 import com.parknshop.dao.IPictureDao;
 import com.parknshop.dao.daoImpl.BaseDao;
+import com.parknshop.dao.daoImpl.PitureDao;
 import com.parknshop.entity.*;
 import com.parknshop.service.IListBean;
 import com.parknshop.service.IOrderService;
 import com.parknshop.service.IOwnerService;
 import com.parknshop.service.serviceImpl.listBean.OrderListBean;
+import com.parknshop.utils.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.Order;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -279,17 +284,29 @@ public class OrderService implements IOrderService {
 
     @Override
     public IListBean<OrdersEntity> getFinishOrderAdminYear(int page, int lines) {
-        return getOrderList("  and state > ? and YEAR(createTime)=YEAR(NOW() ",new Object[]{STATE_SEND},page,lines);
+        return getOrderList("  and state > ? and YEAR(createTime)=YEAR(NOW()) ",new Object[]{STATE_SEND},page,lines);
+    }
+    public static void main(String[] args){
+        OrderService orderService = new OrderService(new BaseDao<>(),new BaseDao<>(),new OrderListBean(),new BaseDao<>(),new BaseDao<>(),new PitureDao(new BaseDao<>()));
+        IListBean<OrdersEntity> list = orderService.getFinishOrderAdminMonth(1,10);
+        IListBean<OrdersEntity> listBean = orderService.getFinishOrder(1,1,10);
+        Log.debug("success   "+list.getNumer());
     }
 
     @Override
     public IListBean<OrdersEntity> getFinishOrderAdminMonth(int page, int lines) {
-        return getOrderList("  and state > ? and DATE_SUB(CURDATE(), INTERVAL 30 DAY) <= date(createTime) ",new Object[]{STATE_SEND},page,lines);
+        Date d=new Date();
+        SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
+        Date ye = new Date(d.getTime() - 31 * 24 * 60 * 60 * 1000);
+        return getOrderList("  and state > ? and date( ? ) <= date(createTime) ",new Object[]{STATE_SEND,ye},page,lines);
     }
 
     @Override
     public IListBean<OrdersEntity> getFinishOrderAdminWeek(int page, int lines) {
-        return getOrderList("  and state > ? and DATE_SUB(CURDATE(), INTERVAL 7 DAY) <= date(createTime) ",new Object[]{STATE_SEND},page,lines);
+        Date d=new Date();
+        SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
+        Date ye = new Date(d.getTime() - 7 * 24 * 60 * 60 * 1000);
+        return getOrderList("  and state > ? and date( ? ) <= date(createTime) ",new Object[]{STATE_SEND,ye},page,lines);
     }
 
     @Override
