@@ -127,6 +127,9 @@ public interface IOrderService {
     /**
      * 管理员 获取 已经发货并且收获了的的所有订单
      */
-    IListBean<OrdersEntity> getFinishOrderAdmin(int page,int lines);
+    IListBean<OrdersEntity> getFinishOrderAdminYear(int page,int lines);
+    IListBean<OrdersEntity> getFinishOrderAdminMonth(int page,int lines);
+    IListBean<OrdersEntity> getFinishOrderAdminWeek(int page,int lines);
+    IListBean<OrdersEntity> getFinishOrderAdminToday(int page,int lines);
 
 }
