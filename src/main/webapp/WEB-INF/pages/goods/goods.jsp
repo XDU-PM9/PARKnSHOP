@@ -18,7 +18,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
-    <title>Product Details</title>
+    <title><%out.print(goods.getGoodsName());%></title>
     <link rel="stylesheet" href="/resources/css/base.css" type="text/css" />
     <link rel="stylesheet" href="/resources/css/shop_common.css" type="text/css" />
     <link rel="stylesheet" href="/resources/css/shop_header.css" type="text/css" />
@@ -173,12 +173,12 @@
             <ul>
                 <li id="xiangqing_tab_1" onmouseover="shop_goods_easytabs('1', '1');" onfocus="shop_goods_easytabs('1', '1');" onclick="return false;"><a href=""><span>Details</span></a></li>
                 <li id="xiangqing_tab_2" onmouseover="shop_goods_easytabs('1', '2');" onfocus="shop_goods_easytabs('1', '2');" onclick="return false;"><a href=""><span>Comment</span></a></li>
-                <li id="xiangqing_tab_3" onmouseover="shop_goods_easytabs('1', '3');" onfocus="shop_goods_easytabs('1', '3');" onclick="return false;"><a href=""><span>Advisory</span></a></li>
+                <li id="xiangqing_tab_3" style="display: none" onmouseover="shop_goods_easytabs('1', '3');" onfocus="shop_goods_easytabs('1', '3');" onclick="return false;"><a href=""><span>Advisory</span></a></li>
             </ul>
         </div>
         <div class="shop_goods_bd_xiangqing_content clearfix">
             <div id="xiangqing_content_1" class="xiangqing_contents clearfix">
-                <p>Details----11111</p>
+                <p><%out.print(goods.getIntroduction());%></p>
             </div>
             <div id="xiangqing_content_2" class="xiangqing_contents clearfix">
                <c:if test="${comments.size()==0}">
