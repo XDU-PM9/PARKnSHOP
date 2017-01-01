@@ -117,7 +117,7 @@ public class OwnerOrderController {
             dataList.add(dataBean);
         }
         response.setData(dataList);
-        Log.debug(mGson.toJson(response));
+//        Log.debug(mGson.toJson(response));
         return mGson.toJson(response);
     }
 
@@ -173,7 +173,7 @@ public class OwnerOrderController {
             dataList.add(dataBean);
         }
         response.setData(dataList);
-        Log.debug(mGson.toJson(response));
+//        Log.debug(mGson.toJson(response));
         return mGson.toJson(response);
     }
 
@@ -185,8 +185,8 @@ public class OwnerOrderController {
             return mGson.toJson(response);
         }
         OrderCheckRequest bean = mGson.fromJson(data,OrderCheckRequest.class);
-        Log.debug("Check order: "+bean.getOrderNumber());
-        boolean success = mOrderService.receive(bean.getOrderNumber());
+//        Log.debug("Check order: "+bean.getOrderNumber());
+        boolean success = mOrderService.sendGoods(bean.getOrderNumber());
         response.setError(!success);
         Log.debug(mGson.toJson(response));
         return mGson.toJson(response);

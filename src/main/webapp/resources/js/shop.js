@@ -57,7 +57,8 @@ function submitCart() {
                 window.location.href = msg;
             }
             else {
-                alert("Generator order fail,please try again");
+                alert(msg);
+                // alert("Generator order fail,please try again");
             }
         }
     })

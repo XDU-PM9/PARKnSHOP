@@ -65,6 +65,19 @@ public class OrderController {
     }
 
 
+    @RequestMapping(value = "/confirmReceive",method = RequestMethod.POST)
+    @ResponseBody
+    public  String  confirmReceive(@RequestParam("orderNum") String  orderNum)
+    {
+        if(iOrderService.receive(orderNum))
+        {
+            return "success";
+        }
+        else {
+            return "fail";
+        }
+    }
+
     @RequestMapping(value = "/listCart", method = RequestMethod.GET)
     public String listCart(@RequestParam("OrdersNum") String ordersNum, Model model, ModelMap modelMap) {
         List<OrdersEntity> ordersEntityList = iOrderService.getOrdersList(ordersNum);
@@ -97,6 +110,9 @@ public class OrderController {
             return "error";
         }
         String orderNum = iOrderService.addOrders(orders);
+        if(null==orderNum){
+            return "Generator order fail,please try again";
+        }
         return "/order/listCart?OrdersNum="+orderNum;
     }
 

@@ -44,7 +44,7 @@
             msg="";
         }
     %>
-    <p><%=msg%></p>
+    <p style="color: red"><%=msg%></p>
 
     <div class="forAndRe">
         <a href="/owner/register">Click here to register a new account</a>

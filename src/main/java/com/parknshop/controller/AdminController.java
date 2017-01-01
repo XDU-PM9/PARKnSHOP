@@ -1163,28 +1163,54 @@ public class AdminController {
         return mGson.toJson(responseBean);
     }
 
+    //计算+/-几天的日期
+    private  String calculateDate(Date date,int i){
+        SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
+        return df.format(new Date(date.getTime() + i * 24 * 60 * 60 * 1000));
+    }
 
-    @RequestMapping(value = "/getTodayCalculate")
-    @ResponseBody String getTodayCalculate(HttpSession session){
-        boolean isLogin = mService.isLogin();
-        GetAdminCalculateResponseBean responseBean = new  GetAdminCalculateResponseBean();
-        isLogin = true;
-        if(isLogin){
-            List<GetAdminCalculateResponseBean.DataBean> dateBeanList = new ArrayList<>();
-            List<CalculateDbBean> calculateDbBeanList = mCalculate.getTodayAdmin();
-            for(CalculateDbBean bean : calculateDbBeanList){
-                GetAdminCalculateResponseBean.DataBean dateBean
-                        = new GetAdminCalculateResponseBean.DataBean();
-                System.out.println(bean.getDate().toString());
-                SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
-                Date date = bean.getDate();
-                String strDate=sdf.format(date);
+    //给利润响应Bean添加数据
+    private void addDateToCalculate(GetAdminCalculateResponseBean responseBean,
+                                    List<CalculateDbBean> calculateDbBeanList,String type){
+        GetAdminCalculateResponseBean.DataBean dateBean
+                = new GetAdminCalculateResponseBean.DataBean();
+        List<GetAdminCalculateResponseBean.DataBean> dateBeanList = new ArrayList<>();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        if(calculateDbBeanList.size()>0) {
+            for (CalculateDbBean bean : calculateDbBeanList) {
+                String strDate = sdf.format(bean.getDate());
                 dateBean.setDate(strDate);
                 dateBean.setEarn(bean.getPrice());
                 dateBeanList.add(dateBean);
             }
             responseBean.setError(false);
             responseBean.setData(dateBeanList);
+        }else{
+            String strDate = sdf.format(new Date());
+            //String preDate = "";
+            switch (type) {
+                case "Today": dateBean.setDate(strDate);break;
+                case "Month": //preDate = calculateDate(new Date(),-30);
+                        dateBean.setDate("------");break;
+                case "Week": //preDate = calculateDate(new Date(),-7);
+                        dateBean.setDate("------");break;
+                case "Year":dateBean.setDate(strDate.substring(0,4));break;
+            }
+            dateBean.setEarn(0.0);
+            dateBeanList.add(dateBean);
+            responseBean.setError(false);
+            responseBean.setData(dateBeanList);
+        }
+    }
+
+
+    @RequestMapping(value = "/getTodayCalculate")
+    @ResponseBody String getTodayCalculate(HttpSession session){
+        boolean isLogin = mService.isLogin();
+        GetAdminCalculateResponseBean responseBean = new  GetAdminCalculateResponseBean();
+//        isLogin = true;
+        if(isLogin){
+            addDateToCalculate(responseBean,mCalculate.getTodayAdmin(),"Today");
         }else{
             responseBean.setError(true);
         }
@@ -1195,22 +1221,9 @@ public class AdminController {
     @ResponseBody String getMonthCalculate(HttpSession session){
         boolean isLogin = mService.isLogin();
         GetAdminCalculateResponseBean responseBean = new GetAdminCalculateResponseBean();
-        isLogin = true;
+//        isLogin = true;
         if(isLogin){
-            List<GetAdminCalculateResponseBean.DataBean> dateBeanList = new ArrayList<>();
-            List<CalculateDbBean> calculateDbBeanList = mCalculate.getMonthAdmin();
-            for(CalculateDbBean bean : calculateDbBeanList){
-                GetAdminCalculateResponseBean.DataBean dateBean
-                        = new GetAdminCalculateResponseBean.DataBean();
-                SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
-                Date date = bean.getDate();
-                String strDate=sdf.format(date);
-                dateBean.setDate(strDate);
-                dateBean.setEarn(bean.getPrice());
-                dateBeanList.add(dateBean);
-            }
-            responseBean.setError(false);
-            responseBean.setData(dateBeanList);
+            addDateToCalculate(responseBean,mCalculate.getMonthAdmin(),"Month");
         }else{
             responseBean.setError(true);
         }
@@ -1221,23 +1234,9 @@ public class AdminController {
     @ResponseBody String getYearCalculate(HttpSession session){
         boolean isLogin = mService.isLogin();
         GetAdminCalculateResponseBean responseBean = new GetAdminCalculateResponseBean();
-        isLogin = true;
+//        isLogin = true;
         if(isLogin){
-            List<GetAdminCalculateResponseBean.DataBean> dateBeanList = new ArrayList<>();
-            List<CalculateDbBean> calculateDbBeanList = mCalculate.getYearAdmin();
-            System.out.println("Total of size:"+calculateDbBeanList.size());
-            for(CalculateDbBean bean : calculateDbBeanList){
-                GetAdminCalculateResponseBean.DataBean dateBean
-                        = new GetAdminCalculateResponseBean.DataBean();
-                SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
-                Date date = bean.getDate();
-                String strDate=sdf.format(date);
-                dateBean.setDate(strDate);
-                dateBean.setEarn(bean.getPrice());
-                dateBeanList.add(dateBean);
-            }
-            responseBean.setError(false);
-            responseBean.setData(dateBeanList);
+            addDateToCalculate(responseBean,mCalculate.getYearAdmin(),"Year");
         }else{
             responseBean.setError(true);
         }
@@ -1248,23 +1247,9 @@ public class AdminController {
     @ResponseBody String getWeekCalculate(HttpSession session){
         boolean isLogin = mService.isLogin();
         GetAdminCalculateResponseBean responseBean = new GetAdminCalculateResponseBean();
-        isLogin = true;
+//        isLogin = true;
         if(isLogin){
-            List<GetAdminCalculateResponseBean.DataBean> dateBeanList = new ArrayList<>();
-            List<CalculateDbBean> calculateDbBeanList = mCalculate.getWeekAdmin();
-            System.out.println(calculateDbBeanList.size());
-            for(CalculateDbBean bean : calculateDbBeanList){
-                GetAdminCalculateResponseBean.DataBean dateBean
-                        = new GetAdminCalculateResponseBean.DataBean();
-                SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
-                Date date = bean.getDate();
-                String strDate=sdf.format(date);
-                dateBean.setDate(strDate);
-                dateBean.setEarn(bean.getPrice());
-                dateBeanList.add(dateBean);
-            }
-            responseBean.setError(false);
-            responseBean.setData(dateBeanList);
+            addDateToCalculate(responseBean,mCalculate.getWeekAdmin(),"Week");
         }else{
             responseBean.setError(true);
         }

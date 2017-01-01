@@ -15,20 +15,20 @@
                 <div class="inforBlock">
                     <i class="iconfont">&#xe60d;:</i>
                     <li>
-                        <input placeholder="Please input your new userName" name="username" type="text" id="userName" size="18"/>
+                        <input placeholder="Please input your new userName" value="${sessionScope.user.username}" name="username" type="text" id="userName" size="18"/>
                     </li><span></span>
                 </div>
 
                 <div class="inforBlock">
                     <i class="iconfont">&#xe604;:</i>
                     <li>
-                        <input placeholder="Please input your new phone" name="phone" type="text" id="userPhone" size="18"/>
+                        <input placeholder="Please input your new phone" value="${sessionScope.user.phone}" name="phone" type="text" id="userPhone" size="18"/>
                     </li>
                 </div>
                 <div class="inforBlock">
                     <i class="iconfont">&#xe649;:</i>
                     <li>
-                        <input placeholder="Please input your new email" name="email" type="text" id="userEmail" size="18"/>
+                        <input placeholder="Please input your new email" value="${sessionScope.user.email}" name="email" type="text" id="userEmail" size="18"/>
                     </li>
                 </div>
                 <input type="submit"  class="butlogin" value="Update" id="updateBtn"/>

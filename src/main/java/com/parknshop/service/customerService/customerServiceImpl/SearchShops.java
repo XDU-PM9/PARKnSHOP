@@ -201,6 +201,12 @@ public class SearchShops implements ISearchShops {
         return this;
     }
 
+    @Override
+    public ISearchShops setShopNmae(String shopNmae) {
+        this.shopName=shopNmae;
+        return this;
+    }
+
     public SearchShops setAnyState() {
         this.anyState = !this.anyState;
         return this;
