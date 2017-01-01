@@ -50,7 +50,7 @@
                 <div class="clear"> </div>
             </li>
             <li>
-                <input placeholder="Please set your password(the length of password less than 20 and more than 6)"name="password" type="password" id="password" size="18" onblur="checkPass()" required/>
+                <input placeholder="Please set your password"name="password" type="password" id="password" size="18" onblur="checkPass()" required/>
                 <a href="#" class="icon ticker"> </a>
                 <div class="clear"> </div>
             </li>

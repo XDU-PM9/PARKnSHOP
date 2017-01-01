@@ -437,7 +437,7 @@ public class OwnerController {
         }
         goodsList.setData(list);
         String temp = mGson.toJson(goodsList);
-        Log.debug(temp);
+//        Log.debug(temp);
         return mGson.toJson(goodsList);
     }
 
