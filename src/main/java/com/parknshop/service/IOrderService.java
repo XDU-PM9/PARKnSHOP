@@ -123,4 +123,13 @@ public interface IOrderService {
      * @return
      */
     IListBean<OrdersEntity> getFinishOrder(int ownerId,int page,int lines);
+
+    /**
+     * 管理员 获取 已经发货并且收获了的的所有订单
+     */
+    IListBean<OrdersEntity> getFinishOrderAdminYear(int page,int lines);
+    IListBean<OrdersEntity> getFinishOrderAdminMonth(int page,int lines);
+    IListBean<OrdersEntity> getFinishOrderAdminWeek(int page,int lines);
+    IListBean<OrdersEntity> getFinishOrderAdminToday(int page,int lines);
+
 }

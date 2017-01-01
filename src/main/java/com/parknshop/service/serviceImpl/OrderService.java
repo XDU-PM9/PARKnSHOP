@@ -278,6 +278,27 @@ public class OrderService implements IOrderService {
     }
 
     @Override
+    public IListBean<OrdersEntity> getFinishOrderAdminYear(int page, int lines) {
+        return getOrderList("  and state > ? and YEAR(createTime)=YEAR(NOW() ",new Object[]{STATE_SEND},page,lines);
+    }
+
+    @Override
+    public IListBean<OrdersEntity> getFinishOrderAdminMonth(int page, int lines) {
+        return getOrderList("  and state > ? and DATE_SUB(CURDATE(), INTERVAL 30 DAY) <= date(createTime) ",new Object[]{STATE_SEND},page,lines);
+    }
+
+    @Override
+    public IListBean<OrdersEntity> getFinishOrderAdminWeek(int page, int lines) {
+        return getOrderList("  and state > ? and DATE_SUB(CURDATE(), INTERVAL 7 DAY) <= date(createTime) ",new Object[]{STATE_SEND},page,lines);
+    }
+
+    @Override
+    public IListBean<OrdersEntity> getFinishOrderAdminToday(int page, int lines) {
+        return getOrderList("  and state > ? and to_days(createTime) = to_days(now()) ",new Object[]{STATE_SEND},page,lines);
+    }
+
+
+    @Override
     public IListBean<OrdersEntity> getCustomerOrder(int ownerId,int page,int lines) {
         return getOrderList(" and ownerId = ? and state = ? ",new Object[]{ownerId,STATE_PAY},page,lines);
     }
