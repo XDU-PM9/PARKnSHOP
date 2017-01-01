@@ -5,10 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.parknshop.bean.*;
 import com.parknshop.bean.CancelAdvertRequestBean;
 import com.parknshop.entity.*;
-import com.parknshop.service.IAdminService;
-import com.parknshop.service.IAdvertisement;
-import com.parknshop.service.IListBean;
-import com.parknshop.service.IUserService;
+import com.parknshop.service.*;
 import com.parknshop.service.baseImpl.IDefineString;
 import com.parknshop.service.serviceImpl.BackupImpl;
 import com.parknshop.utils.DateFormat;
@@ -38,6 +35,8 @@ public class AdminController {
     IAdvertisement mAdvert;
     @Autowired
     BackupImpl backupService;
+    @Autowired
+    ICalculateService mCalculate;
 
     Gson mGson = new GsonBuilder()
             .setDateFormat(DateFormat.getDateFormat())
@@ -1158,6 +1157,99 @@ public class AdminController {
             entity.setGoodsPrice(requestBean.getRateorPrice());
             boolean state = mAdminService.updateCommission(entity);
             responseBean.setError(!state);
+        }else{
+            responseBean.setError(true);
+        }
+        return mGson.toJson(responseBean);
+    }
+
+    //计算+/-几天的日期
+    private  String calculateDate(Date date,int i){
+        SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
+        return df.format(new Date(date.getTime() + i * 24 * 60 * 60 * 1000));
+    }
+
+    //给利润响应Bean添加数据
+    private void addDateToCalculate(GetAdminCalculateResponseBean responseBean,
+                                    List<CalculateDbBean> calculateDbBeanList,String type){
+        GetAdminCalculateResponseBean.DataBean dateBean
+                = new GetAdminCalculateResponseBean.DataBean();
+        List<GetAdminCalculateResponseBean.DataBean> dateBeanList = new ArrayList<>();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        if(calculateDbBeanList.size()>0) {
+            for (CalculateDbBean bean : calculateDbBeanList) {
+                String strDate = sdf.format(bean.getDate());
+                dateBean.setDate(strDate);
+                dateBean.setEarn(bean.getPrice());
+                dateBeanList.add(dateBean);
+            }
+            responseBean.setError(false);
+            responseBean.setData(dateBeanList);
+        }else{
+            String strDate = sdf.format(new Date());
+            //String preDate = "";
+            switch (type) {
+                case "Today": dateBean.setDate(strDate);break;
+                case "Month": //preDate = calculateDate(new Date(),-30);
+                        dateBean.setDate("------");break;
+                case "Week": //preDate = calculateDate(new Date(),-7);
+                        dateBean.setDate("------");break;
+                case "Year":dateBean.setDate(strDate.substring(0,4));break;
+            }
+            dateBean.setEarn(0.0);
+            dateBeanList.add(dateBean);
+            responseBean.setError(false);
+            responseBean.setData(dateBeanList);
+        }
+    }
+
+
+    @RequestMapping(value = "/getTodayCalculate")
+    @ResponseBody String getTodayCalculate(HttpSession session){
+        boolean isLogin = mService.isLogin();
+        GetAdminCalculateResponseBean responseBean = new  GetAdminCalculateResponseBean();
+//        isLogin = true;
+        if(isLogin){
+            addDateToCalculate(responseBean,mCalculate.getTodayAdmin(),"Today");
+        }else{
+            responseBean.setError(true);
+        }
+        return mGson.toJson(responseBean);
+    }
+
+    @RequestMapping(value = "/getMonthCalculate")
+    @ResponseBody String getMonthCalculate(HttpSession session){
+        boolean isLogin = mService.isLogin();
+        GetAdminCalculateResponseBean responseBean = new GetAdminCalculateResponseBean();
+//        isLogin = true;
+        if(isLogin){
+            addDateToCalculate(responseBean,mCalculate.getMonthAdmin(),"Month");
+        }else{
+            responseBean.setError(true);
+        }
+        return mGson.toJson(responseBean);
+    }
+
+    @RequestMapping(value = "/getYearCalculate")
+    @ResponseBody String getYearCalculate(HttpSession session){
+        boolean isLogin = mService.isLogin();
+        GetAdminCalculateResponseBean responseBean = new GetAdminCalculateResponseBean();
+//        isLogin = true;
+        if(isLogin){
+            addDateToCalculate(responseBean,mCalculate.getYearAdmin(),"Year");
+        }else{
+            responseBean.setError(true);
+        }
+        return mGson.toJson(responseBean);
+    }
+
+    @RequestMapping(value = "/getWeekCalculate")
+    @ResponseBody String getWeekCalculate(HttpSession session){
+        boolean isLogin = mService.isLogin();
+        GetAdminCalculateResponseBean responseBean = new GetAdminCalculateResponseBean();
+//        isLogin = true;
+        if(isLogin){
+            addDateToCalculate(responseBean,mCalculate.getWeekAdmin(),"Week");
         }else{
             responseBean.setError(true);
         }

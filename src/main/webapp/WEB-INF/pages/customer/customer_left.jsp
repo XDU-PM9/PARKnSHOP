@@ -29,6 +29,7 @@
         <dt>Order Center</dt>
         <dd><span><a href="/order/listOrder">Order Center</a></span></dd>
         <dd><span><a href="/viewBuyHistory/toSearch">view Buy History</a></span></dd>
+        <dd><span><a href="/comment/listComment">Comment Manage</a></span></dd>
         <dd><span><a href="/listProduct?requestPage=1">My Cart</a></span></dd>
     </dl>
 </div>

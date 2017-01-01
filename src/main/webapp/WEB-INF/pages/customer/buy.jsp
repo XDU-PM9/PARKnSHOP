@@ -129,6 +129,7 @@
                 <tbody>
 
                 <%--订单商品列表--%>
+                <c:if test="${not empty ordersEntityList}">
                 <c:forEach var="orderEntity" items="${ordersEntityList}">
                 <tr>
                     <%--<td class="gwc_list_pic"><a href=""><img src="${orderEntity.photo}" /></a></td>--%>
@@ -138,7 +139,7 @@
                     <td class="gwc_list_xiaoji"><span>$<strong id="xiaoji_001" class="good_xiaojis">${orderEntity.amount*orderEntity.price}</strong></span></td>
                 </tr>
                 </c:forEach>
-
+                </c:if>
                 </tbody>
                 <tfoot>
                 <tr>

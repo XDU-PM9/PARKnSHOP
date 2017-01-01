@@ -2,20 +2,20 @@ package com.parknshop.controller;
 
 import com.parknshop.entity.CartEntity;
 import com.parknshop.entity.UserEntity;
-import com.parknshop.service.IOrderService;
 import com.parknshop.service.IUserService;
 import com.parknshop.service.baseImpl.IDefineString;
 import com.parknshop.service.customerService.Cart;
 import com.parknshop.service.customerService.ICartService;
 import com.parknshop.service.customerService.IGetList;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -31,36 +31,40 @@ public class CartController {
 
     private IUserService mUserService;
 
-//    @RequestMapping(value = "/changeAmount",method = RequestMethod.POST)
-//    public @ResponseBody String changeAmount(HttpServletRequest request, HttpSession session)
-//    {
-//        try {
-//            int amount = Integer.parseInt(request.getParameter("amount"));
-//            if (request.getParameter("cartId") != null) {
-//                return String.valueOf(cartService.changeAmount(Integer.parseInt(request.getParameter("cartId")), amount));
-//            } else {
-//                return String.valueOf(cartService.changeAmount(getUserId(session), Integer.parseInt(request.getParameter("goodsId")), amount));
-//            }
-//        }catch (NumberFormatException e){
-//            return "Paramter error";
-//        }
-//    }
-
     @RequestMapping(value = "/changeAmount", method = RequestMethod.GET)
-    public String changeAmount(@RequestParam int cartId, @RequestParam int amount, HttpSession session, Model model) {
+    public String changeAmount(@RequestParam int cartId, @RequestParam int amount, HttpSession session, Model model, HttpServletRequest request) {
 //        int userId=getUserId(session);
 //        if (userId<0) {
 //            return "redirect:/customer/login";
 //        }else {
         if (amount > 0) {
             cartService.changeAmount(cartId, amount);
+//            if("XMLHttpRequest".equals(request.getHeaders("x-requested-with"))){
+//                return "success";
+//            }
             return "redirect:/listProduct?requestPage=1";
         } else {
             model.addAttribute("husdfdskljaf", cartId);
+//            if("XMLHttpRequest".equals(request.getHeaders("x-requested-with"))){
+//                return "fail";
+//            }
             return "redirect:/removeProduct?goodsId={husdfdskljaf}";
         }
 //        }
     }
+
+    @RequestMapping(value = "/changeAmount", method = RequestMethod.POST)
+    @ResponseBody
+    public String changeAmountPost(@RequestParam int cartId, @RequestParam int amount, HttpSession session, Model model, HttpServletRequest request) {
+        if (amount > 0) {
+            cartService.changeAmount(cartId, amount);
+            return "success";
+        } else {
+            model.addAttribute("husdfdskljaf", cartId);
+            return "false";
+        }
+    }
+
 
     @RequestMapping(value = "/listProduct", method = RequestMethod.GET)
     public String listCart(@RequestParam int requestPage, HttpSession session, Model model) {
@@ -74,7 +78,8 @@ public class CartController {
             model.addAttribute("cartList", products);
         }
 //        }
-        return "/customer/cart.jsp";
+//        return "/customer/cart.jsp";
+        return "/customer/carts.jsp";
     }
 
     @RequestMapping(value = "/addProduct", method = RequestMethod.GET)
@@ -102,11 +107,10 @@ public class CartController {
     }
 
 
-
-    private int getUserId(HttpSession session){
+    private int getUserId(HttpSession session) {
         try {
             return ((UserEntity) session.getAttribute(IDefineString.SESSION_USER)).getUserId();
-        }catch (Exception e){
+        } catch (Exception e) {
             return -1;
         }
     }

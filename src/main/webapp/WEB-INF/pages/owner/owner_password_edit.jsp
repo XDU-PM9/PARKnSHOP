@@ -21,7 +21,7 @@
                 <div class="inforBlock">
                     <i class="iconfont">&#xe60d;:</i>
                     <li>
-                        <input placeholder="Input your new password(length:6～20)" name="new" type="password" id="newPass" size="18"/>
+                        <input placeholder="Input your new password" name="new" type="password" id="newPass" size="18"/>
                     </li><span class="no"></span>
                 </div>
                 <div class="inforBlock">

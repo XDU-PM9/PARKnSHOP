@@ -725,4 +725,60 @@ url:/admin/setGoodsPrice
 请求参数：
     { goodsPrice:13.5 }
 响应参数：
-    { error:true/false }
+    { error:true/false 
+    
+#获取当天利润
+url:/admin/getTodayCalculate
+请求参数：无，直接发请求给上述url即可
+响应参数：
+{
+    "error": true,
+    "data": [
+        {
+            "date": String
+            "earn": "double"
+        }
+    ]
+}
+
+#获取当月利润
+url:/admin/getMonthCalculate
+请求参数：无，直接发请求给上述url即可
+响应参数：
+{
+    "error": true,
+    "data": [
+        {
+            "date": String
+            "earn": "double"
+        }
+    ]
+}
+
+#获取本周利润
+url:/admin/getWeekCalculate
+请求参数：无，直接发请求给上述url即可
+响应参数：
+{
+    "error": true,
+    "data": [
+        {
+            "date": String
+            "earn": "double"
+        }
+    ]
+}
+
+#获取当年利润
+url:/admin/getYearCalculate
+请求参数：无，直接发请求给上述url即可
+响应参数：
+{
+    "error": true,
+    "data": [
+        {
+            "date": String
+            "earn": "double"
+        }
+    ]
+}

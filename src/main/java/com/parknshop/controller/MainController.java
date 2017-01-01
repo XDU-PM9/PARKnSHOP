@@ -43,12 +43,12 @@ public class MainController {
         //广告店铺
         IListBean<AdvertisementDbBean> adShop = mAdveServiceOne.getTopShop(1,10);
         request.setAttribute(AD_SHOP,adShop);
-        Log.debug(adShop);
+//        Log.debug(adShop);
 
         //广告商品
         IListBean<AdvertisementDbBean> adGoods = mAdveServiceTwo.getTopGoods(1,10);
         request.setAttribute(AD_GOODS,adGoods);
-        Log.debug(adGoods);
+//        Log.debug(adGoods);
 
         return "index_new.jsp";
     }

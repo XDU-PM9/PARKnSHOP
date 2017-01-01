@@ -1,12 +1,21 @@
 <%@ page import="com.parknshop.bean.ShopDbBean" %>
 <%@ page import="com.parknshop.controller.ShopController" %>
+<%@ page import="com.parknshop.utils.Log" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    ShopDbBean shop = (ShopDbBean) request.getAttribute(ShopController.SHOP);
+    String photo = shop.getPhotoEntityList().get(0).getAddress();
+    String name = shop.getShopEntity().getShopName();
+    String logo = shop.getShopEntity().getLogo();
+    int id = shop.getShopEntity().getShopId();
+    Log.debug("name:"+name);
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>店铺的名字</title>
+    <title><%out.print(name);%></title>
     <link rel="stylesheet" href="/resources/css/base.css" type="text/css"/>
     <link rel="stylesheet" href="/resources/css/shop_common.css" type="text/css"/>
     <link rel="stylesheet" href="/resources/css/shop_header.css" type="text/css"/>
@@ -21,12 +30,13 @@
 
 <!-- shop -->
 <div class="shop_member_bd clearfix">
+    <img src="<%out.print(photo);%>" alt="" style="width: 1000px; height: 500px; background: #9da7be">
+    <div>
+        <img src="<%out.print(logo);%>" alt="" style="display: inline; width: 50px; height: 50px; vertical-align:middle"/>
+        <p style="display: inline;font-size: 150%; height: 50px; vertical-align:middle" ><%out.print(name);%></p>
+        <a href="/insertCollectShop?shopId=<%out.print(id);%>" style="display: inline; height: 50px; vertical-align:middle;margin-left: 810px">Add to favorite</a>
+    </div>
 
-    <%
-        ShopDbBean shop = (ShopDbBean) request.getAttribute(ShopController.SHOP);
-        String photo = shop.getPhotoEntityList().get(0).getAddress();
-    %>
-    <img src="<%out.print(photo);%>" alt="" style="width: 1000px; height: 500px;">
     <div>
         <div class="shop_bd_list_left clearfix">
             <!-- 左边商品分类 -->
