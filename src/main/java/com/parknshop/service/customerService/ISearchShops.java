@@ -24,6 +24,9 @@ public interface ISearchShops {
     public ISearchShops setOrderByTimeDesc();
     public ISearchShops setOrderByViews();
     public ISearchShops setOrderByViewsDesc();
+
+    //设置shopname
+    public ISearchShops setShopNmae(String shopNmae);
     //设置不对搜索进行过滤，即显示所有状态下的店铺
     public ISearchShops setAnyState();
     //设置分页
