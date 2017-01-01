@@ -279,7 +279,7 @@ public class OrderService implements IOrderService {
 
     @Override
     public IListBean<OrdersEntity> getFinishOrderAdmin(int page, int lines) {
-        return getOrderList("  and state > ? ",new Object[]{STATE_PAY},page,lines);
+        return getOrderList("  and state > ? ",new Object[]{STATE_SEND},page,lines);
     }
 
     @Override

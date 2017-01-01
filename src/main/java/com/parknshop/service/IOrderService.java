@@ -125,7 +125,7 @@ public interface IOrderService {
     IListBean<OrdersEntity> getFinishOrder(int ownerId,int page,int lines);
 
     /**
-     * 管理员
+     * 管理员 获取 已经发货并且收获了的的所有订单
      */
     IListBean<OrdersEntity> getFinishOrderAdmin(int page,int lines);
 
