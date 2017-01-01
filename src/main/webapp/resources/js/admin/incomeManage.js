@@ -4,17 +4,19 @@
 /*全局变量*/
 /*主方法*/
 $(function () {
-  getRate();
-  getShopPrice();
-  getGoodsPrice();
-  editRate();
-  editShopPrice();
-  editGoodsPrice();
+    getRate();
+    getShopPrice();
+    getGoodsPrice();
+    editRate();
+    editShopPrice();
+    editGoodsPrice();
+    submitRate();
+    submitGoods();
+    submitShop();
 })
 /*加载三条数据对应的方法*/
 function getRate() {
     $.ajax({
-        type:'post',
         url:'/admin/getRate',
         success:function (data) {
             var response =JSON.parse(data);
@@ -28,7 +30,6 @@ function getRate() {
 }
 function getShopPrice(){
     $.ajax({
-        type:'post',
         url:'/admin/getShopPrice',
         success:function (data) {
             var response =JSON.parse(data);
@@ -42,7 +43,6 @@ function getShopPrice(){
 }
 function getGoodsPrice() {
     $.ajax({
-        type:'post',
         url:'/admin/getGoodsPrice',
         success:function (data) {
             var response =JSON.parse(data);
@@ -60,17 +60,96 @@ function editRate() {
     $("body").on("click","#editRate",function () {
         $(".hide-block").show();
         $(".rate-block").show();
+        $(".goodsPrice-block").hide();
+        $(".shopPrice-block").hide();
     })
 }
 function editShopPrice() {
     $("body").on("click","#editShopPrice",function () {
         $(".hide-block").show();
         $(".shopPrice-block").show();
+        $(".goodsPrice-block").hide();
+        $(".rate-block").hide();
     })
 }
 function editGoodsPrice() {
     $("body").on("click","#editGoodsPrice",function () {
         $(".hide-block").show();
         $(".goodsPrice-block").show();
+        $(".shopPrice-block").hide();
+        $(".rate-block").hide();
+    })
+}
+function close() {
+    $(".hide-block").hide();
+}
+function submitRate() {
+    $("#rate-submitBtn").click(function () {
+        var data= {};
+        data.rateorPrice = $("#setRate").val();
+        $.ajax({
+            type:'post',
+            contentType : 'application/json',
+            data: JSON.stringify(data),
+            url:'/admin/setRate',
+            success:function (data) {
+                var response =JSON.parse(data);
+                console.log(response);
+                if(response.error == false){
+                    alert("Success!");
+                    location.reload();
+                }
+                else{
+                    alert("Default!");
+                }
+            }
+        })
+    })
+}
+function submitGoods() {
+    $("#goodsPrice-submitBtn").click(function () {
+        var data= {};
+        data.rateorPrice = $("#setShopPrice").val();
+        $.ajax({
+            type:'post',
+            contentType : 'application/json',
+            data: JSON.stringify(data),
+            url:'/admin/setGoodsPrice',
+            success:function (data) {
+                var response =JSON.parse(data);
+                console.log('shopprice: '+response);
+                if(response.error == false){
+                    alert("Success!");
+                    location.reload();
+                }
+                else{
+                    alert("Default!");
+                }
+            }
+        })
+    })
+}
+function submitShop() {
+    $("#shopPrice-submitBtn").click(function () {
+        var data= {};
+        data.rateorPrice     = $("#setGoodsPrice").val();
+        $.ajax({
+            type:'post',
+            contentType : 'application/json',
+            data: JSON.stringify(data),
+            url:'/admin/setShopPrice',
+            
+            success:function (data) {
+                var response =JSON.parse(data);
+                console.log(response);
+                if(response.error == false){
+                    alert("Success!");
+                    location.reload();
+                }
+                else{
+                    alert("Default!");
+                }
+            }
+        })
     })
 }

@@ -19,7 +19,7 @@
     <span class="action-span1" style="color: black;font-size: 22px">Income List</span>
     <div style="clear:both"></div>
 </h1>
-<form method="post" action="/admin/setRate" name="listForm">
+<form method="post" action="" name="listForm">
     <!-- start brand list -->
     <div class="list-div" id="listDiv">
         <table cellpadding="3" cellspacing="1">
@@ -44,8 +44,9 @@
 </form>
 <div class="hide-block">
     <div class="rate-block">
-        <p style="width: 510px;border-bottom: 0.5px solid #aeaeae;margin: 10px 0 0 2px;text-align: center">Please Edit The Infor:</p>
-        <form action="/admin/setRate" enctype="multipart/form-data" method="post">
+        <a href="javascript:close()" class="closeBtn"></a>
+        <p style="width: 426px;border-bottom: 0.5px solid #aeaeae;margin: 10px 0 0 2px;text-align: center">Please Edit The Infor:</p>
+        <form action="" enctype="multipart/form-data" method="post">
             <ul class="formInfor">
                 <div class="inforBlock">
                     <span>Rate:</span>
@@ -53,13 +54,14 @@
                         <input type="text" name="rate" id="setRate"/>
                     </li>
                 </div>
-                <input type="submit"  class="butlogin" value="Submit" id="rate-submitBtn"/>
+                <input type="button"  class="butlogin" value="Submit" id="rate-submitBtn"/>
             </ul>
         </form>
     </div>
     <div class="shopPrice-block">
-        <p style="width: 510px;border-bottom: 0.5px solid #aeaeae;margin: 10px 0 0 2px;text-align: center">Please Edit The Infor:</p>
-        <form action=/admin/setShopPrice"" enctype="multipart/form-data" method="post">
+        <a href="javascript:close()" class="closeBtn"></a>
+        <p style="width: 426px;border-bottom: 0.5px solid #aeaeae;margin: 10px 0 0 2px;text-align: center">Please Edit The Infor:</p>
+        <form action="" enctype="multipart/form-data" method="post">
             <ul class="formInfor">
                 <div class="inforBlock">
                     <span>ShopPrice:</span>
@@ -67,13 +69,14 @@
                         <input type="text" name="shopPrice" id="setShopPrice"/>
                     </li>
                 </div>
-                <input type="submit"  class="butlogin" value="Submit" id="shopPrice-submitBtn"/>
+                <input type="button"  class="butlogin" value="Submit" id="shopPrice-submitBtn"/>
             </ul>
         </form>
     </div>
     <div class="goodsPrice-block">
-        <p style="width: 510px;border-bottom: 0.5px solid #aeaeae;margin: 10px 0 0 2px;text-align: center">Please Edit The Infor:</p>
-        <form action="/admin/setGoodsPrice" enctype="multipart/form-data" method="post">
+        <a href="javascript:close()" class="closeBtn"></a>
+        <p style="width: 426px;border-bottom: 0.5px solid #aeaeae;margin: 10px 0 0 2px;text-align: center">Please Edit The Infor:</p>
+        <form action="" enctype="multipart/form-data" method="post">
             <ul class="formInfor">
                 <div class="inforBlock">
                     <span>goodsPrice:</span>
@@ -81,7 +84,7 @@
                         <input type="text" name="goodsPrice" id="setGoodsPrice"/>
                     </li>
                 </div>
-                <input type="submit"  class="butlogin" value="Submit" id="goodsPrice-submitBtn"/>
+                <input type="button"  class="butlogin" value="Submit" id="goodsPrice-submitBtn"/>
             </ul>
         </form>
     </div>
