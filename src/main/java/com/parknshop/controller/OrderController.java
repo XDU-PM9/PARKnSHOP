@@ -7,6 +7,7 @@ import com.parknshop.service.IListBean;
 import com.parknshop.service.IOrderService;
 import com.parknshop.service.baseImpl.IDefineString;
 import com.parknshop.service.customerService.IAddressService;
+import com.parknshop.service.serviceImpl.OrderService;
 import com.parknshop.utils.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -80,7 +82,12 @@ public class OrderController {
 
     @RequestMapping(value = "/listCart", method = RequestMethod.GET)
     public String listCart(@RequestParam("OrdersNum") String ordersNum, Model model, ModelMap modelMap) {
-        List<OrdersEntity> ordersEntityList = iOrderService.getOrdersList(ordersNum);
+        List<String> listOrderNumber =  OrderService.sListMap.get(ordersNum);
+        List<OrdersEntity> ordersEntityList = new ArrayList<>();
+        for(String number:listOrderNumber){
+            List<OrdersEntity>  ordersEntities = iOrderService.getOrdersList(number);
+            ordersEntityList.addAll(ordersEntities);
+        }
         for (Iterator<OrdersEntity> it = ordersEntityList.iterator(); it.hasNext(); ) {
             OrdersEntity val = it.next();
             if (val.getState() != IOrderService.STATE_NOT_PAY) {
