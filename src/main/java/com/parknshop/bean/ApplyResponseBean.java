@@ -7,11 +7,12 @@ import java.util.List;
  */
 public class ApplyResponseBean {
 
+
     /**
      * error : false
      * total : 9
      * realSize : 5
-     * data : [{"ownerName":"注册名","ownerImg":"头像url","ownerEmail":"注册邮箱","realName":"真实名字","realImg":"正面带身份证照片的url","shopId":123456,"shopName":"店名","shopImg":"店的logo url","shopDesc":"店的描述"}]
+     * data : [{"ownerName":"注册名","ownerImg":"头像url","ownerEmail":"注册邮箱","realName":"真实名字","realImg":"正面带身份证照片的url","shopId":"shopId","shopName":"店名","shopImg":"店的logo url","shopDesc":"店的描述","shopDate":"date"}]
      */
 
     private boolean error;
@@ -58,10 +59,11 @@ public class ApplyResponseBean {
          * ownerEmail : 注册邮箱
          * realName : 真实名字
          * realImg : 正面带身份证照片的url
-         * shopId : 123456
+         * shopId : shopId
          * shopName : 店名
          * shopImg : 店的logo url
          * shopDesc : 店的描述
+         * shopDate : date
          */
 
         private String ownerName;
@@ -73,6 +75,7 @@ public class ApplyResponseBean {
         private String shopName;
         private String shopImg;
         private String shopDesc;
+        private String shopDate;
 
         public String getOwnerName() {
             return ownerName;
@@ -144,6 +147,14 @@ public class ApplyResponseBean {
 
         public void setShopDesc(String shopDesc) {
             this.shopDesc = shopDesc;
+        }
+
+        public String getShopDate() {
+            return shopDate;
+        }
+
+        public void setShopDate(String shopDate) {
+            this.shopDate = shopDate;
         }
     }
 }
