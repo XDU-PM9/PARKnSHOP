@@ -84,10 +84,21 @@ public class OrderController {
     public String listCart(@RequestParam("OrdersNum") String ordersNum, Model model, ModelMap modelMap) {
         List<String> listOrderNumber =  OrderService.sListMap.get(ordersNum);
         List<OrdersEntity> ordersEntityList = new ArrayList<>();
-        for(String number:listOrderNumber){
-            List<OrdersEntity>  ordersEntities = iOrderService.getOrdersList(number);
-            ordersEntityList.addAll(ordersEntities);
+        if(null != listOrderNumber) {
+            for (String number : listOrderNumber) {
+                List<OrdersEntity> ordersEntities = iOrderService.getOrdersList(number);
+                ordersEntityList.addAll(ordersEntities);
+            }
+        }else {
+            try {
+                List<OrdersEntity> ordersEntities = iOrderService.getOrdersList(ordersNum);
+                ordersEntityList.addAll(ordersEntities);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.debug("" + "addOrderNumber error maybe it is null");
+            }
         }
+
         for (Iterator<OrdersEntity> it = ordersEntityList.iterator(); it.hasNext(); ) {
             OrdersEntity val = it.next();
             if (val.getState() != IOrderService.STATE_NOT_PAY) {

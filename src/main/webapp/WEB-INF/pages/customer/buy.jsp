@@ -9,7 +9,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>My Cart</title>
+    <title>Confirm Order</title>
     <link rel="stylesheet" href="../../../resources/css/base.css" type="text/css" />
     <link rel="stylesheet" href="../../../resources/css/shop_common.css" type="text/css" />
     <link rel="stylesheet" href="../../../resources/css/shop_header.css" type="text/css" />
