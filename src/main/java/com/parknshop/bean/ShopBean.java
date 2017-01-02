@@ -44,6 +44,15 @@ public class ShopBean {
         private String logo;
         private String state;
         private int id;
+        private boolean hasAd;
+
+        public boolean isHasAd() {
+            return hasAd;
+        }
+
+        public void setHasAd(boolean hasAd) {
+            this.hasAd = hasAd;
+        }
 
         public int getId() {
             return id;

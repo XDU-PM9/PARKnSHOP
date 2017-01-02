@@ -260,6 +260,8 @@ public class OwnerController {
             shop.setId(item.getShopId());
             shop.setDesc(item.getIntroduction());
             shop.setLogo(item.getLogo());
+            boolean hasAd = mAdverService.checkAdvertShopExist(item.getShopId());
+            shop.setHasAd(hasAd);
             switch (item.getShopState()) {
                 case IOwnerService.SHOP_STATE_USING:
                     shop.setState("Normal");
