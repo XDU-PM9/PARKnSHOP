@@ -212,7 +212,9 @@
                                                 <c:if test="${t.commentType==2}"><span class="pingjia_type pingjia_type_2"></span></td></c:if>
                                                 <c:if test="${t.commentType==3}"><span class="pingjia_type pingjia_type_3"></span></td></c:if>
                                             <td class="pingjia_title"><span>${t.comment}</span><br />[${t.commentTime}]</td>
-                                            <td class="pingjia_danjia"><strong>${t.reciver}</strong></td>
+                                            <td class="pingjia_danjia"><strong>
+                                            ${t.reciverPhone.substring(0,3)}****${t.reciverPhone.substring(7)}
+                                            </strong></td>
                                         </tr>
                                         </tbody>
                                     </table>
