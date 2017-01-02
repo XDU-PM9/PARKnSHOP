@@ -106,6 +106,25 @@
         .Orders_style .Address_info li{ float:left; width:536px; padding:0px 20px;  height:40px; line-height:40px; border-bottom:1px dashed #ddd; padding:0px 20px; font-family:"鏂板畫浣�"}
         .Orders_style .Address_info li label{ float:left; width:80px; margin-right:10px; text-align:right}
     </style>
+    <script>
+        function confirmReceiveOrder(orderNumber) {
+            $.ajax({
+                url:"/order/confirmReceive",
+                type:'POST',
+                data:{
+                    orderNum:orderNumber
+                },
+                success:function (msg) {
+                    if("success"==msg){
+                        alert("Confirm receive success");
+                        window.location.reload();
+                    }else {
+                        alert("Confirm receive fail");
+                    }
+                }
+            })
+        }
+    </script>
 </head>
 <body>
 
@@ -123,7 +142,13 @@
             <div  class="Orders_name">
                 <script defer type="text/javascript">
                     function viewhistory() {
-                        document.getElementById("a11").href ="/viewBuyHistory/dailySearch?page=1&day="+document.getElementById("day1").value+"&types="+document.getElementById("types1").value;
+                        if(document.getElementById("day1").value==''){
+                            var date=new Date();
+                            var dat=date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate()
+                            document.getElementById("a11").href = "/viewBuyHistory/dailySearch?page=1&day=" + dat + "&types=" + document.getElementById("types1").value;
+                        }else {
+                            document.getElementById("a11").href = "/viewBuyHistory/dailySearch?page=1&day=" + document.getElementById("day1").value + "&types=" + document.getElementById("types1").value;
+                        }
                     }
                 </script>
 
@@ -150,7 +175,13 @@
                     <div  class="Orders_name">
                         <script defer type="text/javascript">
                             function viewhistory() {
-                                document.getElementById("a1").href ="/viewBuyHistory/dailySearch?page=1&day="+document.getElementById("day").value+"&types="+document.getElementById("types").value;
+                                if (document.getElementById("day").value == '') {
+                                    var date = new Date();
+                                    var dat = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
+                                    document.getElementById("a1").href = "/viewBuyHistory/dailySearch?page=1&day=" + dat + "&types=" + document.getElementById("types1").value;
+                                } else {
+                                    document.getElementById("a1").href = "/viewBuyHistory/dailySearch?page=1&day=" + document.getElementById("day").value + "&types=" + document.getElementById("types").value;
+                                }
                             }
                         </script>
 
@@ -192,8 +223,10 @@
                                         <c:when test="${orders.getState()==-1}">deleted</c:when>
                                         <c:when test="${orders.getState()==1}">Processing Orders</c:when>
                                         <c:when test="${orders.getState()==2}">Preparing for Shippment</c:when>
-                                        <c:when test="${orders.getState()==3}">Shipped</c:when>
-                                        <c:when test="${orders.getState()==4}"><a href="/comment/toComment?ordersId=${order.ordersId}">Complete</a></c:when>
+                                        <c:when test="${orders.getState()==3}">Shipped
+                                            <button  onclick="confirmReceiveOrder('${order.orderNumber}')">confirm receive</button></c:when>
+                                        <c:when test="${orders.getState()==4}">Complete
+                                            <button href="/comment/toComment?ordersId=${order.ordersId}">comment</button></c:when>
                                         <c:when test="${orders.getState()==5}">Commented</c:when>
                                     </c:choose>
                                 </td>

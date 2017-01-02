@@ -50,9 +50,9 @@
                     <c:forEach var="c" items="${Collects}">
                         <li>
                             <dl>
-                                <dt><a href=""><img src="${c.getPicture()}"/></a>
+                                <dt><a href="/shop/detail?shopId=${c.shopByShopId.shopId}"><img src="${c.getPicture()}"/></a>
                                 </dt>
-                                <dd class="title"><a href="">${c.getShopByShopId().getShopName()}</a>
+                                <dd class="title"><a href="/shop/detail?shopId=${c.shopByShopId.shopId}">${c.getShopByShopId().getShopName()}</a>
                                 <a style="margin-left: 100px;"  href="/removeCollectShop?shopId=${c.scollectId}">Delete</a>
                                 </dd>
                                 <dd class="content">
