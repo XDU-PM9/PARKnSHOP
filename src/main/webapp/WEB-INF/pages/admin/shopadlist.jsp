@@ -56,6 +56,6 @@
     </div>
 </form>
 <script src="/resources/libs/jquery.js"></script>
-<script src="/resources/js/admin/shopadapply.js"></script>
+<script src="/resources/js/admin/showShopAd.js"></script>
 </body>
 </html>
