@@ -4,6 +4,7 @@ import com.parknshop.entity.OrdersEntity;
 import com.parknshop.entity.OwnerEntity;
 import com.parknshop.service.IAdvertisement;
 import com.parknshop.service.IOrderService;
+import com.parknshop.service.serviceImpl.OrderService;
 import com.parknshop.utils.Pay;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -90,8 +91,8 @@ public class PayController {
     public String finalPay(ModelMap modelMap,
             HttpServletRequest req, HttpSession session){
         String orderNum = req.getParameter("orderNum");
-        List<String> sList = new ArrayList<>();
-        sList.add(orderNum);
+        List<String> sList = OrderService.sListMap.get(orderNum);
+//        sList.add(orderNum);
         String msg;
         if(null == sList){
             msg = "error , i am sorry";

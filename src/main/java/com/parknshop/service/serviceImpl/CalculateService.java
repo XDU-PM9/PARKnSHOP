@@ -58,6 +58,10 @@ public class CalculateService implements ICalculateService {
         String hql = createAdminHql(orderDays,advertDays);//已经发送 的 商品 和申请过的广告
         return ordersEntityIBaseDao.executeSQL(hql,new Object[]{IOrderService.STATE_SEND});
     }
+    private List<Object> calculateAdminMonth(String orderDays,String advertDays){
+        String hql = createAdminHqlMonth(orderDays,advertDays);//已经发送 的 商品 和申请过的广告
+        return ordersEntityIBaseDao.executeSQL(hql,new Object[]{IOrderService.STATE_SEND});
+    }
 
     public static void main(String[] args){
 //        String hql = "  " +
@@ -66,7 +70,7 @@ public class CalculateService implements ICalculateService {
 //        List<Object> list = baseDao.executeSQL(hql,new Object[]{});
 //        Log.debug("success" +((Object[])list.get(0))[0]);
         CalculateService calculateService = new CalculateService(new BaseDao<>());
-        System.out.println(calculateService.getMonthAdmin().size());
+        System.out.println(calculateService.getYearAdmin().size());
 
 
     }
@@ -74,6 +78,12 @@ public class CalculateService implements ICalculateService {
     private String createAdminHql(String orderDays,String advertDays){
         String headHqlAdmin = "select t.day ,t.earn as earn  from( select DATE_FORMAT(createTime,'%Y-%m-%d') as day,sum(commission) as earn  from orders  " + orderDays + " and state > ?  GROUP BY day) as t" ;
              //   ",(select DATE_FORMAT(startTime,'%Y-%m-%d') as day,sum(price) as earn from advert  " + advertDays + " and state > ?  GROUP BY day) as t2";
+        return headHqlAdmin;
+    }
+    //按照季度
+    private String createAdminHqlMonth(String orderDays,String advertDays){
+        String headHqlAdmin = "select t.day ,t.earn as earn  from( select DATE_FORMAT(createTime,'%Y-%m-%d') as day,sum(commission) as earn  from orders  " + orderDays + " and state > ?  GROUP BY month(day)) as t" ;
+        //   ",(select DATE_FORMAT(startTime,'%Y-%m-%d') as day,sum(price) as earn from advert  " + advertDays + " and state > ?  GROUP BY day) as t2";
         return headHqlAdmin;
     }
 
@@ -147,7 +157,7 @@ public class CalculateService implements ICalculateService {
 
     @Override
     public List<CalculateDbBean> getYearAdmin() {
-        List<Object> list = calculateAdmin(year,yearAdmin);
+        List<Object> list = calculateAdminMonth(year,yearAdmin);
         return toCalculateDbBean(list);
     }
 }
