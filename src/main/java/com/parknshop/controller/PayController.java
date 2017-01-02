@@ -52,7 +52,7 @@ public class PayController {
         //二维码
         String url = pay.getQRCode(session,Pay.IP+"/pay/p?orderNum="+orderNum+"&addressId="+address);
 
-
+        req.setAttribute("path","/order/listOrder");
         req.setAttribute("imgUrl",url);
         req.getRequestDispatcher("WEB-INF/pages/test.jsp").forward(req,resp);
     }
@@ -123,8 +123,11 @@ public class PayController {
 
 
         String url = pay.getQRCode(session,Pay.IP+"/pay/p?type="+type+"&typeId="+typeId);
-
-
+        if("0".equals(type)) {
+            req.setAttribute("path", "/owner/query");
+        }else if("1".equals(type)){
+            req.setAttribute("path", "/owner/goodsPage");
+        }
         req.setAttribute("imgUrl",url);
         return "test.jsp";
     }
