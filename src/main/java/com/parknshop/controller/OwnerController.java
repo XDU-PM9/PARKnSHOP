@@ -59,6 +59,12 @@ public class OwnerController {
         this.mAdverService = adService;
     }
 
+    @RequestMapping("/owner/jumpindex")
+    public String jumpindex(){
+        mUserService.loginOut();
+        return "redirect:/";
+    }
+
     @RequestMapping("/owner")
     public String dispatcher() {
         return "redirect:/owner/index";
