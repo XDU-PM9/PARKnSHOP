@@ -10,7 +10,8 @@
 .shop_hd_topNav_all_left a:hover{color:#FF3300;}
 
 .shop_hd_topNav_all_right{position:absolute; right:0px; top:4px; height:20px;}
-.topNav_quick_menu{width:378px; height:20px;}
+/*将width扩大到500，song修改*/
+.topNav_quick_menu{width:500px; height:20px;}
 .topNav_quick_menu li{float:left; height:20px; line-height:20px;}
 .topNav_quick_menu li a{padding:0 23px 0 7px; display: inline-block; color:#666666; }
 .topNav_quick_menu li a.aHover{border:1px solid #ccc;padding:0 22px 0 6px; background-color:#FFF;border-bottom:none; position: relative; top:-1px; z-index:998;}
