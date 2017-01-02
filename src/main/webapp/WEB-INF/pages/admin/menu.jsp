@@ -65,6 +65,14 @@
                 <li><a href="/admin/yearlyincome" target="main-frame"><i class="iconfont leftIco">&#xe620;</i>Yearly Income</a></li>
             </ul>
         </li>
+        <li><a href="#" class="headList list7"><i class="iconfont leftIco">&#xe62c;</i>Order List<i class="iconfont rightIco">&#xe613;</i></a></li>
+        <li class="hiden">
+            <ul>
+                <li><a href="#" ><i class="iconfont leftIco">&#xe620;</i>Weekly Order</a></li>
+                <li><a href="#" ><i class="iconfont leftIco">&#xe620;</i>Monthly Orde</a></li>
+                <li><a href="#" ><i class="iconfont leftIco">&#xe620;</i>Yearly Orde</a></li>
+            </ul>
+        </li>
 
     </ul>
 </div>
