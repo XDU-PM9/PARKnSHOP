@@ -34,7 +34,7 @@
             <li>
                 <input placeholder="Password" name="password" type="password" id="password" size="18" required/>
             </li>
-            <input  class="butlogin" value="Login" id="loginBtn"/>
+            <input  class="butlogin" type="button" value="Login" id="loginBtn"/>
         </ul>
     </form>
 </div>
