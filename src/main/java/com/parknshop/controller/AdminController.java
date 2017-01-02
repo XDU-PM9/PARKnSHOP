@@ -1206,6 +1206,9 @@ public class AdminController {
             GetAdminCalculateResponseBean.DataBean dateBean
                     = new GetAdminCalculateResponseBean.DataBean();
             String strDate = sdf.format(bean.getDate());
+            if(type == "Month") {
+                strDate = strDate.substring(8);
+            }
             dateBean.setDate(strDate);
             dateBean.setEarn(bean.getPrice());
             dateBeanList.add(dateBean);
