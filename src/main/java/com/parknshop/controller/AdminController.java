@@ -124,24 +124,24 @@ public class AdminController {
     }
     @RequestMapping(value = "monthlyincome", method = RequestMethod.GET)
     public String monthlyincome() {
-        return "admin/monthlyincome.jsp";
+        return "admin/monthearn.html";
     }
     @RequestMapping(value = "yearlyincome", method = RequestMethod.GET)
     public String yearlyincome() {
-        return "admin/yearlyincome.jsp";
+        return "admin/yearearn.html";
     }
 
     @RequestMapping(value = "weeklyhistory", method = RequestMethod.GET)
     public String weeklyhistory() {
-        return "admin/weeklyhistory.jsp";
+        return "admin/showweekorder.html";
     }
     @RequestMapping(value = "monthlyhistory", method = RequestMethod.GET)
     public String monthlyhistory() {
-        return "admin/monthlyhistory.jsp";
+        return "admin/showmonthorder.html";
     }
     @RequestMapping(value = "yearlyhistory", method = RequestMethod.GET)
     public String yearlyhistory() {
-        return "admin/yearlyhistory.jsp";
+        return "admin/showyearorder.html";
     }
     @RequestMapping(value = "searchshop", method = RequestMethod.GET)
     public String searchshop() {

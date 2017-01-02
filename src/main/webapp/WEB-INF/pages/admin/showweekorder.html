@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="../../../resources/css/admin/top.css" rel="stylesheet" type="text/css" />
+    <link href="../../../resources/css/admin/main.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<h1>
+    <span class="action-span1"><a href="">Apply List</a> </span>
+    <div style="clear:both"></div>
+</h1>
+<form method="post" action="" name="listForm">
+    <!-- start brand list -->
+    <div class="list-div" id="listDiv">
+        <table cellpadding="3" cellspacing="1">
+            <tr>
+                <th>ordersId</th>
+                <th>goodsName</th>
+                <th>createTime</th>
+                <th>reciver</th>
+                <th>price</th>
+            </tr>
+            <!--end，这些都是显示代码，没有格式化，开发时会删除 -->
+            <tbody id="tableInfor">
+            </tbody>
+        </table>
+        <div id="turn-page" style="margin-top: 20px;text-align: center;font-size: 15px">All page:<span id="allPage"></span>&nbsp;&nbsp;&nbsp;   Current page:<span id="pageCurrent"></span>
+            <span id="page-link">
+                <a href="#" id="prev" style="margin-right: 20px;">Prev Page</a>
+                <a href="#" id="next" style="margin-right: 20px;">Next Page</a>
+                <select name="" id="gotoPage">
+
+                </select>
+                <a href="" id="turnPage">Turn</a>
+            </span>
+        </div>
+        <!-- end brand list -->
+    </div>
+</form>
+<div id="footer">
+    &copy; 2016-2017 Group9-PARKnSHOP </div>
+</div>
+<script src="../../../resources/libs/jquery.js"></script>
+<script src="../../../resources/js/admin/weekorder.js"></script>
+</body>
+</html>
