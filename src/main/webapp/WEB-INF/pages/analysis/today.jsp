@@ -101,6 +101,7 @@ function displayChart(ec) {
                     while (iterator.hasNext()){
                         CalculateDbBean item = i.next();
                         out.print("'"+item.getPrice()+"'");
+                        Log.debug(item.getPrice());
                         if (i.hasNext()){
                             out.print(",");
                         }

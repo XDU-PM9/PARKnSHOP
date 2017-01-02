@@ -18,10 +18,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.Order;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 
 /**
@@ -45,9 +42,11 @@ public class OrderService implements IOrderService {
         this.goodsEntityIBaseDao = goodsEntityIBaseDao;
         this.pictureDao = pictureDao;
     }
-
+    //静态常量
+    public static Map<String,List<String>> sListMap = new HashMap<>();
 
     private OrdersEntity  addOerder(String orderNumber, CartEntity cartEntity){
+
         if(cartEntity.getGoodsEntity().getShopByShopId().getState() != IOwnerService.SHOP_STATE_USING){
             return null;
         }
@@ -105,12 +104,13 @@ public class OrderService implements IOrderService {
     @Override
     public String addOrders(int[] carts) {
         List<OrdersEntity> orderList = new ArrayList<>();
-        String orderNumber = java.util.UUID.randomUUID().toString();
+        List<String> listNumber = new ArrayList<>();
         for (int i : carts) {
-
             try {
+                String orderNumber = java.util.UUID.randomUUID().toString();
                 CartEntity entity = cartEntityIBaseDao.get(CartEntity.class, i);
                 OrdersEntity ordersEntity = addOerder(orderNumber, entity);
+                listNumber.add(orderNumber);//添加每一条订单
                 if (null != ordersEntity) {
                     orderList.add(ordersEntity);
                 }
@@ -127,7 +127,9 @@ public class OrderService implements IOrderService {
                 for (int i : carts) {
                     cartEntityIBaseDao.delete("update cart set state='0' where cartId=?", i);
                 }
-                return orderNumber;//ADD_SAVE_SUCCESS;
+                String allOrders = java.util.UUID.randomUUID().toString();
+                sListMap.put(allOrders,listNumber);
+                return allOrders;//ADD_SAVE_SUCCESS;
             }else {
                 return null;
             }
