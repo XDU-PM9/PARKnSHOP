@@ -43,7 +43,7 @@ function submitCart() {
         }
     )
     if ("" == data) {
-        alert("Please select at least one item");
+        layer.alert("Please select at least one item");
         return;
     }
     $.ajax({
@@ -57,7 +57,7 @@ function submitCart() {
                 window.location.href = msg;
             }
             else {
-                alert(msg);
+                layer.alert(msg);
                 // alert("Generator order fail,please try again");
             }
         }
