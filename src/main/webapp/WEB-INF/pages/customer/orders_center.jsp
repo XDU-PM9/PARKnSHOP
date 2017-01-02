@@ -8,6 +8,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <script type="text/javascript" src="/resources/js/jquery-3.1.1.min.js" ></script>
+    <script type="text/javascript" src="/resources/js/layer/layer.js"></script>
     <title>Title</title>
     <script>
         function confirmReceiveOrder(orderNumber) {
@@ -19,10 +21,10 @@
                 },
                 success:function (msg) {
                     if("success"==msg){
-                        alert("Confirm receive success");
+                        layer.alert("Confirm receive success");
                         window.location.reload();
                     }else {
-                        alert("Confirm receive fail");
+                        layer.alert("Confirm receive fail");
                     }
                 }
             })
