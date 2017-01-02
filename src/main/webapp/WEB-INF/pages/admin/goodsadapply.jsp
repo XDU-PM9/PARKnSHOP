@@ -12,6 +12,7 @@
     <title>Title</title>
     <link href="/resources/css/admin/top.css" rel="stylesheet" type="text/css" />
     <link href="/resources/css/admin/main.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="/resources/libs/xcConfirm.css">
 </head>
 <body>
 <h1>
@@ -19,13 +20,13 @@
     <div style="clear:both"></div>
 </h1>
 
-<div class="form-div">
+<%--<div class="form-div">
     <form action="javascript:search_brand()" name="searchForm">
         <img src="/resources/images/ico/icon_search.gif" width="26" height="22" border="0" alt="SEARCH">
         <input type="text" name="brand_name" size="35" placeholder="Please input the shopId">
         <input type="submit" value="Search" class="button">
     </form>
-</div>
+</div>--%>
 
 
 <form method="post" action="" name="listForm">
@@ -56,6 +57,8 @@
     </div>
 </form>
 <script src="/resources/libs/jquery.js"></script>
+<script src="/resources/libs/xcConfirm.js"></script>
 <script src="/resources/js/admin/goodsAdApply.js"></script>
+
 </body>
 </html>

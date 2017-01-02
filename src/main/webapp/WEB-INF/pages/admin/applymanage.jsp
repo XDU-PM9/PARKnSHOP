@@ -13,6 +13,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link href="/resources/css/admin/menu.css" rel="stylesheet" type="text/css" />
     <link href="/resources/css/admin/main.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="/resources/libs/xcConfirm.css">
 </head>
 <body>
 
@@ -21,13 +22,13 @@
     <div style="clear:both"></div>
 </h1>
 
-<div class="form-div">
+<%--<div class="form-div">
     <form action="javascript:search_brand()" name="searchForm">
         <img src="/resources/images/ico/icon_search.gif" width="26" height="22" border="0" alt="SEARCH">
         <input type="text" name="brand_name" size="35" placeholder="Please input the shopId">
         <input type="submit" value="Search" class="button">
     </form>
-</div>
+</div>--%>
 
 <form method="post" action="" name="listForm">
     <!-- start brand list -->
@@ -83,7 +84,9 @@
     &copy; 2016-2017 Group9-PARKnSHOP </div>
 </div>
 <script src="/resources/libs/jquery.js"></script>
+<script src="/resources/libs/xcConfirm.js"></script>
 <script type="text/javascript" src="/resources/js/admin/apply.js"></script>
+
 
 </body>
 </html>

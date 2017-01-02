@@ -110,12 +110,12 @@ public class AdminService  implements IAdminService{
     }
 
     @Override
-    public ShopAndOwnerDbBean getShopById(String shopName) {
+    public List<ShopAndOwnerDbBean> getShopById(String shopName) {
         try {
             String hql = PersonShopListBean.hql +//
                     "  and s.shopName like ?";
             Object[] param = {'%'+shopName+'%'};
-            return shopDao.get(hql,param);
+            return shopDao.find(hql,param);
 
         }catch (Exception e){
             e.printStackTrace();
@@ -129,11 +129,11 @@ public class AdminService  implements IAdminService{
     }
 
     @Override
-    public OwnerEntity getOwnerById(String ownerName) {
+    public List<OwnerEntity> getOwnerById(String ownerName) {
         String hql = " from OwnerEntity where username like ? ";
         Object[] param = new Object[]{'%'+ownerName+'%'};
         IBaseDao<OwnerEntity> baseDao = new BaseDao<>();
-        OwnerEntity entity = baseDao.get(hql,param);
+        List<OwnerEntity> entity = baseDao.find(hql,param);
         return entity;
     }
 
@@ -143,11 +143,11 @@ public class AdminService  implements IAdminService{
     }
 
     @Override
-    public UserEntity getUserById(String userName) {
+    public List<UserEntity> getUserById(String userName) {
         String hql = " from UserEntity where username like ? ";
         Object[] param = new Object[]{'%'+userName+'%'};
         IBaseDao<UserEntity> baseDao = new BaseDao<>();
-        UserEntity entity = baseDao.get(hql,param);
+        List<UserEntity> entity = baseDao.find(hql,param);
         return entity;
     }
 

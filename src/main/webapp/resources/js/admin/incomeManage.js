@@ -100,7 +100,7 @@ function submitRate() {
                     location.reload();
                 }
                 else{
-                    alert("Default!");
+                    window.wxc.xcConfirm('Operation Mistake, Please try again. ', window.wxc.xcConfirm.typeEnum.error);
                 }
             }
         })
@@ -124,7 +124,7 @@ function submitGoods() {
                     location.reload();
                 }
                 else{
-                    alert("Default!");
+                    window.wxc.xcConfirm('Operation Mistake, Please try again. ', window.wxc.xcConfirm.typeEnum.error);
                 }
             }
         })
@@ -148,7 +148,7 @@ function submitShop() {
                     location.reload();
                 }
                 else{
-                    alert("Default!");
+                    window.wxc.xcConfirm('Operation Mistake, Please try again. ', window.wxc.xcConfirm.typeEnum.error);
                 }
             }
         })

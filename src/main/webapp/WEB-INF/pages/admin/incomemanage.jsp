@@ -13,6 +13,7 @@
     <link href="/resources/css/admin/top.css" rel="stylesheet" type="text/css" />
     <link href="/resources/css/admin/main.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="/resources/css/admin/input.css">
+    <link rel="stylesheet" href="/resources/libs/xcConfirm.css">
 </head>
 </bod>
 <h1>
@@ -95,7 +96,9 @@
 
 </body>
 <script src="/resources/libs/jquery.js"></script>
+<script src="/resources/libs/xcConfirm.js"></script>
 <script src="/resources/js/admin/incomeManage.js"></script>
+
 <script>
     /*$(function () {
      $(".hide-block").show();
