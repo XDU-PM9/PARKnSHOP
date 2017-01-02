@@ -16,11 +16,12 @@
     <link rel="stylesheet" href="../../../resources/css/shop_manager.css" type="text/css" />
     <link rel="stylesheet" href="../../../resources/css/shop_shdz_835.css" type="text/css" />
     <link rel="stylesheet" href="../../../resources/css/shop_gouwuche.css" type="text/css" />
-    <script type="text/javascript" src="/../../../resources/js/jquery.js" ></script>
+    <script type="text/javascript" src="/resources/js/jquery-3.1.1.min.js" ></script>
     <script type="text/javascript" src="../../../resources/js/topNav.js" ></script>
     <script type="text/javascript" src="../../../resources/js/jquery.goodnums.js" ></script>
     <script type="text/javascript" src="../../../resources/js/shop_gouwuche.js" ></script>
     <script type="text/javascript" src="../../../resources/js/customer/orders.js" ></script>
+    <script type="text/javascript" src="/resources/js/layer/layer.js"></script>
     <style type="text/css">
         .shop_bd_shdz_title{width:1000px; margin-top: 10px; height:50px; line-height: 50px; overflow: hidden; background-color:#F8F8F8;}
         .shop_bd_shdz_title h3{width:120px; text-align: center; height:40px; line-height: 40px; font-size: 14px; font-weight: bold;  background:#FFF; border:1px solid #E8E8E8; border-radius:4px 4px 0 0; float: left;  position: relative; top:10px; left:10px; border-bottom: none;}
@@ -174,10 +175,14 @@
         $('.addressSelectList:first').attr('checked',true);
         function setAddress(address) {
             addressId=address;
-            console.log(addressId);
+//            console.log(addressId);
         }
 
         function confirmJumptoPay() {
+            if(undefined==addressId||null==addressId||''==addressId||'null'==addressId){
+                layer.alert("Please choose a address");
+                return;
+            }
             window.location.href="/pay?orderNum=${orderNumber}&addressId="+addressId;
         }
     </script>
