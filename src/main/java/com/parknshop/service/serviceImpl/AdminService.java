@@ -110,13 +110,45 @@ public class AdminService  implements IAdminService{
     }
 
     @Override
+    public List<ShopAndOwnerDbBean> getShopById(String shopName) {
+        try {
+            String hql = PersonShopListBean.hql +//
+                    "  and s.shopName like ?";
+            Object[] param = {'%'+shopName+'%'};
+            return shopDao.find(hql,param);
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return  null;
+        }
+    }
+
+    @Override
     public OwnerEntity getOwnerById(int ownerId) {
         return (OwnerEntity) getPeppleById(OwnerEntity.class,ownerId);
     }
 
     @Override
+    public List<OwnerEntity> getOwnerById(String ownerName) {
+        String hql = " from OwnerEntity where username like ? ";
+        Object[] param = new Object[]{'%'+ownerName+'%'};
+        IBaseDao<OwnerEntity> baseDao = new BaseDao<>();
+        List<OwnerEntity> entity = baseDao.find(hql,param);
+        return entity;
+    }
+
+    @Override
     public UserEntity getUserById(int userId) {
         return (UserEntity) getPeppleById(UserEntity.class,userId);
+    }
+
+    @Override
+    public List<UserEntity> getUserById(String userName) {
+        String hql = " from UserEntity where username like ? ";
+        Object[] param = new Object[]{'%'+userName+'%'};
+        IBaseDao<UserEntity> baseDao = new BaseDao<>();
+        List<UserEntity> entity = baseDao.find(hql,param);
+        return entity;
     }
 
     @Override

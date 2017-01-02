@@ -36,7 +36,7 @@ public class GoodsController {
             //未传参数，或者参数非法，跳转到首页
             return "redirect:/";
         }
-        Log.debug("id:"+id);
+//        Log.debug("id:"+id);
         GoodsDbBean goods = mOwnerService.getGoods(id);
         List<OrdersEntity> comment=commentService.listComment(id);
         model.addAttribute("comments",comment);

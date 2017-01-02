@@ -54,7 +54,8 @@ function uploadOrder() {
                 addTdIndex(i);
                 addTd(i,response.data[i].goodsName);
                 addTd(i,response.data[i].paidTime);
-                addTd(i,response.data[i].adress);
+                addTd(i,response.data[i].amount);
+                addTd(i,response.data[i].address);
                 addTd(i,response.data[i].reciver);
                 addTd(i,response.data[i].reciverPhone);
                 orderNum.push(response.data[i].orderNumber)

@@ -80,7 +80,7 @@ public class OwnerOrderController {
         response.setSuccess(true);
         UncheckedOrderRequest bean = mGson.fromJson(data,UncheckedOrderRequest.class);
 
-        Log.debug(bean);
+//        Log.debug(bean);
 
         OwnerEntity entity = (OwnerEntity) session.getAttribute(IDefineString.SESSION_USER);
         IListBean<OrdersEntity> orderList = mOrderService.getFinishOrder(entity.getOwnerId(),bean.getPage(),bean.getLines());
@@ -136,7 +136,7 @@ public class OwnerOrderController {
         response.setSuccess(true);
         UncheckedOrderRequest bean = mGson.fromJson(data,UncheckedOrderRequest.class);
 
-        Log.debug(bean);
+//        Log.debug(bean);
 
         OwnerEntity entity = (OwnerEntity) session.getAttribute(IDefineString.SESSION_USER);
         IListBean<OrdersEntity> orderList = mOrderService.getCustomerOrder(entity.getOwnerId(),bean.getPage(),bean.getLines());
