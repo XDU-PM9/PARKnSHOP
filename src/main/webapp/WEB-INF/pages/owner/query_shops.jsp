@@ -62,7 +62,7 @@
                         out.println("<td class=\"shopName\">" + item.getName() + "</td>");
                         out.println("<td class=\"shopDes\">" + item.getDesc() + "</td>");
                         out.println("<td class=\"shopState\">" + item.getState() + "</td>");
-                        if (item.getState().equals("Normal")){
+                        if (item.getState().equals("Normal") && !item.isHasAd()){
                             out.println("<td class=\"option\"><a href=\"/pay/a?type=0&typeId="+item.getId()+"\">Advertisment</a></td>");
                         }
 

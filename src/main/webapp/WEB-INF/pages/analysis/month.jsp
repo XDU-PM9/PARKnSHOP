@@ -8,7 +8,7 @@
 <html>
 <head>
  <meta content='text/html;charset=utf-8' http-equiv='content-type'>
- <title>Echarts图表Demo</title>
+ <title>Analysic Month</title>
  <script src="/resources/js/esl/esl.js"></script>
 </head>
 
@@ -47,15 +47,12 @@
     }
 
     <%
+      double total = 0.0;
       List<CalculateDbBean> monthData = (List<CalculateDbBean>) request.getAttribute(OwnerAnalysisController.MONTH);
     %>
     //获得Line图的选项和数据
     function getLineChartOption(){
         var lineChartOption={
-            title : {
-                text: 'Month',
-                subtext: 'income analysis'
-            },
             xAxis : [
                 {
                     type : 'category',
@@ -100,7 +97,9 @@
                             Iterator<CalculateDbBean> i = monthData.iterator();
                             while (i.hasNext()){
                                 CalculateDbBean item = i.next();
-                                out.print("'"+item.getPrice()+"'");
+                                double price = item.getPrice();
+                                out.print("'"+price+"'");
+                                total+=price;
                                 if (i.hasNext()){
                                     out.print(",");
                                 }
@@ -109,7 +108,10 @@
                     ]
 //            data:[-2, 1, 2, 5, 3, 2, 0]
                 }
-            ]
+            ],
+            title : {
+                text: 'Total Income: HK$ <%out.print(total);%>'
+            }
         };
         return lineChartOption;
     }
