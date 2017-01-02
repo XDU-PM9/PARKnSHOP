@@ -1187,11 +1187,11 @@ public class AdminController {
     //给利润响应Bean添加数据
     private void addDateToCalculate(GetAdminCalculateResponseBean responseBean,
                                     List<CalculateDbBean> calculateDbBeanList,String type){
-        GetAdminCalculateResponseBean.DataBean dateBean
-                = new GetAdminCalculateResponseBean.DataBean();
         List<GetAdminCalculateResponseBean.DataBean> dateBeanList = new ArrayList<>();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         for (CalculateDbBean bean : calculateDbBeanList) {
+            GetAdminCalculateResponseBean.DataBean dateBean
+                    = new GetAdminCalculateResponseBean.DataBean();
             String strDate = sdf.format(bean.getDate());
             dateBean.setDate(strDate);
             dateBean.setEarn(bean.getPrice());
