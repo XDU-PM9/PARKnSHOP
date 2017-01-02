@@ -143,7 +143,22 @@ public class AdminController {
     public String yearlyhistory() {
         return "admin/yearlyhistory.jsp";
     }
-
+    @RequestMapping(value = "searchshop", method = RequestMethod.GET)
+    public String searchshop() {
+        return "admin/searchshop.html";
+    }
+    @RequestMapping(value = "searchowner", method = RequestMethod.GET)
+    public String searchowner() {
+        return "admin/searchowner.html";
+    }
+    @RequestMapping(value = "searchcustomer", method = RequestMethod.GET)
+    public String searchcustomer() {
+        return "admin/searchcustomer.html";
+    }
+    @RequestMapping(value = "searchorder", method = RequestMethod.GET)
+    public String searchorder() {
+        return "admin/searchorder.html";
+    }
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     public @ResponseBody String login(@RequestBody byte[] info, HttpSession session){
         mService.loginOut();

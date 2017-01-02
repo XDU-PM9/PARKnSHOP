@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="../../../resources/css/admin/top.css" rel="stylesheet" type="text/css" />
+    <link href="../../../resources/css/admin/main.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<h1>
+    <span class="action-span1"><a href="#">Search</a> </span>
+    <div style="clear:both"></div>
+</h1>
+<div class="form-div">
+    <form name="searchForm">
+        <img src="../../../resources/images/ico/icon_search.gif" width="26" height="22" border="0" alt="SEARCH">
+        <input type="text" name="brand_name" size="35" placeholder="Please input the shopName" id="ownerName">
+        <input type="button" value="Search" class="button" id="searchOwner">
+    </form>
+</div>
+<form method="post" action="" name="listForm">
+    <div class="list-div" id="listDiv">
+        <table cellpadding="3" cellspacing="1">
+            <tbody>
+            <tr>
+                <th>ownerId</th>
+                <th>userName</th>
+                <th>userImage</th>
+                <th>realName</th>
+                <th>phone</th>
+                <th>email</th>
+                <th>adress</th>
+            </tr>
+            <tbody id="tableInfor">
+            </tbody>
+        </table>
+        <!-- end brand list -->
+    </div>
+</form>
+<div id="footer">
+    &copy; 2016-2017 Group9-PARKnSHOP </div>
+</div>
+<script src="../../../resources/libs/jquery.js"></script>
+<script src="../../../resources/js/admin/searchowner.js"></script>
+</body>
+</html>
