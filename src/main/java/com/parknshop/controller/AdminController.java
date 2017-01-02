@@ -118,7 +118,7 @@ public class AdminController {
     }
     @RequestMapping(value = "weeklyincome", method = RequestMethod.GET)
     public String weeklyincome() {
-        return "admin/weeklyincome.jsp";
+        return "admin/weekearn.html";
     }
     @RequestMapping(value = "monthlyincome", method = RequestMethod.GET)
     public String monthlyincome() {
@@ -129,15 +129,15 @@ public class AdminController {
         return "admin/yearlyincome.jsp";
     }
 
-    @RequestMapping(value = "weeklyhistory ", method = RequestMethod.GET)
+    @RequestMapping(value = "weeklyhistory", method = RequestMethod.GET)
     public String weeklyhistory() {
         return "admin/weeklyhistory.jsp";
     }
-    @RequestMapping(value = "monthlyhistory ", method = RequestMethod.GET)
+    @RequestMapping(value = "monthlyhistory", method = RequestMethod.GET)
     public String monthlyhistory() {
         return "admin/monthlyhistory.jsp";
     }
-    @RequestMapping(value = "yearlyhistory ", method = RequestMethod.GET)
+    @RequestMapping(value = "yearlyhistory", method = RequestMethod.GET)
     public String yearlyhistory() {
         return "admin/yearlyhistory.jsp";
     }
