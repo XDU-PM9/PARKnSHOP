@@ -126,6 +126,15 @@ public class OwnerController {
                 String email = request.getParameter("e-mail");
                 String username = request.getParameter("username");
                 String password = request.getParameter("password");
+                String passwordagain = request.getParameter("passwordagain");
+                if (checkEmpty(email,username,password,passwordagain)){
+                    request.setAttribute(MSG,"Fields can't be empty");
+                    return "owner/register.jsp";
+                }
+                if (!password.equals(passwordagain)){
+                    request.setAttribute(MSG,"Make sure your password are the same");
+                    return "owner/register.jsp";
+                }
                 mUserBuilder.clear();
                 mUserBuilder.setEmail(email);
                 mUserBuilder.setUserName(username);
@@ -759,4 +768,12 @@ public class OwnerController {
         return entity;
     }
 
+    private boolean checkEmpty(String... values){
+        for (String v : values){
+            if (v==null || v.equals("")){
+                return true;
+            }
+        }
+        return false;
+    }
 }
