@@ -17,7 +17,7 @@ function uploadInfor() {
             type:'post',
             contentType : 'application/json',
             data: JSON.stringify(data),
-            url:'/admin/serachOwnerByName',
+            url:'/admin/searchOwnerByName',
             success:function (data) {
                 var response =JSON.parse(data);
                 console.log(response);
