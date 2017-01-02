@@ -23,6 +23,8 @@
             <ul>
                 <li><a href="/admin/ownermanage" target="main-frame"><i class="iconfont leftIco">&#xe620;</i>Owner List</a></li>
                 <li><a href="/admin/shopmanage" target="main-frame"><i class="iconfont leftIco">&#xe620;</i>Shop List</a></li>
+                <li><a href="/admin/searchowner" target="main-frame"><i class="iconfont leftIco">&#xe620;</i>Search Owner</a></li>
+                <a href="/admin/searchshop" target="main-frame"><i class="iconfont leftIco">&#xe620;</i>Search Shop</a></li>
                 <!--<li><a href="#"><i class="iconfont leftIco">&#xe620;</i>Main</a></li>-->
             </ul>
         </li>
@@ -30,7 +32,9 @@
           <li class="hiden">
               <ul>
                   <li><a href="/admin/customermanage" target="main-frame"><i class="iconfont leftIco">&#xe620;</i>Customer List</a></li>
+                  <li><a href="/admin/searchcustomer" target="main-frame"><i class="iconfont leftIco">&#xe620;</i>Search Customer</a></li>
                   <%--&lt;!&ndash;<li><a href="#"><i class="iconfont leftIco">&#xe620;</i>Main</a></li>
+
                   <li><a href="#"><i class="iconfont leftIco">&#xe620;</i>Main</a></li>&ndash;&gt;--%>
               </ul>
           </li>
@@ -48,11 +52,37 @@
           <li class="hiden">
               <ul>
                   <li><a href="/admin/datamanage" target="main-frame"><i class="iconfont leftIco">&#xe620;</i>Backup Manage</a></li>
-                  <li><a href="/admin/incomemanage" target="main-frame"><i class="iconfont leftIco">&#xe620;</i>Income Manage</a></li>
-                 <%-- <li><a href="#"><i class="iconfont leftIco">&#xe620;</i>Main</a></li>
-                  <li><a href="#"><i class="iconfont leftIco">&#xe620;</i>Main</a></li>--%>
               </ul>
           </li>
+
+        <li><a href="#" class="headList list6"><i class="iconfont leftIco">&#xe62c;</i>Income Manage<i class="iconfont rightIco">&#xe613;</i></a></li>
+        <li class="hiden">
+            <ul>
+                <li><a href="/admin/incomemanage" target="main-frame"><i class="iconfont leftIco">&#xe620;</i>Rate Setting</a></li>
+            </ul>
+        </li>
+        <li><a href="#" class="headList list7"><i class="iconfont leftIco">&#xe62c;</i>Income List<i class="iconfont rightIco">&#xe613;</i></a></li>
+        <li class="hiden">
+            <ul>
+                <li><a href="/admin/weeklyincome" target="main-frame"><i class="iconfont leftIco">&#xe620;</i>Weekly Income</a></li>
+                <li><a href="/admin/monthlyincome" target="main-frame"><i class="iconfont leftIco">&#xe620;</i>Monthly Income</a></li>
+                <li><a href="/admin/yearlyincome" target="main-frame"><i class="iconfont leftIco">&#xe620;</i>Yearly Income</a></li>
+            </ul>
+        </li>
+        <li><a href="#" class="headList list8"><i class="iconfont leftIco">&#xe62c;</i>Sale History<i class="iconfont rightIco">&#xe613;</i></a></li>
+        <li class="hiden">
+            <ul>
+                <li><a href="/admin/weeklyhistory" target="main-frame" ><i class="iconfont leftIco">&#xe620;</i>Weekly History</a></li>
+                <li><a href="/admin/monthlyhistory" target="main-frame" ><i class="iconfont leftIco">&#xe620;</i>Monthly History</a></li>
+                <li><a href="/admin/yearlyhistory" target="main-frame" ><i class="iconfont leftIco">&#xe620;</i>Yearly History</a></li>
+            </ul>
+        </li>
+        <li><a href="#" class="headList list9"><i class="iconfont leftIco">&#xe62c;</i>Order Manage<i class="iconfont rightIco">&#xe613;</i></a></li>
+        <li class="hiden">
+            <ul>
+                <li><a href="/admin/searchorder" target="main-frame"><i class="iconfont leftIco">&#xe620;</i>Search Order</a></li>
+            </ul>
+        </li>
 
     </ul>
 </div>

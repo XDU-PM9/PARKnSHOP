@@ -59,6 +59,7 @@ function uploadApply() {
                 addTd(i,response.data[i].shopName);
                 addImg(i,response.data[i].shopImg);
                 addTd(i,response.data[i].shopDesc);
+                addTd(i,response.data[i].shopDate);
                 shopId.push(response.data[i].shopId);
                 addOption(i);
             }
@@ -122,10 +123,10 @@ function agree() {
             success: function (data) {
                 var response =JSON.parse(data);
                 console.log(response);
-                if(response.error==false) {
+                if (response.error != false) {
                     location.reload();
-                }
-                else {
+                }  else {
+                   window.wxc.xcConfirm('Operation Mistake, Please try again. ', window.wxc.xcConfirm.typeEnum.error);
                 }
             }
         })
@@ -150,7 +151,7 @@ function disagree() {
                     location.reload();
                 }
                 else {
-                    alert("error");
+                    window.wxc.xcConfirm('Operation Mistake, Please try again. ', window.wxc.xcConfirm.typeEnum.error);
                 }
             }
         })
@@ -169,7 +170,7 @@ function next() {
     $("#next").click(function () {
        var max = Max ;
         if(index >= max){
-            alert("This is the last page");
+            window.wxc.xcConfirm('This is the last page. ', window.wxc.xcConfirm.typeEnum.info);
             /*location.reload();*/
         }
         else {
@@ -182,7 +183,7 @@ function prev() {
     $("#prev").click(function () {
         var min = 1;
         if(index<=min){
-            alert("This is the first page")
+            window.wxc.xcConfirm('This is the first page. ', window.wxc.xcConfirm.typeEnum.info);
         }
         else{
             index--;

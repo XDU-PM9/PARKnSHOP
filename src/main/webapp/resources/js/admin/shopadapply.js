@@ -53,7 +53,6 @@ function uploadApply() {
                 addTr(i);
                 addTd(i,response.data[i].advertId);
                 addTd(i,response.data[i].detail.name);
-                addTd(i,response.data[i].userId);
                 addTd(i,response.data[i].startTime);
                 addTd(i,response.data[i].price);
                 addTd(i,response.data[i].detail.introduction);
@@ -125,6 +124,7 @@ function agree() {
                     location.reload();
                 }
                 else {
+                    window.wxc.xcConfirm('Operation Mistake, Please try again. ', window.wxc.xcConfirm.typeEnum.error);
                 }
             }
         })
@@ -169,8 +169,8 @@ function next() {
     $("#next").click(function () {
         var max = Max ;
         if(index >= max){
-            alert("This is the last page");
-            /*location.reload();*/
+            window.wxc.xcConfirm('This is the last page. ', window.wxc.xcConfirm.typeEnum.info);
+
         }
         else {
             index++;
@@ -182,7 +182,7 @@ function prev() {
     $("#prev").click(function () {
         var min = 1;
         if(index<=min){
-            alert("This is the first page")
+            window.wxc.xcConfirm('This is the first page. ', window.wxc.xcConfirm.typeEnum.info);
         }
         else{
             index--;

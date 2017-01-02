@@ -47,15 +47,12 @@
     }
 
     <%
+      double total = 0.0;
       List<CalculateDbBean> weekData = (List<CalculateDbBean>) request.getAttribute(OwnerAnalysisController.WEEK);
     %>
     //获得Line图的选项和数据
     function getLineChartOption(){
         var lineChartOption={
-            title : {
-                text: 'Week',
-                subtext: 'income analysis'
-            },
             xAxis : [
                 {
                     type : 'category',
@@ -103,8 +100,9 @@
                             Iterator<CalculateDbBean> i = weekData.iterator();
                             while (i.hasNext()){
                                 CalculateDbBean item = i.next();
-                                out.print("'"+item.getPrice()+"'");
-                                Log.debug("price:"+item.getPrice());
+                                double price = item.getPrice();
+                                total+=price;
+                                out.print("'"+price+"'");
                                 if (i.hasNext()){
                                     out.print(",");
                                 }
@@ -114,7 +112,10 @@
                     ]
 //            data:[-2, 1, 2, 5, 3, 2, 0]
                 }
-            ]
+            ],
+            title : {
+                text: 'Total Income: HK$<%out.print(total);%>',
+            }
         };
         return lineChartOption;
     }

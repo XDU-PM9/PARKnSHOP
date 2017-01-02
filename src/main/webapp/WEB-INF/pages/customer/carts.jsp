@@ -18,11 +18,12 @@
     <link rel="stylesheet" href="../../../resources/css/shop_manager.css" type="text/css"/>
     <link rel="stylesheet" href="../../../resources/css/shop_shdz_835.css" type="text/css"/>
     <link rel="stylesheet" href="../../../resources/css/shop_gouwuche.css" type="text/css"/>
-    <script type="text/javascript" src="/../../../resources/js/jquery.js"></script>
+    <script type="text/javascript" src="/resources/js/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="../../../resources/js/topNav.js"></script>
     <script type="text/javascript" src="../../../resources/js/jquery.goodnums.js"></script>
     <script type="text/javascript" src="../../../resources/js/shop_gouwuche.js"></script>
     <script type="text/javascript" src="../../../resources/js/shop.js"></script>
+    <script type="text/javascript" src="/resources/js/layer/layer.js"></script>
 </head>
 <body>
 <%@include file="head.jsp" %>

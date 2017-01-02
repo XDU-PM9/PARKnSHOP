@@ -100,7 +100,7 @@ function submitRate() {
                     location.reload();
                 }
                 else{
-                    alert("Default!");
+                    window.wxc.xcConfirm('Operation Mistake, Please try again. ', window.wxc.xcConfirm.typeEnum.error);
                 }
             }
         })
@@ -109,7 +109,8 @@ function submitRate() {
 function submitGoods() {
     $("#goodsPrice-submitBtn").click(function () {
         var data= {};
-        data.rateorPrice = $("#setShopPrice").val();
+        data.rateorPrice = $("#setGoodsPrice").val();
+        console.log(data);
         $.ajax({
             type:'post',
             contentType : 'application/json',
@@ -123,7 +124,7 @@ function submitGoods() {
                     location.reload();
                 }
                 else{
-                    alert("Default!");
+                    window.wxc.xcConfirm('Operation Mistake, Please try again. ', window.wxc.xcConfirm.typeEnum.error);
                 }
             }
         })
@@ -132,7 +133,7 @@ function submitGoods() {
 function submitShop() {
     $("#shopPrice-submitBtn").click(function () {
         var data= {};
-        data.rateorPrice     = $("#setGoodsPrice").val();
+        data.rateorPrice     = $("#setShopPrice").val();
         $.ajax({
             type:'post',
             contentType : 'application/json',
@@ -147,7 +148,7 @@ function submitShop() {
                     location.reload();
                 }
                 else{
-                    alert("Default!");
+                    window.wxc.xcConfirm('Operation Mistake, Please try again. ', window.wxc.xcConfirm.typeEnum.error);
                 }
             }
         })

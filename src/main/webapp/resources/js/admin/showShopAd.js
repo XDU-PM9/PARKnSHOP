@@ -53,11 +53,10 @@ function uploadApply() {
                 addTr(i);
                 addTd(i,response.data[i].advertId);
                 addTd(i,response.data[i].detail.name);
-                addTd(i,response.data[i].userId);
                 addTd(i,response.data[i].startTime);
                 addTd(i,response.data[i].price);
                 addTd(i,response.data[i].detail.introduction);
-                shopAd.push(response.data[i].adverId);
+                shopAd.push(response.data[i].advertId);
                 addOption(i);
             }
         }
@@ -159,25 +158,31 @@ function disagree() {
 function cancel() {
     $("body").on('click','.cancel',function () {
         var id = $(this).parent().parent().index();
-        var data = {};
-        data.id = goodsAd[id];
-        console.log(data);
-        /!*测试成功*!/
-        $.ajax({
-            type:'post',
-            contentType : 'application/json',
-            data: JSON.stringify(data),
-            url:'/admin/cancelShopAdvert',
-            success: function (data) {
-                var response =JSON.parse(data);
-                console.log(response);
-                if(response.error==false) {
-                    location.reload();
+        window.wxc.xcConfirm('Are you sure to cancel? ', "warning");
+        $(".sgBtn.ok").click(function () {
+            console.log(id);
+            var data = {};
+            data.id = shopAd[id];
+            console.log(data);
+            /!*测试成功*!/
+            $.ajax({
+                type:'post',
+                contentType : 'application/json',
+                data: JSON.stringify(data),
+                url:'/admin/cancelShopAdvert',
+                success: function (data) {
+                    var response =JSON.parse(data);
+                    console.log(response);
+                    if(response.error==false) {
+                        location.reload();
+                    }
+                    else {
+                        window.wxc.xcConfirm('Operation Mistake, Please try again. ', window.wxc.xcConfirm.typeEnum.error);
+                    }
                 }
-                else {
-                }
-            }
+            })
         })
+        
     })
 }
 function turn() {
@@ -193,7 +198,7 @@ function next() {
     $("#next").click(function () {
         var max = Max ;
         if(index >= max){
-            alert("This is the last page");
+            window.wxc.xcConfirm('This is the last page. ', window.wxc.xcConfirm.typeEnum.info);
             /*location.reload();*/
         }
         else {
@@ -206,7 +211,7 @@ function prev() {
     $("#prev").click(function () {
         var min = 1;
         if(index<=min){
-            alert("This is the first page")
+            window.wxc.xcConfirm('This is the first page. ', window.wxc.xcConfirm.typeEnum.info);
         }
         else{
             index--;

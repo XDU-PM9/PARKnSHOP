@@ -4,6 +4,7 @@ import com.parknshop.entity.OrdersEntity;
 import com.parknshop.entity.OwnerEntity;
 import com.parknshop.service.IAdvertisement;
 import com.parknshop.service.IOrderService;
+import com.parknshop.service.serviceImpl.OrderService;
 import com.parknshop.utils.Pay;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -51,7 +52,7 @@ public class PayController {
         //二维码
         String url = pay.getQRCode(session,Pay.IP+"/pay/p?orderNum="+orderNum+"&addressId="+address);
 
-
+        req.setAttribute("path","/order/listOrder");
         req.setAttribute("imgUrl",url);
         req.getRequestDispatcher("WEB-INF/pages/test.jsp").forward(req,resp);
     }
@@ -90,8 +91,8 @@ public class PayController {
     public String finalPay(ModelMap modelMap,
             HttpServletRequest req, HttpSession session){
         String orderNum = req.getParameter("orderNum");
-        List<String> sList = new ArrayList<>();
-        sList.add(orderNum);
+        List<String> sList = OrderService.sListMap.get(orderNum);
+//        sList.add(orderNum);
         String msg;
         if(null == sList){
             msg = "error , i am sorry";
@@ -122,8 +123,11 @@ public class PayController {
 
 
         String url = pay.getQRCode(session,Pay.IP+"/pay/p?type="+type+"&typeId="+typeId);
-
-
+        if("0".equals(type)) {
+            req.setAttribute("path", "/owner/query");
+        }else if("1".equals(type)){
+            req.setAttribute("path", "/owner/goodsPage");
+        }
         req.setAttribute("imgUrl",url);
         return "test.jsp";
     }

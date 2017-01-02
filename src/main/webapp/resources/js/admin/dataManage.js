@@ -50,69 +50,97 @@ function addOption(i) {
 function rollback() {
     $("body").on('click','.rollback',function () {
         var id = $(this).parent().parent().index();
-        var data = {};
-        console.log(id);
-        data.filename = dataArray[id];
-        console.log(data);
-        /!*测试成功*!/
-        $.ajax({
-            type:'post',
-            contentType : 'application/json',
-            data: JSON.stringify(data),
-            url:'/admin/rollback',
-            success: function (data) {
-                var response =JSON.parse(data);
-                console.log(response);
-                if(response.error==false) {
-                    location.reload();
+        window.wxc.xcConfirm('Are you sure to rollback? ', "warning");
+        $(".sgBtn.ok").click(function () {
+            var data = {};
+            console.log(id);
+            data.filename = dataArray[id];
+            console.log(data);
+            /!*测试成功*!/
+            $.ajax({
+                type: 'post',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                url: '/admin/rollback',
+                success: function (data) {
+                    var response = JSON.parse(data);
+                    console.log(response);
+                    if (response.error == false) {
+                        window.wxc.xcConfirm('Rollback Success. ', window.wxc.xcConfirm.typeEnum.success)
+                        $(".sgBtn.ok").click(function () {
+                            location.reload();
+                        })
+                        $(".clsBtn").click(function () {
+                            location.reload();
+                        })
+                    }
+                    else {
+                        window.wxc.xcConfirm('Operation Mistake, Please try again. ', window.wxc.xcConfirm.typeEnum.error);
+                    }
                 }
-                else {
-                }
-            }   
+            })
         })
     })
 }
 function del() {
     $("body").on('click','.delete',function () {
         var id = $(this).parent().parent().index();
-        var data = {};
-        console.log(id);
-        data.filename = dataArray[id];
-        console.log(data);
-        /!*测试成功*!/
-        $.ajax({
-            type:'post',
-            contentType : 'application/json',
-            data: JSON.stringify(data),
-            url:'/admin/deletebackup',
-            success: function (data) {
-                var response =JSON.parse(data);
-                console.log(response);
-                if(response.error==false) {
-                    location.reload();
+        window.wxc.xcConfirm('Are you sure to delete? ', "warning");
+        $(".sgBtn.ok").click(function () {
+            var data = {};
+            console.log(id);
+            data.filename = dataArray[id];
+            console.log(data);
+            /!*测试成功*!/
+            $.ajax({
+                type: 'post',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                url: '/admin/deletebackup',
+                success: function (data) {
+                    var response = JSON.parse(data);
+                    console.log(response);
+                    if (response.error == false) {
+                        window.wxc.xcConfirm('Delete Success. ', window.wxc.xcConfirm.typeEnum.success)
+                        $(".sgBtn.ok").click(function () {
+                            location.reload();
+                        })
+                        $(".clsBtn").click(function () {
+                            location.reload();
+                        })
+                    }
+                    else {
+                        window.wxc.xcConfirm('Operation Mistake, Please try again. ', window.wxc.xcConfirm.typeEnum.error);
+                    }
                 }
-                else {
-                }
-            }
+            })
         })
     })
 }
 function backup() {
     $("#backUpBtn").click(function () {
-        $.ajax({
-            type:'post', 
-            url:'/admin/backup',
-            success:function (data) {
-                var response =JSON.parse(data);
-                console.log(response);
-                if(response.error == false){
-                    alert("BackUp Success!");
-                    location.reload();
+        window.wxc.xcConfirm('Are you sure to backup? ', "confirm");
+        $(".sgBtn.ok").click(function () {
+            $.ajax({
+                type: 'post',
+                url: '/admin/backup',
+                success: function (data) {
+                    var response = JSON.parse(data);
+                    console.log(response);
+                    if (response.error == false) {
+                        window.wxc.xcConfirm('Backup Success. ', window.wxc.xcConfirm.typeEnum.success)
+                        $(".sgBtn.ok").click(function () {
+                            location.reload();
+                        })
+                        $(".clsBtn").click(function () {
+                            location.reload();
+                        })
+                    }
+                    else {
+                        window.wxc.xcConfirm('Operation Mistake, Please try again. ', window.wxc.xcConfirm.typeEnum.error);
+                    }
                 }
-                else{
-                    alert("Default!");
-                }
-            }
+            })
         })
     })
 }

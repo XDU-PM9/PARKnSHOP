@@ -10,7 +10,8 @@
 
 /*********图片切换 css定义***********/
 .xifan_sub_box{width:1000px; height:350px; float:left; position:relative; overflow:hidden; border:1px solid #cccccc;}
-.xifan_sub_box img{border:none; width:1000px; height:350px;}
+/*width:1000px;*/
+.xifan_sub_box img{border:none; height:350px;}
 #xifan_bd1lfimg{position:relative; width:1000px; height:350px; overflow:hidden;}
 #xifan_bd1lfimg div{width:100000px; margin-left:-4px;}
 #xifan_bd1lfimg dl{width:1000px; height:350px; position:relative; overflow:hidden; float:left;}

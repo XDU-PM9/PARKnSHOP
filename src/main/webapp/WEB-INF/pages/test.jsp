@@ -12,7 +12,7 @@
 </head>
 <body>
 <H1>this is QRCode</H1><br>
-<img src="${imgUrl}">
-
+<img src="${imgUrl}"><br>
+<button style="height:80px;width:400px;" onclick="window.location.href='${path}'">i have already paid</button>
 </body>
 </html>

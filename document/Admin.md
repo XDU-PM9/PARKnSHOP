@@ -782,3 +782,206 @@ url:/admin/getYearCalculate
         }
     ]
 }
+
+#年订单列表
+url:/admin/getFinishOrderAdminYear
+方法：POST
+请求格式：JSON
+参数描述：
+{
+	”size：5，
+	”index“:1
+}
+响应参数描述：
+{
+	"error":boolean,
+	"total":9,
+	"realSize":5,
+	"data":[{
+		"ordersId":"int",
+		"ownerId":"int"
+		"userByUserId":"int",
+		"goodsByGoodsId":	"int",
+		"goodsName":	String",
+		"createTime":"String",
+		"revicer":"String",
+		"price":	"int",
+		"state":"int"
+	}]
+}
+
+#月订单列表
+url:/admin/getFinishOrderAdminMonth
+方法：POST
+请求格式：JSON
+参数描述：
+{
+	”size：5，
+	”index“:1
+}
+响应参数描述：
+{
+	"error":boolean,
+	"total":9,
+	"realSize":5,
+	"data":[{
+		"ordersId":"int",
+		"ownerId":"int"
+		"userByUserId":"int",
+		"goodsByGoodsId":	"int",
+		"goodsName":	String",
+		"createTime":"String",
+		"revicer":"String",
+		"price":	"int",
+		"state":"int"
+	}]
+}
+
+#周订单列表
+url:/admin/getFinishOrderAdminWeek
+方法：POST
+请求格式：JSON
+参数描述：
+{
+	”size：5，
+	”index“:1
+}
+响应参数描述：
+{
+	"error":boolean,
+	"total":9,
+	"realSize":5,
+	"data":[{
+		"ordersId":"int",
+		"ownerId":"int"
+		"userByUserId":"int",
+		"goodsByGoodsId":	"int",
+		"goodsName":	String",
+		"createTime":"String",
+		"revicer":"String",
+		"price":	"int",
+		"state":"int"
+	}]
+}
+
+#天订单列表
+url:/admin/getFinishOrderAdminToday
+方法：POST
+请求格式：JSON
+参数描述：
+{
+	”size：5，
+	”index“:1
+}
+响应参数描述：
+{
+	"error":boolean,
+	"total":9,
+	"realSize":5,
+	"data":[{
+		"ordersId":"int",
+		"ownerId":"int"
+		"userByUserId":"int",
+		"goodsByGoodsId":	"int",
+		"goodsName":	String",
+		"createTime":"String",
+		"revicer":"String",
+		"price":	"int",
+		"state":"int"
+	}]
+}
+
+#搜索店主ByName
+
+请求地址：/admin/serachOwnerByName
+方法:POST
+请求数据格式：json
+参数描述：
+{
+"name":"String"
+}
+响应数据格式:jason
+响应参数描述:
+{
+    "error": "true/false",
+    "data": [{
+        "ownerId": 123,
+        "username": "String",
+        "userImage": "String",
+        "realname": "String",
+        "phone": "String",
+        "email": "String",
+        "address": "String"
+		 "state":	"int"
+		}]
+}
+
+#搜索店铺ByName
+请求地址 /admin/searchShopByName
+方法:POST
+请求格式：JSON
+参数描述：{
+	"name":"String"
+}
+响应参数描述：
+{
+	"error":boolean,
+	"data":[{
+	"shopId":"int",
+	"shopName":"String",
+	"introduction":"String",
+	"photoGroup":	"String",
+	"views":	"int",
+	"logo":		"String",
+	"state":	"int"
+	"ownerId"	:"int" 
+	}]
+}
+
+#搜索顾客Byname
+
+请求地址：/admin/searchUserByName
+方法:POST
+请求数据格式：json
+参数描述：
+{
+	"name":"String"
+}
+响应数据格式:json
+响应参数描述:
+{
+    "error": "true/false",
+    "data": [{
+        "userId": 123,
+        "username": "String",
+        "userImage": "String",
+        "phone": "String",
+        "email": "String",
+		"state": 1
+	}]
+}
+
+#搜索订单模块
+请求地址：/admin/searchOrderByNum
+方法:POST
+请求数据格式：json
+参数描述：
+{
+	"name":"String"
+}
+响应数据格式:json
+响应参数描述:
+{
+    "error": "true/false",
+    "data":[{
+    		"ordersId":"int",
+    		"ownerId":"int"
+    		"userByUserId":"int",
+    		"goodsByGoodsId":	"int",
+    		"goodsName":	String",
+    		"createTime":"String",
+    		"revicer":"String",
+    		"price":	"int",
+    		"state":"int"
+    	}]
+}

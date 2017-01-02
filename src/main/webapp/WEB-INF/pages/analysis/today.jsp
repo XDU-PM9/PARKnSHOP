@@ -47,15 +47,12 @@ function displayChart(ec) {
     }
 
         <%
+          double total = 0;
           List<CalculateDbBean> todayData = (List<CalculateDbBean>) request.getAttribute(OwnerAnalysisController.TODAY);
         %>
 	//获得Line图的选项和数据
 	function getLineChartOption(){
 	var lineChartOption={
-    title : {
-        text: 'Today',
-        subtext: 'income analysis'
-    },
     xAxis : [
         {
             type : 'category',
@@ -100,7 +97,9 @@ function displayChart(ec) {
                     Iterator<CalculateDbBean> i = todayData.iterator();
                     while (iterator.hasNext()){
                         CalculateDbBean item = i.next();
-                        out.print("'"+item.getPrice()+"'");
+                        double price = item.getPrice();
+                        out.print("'"+price+"'");
+                        total+=price;
                         if (i.hasNext()){
                             out.print(",");
                         }
@@ -109,7 +108,10 @@ function displayChart(ec) {
             ]
 //            data:[-2, 1, 2, 5, 3, 2, 0]
         }
-    ]
+    ],
+        title : {
+            text: 'Total Income: HK$<%out.print(total);%>',
+        }
 };
 return lineChartOption;
 	}

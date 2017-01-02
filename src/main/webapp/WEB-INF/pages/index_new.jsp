@@ -38,7 +38,7 @@
                         <ul></ul>
                     </div>
                 </div>
-                <div id="xifan_bd1lfimg">
+                <div id="xifan_bd1lfimg" style="text-align: center">
                     <div>
                         <dl class=""></dl>
 
@@ -48,7 +48,7 @@
                             if (hot != null && hot.getShopList()!=null){
                                 List<GoodsDbBean> hotGoods = hot.getShopList();
                                 for (GoodsDbBean item : hotGoods){
-                                    out.println("<dl class=\"\">");
+                                    out.println("<dl align=\"center\" class=\"\">");
                                     out.println("<dt>");
                                     out.println("<a href=\"/goods/detail?goodsId="+item.getGoodsId()+"\" title=\""+item.getGoodsName()+"\" target=\"_blank\">");
                                     out.println("<img");

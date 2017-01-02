@@ -1,22 +1,24 @@
 package com.parknshop.service.serviceImpl;
 
 import com.parknshop.bean.HqlBean;
+import com.parknshop.bean.OrderDbBean;
 import com.parknshop.dao.IBaseDao;
 import com.parknshop.dao.IPictureDao;
 import com.parknshop.dao.daoImpl.BaseDao;
+import com.parknshop.dao.daoImpl.PitureDao;
 import com.parknshop.entity.*;
 import com.parknshop.service.IListBean;
 import com.parknshop.service.IOrderService;
 import com.parknshop.service.IOwnerService;
 import com.parknshop.service.serviceImpl.listBean.OrderListBean;
+import com.parknshop.utils.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import javax.persistence.criteria.Order;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 
 /**
@@ -40,9 +42,11 @@ public class OrderService implements IOrderService {
         this.goodsEntityIBaseDao = goodsEntityIBaseDao;
         this.pictureDao = pictureDao;
     }
-
+    //静态常量
+    public static Map<String,List<String>> sListMap = new HashMap<>();
 
     private OrdersEntity  addOerder(String orderNumber, CartEntity cartEntity){
+
         if(cartEntity.getGoodsEntity().getShopByShopId().getState() != IOwnerService.SHOP_STATE_USING){
             return null;
         }
@@ -100,12 +104,13 @@ public class OrderService implements IOrderService {
     @Override
     public String addOrders(int[] carts) {
         List<OrdersEntity> orderList = new ArrayList<>();
-        String orderNumber = java.util.UUID.randomUUID().toString();
+        List<String> listNumber = new ArrayList<>();
         for (int i : carts) {
-
             try {
+                String orderNumber = java.util.UUID.randomUUID().toString();
                 CartEntity entity = cartEntityIBaseDao.get(CartEntity.class, i);
                 OrdersEntity ordersEntity = addOerder(orderNumber, entity);
+                listNumber.add(orderNumber);//添加每一条订单
                 if (null != ordersEntity) {
                     orderList.add(ordersEntity);
                 }
@@ -122,7 +127,9 @@ public class OrderService implements IOrderService {
                 for (int i : carts) {
                     cartEntityIBaseDao.delete("update cart set state='0' where cartId=?", i);
                 }
-                return orderNumber;//ADD_SAVE_SUCCESS;
+                String allOrders = java.util.UUID.randomUUID().toString();
+                sListMap.put(allOrders,listNumber);
+                return allOrders;//ADD_SAVE_SUCCESS;
             }else {
                 return null;
             }
@@ -279,17 +286,33 @@ public class OrderService implements IOrderService {
 
     @Override
     public IListBean<OrdersEntity> getFinishOrderAdminYear(int page, int lines) {
-        return getOrderList("  and state > ? and YEAR(createTime)=YEAR(NOW() ",new Object[]{STATE_SEND},page,lines);
+        return getOrderList("  and state > ? and YEAR(createTime)=YEAR(NOW()) ",new Object[]{STATE_SEND},page,lines);
+    }
+    public static void main(String[] args){
+        OrderService orderService = new OrderService(new BaseDao<>(),new BaseDao<>(),new OrderListBean(),new BaseDao<>(),new BaseDao<>(),new PitureDao(new BaseDao<>()));
+        IListBean<OrdersEntity> list = orderService.getFinishOrderAdminMonth(1,10);
+        IListBean<OrdersEntity> listBean = orderService.getFinishOrder(1,1,10);
+        Date d=new Date();
+        SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
+        Date ye = new Date(d.getTime() - (long)31 * 24 * 60 * 60 * 1000);
+
+        Log.debug("success   "+ye.toString());
     }
 
     @Override
     public IListBean<OrdersEntity> getFinishOrderAdminMonth(int page, int lines) {
-        return getOrderList("  and state > ? and DATE_SUB(CURDATE(), INTERVAL 30 DAY) <= date(createTime) ",new Object[]{STATE_SEND},page,lines);
+        Date d=new Date();
+        SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
+        Date ye = new Date(d.getTime() - (long)31 * 24 * 60 * 60 * 1000);
+        return getOrderList("  and state > ? and date( ? ) <= date(createTime) ",new Object[]{STATE_SEND,ye},page,lines);
     }
 
     @Override
     public IListBean<OrdersEntity> getFinishOrderAdminWeek(int page, int lines) {
-        return getOrderList("  and state > ? and DATE_SUB(CURDATE(), INTERVAL 7 DAY) <= date(createTime) ",new Object[]{STATE_SEND},page,lines);
+        Date d=new Date();
+        SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
+        Date ye = new Date(d.getTime() - (long)7 * 24 * 60 * 60 * 1000);
+        return getOrderList("  and state > ? and date( ? ) <= date(createTime) ",new Object[]{STATE_SEND,ye},page,lines);
     }
 
     @Override

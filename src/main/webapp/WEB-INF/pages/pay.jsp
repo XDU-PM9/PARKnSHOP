@@ -22,6 +22,7 @@
         <input  type="hidden" name="orderNum" value="${orderNum}">
         <button  type="submit" style="height:80px;width:400px;"> submit</button>
     </form>
+
 </c:if>
 <c:if test="${not empty type}">
     <H1>AdervitismentType: ${typeString}</H1>

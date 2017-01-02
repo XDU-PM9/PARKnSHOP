@@ -59,6 +59,12 @@ public class OwnerController {
         this.mAdverService = adService;
     }
 
+    @RequestMapping("/owner/jumpindex")
+    public String jumpindex(){
+        mUserService.loginOut();
+        return "redirect:/";
+    }
+
     @RequestMapping("/owner")
     public String dispatcher() {
         return "redirect:/owner/index";
@@ -260,6 +266,8 @@ public class OwnerController {
             shop.setId(item.getShopId());
             shop.setDesc(item.getIntroduction());
             shop.setLogo(item.getLogo());
+            boolean hasAd = mAdverService.checkAdvertShopExist(item.getShopId());
+            shop.setHasAd(hasAd);
             switch (item.getShopState()) {
                 case IOwnerService.SHOP_STATE_USING:
                     shop.setState("Normal");
@@ -333,6 +341,7 @@ public class OwnerController {
         ownerEntity.setRealname(realName);
         ownerEntity.setIdentityId(idNumber);
         ownerEntity.setPhone(phone);
+        ownerEntity.setPicture(person);
         mOwnerService.updateOwner(ownerEntity);
 
         ShopEntity shopEntity = new ShopEntity();

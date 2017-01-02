@@ -12,6 +12,7 @@
     <title>Title</title>
     <link href="/resources/css/admin/top.css" rel="stylesheet" type="text/css" />
     <link href="/resources/css/admin/main.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="/resources/libs/xcConfirm.css">
 </head>
 <body>
 <h1>
@@ -22,7 +23,7 @@
     <form action="" name="backup">
         <span style="color: #686869;font-size: 18px;">The Last Backup Time:</span>
             <span id="backUpTime" style="color: #686869;font-size: 18px">Sorry, there is no backup file.</span>
-        <button id="backUpBtn">BackUp</button>
+        <button id="backUpBtn" type="button">BackUp</button>
     </form>
 </div>
 <form method="post" action="" name="listForm">
@@ -44,5 +45,7 @@
 </div>
 </body>
 <script src="/resources/libs/jquery.js"></script>
+<script src="/resources/libs/xcConfirm.js"></script>
 <script src="/resources/js/admin/dataManage.js"></script>
+
 </html>
