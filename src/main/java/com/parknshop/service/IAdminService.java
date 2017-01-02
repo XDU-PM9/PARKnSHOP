@@ -5,6 +5,8 @@ import com.parknshop.entity.CommissionEntity;
 import com.parknshop.entity.OwnerEntity;
 import com.parknshop.entity.UserEntity;
 
+import java.util.List;
+
 /**
  * Created by weina on 2016/12/2.
  */
@@ -69,7 +71,7 @@ public interface IAdminService {
      */
 
     ShopAndOwnerDbBean getShopById(int shopId);
-    ShopAndOwnerDbBean getShopById(String shopName);
+    List<ShopAndOwnerDbBean> getShopById(String shopName);
 
     /**
      * 根据 ownerId 获取owner
@@ -77,14 +79,14 @@ public interface IAdminService {
      * @return  成功返回实体，失败null
      */
     OwnerEntity getOwnerById(int ownerId);
-    OwnerEntity getOwnerById(String ownerName);
+    List<OwnerEntity> getOwnerById(String ownerName);
     /**
      * 根据 userId 获取user
      * @param userId  userId
      * @return 成功返回实体，失败null
      */
     UserEntity getUserById(int userId);
-    UserEntity getUserById(String userName);
+    List<UserEntity> getUserById(String userName);
     /** ----------------------------------------管理用户
      * 参数什么的同上
      */
