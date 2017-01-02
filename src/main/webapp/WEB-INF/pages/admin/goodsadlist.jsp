@@ -35,7 +35,6 @@
             <tr class="queryHead">
                 <th class="adId">AdvertId</th>
                 <th class="adName">Name</th>
-                <th class="logoHead">User</th>
                 <th class="shopName">StartTime</th>
                 <th class="shopDes">Price</th>
                 <th class="introduction">Introduction</th>

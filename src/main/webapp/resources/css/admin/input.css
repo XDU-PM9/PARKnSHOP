@@ -85,3 +85,15 @@ form{
     color: red;
     display: none;
 }
+.closeBtn{
+    width: 16px;
+    height: 16px;
+    display: block;
+    position: absolute;
+    top: 5px;
+    right: -2px;
+    background:url("../../../resources/images/ico/close_def.png");
+}
+.closeBtn:hover{
+    background: url("../../../resources/images/ico/close_hov.png");
+}

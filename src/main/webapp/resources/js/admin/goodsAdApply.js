@@ -53,7 +53,6 @@ function uploadApply() {
                 addTr(i);
                 addTd(i,response.data[i].advertId);
                 addTd(i,response.data[i].detail.name);
-                addTd(i,response.data[i].userId);
                 addTd(i,response.data[i].startTime);
                 addTd(i,response.data[i].price);
                 addTd(i,response.data[i].detail.introduction);

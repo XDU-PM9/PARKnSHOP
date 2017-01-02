@@ -116,6 +116,19 @@ public class AdminController {
     public String datamanage() {
         return "admin/datamanage.jsp";
     }
+    @RequestMapping(value = "weeklyincome", method = RequestMethod.GET)
+    public String weeklyincome() {
+        return "admin/weeklyincome.jsp";
+    }
+    @RequestMapping(value = "monthlyincome", method = RequestMethod.GET)
+    public String monthlyincome() {
+        return "admin/monthlyincome.jsp";
+    }
+    @RequestMapping(value = "yearlyincome", method = RequestMethod.GET)
+    public String yearlyincome() {
+        return "admin/yearlyincome.jsp";
+    }
+
 
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     public @ResponseBody String login(@RequestBody byte[] info, HttpSession session){
@@ -173,6 +186,7 @@ public class AdminController {
                     applyEntity.setShopName(entity.getShopName());
                     applyEntity.setShopImg(entity.getLogo());
                     applyEntity.setShopDesc(entity.getIntroduction());
+                    applyEntity.setShopDate(entity.getTimestamp().toString());
                     data.add(applyEntity);
                 }
                 response.setTotal((int) total);
@@ -1154,6 +1168,7 @@ public class AdminController {
             SetRateorShoporGoodsPriceRequestBean requestBean
                     = mGson.fromJson(infoStr,SetRateorShoporGoodsPriceRequestBean.class);
             CommissionEntity entity = mAdminService.getCommission();
+            System.out.println("setFoodsPrice 参数: "+requestBean.getRateorPrice());
             entity.setGoodsPrice(requestBean.getRateorPrice());
             boolean state = mAdminService.updateCommission(entity);
             responseBean.setError(!state);
@@ -1176,31 +1191,14 @@ public class AdminController {
                 = new GetAdminCalculateResponseBean.DataBean();
         List<GetAdminCalculateResponseBean.DataBean> dateBeanList = new ArrayList<>();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        if(calculateDbBeanList.size()>0) {
-            for (CalculateDbBean bean : calculateDbBeanList) {
-                String strDate = sdf.format(bean.getDate());
-                dateBean.setDate(strDate);
-                dateBean.setEarn(bean.getPrice());
-                dateBeanList.add(dateBean);
-            }
-            responseBean.setError(false);
-            responseBean.setData(dateBeanList);
-        }else{
-            String strDate = sdf.format(new Date());
-            //String preDate = "";
-            switch (type) {
-                case "Today": dateBean.setDate(strDate);break;
-                case "Month": //preDate = calculateDate(new Date(),-30);
-                        dateBean.setDate("------");break;
-                case "Week": //preDate = calculateDate(new Date(),-7);
-                        dateBean.setDate("------");break;
-                case "Year":dateBean.setDate(strDate.substring(0,4));break;
-            }
-            dateBean.setEarn(0.0);
+        for (CalculateDbBean bean : calculateDbBeanList) {
+            String strDate = sdf.format(bean.getDate());
+            dateBean.setDate(strDate);
+            dateBean.setEarn(bean.getPrice());
             dateBeanList.add(dateBean);
-            responseBean.setError(false);
-            responseBean.setData(dateBeanList);
         }
+        responseBean.setError(false);
+        responseBean.setData(dateBeanList);
     }
 
 

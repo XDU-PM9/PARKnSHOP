@@ -40,6 +40,7 @@
                 <th>shopName</th>
                 <th>shopImg</th>
                 <th>shopDescription</th>
+                <th>applyDate</th>
                 <th>Option</th>
             </tr>
             <%--<tr>
