@@ -119,73 +119,82 @@ function clearTable() {
 function black() {
     $("body").on('click','.black',function () {
         var id = $(this).parent().parent().index();
-        var data = {};
-        data.ownerId = ownerId[id];
-        console.log(data.ownerId);
-        /*测试成功*/
-        $.ajax({
-            type:'post',
-            contentType : 'application/json',
-            data: JSON.stringify(data),
-            url:'/admin/blackowner',
-            success: function (data) {
-                var response =JSON.parse(data);
-                console.log(response);
-                if(response.error==false) {
-                    location.reload();
+        window.wxc.xcConfirm('Are you sure to black? ', "confirm");
+        $(".sgBtn.ok").click(function () {
+            var data = {};
+            data.ownerId = ownerId[id];
+            console.log(data.ownerId);
+            /*测试成功*/
+            $.ajax({
+                type: 'post',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                url: '/admin/blackowner',
+                success: function (data) {
+                    var response = JSON.parse(data);
+                    console.log(response);
+                    if (response.error == false) {
+                        location.reload();
+                    }
+                    else {
+                        window.wxc.xcConfirm('Operation Mistake, Please try again. ', window.wxc.xcConfirm.typeEnum.error);
+                    }
                 }
-                else {
-                    alert("error");
-                }
-            }
+            })
         })
     })
 }
 function del() {
     $("body").on('click','.delete',function () {
         var id = $(this).parent().parent().index();
-        var data = {};
-        data.ownerId = ownerId[id];
-        /*测试成功*/
-        $.ajax({
-            type:'post',
-            contentType : 'application/json',
-            data: JSON.stringify(data),
-            url:'/admin/deleteowner',
-            success: function (data) {
-                var response =JSON.parse(data);
-                console.log(response);
-                if(response.error==false) {
-                    location.reload();
+        window.wxc.xcConfirm('Are you sure to delete? ', "warning");
+        $(".sgBtn.ok").click(function () {
+            var data = {};
+            data.ownerId = ownerId[id];
+            /*测试成功*/
+            $.ajax({
+                type: 'post',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                url: '/admin/deleteowner',
+                success: function (data) {
+                    var response = JSON.parse(data);
+                    console.log(response);
+                    if (response.error == false) {
+                        location.reload();
+                    }
+                    else {
+                        window.wxc.xcConfirm('Operation Mistake, Please try again. ', window.wxc.xcConfirm.typeEnum.error);
+                    }
                 }
-                else {
-                    alert("error");
-                }
-            }
+            })
         })
     })
 }
 function recover() {
     $("body").on('click','.recover',function () {
         var id = $(this).parent().parent().index();
-        var data = {};
-        data.ownerId = ownerId[id];
-        /*测试成功*/
-        $.ajax({
-            type:'post',
-            contentType : 'application/json',
-            data: JSON.stringify(data),
-            url:'/admin/whiteowner',
-            success: function (data) {
-                var response =JSON.parse(data);
-                console.log(response);
-                if(response.error==false) {
-                    location.reload();
+        window.wxc.xcConfirm('Are you sure to recover? ', "confirm");
+        $(".sgBtn.ok").click(function () {
+            var data = {};
+            data.ownerId = ownerId[id];
+            /*测试成功*/
+            $.ajax({
+                type: 'post',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                url: '/admin/whiteowner',
+                success: function (data) {
+                    var response = JSON.parse(data);
+                    console.log(response);
+                    if (response.error == false) {
+                        location.reload();
+                    }
+                    else {
+                        window.wxc.xcConfirm('Operation Mistake, Please try again. ', window.wxc.xcConfirm.typeEnum.error);
+                    }
                 }
-                else {
-                    alert("error");
-                }
-            }
+            })
         })
     })
 }
@@ -193,7 +202,7 @@ function next() {
     $("#next").click(function () {
         var max = Max;
         if(index >= max){
-            alert("This is the last page");
+            window.wxc.xcConfirm('This is the last page. ', window.wxc.xcConfirm.typeEnum.info);
             /*location.reload();*/
         }
         else {
@@ -206,7 +215,7 @@ function prev() {
     $("#prev").click(function () {
         var min = 1;
         if(index<=min){
-            alert("This is the first page")
+            window.wxc.xcConfirm('This is the first page.', window.wxc.xcConfirm.typeEnum.info);
         }
         else{
             index--;
