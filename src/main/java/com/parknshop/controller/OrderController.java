@@ -88,6 +88,14 @@ public class OrderController {
             List<OrdersEntity>  ordersEntities = iOrderService.getOrdersList(number);
             ordersEntityList.addAll(ordersEntities);
         }
+        try{
+            List<OrdersEntity>  ordersEntities = iOrderService.getOrdersList(ordersNum);
+            ordersEntityList.addAll(ordersEntities);
+        }catch (Exception e){
+            e.printStackTrace();
+            Log.debug(""+ "addOrderNumber error maybe it is null");
+        }
+
         for (Iterator<OrdersEntity> it = ordersEntityList.iterator(); it.hasNext(); ) {
             OrdersEntity val = it.next();
             if (val.getState() != IOrderService.STATE_NOT_PAY) {
