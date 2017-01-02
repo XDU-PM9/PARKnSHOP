@@ -37,6 +37,8 @@ public class AdminController {
     BackupImpl backupService;
     @Autowired
     ICalculateService mCalculate;
+    @Autowired
+    IOrderService mOrder;
 
     Gson mGson = new GsonBuilder()
             .setDateFormat(DateFormat.getDateFormat())
@@ -118,30 +120,45 @@ public class AdminController {
     }
     @RequestMapping(value = "weeklyincome", method = RequestMethod.GET)
     public String weeklyincome() {
-        return "admin/weeklyincome.jsp";
+        return "admin/weekearn.html";
     }
     @RequestMapping(value = "monthlyincome", method = RequestMethod.GET)
     public String monthlyincome() {
-        return "admin/monthlyincome.jsp";
+        return "admin/monthearn.html";
     }
     @RequestMapping(value = "yearlyincome", method = RequestMethod.GET)
     public String yearlyincome() {
-        return "admin/yearlyincome.jsp";
+        return "admin/yearearn.html";
     }
 
-    @RequestMapping(value = "weeklyhistory ", method = RequestMethod.GET)
+    @RequestMapping(value = "weeklyhistory", method = RequestMethod.GET)
     public String weeklyhistory() {
-        return "admin/weeklyhistory.jsp";
+        return "admin/showweekorder.html";
     }
-    @RequestMapping(value = "monthlyhistory ", method = RequestMethod.GET)
+    @RequestMapping(value = "monthlyhistory", method = RequestMethod.GET)
     public String monthlyhistory() {
-        return "admin/monthlyhistory.jsp";
+        return "admin/showmonthorder.html";
     }
-    @RequestMapping(value = "yearlyhistory ", method = RequestMethod.GET)
+    @RequestMapping(value = "yearlyhistory", method = RequestMethod.GET)
     public String yearlyhistory() {
-        return "admin/yearlyhistory.jsp";
+        return "admin/showyearorder.html";
     }
-
+    @RequestMapping(value = "searchshop", method = RequestMethod.GET)
+    public String searchshop() {
+        return "admin/searchshop.html";
+    }
+    @RequestMapping(value = "searchowner", method = RequestMethod.GET)
+    public String searchowner() {
+        return "admin/searchowner.html";
+    }
+    @RequestMapping(value = "searchcustomer", method = RequestMethod.GET)
+    public String searchcustomer() {
+        return "admin/searchcustomer.html";
+    }
+    @RequestMapping(value = "searchorder", method = RequestMethod.GET)
+    public String searchorder() {
+        return "admin/searchorder.html";
+    }
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     public @ResponseBody String login(@RequestBody byte[] info, HttpSession session){
         mService.loginOut();
@@ -1204,6 +1221,9 @@ public class AdminController {
             GetAdminCalculateResponseBean.DataBean dateBean
                     = new GetAdminCalculateResponseBean.DataBean();
             String strDate = sdf.format(bean.getDate());
+            if(type == "Month") {
+                strDate = strDate.substring(8);
+            }
             dateBean.setDate(strDate);
             dateBean.setEarn(bean.getPrice());
             dateBeanList.add(dateBean);
@@ -1260,6 +1280,260 @@ public class AdminController {
         if(isLogin){
             addDateToCalculate(responseBean,mCalculate.getWeekAdmin(),"Week");
         }else{
+            responseBean.setError(true);
+        }
+        return mGson.toJson(responseBean);
+    }
+
+    private void addDateToFinish(GetFinishOrderResponseBean responseBean,
+                                 IListBean<OrdersEntity> dataList){
+        long total = dataList.getMaxPages();
+        long size = dataList.getNumer();
+        List<GetFinishOrderResponseBean.DataBean> data = new ArrayList<>();
+        for (OrdersEntity entity : dataList.getShopList()) {
+            GetFinishOrderResponseBean.DataBean userListBean = new GetFinishOrderResponseBean.DataBean();
+            userListBean.setOrdersId(entity.getOrdersId());
+            userListBean.setOwnerId(entity.getOwnerId());
+            userListBean.setUserByUserId(entity.getUserByUserId().getUserId());
+            userListBean.setGoodsByGoodsId(entity.getGoodsByGoodsId().getGoodsId());
+            userListBean.setGoodsName(entity.getGoodsName());
+            userListBean.setCreateTime(entity.getCreateTime().toString().substring(0,11));
+            System.out.println(entity.getCreateTime().toString().substring(0,11));
+            userListBean.setReciver(entity.getReciver());
+            userListBean.setPrice(entity.getPrice());
+            userListBean.setState(entity.getState());
+            data.add(userListBean);
+        }
+        responseBean.setError(false);
+        responseBean.setTotal((int) total);
+        responseBean.setRealSize((int) size);
+        responseBean.setData(data);
+    }
+
+    @RequestMapping(value = "/getFinishOrderAdminYear",method = RequestMethod.POST)
+    @ResponseBody String getFinishOrderAdminYear(@RequestBody byte[] info,HttpSession session){
+        boolean isLogin = mService.isLogin();
+        GetFinishOrderResponseBean responseBean = new GetFinishOrderResponseBean();
+//        isLogin = true;
+        if(isLogin){
+            String infoStr = new String(info);
+            GetFinishOrderRequestBean requestBean =
+                    mGson.fromJson(infoStr,GetFinishOrderRequestBean.class);
+            IListBean<OrdersEntity> dataList =
+                    mOrder.getFinishOrderAdminYear(requestBean.getIndex(),requestBean.getSize());
+            long total = dataList.getMaxPages();
+            long size = dataList.getNumer();
+            if(requestBean.getIndex()>total){
+                responseBean.setError(true);
+            }else {
+                addDateToFinish(responseBean,dataList);
+            }
+        }else {
+            responseBean.setError(true);
+        }
+        return mGson.toJson(responseBean);
+    }
+
+    @RequestMapping(value = "/getFinishOrderAdminMonth",method = RequestMethod.POST)
+    @ResponseBody String getFinishOrderAdminMonth(@RequestBody byte[] info,HttpSession session){
+        boolean isLogin = mService.isLogin();
+        GetFinishOrderResponseBean responseBean = new GetFinishOrderResponseBean();
+//        isLogin = true;
+        if(isLogin){
+            String infoStr = new String(info);
+            GetFinishOrderRequestBean requestBean =
+                    mGson.fromJson(infoStr,GetFinishOrderRequestBean.class);
+            IListBean<OrdersEntity> dataList =
+                    mOrder.getFinishOrderAdminMonth(requestBean.getIndex(),requestBean.getSize());
+            long total = dataList.getMaxPages();
+            long size = dataList.getNumer();
+            if(requestBean.getIndex()>total){
+                responseBean.setError(true);
+            }else {
+                addDateToFinish(responseBean,dataList);
+            }
+        }else {
+            responseBean.setError(true);
+        }
+        return mGson.toJson(responseBean);
+    }
+
+    @RequestMapping(value = "/getFinishOrderAdminWeek",method = RequestMethod.POST)
+    @ResponseBody String getFinishOrderAdminWeek(@RequestBody byte[] info,HttpSession session){
+        boolean isLogin = mService.isLogin();
+        GetFinishOrderResponseBean responseBean = new GetFinishOrderResponseBean();
+//        isLogin = true;
+        if(isLogin){
+            String infoStr = new String(info);
+            GetFinishOrderRequestBean requestBean =
+                    mGson.fromJson(infoStr,GetFinishOrderRequestBean.class);
+            IListBean<OrdersEntity> dataList =
+                    mOrder.getFinishOrderAdminWeek(requestBean.getIndex(),requestBean.getSize());
+            System.out.println(dataList.getNumer());
+            long total = dataList.getMaxPages();
+            long size = dataList.getNumer();
+            if(requestBean.getIndex()>total){
+                responseBean.setError(true);
+            }else {
+                addDateToFinish(responseBean,dataList);
+            }
+        }else {
+            responseBean.setError(true);
+        }
+        return mGson.toJson(responseBean);
+    }
+
+    @RequestMapping(value = "/getFinishOrderAdminToday",method = RequestMethod.POST)
+    @ResponseBody String getFinishOrderAdminToday(@RequestBody byte[] info,HttpSession session){
+        boolean isLogin = mService.isLogin();
+        GetFinishOrderResponseBean responseBean = new GetFinishOrderResponseBean();
+//        isLogin = true;
+        if(isLogin){
+            String infoStr = new String(info);
+            GetFinishOrderRequestBean requestBean =
+                    mGson.fromJson(infoStr,GetFinishOrderRequestBean.class);
+            IListBean<OrdersEntity> dataList =
+                    mOrder.getFinishOrderAdminToday(requestBean.getIndex(),requestBean.getSize());
+            long total = dataList.getMaxPages();
+            long size = dataList.getNumer();
+            if(requestBean.getIndex()>total){
+                responseBean.setError(true);
+            }else {
+                addDateToFinish(responseBean,dataList);
+            }
+        }else {
+            responseBean.setError(true);
+        }
+        return mGson.toJson(responseBean);
+    }
+
+    //搜索店家、店铺、用户、订单
+    @RequestMapping(value = "/searchOwnerByName",method = RequestMethod.POST)
+    @ResponseBody String searchOwnerByName(@RequestBody byte[] info,HttpSession session){
+        boolean isLogin = mService.isLogin();
+        SearchOwnerByNameResponseBean responseBean = new SearchOwnerByNameResponseBean();
+//        isLogin = true;
+        if(isLogin){
+            String infoStr = new String(info);
+            SearchByNameRequestBean requestBean =
+                    mGson.fromJson(infoStr,SearchByNameRequestBean.class);
+            List<OwnerEntity> dataList =
+                    mAdminService.getOwnerById(requestBean.getName());
+            List<SearchOwnerByNameResponseBean.DataBean> dataBeanList = new ArrayList<>();
+            for(OwnerEntity entity:dataList){
+                SearchOwnerByNameResponseBean.DataBean dataBean =
+                        new SearchOwnerByNameResponseBean.DataBean();
+                dataBean.setOwnerId(entity.getOwnerId());
+                dataBean.setUsername(entity.getUsername());
+                dataBean.setUserImage(entity.getUserImage());
+                dataBean.setRealname(entity.getRealname());
+                dataBean.setPhone(entity.getPhone());
+                dataBean.setEmail(entity.getEmail());
+                dataBean.setAddress(entity.getAddress());
+                dataBean.setState(entity.getState());
+                dataBeanList.add(dataBean);
+            }
+            responseBean.setError(false);
+            responseBean.setData(dataBeanList);
+        }else {
+            responseBean.setError(true);
+        }
+        return mGson.toJson(responseBean);
+    }
+
+    @RequestMapping(value = "/searchShopByName",method = RequestMethod.POST)
+    @ResponseBody String searchShopByName(@RequestBody byte[] info,HttpSession session){
+        boolean isLogin = mService.isLogin();
+        SearchShopByNameResponseBean responseBean = new SearchShopByNameResponseBean();
+//        isLogin = true;
+        if(isLogin){
+            String infoStr = new String(info);
+            SearchByNameRequestBean requestBean =
+                    mGson.fromJson(infoStr,SearchByNameRequestBean.class);
+            List<ShopAndOwnerDbBean> dataList =
+                    mAdminService.getShopById(requestBean.getName());
+            List<SearchShopByNameResponseBean.DataBean> dataBeanList = new ArrayList<>();
+            for(ShopAndOwnerDbBean bean:dataList){
+                SearchShopByNameResponseBean.DataBean dataBean =
+                        new SearchShopByNameResponseBean.DataBean();
+                dataBean.setShopId(bean.getShopId());
+                dataBean.setShopName(bean.getShopName());
+                dataBean.setIntroduction(bean.getIntroduction());
+                dataBean.setPhotoGroup(bean.getPhotoGroup());
+                dataBean.setViews(bean.getViews());
+                dataBean.setLogo(bean.getLogo());
+                dataBean.setState(bean.getShopState());
+                dataBean.setOwnerId(bean.getOwnerId());
+                dataBeanList.add(dataBean);
+            }
+            responseBean.setError(false);
+            responseBean.setData(dataBeanList);
+        }else {
+            responseBean.setError(true);
+        }
+        return mGson.toJson(responseBean);
+    }
+
+    @RequestMapping(value = "/searchUserByName",method = RequestMethod.POST)
+    @ResponseBody String searchUserByName(@RequestBody byte[] info,HttpSession session){
+        boolean isLogin = mService.isLogin();
+        SearchUserByNameResponseBean responseBean = new SearchUserByNameResponseBean();
+//        isLogin = true;
+        if(isLogin){
+            String infoStr = new String(info);
+            SearchByNameRequestBean requestBean =
+                    mGson.fromJson(infoStr,SearchByNameRequestBean.class);
+            List<UserEntity> dataList =
+                    mAdminService.getUserById(requestBean.getName());
+            List<SearchUserByNameResponseBean.DataBean> dataBeanList = new ArrayList<>();
+            for(UserEntity entity:dataList){
+                SearchUserByNameResponseBean.DataBean dataBean =
+                        new SearchUserByNameResponseBean.DataBean();
+                dataBean.setUserId(entity.getUserId());
+                dataBean.setUsername(entity.getUsername());
+                dataBean.setUserImage(entity.getUserImage());
+                dataBean.setPhone(entity.getPhone());
+                dataBean.setEmail(entity.getEmail());
+                dataBean.setState(entity.getState());
+                dataBeanList.add(dataBean);
+            }
+            responseBean.setError(false);
+            responseBean.setData(dataBeanList);
+        }else {
+            responseBean.setError(true);
+        }
+        return mGson.toJson(responseBean);
+    }
+
+    @RequestMapping(value = "/searchOrderByNum",method = RequestMethod.POST)
+    @ResponseBody String searchOrderByNum(@RequestBody byte[] info,HttpSession session){
+        boolean isLogin = mService.isLogin();
+        SearchOrderByNumResponseBean responseBean = new SearchOrderByNumResponseBean();
+//        isLogin = true;
+        if(isLogin){
+            String infoStr = new String(info);
+            SearchOrderByNumRequestBean requestBean =
+                    mGson.fromJson(infoStr,SearchOrderByNumRequestBean.class);
+            List<OrdersEntity> dataList =
+                    mOrder.getOrdersList(requestBean.getNum());
+            List<SearchOrderByNumResponseBean.DataBean> dataBeanList = new ArrayList<>();
+            for(OrdersEntity entity:dataList){
+                SearchOrderByNumResponseBean.DataBean dataBean =
+                        new SearchOrderByNumResponseBean.DataBean();
+                dataBean.setOrdersId(entity.getOrdersId());
+                dataBean.setOwnerId(entity.getOwnerId());
+                dataBean.setUserByUserId(entity.getUserByUserId().getUserId());
+                dataBean.setGoodsByGoodsId(entity.getGoodsByGoodsId().getGoodsId());
+                dataBean.setGoodsName(entity.getGoodsName());
+                dataBean.setCreateTime(entity.getCreateTime().toString().substring(0,11));
+                dataBean.setRevicer(entity.getReciver());
+                dataBean.setPrice(entity.getPrice());
+                dataBean.setState(entity.getState());
+                dataBeanList.add(dataBean);
+            }
+            responseBean.setError(false);
+            responseBean.setData(dataBeanList);
+        }else {
             responseBean.setError(true);
         }
         return mGson.toJson(responseBean);
