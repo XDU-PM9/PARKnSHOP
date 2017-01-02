@@ -22,6 +22,7 @@
         <input  type="hidden" name="orderNum" value="${orderNum}">
         <button  type="submit" style="height:80px;width:400px;"> submit</button>
     </form>
+        <button style="height:80px;width:400px;" onclick="window.location.href='/order/listOrder'">i have already paid</button>
 </c:if>
 <c:if test="${not empty type}">
     <H1>AdervitismentType: ${typeString}</H1>
@@ -33,6 +34,12 @@
         <input  type="hidden" name="typeId" value="${typeId}">
         <button  type="submit" style="height:80px;width:400px;"> submit</button>
     </form>
+    <c:if test="${type = 0}">
+        <button style="height:80px;width:400px;" onclick="window.location.href='/owner/query'">i have already paid</button>
+    </c:if>
+    <c:if test="${type = 1}">
+        <button style="height:80px;width:400px;" onclick="window.location.href='/owner/goodsPage'">i have already paid</button>
+    </c:if>
 </c:if>
 
 </body>
