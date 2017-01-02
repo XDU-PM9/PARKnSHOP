@@ -129,6 +129,18 @@ public class AdminController {
         return "admin/yearlyincome.jsp";
     }
 
+    @RequestMapping(value = "weeklyhistory ", method = RequestMethod.GET)
+    public String weeklyhistory() {
+        return "admin/weeklyhistory.jsp";
+    }
+    @RequestMapping(value = "monthlyhistory ", method = RequestMethod.GET)
+    public String monthlyhistory() {
+        return "admin/monthlyhistory.jsp";
+    }
+    @RequestMapping(value = "yearlyhistory ", method = RequestMethod.GET)
+    public String yearlyhistory() {
+        return "admin/yearlyhistory.jsp";
+    }
 
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     public @ResponseBody String login(@RequestBody byte[] info, HttpSession session){
@@ -1011,8 +1023,7 @@ public class AdminController {
                     data.add(dataBean);
                 }
                 File f =backuplist.get(backuplist.size()-1);
-                long time = f.lastModified();//返回文件最后修改时间，是以个long型毫秒数
-                String lastbackuptime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss:SSS").format(new Date(time));
+                String lastbackuptime =f.getName().substring(0,f.getName().lastIndexOf("."));
                 getBackupResponseBean.setError(false);
                 getBackupResponseBean.setData(data);
                 getBackupResponseBean.setLastbackuptime(lastbackuptime);

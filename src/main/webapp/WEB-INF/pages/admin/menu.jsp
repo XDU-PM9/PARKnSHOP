@@ -72,9 +72,9 @@
         <li><a href="#" class="headList list7"><i class="iconfont leftIco">&#xe62c;</i>Sale History<i class="iconfont rightIco">&#xe613;</i></a></li>
         <li class="hiden">
             <ul>
-                <li><a href="#" ><i class="iconfont leftIco">&#xe620;</i>Weekly History</a></li>
-                <li><a href="#" ><i class="iconfont leftIco">&#xe620;</i>Monthly History</a></li>
-                <li><a href="#" ><i class="iconfont leftIco">&#xe620;</i>Yearly History</a></li>
+                <li><a href="/admin/weeklyhistory" target=" main-frame" ><i class="iconfont leftIco">&#xe620;</i>Weekly History</a></li>
+                <li><a href="/admin/monthlyhistroy" target="main-frame" ><i class="iconfont leftIco">&#xe620;</i>Monthly History</a></li>
+                <li><a href="/admin/yearlyhistory" target="main-frame" ><i class="iconfont leftIco">&#xe620;</i>Yearly History</a></li>
             </ul>
         </li>
         <li><a href="#" class="headList list6"><i class="iconfont leftIco">&#xe62c;</i>Order Manage<i class="iconfont rightIco">&#xe613;</i></a></li>

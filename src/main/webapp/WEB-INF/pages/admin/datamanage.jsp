@@ -23,8 +23,7 @@
     <form action="" name="backup">
         <span style="color: #686869;font-size: 18px;">The Last Backup Time:</span>
             <span id="backUpTime" style="color: #686869;font-size: 18px">Sorry, there is no backup file.</span>
-        <button id="backUpBtn" type="button
-        ">BackUp</button>
+        <button id="backUpBtn" type="button">BackUp</button>
     </form>
 </div>
 <form method="post" action="" name="listForm">
