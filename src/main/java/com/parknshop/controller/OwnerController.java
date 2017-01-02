@@ -335,6 +335,7 @@ public class OwnerController {
         ownerEntity.setRealname(realName);
         ownerEntity.setIdentityId(idNumber);
         ownerEntity.setPhone(phone);
+        ownerEntity.setPicture(person);
         mOwnerService.updateOwner(ownerEntity);
 
         ShopEntity shopEntity = new ShopEntity();
