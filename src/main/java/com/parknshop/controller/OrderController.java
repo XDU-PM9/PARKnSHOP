@@ -99,6 +99,7 @@ public class OrderController {
             modelMap.put("ordersEntityList", ordersEntityList);
             model.addAttribute("ordersEntityList", ordersEntityList);
             model.addAttribute("addressEntityList", addressEntities);
+            model.addAttribute("orderNumber",ordersNum);
             return "/customer/buy.jsp";
         } else {
             return "redirect:/";
