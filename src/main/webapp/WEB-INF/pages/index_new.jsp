@@ -38,7 +38,7 @@
                         <ul></ul>
                     </div>
                 </div>
-                <div id="xifan_bd1lfimg">
+                <div id="xifan_bd1lfimg" style="text-align: center">
                     <div>
                         <dl class=""></dl>
 

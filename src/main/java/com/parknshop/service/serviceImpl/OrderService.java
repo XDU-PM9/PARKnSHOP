@@ -290,14 +290,18 @@ public class OrderService implements IOrderService {
         OrderService orderService = new OrderService(new BaseDao<>(),new BaseDao<>(),new OrderListBean(),new BaseDao<>(),new BaseDao<>(),new PitureDao(new BaseDao<>()));
         IListBean<OrdersEntity> list = orderService.getFinishOrderAdminMonth(1,10);
         IListBean<OrdersEntity> listBean = orderService.getFinishOrder(1,1,10);
-        Log.debug("success   "+list.getNumer());
+        Date d=new Date();
+        SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
+        Date ye = new Date(d.getTime() - (long)31 * 24 * 60 * 60 * 1000);
+
+        Log.debug("success   "+ye.toString());
     }
 
     @Override
     public IListBean<OrdersEntity> getFinishOrderAdminMonth(int page, int lines) {
         Date d=new Date();
         SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
-        Date ye = new Date(d.getTime() - 31 * 24 * 60 * 60 * 1000);
+        Date ye = new Date(d.getTime() - (long)31 * 24 * 60 * 60 * 1000);
         return getOrderList("  and state > ? and date( ? ) <= date(createTime) ",new Object[]{STATE_SEND,ye},page,lines);
     }
 
@@ -305,7 +309,7 @@ public class OrderService implements IOrderService {
     public IListBean<OrdersEntity> getFinishOrderAdminWeek(int page, int lines) {
         Date d=new Date();
         SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
-        Date ye = new Date(d.getTime() - 7 * 24 * 60 * 60 * 1000);
+        Date ye = new Date(d.getTime() - (long)7 * 24 * 60 * 60 * 1000);
         return getOrderList("  and state > ? and date( ? ) <= date(createTime) ",new Object[]{STATE_SEND,ye},page,lines);
     }
 
