@@ -59,6 +59,7 @@ function uploadApply() {
                 addTd(i,response.data[i].shopName);
                 addImg(i,response.data[i].shopImg);
                 addTd(i,response.data[i].shopDesc);
+                addTd(i,response.data[i].shopDate);
                 shopId.push(response.data[i].shopId);
                 addOption(i);
             }

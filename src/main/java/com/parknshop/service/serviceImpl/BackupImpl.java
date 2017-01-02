@@ -28,24 +28,7 @@ public class BackupImpl implements DatabaseBackupService {
     }
     String username = "root";
     String password = "123456";
-
-/*
-    *//*加载数据库密码账号*//*
-    {
-         directory = new File("E:/mygit");//设定为当前文件夹
-         filepath=
-
-        Properties props = new Properties();
-        try {
-            props.load(new FileInputStream(directory+File.separator+"src"+File.separator+
-                    "main"+File.separator+"java"+File.separator+"database.ini"));
-            username=props.getProperty("username");
-            password=props.getProperty("password");
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }*/
+    
     @Override
     public  Boolean backup() {
 

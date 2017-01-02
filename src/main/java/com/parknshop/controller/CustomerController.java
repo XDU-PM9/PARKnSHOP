@@ -119,7 +119,8 @@ public class CustomerController{
      * @throws Exception
      */
     @RequestMapping(value = "/customer/register",method = RequestMethod.POST)
-    public @ResponseBody Map customerRegister(@RequestBody Map request, HttpSession session)throws Exception{
+    @ResponseBody
+    public Map customerRegister(@RequestBody Map request, HttpSession session)throws Exception{
         userBuilder.clear();
         userBuilder.setUserName((String)request.get("username")).setPassWord((String)request.get("password"))
                 //.setPhone((String)request.get("phone"))

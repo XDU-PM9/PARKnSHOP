@@ -2,7 +2,7 @@
  * Created by jk on 2016/12/10.
  */
 /*全局变量*/
-var flag = [true,true,true,true,true];
+var flag = [true,true,true,true,true,true,true];
 /*加载*/
 $(function () {
     tog();
@@ -63,6 +63,26 @@ function changeIco() {
         else {
             $(this).children(".rightIco").html("&#xe613;");
             flag[4] = true;
+        }
+    })
+    $(".list6").click(function () {
+        if(flag[5] == true) {
+            $(this).children(".rightIco").html("&#xe612;");
+            flag[5] = false;
+        }
+        else {
+            $(this).children(".rightIco").html("&#xe613;");
+            flag[5] = true;
+        }
+    })
+    $(".list7").click(function () {
+        if(flag[6] == true) {
+            $(this).children(".rightIco").html("&#xe612;");
+            flag[6] = false;
+        }
+        else {
+            $(this).children(".rightIco").html("&#xe613;");
+            flag[6] = true;
         }
     })
 }

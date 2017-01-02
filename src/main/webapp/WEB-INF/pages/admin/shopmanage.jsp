@@ -80,6 +80,6 @@
     &copy; 2016-2017 Group9-PARKnSHOP </div>
 </div>
 <script src="/resources/libs/jquery.js  "></script>
-<script src="/resources/js/admin/shopadapply.js"></script>
+<script src="/resources/js/admin/apply_shop.js"></script>
 </body>
 </html>

@@ -109,7 +109,8 @@ function submitRate() {
 function submitGoods() {
     $("#goodsPrice-submitBtn").click(function () {
         var data= {};
-        data.rateorPrice = $("#setShopPrice").val();
+        data.rateorPrice = $("#setGoodsPrice").val();
+        console.log(data);
         $.ajax({
             type:'post',
             contentType : 'application/json',
@@ -132,7 +133,7 @@ function submitGoods() {
 function submitShop() {
     $("#shopPrice-submitBtn").click(function () {
         var data= {};
-        data.rateorPrice     = $("#setGoodsPrice").val();
+        data.rateorPrice     = $("#setShopPrice").val();
         $.ajax({
             type:'post',
             contentType : 'application/json',
