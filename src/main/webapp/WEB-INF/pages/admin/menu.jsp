@@ -24,7 +24,7 @@
                 <li><a href="/admin/ownermanage" target="main-frame"><i class="iconfont leftIco">&#xe620;</i>Owner List</a></li>
                 <li><a href="/admin/shopmanage" target="main-frame"><i class="iconfont leftIco">&#xe620;</i>Shop List</a></li>
                 <li><a href="/admin/searchowner" target="main-frame"><i class="iconfont leftIco">&#xe620;</i>Search Owner</a></li>
-                <a href="/admin/searchshop" target="main-frame"><i class="iconfont leftIco">&#xe620;</i>Search Shop</a></li>
+                <li><a href="/admin/searchshop" target="main-frame"><i class="iconfont leftIco">&#xe620;</i>Search Shop</a></li>
                 <!--<li><a href="#"><i class="iconfont leftIco">&#xe620;</i>Main</a></li>-->
             </ul>
         </li>

@@ -113,7 +113,7 @@ function listShopSearchResult(result) {
             "<li>" +
             "<dl>" +
             "<dt><a href=" + "/shop/detail?shopId=" + result.shopId + "><img src=" + result.logo + "/></a></dt>" +
-            "<dd class='title'><a href=" + "/shop/detail?shopId=" + result.goodsId + ">" + result.shopName + "</a></dd>" +
+            "<dd class='title'><a href=" + "/shop/detail?shopId=" + result.shopId + ">" + result.shopName + "</a></dd>" +
             "<dd class='content'>" +
             // "<span class='goods_jiage'>$<strong>" + result.price + "</strong></span>" +
             "<span class='goods_chengjiao'>" + result.views + "view</span>" +
