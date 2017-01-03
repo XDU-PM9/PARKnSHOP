@@ -275,8 +275,7 @@ public class UserService implements IUserService{
 
     @Override
     public boolean activateUser(String code) {
-        System.out.println(activate(LoginTypeEnum.USER,code));
-        return false;
+        return activate(LoginTypeEnum.USER,code);
     }
 
     @Override
