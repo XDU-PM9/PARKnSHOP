@@ -60,7 +60,7 @@
                                         <a style="margin-left: 100px;"  href="/removeCollect?collectionId=${c.getCollectionId()}">Delete</a>
                                     </dd>
                                     <dd class="content">
-                                        <span class="goods_jiage">$<strong>${c.getGoodsByGoodsId().getPrice() }</strong></span>
+                                        <span class="goods_jiage">HK$<strong>${c.getGoodsByGoodsId().getPrice() }</strong></span>
                                         <span class="goods_chengjiao"> <a href="/addProduct?goodsId=${c.getGoodsByGoodsId().getGoodsId()}&amount=1">Add to Cart</a></span>
                                     </dd>
                                 </dl>

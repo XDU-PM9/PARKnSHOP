@@ -21,35 +21,28 @@
 <body>
 <%@include file="head.jsp"%>
 <div class="shop_member_bd clearfix">
-<%@include file="customer_left.jsp"%>
+    <%@include file="customer_left.jsp"%>
 
-<!-- 右边购物列表 -->
-<div class="shop_member_bd_right clearfix">
+    <!-- 右边购物列表 -->
+    <div class="shop_member_bd_right clearfix">
 
-    <div class="shop_meber_bd_good_lists clearfix">
-        <div class="title"><h3>Personal Information</h3></div>
-        <div class="clear"></div>
-        <dic class="shop_home_form">
-            <form action="/toChange" name="" class="shop_form" method="post">
-                <ul>
-                    <li><label>Name：</label>${user.getUsername()}</li>
-                    <li><label>Email：</label>${user.getEmail()}</li>
-                    <li><label>Phone：</label> ${user.getPhone()}</li>
-                    <c:if test="${user.userImage!=''}">
-                    <li><label>Image:</label>
-                        <img src="${user.userImage}" width="40px" height="40px"/></li>
-                    </c:if>
-                    <input  style="margin-left: 300px;" type="submit" value="change">
-                </ul>
-            </form>
-        </dic>
+        <div class="shop_meber_bd_good_lists clearfix">
+            <div class="title"><h3>Personal Information</h3></div>
+            <div class="clear"></div>
+            <dic class="shop_home_form">
+                <form action="/uploadPicture" name="" class="shop_form" method="post" enctype="multipart/form-data">
+                    <ul>
+                        <li><label>Name：</label><input type="text" name="name" value="${userEntity.username}"></li>
+                        <li><label>Email：</label>${userEntity.email}</li>
+                        <li><label>Phone：</label> <input type="text" name="phone" value="${userEntity.phone}"></li>
+                        <!--  <li><label>Balance：</label></li>-->
+                        <li><label>Image:</label><input type="file" accept="image/png,image/jpg,image/gif"  name="picture" required></li>
+                        <input  style="margin-left: 300px;" type="submit" value="change">
+                    </ul>
+                </form>
+            </dic>
+        </div>
     </div>
-      <div >
-          <font style="font-family: 'Microsoft Yahei';font-size:24px;line-height: 48px;color:red;">
-          ${message}
-          </font>
-      </div>
-</div>
 </div>
 <!-- 右边购物列表 End -->
 

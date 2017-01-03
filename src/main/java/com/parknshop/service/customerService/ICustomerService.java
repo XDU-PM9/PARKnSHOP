@@ -12,6 +12,9 @@ import com.parknshop.entity.UserEntity;
 public interface ICustomerService {
 //管理员得到所有用户
     public  List<UserEntity>   getAllCustomer();
+
+    public boolean  checkExit(int userId,String phone,String name);
+    public  boolean  setUserEntity(UserEntity userEntity);
 //管理员设置黑名单
     public  void     setBlackList(Integer userId);
 //管理员接触黑名单

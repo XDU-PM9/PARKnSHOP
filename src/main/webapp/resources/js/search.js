@@ -228,7 +228,7 @@ function listSearchResult(result) {
             "<dd class='title'><a href=" + "/goods/detail?goodsId=" + result.goodsId + ">" + result.goodsName + "</a></dd>" +
             "<dd class='content'>" +
             "<span class='goods_jiage'>HK$<strong>" + result.price.toFixed(2) + "</strong></span>" +
-            "<span class='goods_chengjiao'>" + result.sales + "buy</span>" +
+            "<span class='goods_chengjiao'>" + result.sales + " buy</span>" +
             "</dd>" +
             "</dl>" +
             "</li>"

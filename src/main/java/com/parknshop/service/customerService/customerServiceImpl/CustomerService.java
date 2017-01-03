@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by H on 2016/12/5.
@@ -43,6 +44,38 @@ public class CustomerService implements ICustomerService {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    @Override
+    public boolean checkExit(int userId,  String phone, String name) {
+
+            int j=userEntityBaseDao.countNum("from UserEntity where phone=?",new Object[]{phone});
+            if(j>1)
+            {
+                return false;
+            }
+            else
+            {
+                int k=userEntityBaseDao.countNum("from UserEntity where username=?",new Object[]{name});
+                if(k>1)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+    }
+
+    @Override
+    public boolean setUserEntity(UserEntity userEntity) {
+        try {
+            userEntityBaseDao.update(userEntity);
+            return  true;
+        }catch (Exception e) {
+            return false;
         }
     }
 
