@@ -87,7 +87,7 @@ public class OrderService implements IOrderService {
             if(cartEntity.getAmount() > goodsEntity.getInventory() || 0  >= goodsEntity.getInventory()){
                 return null;//数量过了
             }else {
-                goodsEntity.setSales(goodsEntity.getSales()+1);
+                goodsEntity.setSales(goodsEntity.getSales()+cartEntity.getAmount());
                 goodsEntity.setInventory(goodsEntity.getInventory()-cartEntity.getAmount());
                 try {
                     goodsEntityIBaseDao.update(goodsEntity);
