@@ -19,7 +19,7 @@ public interface IBaseDao<T> {
     void saveOrUpdate(T o);//此功能尚未完成
     List<Object> executeSQL(String sql,Object[] param);
     List<T> find(String hql);
-
+    public int countNum(String hql,Object[] param);
     List<T> find(String hql, Object[] param);
 
     List<T> find(String hql, List<Object> param);

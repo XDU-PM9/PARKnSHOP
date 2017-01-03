@@ -6,6 +6,7 @@ import com.parknshop.entity.UserEntity;
 import com.parknshop.service.IUserService;
 import com.parknshop.service.baseImpl.IDefineString;
 import com.parknshop.service.customerService.ICustomerService;
+import com.parknshop.service.enumStatic.LoginTypeEnum;
 import com.parknshop.utils.OwnerFileSaver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,36 +41,55 @@ public class UserCenterController {
 //        }else{
             UserEntity userEntity=customerService.getCustomerById(new Integer(userId));
             model.addAttribute("user", userEntity);
+            model.addAttribute("message","");
             return "customer/user_info.jsp";
 //        }
 
     }
 
-    @RequestMapping(value = "/uploadPicture",method = RequestMethod.POST)
-    public  String uploadPicture(@RequestParam MultipartFile picture, HttpSession session, Model model)
+    @RequestMapping(value = "/toChange",method = RequestMethod.POST)
+    public String toChange(HttpSession session,Model model)
     {
         int userId=getUserId(session);
-//        if (userId<0) {
-//            return "redirect:customer/login";
-//        }else {
-            String contextPath = session.getServletContext().getRealPath("/");
-            String person, logo;
-            try {
-                person = OwnerFileSaver.saveImage(picture, contextPath);
-                boolean url=customerService.changeUserImage(person,userId);
-                session.setAttribute(IDefineString.SESSION_USER,customerService.getCustomerById(userId));
-                if(url) {
-                    model.addAttribute("status", true);
-                }
-                else
-                {
+        UserEntity userEntity=customerService.getCustomerById(userId);
+        model.addAttribute("userEntity",userEntity);
+        return "/customer/user_changeInfo.jsp";
+    }
 
-                }
-            } catch (Exception e) {
-                //服务器存储错误
-                e.printStackTrace();
-            } finally {
+    @RequestMapping(value = "/uploadPicture",method = RequestMethod.POST)
+    public  String uploadPicture(@RequestParam MultipartFile picture, @RequestParam String name,@RequestParam String phone,HttpSession session, Model model)
+    {
+            int userId=getUserId(session);
+            UserEntity userEntity=customerService.getCustomerById(userId);
+            if(!(customerService.checkExit(userId,phone,name))){
+
+
+                model.addAttribute("message","Maybe your new Phone or Username have been  Occupied!");
+                //添加显示框，用户名，图片已存在
+                model.addAttribute("user",userEntity);
                 return "/customer/user_info.jsp";
+            }
+            else {
+                userEntity.setPhone(phone);
+                userEntity.setUsername(name);
+                customerService.setUserEntity(userEntity);
+                String contextPath = session.getServletContext().getRealPath("/");
+                String person, logo;
+                try {
+                    person = OwnerFileSaver.saveImage(picture, contextPath);
+                    boolean url = customerService.changeUserImage(person, userId);
+                    session.setAttribute(IDefineString.SESSION_USER, customerService.getCustomerById(userId));
+                    if (url) {
+                        model.addAttribute("status", true);
+                    } else {
+
+                    }
+                } catch (Exception e) {
+                    //服务器存储错误
+                    e.printStackTrace();
+                } finally {
+                    return "/customer/user_info.jsp";
+                }
             }
 //        }
     }
