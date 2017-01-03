@@ -193,6 +193,12 @@ public class OwnerService implements IOwnerService {
     @Override
     public ShopDbBean getShop(int shopId) {
         ShopEntity shopEntity = mDaoShop.get(ShopEntity.class,shopId);
+        if(null == shopEntity){
+            if(shopEntity.getState() != IOwnerService.SHOP_STATE_USING){
+                return null;//商店不在使用；
+            }
+            return null;
+        }
         List<PhotoEntity> photoEntities = photoEntityIBaseDao.getPictures(shopEntity.getPhotoGroup());
         ShopDbBean shopDbBean = new ShopDbBean();
         shopDbBean.setShopEntity(shopEntity);

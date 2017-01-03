@@ -55,6 +55,7 @@ public interface IAdvertisement {
      * @return
      */
     boolean cancelShop(int id);
+    boolean cancelAdvertByName(int type,int shopId);
     boolean cancelGoods(int id);
 
     /**

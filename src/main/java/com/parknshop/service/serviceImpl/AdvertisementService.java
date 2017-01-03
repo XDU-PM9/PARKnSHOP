@@ -101,6 +101,24 @@ public class AdvertisementService implements IAdvertisement{
     }
 
     @Override
+    public boolean cancelAdvertByName(int type,int shopId){
+
+        String hql = " from AdvertEntity where type =? and  typeId = ? and state = ?";
+        Object[] param = new Object[]{type,shopId,IAdvertisement.AD_STATUS_EFFECT};
+        List<AdvertEntity> list = advertEntityIBaseDao.find(hql,param);
+        if(null != list) {
+            for (AdvertEntity entity : list) {
+                updateAdert(entity.getAdvertId(), AD_STATUS_CANCEL);
+            }
+            return true;
+        }else {
+            return false;
+        }
+
+    }
+
+
+    @Override
     public boolean cancelGoods(int id) {
         return updateAdert(id,IAdvertisement.AD_STATUS_CANCEL);
     }
