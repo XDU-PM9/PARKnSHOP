@@ -66,6 +66,7 @@ public class OrderSearchController {
         int sizes=ordersEntityList.size();
         if(sizes==0) {
             model.addAttribute("ordersEntityList", null);
+            model.addAttribute("maxSize",0);
         }else {
             int row = 1;
             double d = (sizes) / row + (sizes % row == 0 ? 0 : 1);

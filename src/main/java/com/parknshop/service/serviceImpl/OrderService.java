@@ -157,6 +157,18 @@ public class OrderService implements IOrderService {
     }
 
     @Override
+    public int getOrdersNum(int userId) {
+        List<OrdersEntity> ordersEntityList=ordersEntityIBaseDao.find("from OrdersEntity where userId=?",new Object[]{userId});
+        if(ordersEntityList.size()>0)
+        {
+            return ordersEntityList.size();
+        }
+        else {
+            return 0;
+        }
+    }
+
+    @Override
     public IListBean<OrdersEntity> getAllList(int userId, int page, int lines) {
         return getOrderList("and userId = ? and state > ?",new Object[]{userId,IOrderService.STATE_BUY},page,lines);
     }

@@ -168,16 +168,17 @@ public class OrderController {
     @RequestMapping("/listOrder")
     public String listOrder(HttpSession session, Model model) {
         int page = 1;
-        int lines = 2;
+        int lines = 1;
         String pageString = request.getParameter("page");
         String linesString = request.getParameter("lines");
         try {
             page = null != pageString ? Integer.parseInt(pageString) : 1;
-            lines = null != linesString ? Integer.parseInt(linesString) : 2;
+            lines = null != linesString ? Integer.parseInt(linesString) : 1;
         } catch (NumberFormatException e) {
             Log.debug("listOrder参数转换为int异常");
         }
         int userId = getUserId(session);
+        int num=iOrderService.getOrdersNum(userId);
         IListBean<OrdersEntity> ordersList = iOrderService.getAllList(userId, page, lines);
 //        switch (type){
 //            //所有订单
@@ -190,9 +191,13 @@ public class OrderController {
 //            case "notComment":ordersList=iOrderService.getNotCommentLit(userId,page,lines);break;
 //        }
         if (ordersList.getNumer() > 0) {
+            model.addAttribute("nums",num);
             model.addAttribute("orderList", ordersList.getShopList());
             model.addAttribute("pages", ordersList.getMaxPages());
             model.addAttribute("page", ordersList.getCurrentPage());
+        }else
+        {
+            model.addAttribute("nums",num);
         }
         return "/customer/orders_center.jsp";
     }
