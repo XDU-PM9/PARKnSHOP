@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <html>
 <head>
@@ -74,17 +75,23 @@
                                     <%--</c:if>--%>
                             </td>
                             <td class="gwc_list_title"><a href="/goods/detail?goodsId=${cart.goodsId}">${cart.goodsName} </a></td>
-                            <td class="gwc_list_danjia"><span>$<strong
-                                    id="danjia${cart.cartId}">${cart.getPrice()}</strong></span></td>
+                            <td class="gwc_list_danjia"><span>HK$<strong
+                                    id="danjia${cart.cartId}">
+                                    <fmt:formatNumber value="${cart.price}"  type="number" maxFractionDigits="2"></fmt:formatNumber>
+                                    <%--${cart.getPrice()}--%>
+                            </strong></span></td>
                             <td class="gwc_list_shuliang"><span>
                                 <input type="number" value="${cart.amount}" id="goods_001" name="num1" min="1"
-                                       onchange="amountChange(${cart.cartId},$(this).val(),${cart.goodsAmount})"
+                                       onchange="amountChange(${cart.cartId},$(this).val(),${cart.goodsAmount},${cart.price/cart.amount})"
                                        class="good_nums"/>
                                 <p>In stock：${cart.goodsAmount}</p>
                             </span>
                             </td>
-                            <td class="gwc_list_xiaoji"><span>$<strong id="xiaoji${cart.cartId}"
-                                                                       class="good_xiaojis">${cart.getPrice()*cart.getAmount()}</strong></span>
+                            <td class="gwc_list_xiaoji"><span>HK$<strong id="xiaoji${cart.cartId}"
+                                                                       class="good_xiaojis">
+                                                                       <fmt:formatNumber value="${cart.price*cart.amount}" type="number" maxFractionDigits="2"></fmt:formatNumber>
+                                                                       <%--${cart.getPrice()*cart.getAmount()}--%>
+                            </strong></span>
                             </td>
                             <td class="gwc_list_caozuo"><a
                                     href="/insertCollect?goodsId=${cart.getGoodsId()}">collect</a><a
