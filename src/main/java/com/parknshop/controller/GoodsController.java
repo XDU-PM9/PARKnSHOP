@@ -38,6 +38,9 @@ public class GoodsController {
         }
 //        Log.debug("id:"+id);
         GoodsDbBean goods = mOwnerService.getGoods(id);
+        if (null ==  goods){
+            return "redirect:/";
+        }
         List<OrdersEntity> comment=commentService.listComment(id);
         model.addAttribute("comments",comment);
         request.setAttribute(KEY_GOODS,goods);

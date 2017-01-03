@@ -174,7 +174,7 @@ public class OwnerService implements IOwnerService {
         if(null == entity){
             return null;//找不到商品 null
         }else {
-            ShopEntity shopEntity = mDaoShop.get(ShopEntity.class,entity.getGoodsId());
+            ShopEntity shopEntity = mDaoShop.get(ShopEntity.class,entity.getShopId());
             if(shopEntity.getState()!=SHOP_STATE_USING){
                 return null;//商品的商店为空 null
             }
@@ -203,10 +203,12 @@ public class OwnerService implements IOwnerService {
     public ShopDbBean getShop(int shopId) {
         ShopEntity shopEntity = mDaoShop.get(ShopEntity.class,shopId);
         if(null == shopEntity){
+            return null;
+
+        }else {
             if(shopEntity.getState() != IOwnerService.SHOP_STATE_USING){
                 return null;//商店不在使用；
             }
-            return null;
         }
         List<PhotoEntity> photoEntities = photoEntityIBaseDao.getPictures(shopEntity.getPhotoGroup());
         ShopDbBean shopDbBean = new ShopDbBean();
