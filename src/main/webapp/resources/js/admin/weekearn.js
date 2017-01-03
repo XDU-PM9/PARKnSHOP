@@ -2,8 +2,8 @@
  * Created by jk on 2017/1/1.
  */
 /*日期收入对应数组*/
-var date = [];
-var earn = [];
+var date = ["0"];
+var earn = ["0"];
 /*var response= {"error":false,
     "data":[
         {"date":"2017-01-02","earn":10.0},

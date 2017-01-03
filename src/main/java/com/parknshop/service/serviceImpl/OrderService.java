@@ -10,6 +10,7 @@ import com.parknshop.entity.*;
 import com.parknshop.service.IListBean;
 import com.parknshop.service.IOrderService;
 import com.parknshop.service.IOwnerService;
+import com.parknshop.service.serviceImpl.builder.GoodsBuilder;
 import com.parknshop.service.serviceImpl.listBean.OrderListBean;
 import com.parknshop.utils.Log;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,8 @@ public class OrderService implements IOrderService {
     private OrdersEntity  addOerder(String orderNumber, CartEntity cartEntity){
 
         if(cartEntity.getGoodsEntity().getShopByShopId().getState() != IOwnerService.SHOP_STATE_USING){
+            return null;
+        }else if(cartEntity.getGoodsEntity().getState()!= GoodsBuilder.GOOD_STATE_USING){
             return null;
         }
         OrdersEntity ordersEntity = new OrdersEntity();
