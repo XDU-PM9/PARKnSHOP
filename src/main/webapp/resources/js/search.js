@@ -256,13 +256,16 @@ function displayCount() {
     }
 }
 
-function firstSearch() {
+$(document).ready(function firstSearch() {
+    alert("enter");
     var type=decodeURIComponent(GetQueryString('type'));
-    if(''!=type){
+    if(""!=type&&undefined!=type&&null!=type){
+    console.log(type);
         setType(null,type);
+    }else {
+        search();
     }
-    // search();
-}
+})
 
 function GetQueryString(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
