@@ -21,7 +21,7 @@
     <script src="/resources/js/search.js"></script>
 </head>
 <%--页面加载完成后立即执行搜索--%>
-<body onload="search()">
+<body onload="firstSearch()">
 <!-- Header  -wll-2013/03/24 -->
 <div class="shop_hd">
     <!-- Header TopNav -->

@@ -112,24 +112,27 @@ function edit() {
 function del() {
     $("body").on('click','.delete',function () {
         var id = $(this).parent().parent().index();
-        var data = {};
-        data.goodsId = goodId[id];
-        /*测试成功*/
-        $.ajax({
-            type:'post',
-            contentType : 'application/json',
-            data: JSON.stringify(data),
-            url:'/owner/deleteGoods',
-            success: function (data) {
-                var response =JSON.parse(data);
-                console.log(response);
-                if(response.error==false) {
-                    location.reload();
+        window.wxc.xcConfirm("Are you sure to delete?", "warning");
+        $(".sgBtn.ok").click(function () {
+            var data = {};
+            data.goodsId = goodId[id];
+            /*测试成功*/
+            $.ajax({
+                type: 'post',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                url: '/owner/deleteGoods',
+                success: function (data) {
+                    var response = JSON.parse(data);
+                    console.log(response);
+                    if (response.error == false) {
+                        location.reload();
+                    }
+                    else {
+                        location.reload();
+                    }
                 }
-                else {
-                    location.reload();
-                }
-            }
+            })
         })
     })
 }

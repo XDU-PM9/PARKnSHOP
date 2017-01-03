@@ -125,7 +125,7 @@ function next() {
     $("#next").click(function () {
         var max = Max ;
         if(index >= max){
-            alert("This is the last page");
+            window.wxc.xcConfirm("This is the last page", "error");
             /*location.reload();*/
         }
         else {
@@ -138,7 +138,7 @@ function prev() {
     $("#prev").click(function () {
         var min = 1;
         if(index<=min){
-            alert("This is the first page")
+            window.wxc.xcConfirm("This is the first page", "error");
         }
         else{
             index--;
