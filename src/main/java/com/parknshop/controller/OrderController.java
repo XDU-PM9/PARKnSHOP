@@ -168,12 +168,12 @@ public class OrderController {
     @RequestMapping("/listOrder")
     public String listOrder(HttpSession session, Model model) {
         int page = 1;
-        int lines = 1;
+        int lines = 5;
         String pageString = request.getParameter("page");
         String linesString = request.getParameter("lines");
         try {
             page = null != pageString ? Integer.parseInt(pageString) : 1;
-            lines = null != linesString ? Integer.parseInt(linesString) : 1;
+            lines = null != linesString ? Integer.parseInt(linesString) : 5;
         } catch (NumberFormatException e) {
             Log.debug("listOrder参数转换为int异常");
         }
