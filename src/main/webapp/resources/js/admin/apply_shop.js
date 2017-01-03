@@ -20,6 +20,7 @@ $(function () {
 })
 /*主方法*/
 function uploadApply() {
+    shopId.splice(0,shopId.length);
     clearTable();
     var data={};
     data.size = 5;

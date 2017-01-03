@@ -2,7 +2,7 @@
  * Created by wei on 16-12-11.
  */
 var pageCount=1;
-var onePageCount = 8;
+var onePageCount = 10;
 var currentPage = 1;
 
 //下一页
