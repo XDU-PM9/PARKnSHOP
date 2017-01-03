@@ -116,7 +116,7 @@ function listShopSearchResult(result) {
             "<dd class='title'><a href=" + "/shop/detail?shopId=" + result.shopId + ">" + result.shopName + "</a></dd>" +
             "<dd class='content'>" +
             // "<span class='goods_jiage'>$<strong>" + result.price + "</strong></span>" +
-            "<span class='goods_chengjiao'>" + result.views + "view</span>" +
+            "<span class='goods_chengjiao'>" + result.views + " view</span>" +
             "</dd>" +
             "</dl>" +
             "</li>"
