@@ -45,7 +45,7 @@ public class UserBuilder implements IUserBuilder {
         phone ="";
         passWord="";
         balance=0.0;
-        userImage="";
+        userImage="/user.jpg";
         state = IUserService.STATE_REGISTER;//注册状态
         email ="";
         confirm ="";
@@ -101,7 +101,7 @@ public class UserBuilder implements IUserBuilder {
         state = IUserService.STATE_REGISTER;//注册状态
         email ="";
         confirm="";
-        userImage="";
+        userImage="/user.jpg";
 
         roleEntity.setRoleId(this.roleId);
         userEntity.setRoleByRoleId(this.roleEntity);
