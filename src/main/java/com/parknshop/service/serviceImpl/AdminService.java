@@ -76,6 +76,13 @@ public class AdminService  implements IAdminService{
     public boolean blackShop(int shopId) {
         boolean res = advertisement.cancelAdvertByName(IAdvertisement.AD_TYPE_SHOP,shopId);//同时取消商店的广告位置
         Log.debug(" 取消 广告 ："+shopId + "  " +res);
+        String hql = "from GoodsEntity where shopId =?";
+        Object[] param ={shopId};
+        IBaseDao<GoodsEntity> goodsEntityIBaseDao = new BaseDao<>();
+        List<GoodsEntity> list = goodsEntityIBaseDao.find(hql,param);
+        for(GoodsEntity entity:list){
+            advertisement.cancelAdvertByName(IAdvertisement.AD_TYOE_GOODS,entity.getGoodsId());//取消商品广告位置
+        }
         return updateShopState(IOwnerService.SHOP_STATE_BLAKE,shopId);
     }
 
