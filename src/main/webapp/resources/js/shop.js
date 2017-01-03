@@ -7,10 +7,10 @@
  */
 function selectAll() {
     $(':checkbox').each(function () {
-        //如果没有被禁用
+            //如果没有被禁用
             if (!$(this).is(':disabled')) {
                 //选中
-                $(this).attr("checked","checked");
+                $(this).attr("checked", "checked");
             }
         }
     )
@@ -23,8 +23,6 @@ function selectAll() {
  * @param goodsAmount
  */
 function amountChange(cartId, amount, goodsAmount) {
-    //更改成功后改变总价
-    $('#xiaoji'+cartId).html($('#danjia'+cartId).html()*amount);
     $.ajax({
         url: "/changeAmount",
         type: 'POST',
@@ -34,11 +32,16 @@ function amountChange(cartId, amount, goodsAmount) {
         },
         success: function (msg) {
             if ('success' == msg) {
+                layer.msg("change success", {
+                    time: 400
+                });                //更改成功后改变总价
+                $('#xiaoji' + cartId).html($('#danjia' + cartId).html() * amount);
                 if (amount > goodsAmount) {
                     //取消选中
-                    document.getElementById(cartId).checked=false;
+                    document.getElementById(cartId).checked = false;
                     document.getElementById(cartId).setAttribute("disabled", "disabled");
                     document.getElementById(cartId).style.cursor = "not-allowed";
+                    // layer.msg("understock");
                     // document.getElementById(cartId).removeAttribute("checked");
                 } else {
                     document.getElementById(cartId).removeAttribute("disabled");
@@ -46,6 +49,8 @@ function amountChange(cartId, amount, goodsAmount) {
                     //更改成功后改变总价
                     // $('#xiaoji'+cartId).html($('#danjia'+cartId).html()*amount);
                 }
+            } else {
+                layer.msg("Sorry,change amount fail,please try again or refresh this page");
             }
         }
     })

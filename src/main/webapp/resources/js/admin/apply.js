@@ -22,7 +22,7 @@ function uploadApply() {
     shopId.splice(0,shopId.length);
     clearTable();
     var data={};
-    data.size = 2;
+    data.size = 5;
     data.index = index;
     $.ajax({
         type:'post',
