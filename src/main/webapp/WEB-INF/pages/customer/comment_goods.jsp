@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="../../../resources/css/shop_manager.css" type="text/css"/>
     <link rel="stylesheet" href="../../../resources/css/shop_shdz_835.css" type="text/css"/>
     <link rel="stylesheet" href="../../../resources/css/shop_gouwuche.css" type="text/css"/>
+    <link rel="stylesheet" href="../../../resources/css/shop_form.css" type="text/css">
     <script type="text/javascript" src="/../../../resources/js/jquery.js"></script>
     <script type="text/javascript" src="../../../resources/js/topNav.js"></script>
     <script type="text/javascript" src="../../../resources/js/jquery.goodnums.js"></script>

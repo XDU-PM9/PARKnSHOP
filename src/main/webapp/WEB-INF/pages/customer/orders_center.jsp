@@ -67,8 +67,8 @@
                             <tr><th colspan="4">
                                 <span><strong>Order Num：</strong>${order.orderNumber}</span>
                             </th>
-                            <th  colspan="2">
-                                <input type="text" name="asd" value="" size="15"/>
+                            <th  colspan="3">
+                                <div name="asd"></div>
                                 <Script type="text/javascript" language="JavaScript">
                                     function  check(d) {
                                         if(d<10)
@@ -80,7 +80,7 @@
                                         var date=new Date(new Date(d)-0+7*86400000);
                                         var da=new Date();
                                         if(date-da<0){
-                                            document.getElementsByName("asd")[<%=i%>].value="";
+                                            document.getElementsByName("asd")[0].value="";
                                         }else{
                                             var d=(date.getDate()-da.getDate());
                                             var h=(date.getHours()-da.getHours());
@@ -90,10 +90,11 @@
                                         if(m<0){h-=1;m+=60;}
                                         if(h<0){d=d-1;h=h+24;}
                                         var s=check(d)+"days:"+check(h)+":"+check(m)+":"+check(ds);
-                                        document.getElementsByName("asd")[<%=i%>].value=s;
-                                        window.setTimeout("getBetweenDate('${order.paidTime}')",1000);
+                                        document.getElementsByName("asd")[0].innerHTML="remain "+ s;
+                                        window.setTimeout("getBetweenDate(d,index)",1000);
                                     }
                                     }
+
                                     window.setTimeout("getBetweenDate('${order.paidTime}')",1000);
                                 </Script>
                                 <%i++;%>
