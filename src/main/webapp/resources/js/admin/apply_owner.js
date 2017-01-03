@@ -24,7 +24,7 @@ function uploadApply() {
     clearTable();
     var data={};
     data.size = 5;
-    data.index = 1;
+    data.index = index;
     $.ajax({
         type:'post',
         contentType : 'application/json',

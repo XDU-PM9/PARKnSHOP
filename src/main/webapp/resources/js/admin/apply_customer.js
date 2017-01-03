@@ -23,7 +23,7 @@ function uploadApply() {
     userId.splice(0,userId.length);
     clearTable();
     var data={};
-    data.size = 2;
+    data.size = 5;
     data.index = index;
     console.log(data);
     $.ajax({
