@@ -29,6 +29,7 @@ function uploadInfor() {
                     addImg(i,response.data[i].userImage);
                     addTd(i,response.data[i].phone);
                     addTd(i,response.data[i].email);
+                    adduserstate(i,response.data[i].state)
                 }
             }
         })
@@ -51,4 +52,23 @@ function addImg(i,url) {
     url='"'+url+'"';
     var str = "<td class='imgTd'><img src="+url+"></td>";
     $("."+className+"").append(str)
+}
+function adduserstate(i,str) {
+    var className = "tr"+i;
+    if(str == 2){
+        $("."+className+"").append("<td>Normal</td>");
+    }
+    else if(str == 0){
+        $("."+className+"").append("<td>Blacked</td>");
+    }
+    else if(str == -1){
+        $("."+className+"").append("<td>Deleted</td>");
+    }
+    else if(str == 1){
+        $("."+className+"").append("<td>not active</td>");
+    }
+    else {
+        $("."+className+"").append("<td>Wrong</td>");
+    }
+
 }

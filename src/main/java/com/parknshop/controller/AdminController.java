@@ -98,6 +98,11 @@ public class AdminController {
         }
         return "admin/index.jsp";
     }
+    @RequestMapping("/jumpindex")
+    public String jumpindex(){
+        mService.loginOut();
+        return "redirect:/";
+    }
     @RequestMapping(value = "/shopadapply", method = RequestMethod.GET)
     public String shopadapply() {
         return "admin/shopadapply.jsp";
@@ -210,7 +215,7 @@ public class AdminController {
                     applyEntity.setOwnerImg(entity.getPicture());
                     applyEntity.setOwnerEmail(entity.getEmail());
                     applyEntity.setRealName(entity.getRealname());
-                    applyEntity.setRealImg(entity.getUserImage());
+                    applyEntity.setRealImg(entity.getPicture());
                     applyEntity.setShopId(entity.getShopId());
                     applyEntity.setShopName(entity.getShopName());
                     applyEntity.setShopImg(entity.getLogo());

@@ -39,7 +39,6 @@
             <tr>
                 <th>ownerId</th>
                 <th>ownerName</th>
-                <th>ownerImage</th>
                 <th>email</th>
                 <th>phone</th>
                 <th>option</th>

@@ -55,7 +55,6 @@ function uploadApply() {
                 addTr(i);
                 addTd(i,response.data[i].ownerId);
                 addTd(i,response.data[i].username);
-                addImg(i,response.data[i].userImage);
                 addTd(i,response.data[i].email);
                 addTd(i,response.data[i].phone);
                 ownerId.push(response.data[i].ownerId);
