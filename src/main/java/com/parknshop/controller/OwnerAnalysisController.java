@@ -42,7 +42,6 @@ public class OwnerAnalysisController {
         }
         OwnerEntity owner = (OwnerEntity) session.getAttribute(IDefineString.SESSION_USER);
         List<CalculateDbBean> todayData =  mCalService.getToday(owner.getOwnerId());
-        Log.debug("size:"+todayData.size());
         request.setAttribute(TODAY,todayData);
         return "analysis/today.jsp";
 

@@ -171,6 +171,17 @@ public class OwnerService implements IOwnerService {
                 " and g.goodsId = ?";
         Object[] param = {goodsId};
         GoodsDbBean entity = goodsDbBeanIBaseDao.get(hql,param);
+        if(null == entity){
+            return null;//找不到商品 null
+        }else {
+            ShopEntity shopEntity = mDaoShop.get(ShopEntity.class,entity.getShopId());
+            if(shopEntity.getState()!=SHOP_STATE_USING){
+                return null;//商品的商店为空 null
+            }else if(entity.getState() != IGoodsBuilder.GOOD_STATE_USING){
+                return null;
+            }
+        }
+
         //数量加一
         synchronized (this){
             new Thread(new Runnable() {
@@ -193,6 +204,14 @@ public class OwnerService implements IOwnerService {
     @Override
     public ShopDbBean getShop(int shopId) {
         ShopEntity shopEntity = mDaoShop.get(ShopEntity.class,shopId);
+        if(null == shopEntity){
+            return null;
+
+        }else {
+            if(shopEntity.getState() != IOwnerService.SHOP_STATE_USING){
+                return null;//商店不在使用；
+            }
+        }
         List<PhotoEntity> photoEntities = photoEntityIBaseDao.getPictures(shopEntity.getPhotoGroup());
         ShopDbBean shopDbBean = new ShopDbBean();
         shopDbBean.setShopEntity(shopEntity);
