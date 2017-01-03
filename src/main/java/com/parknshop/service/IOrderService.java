@@ -131,5 +131,6 @@ public interface IOrderService {
     IListBean<OrdersEntity> getFinishOrderAdminMonth(int page,int lines);
     IListBean<OrdersEntity> getFinishOrderAdminWeek(int page,int lines);
     IListBean<OrdersEntity> getFinishOrderAdminToday(int page,int lines);
+    double payMoney(String orderNum);
 
 }

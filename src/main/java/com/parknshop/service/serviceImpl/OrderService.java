@@ -208,6 +208,24 @@ public class OrderService implements IOrderService {
         return getNotCommentLit(userId,1,Integer.MAX_VALUE).getShopList();
     }
 
+    @Override
+    public double payMoney(String orderNum){
+        List<String> sList = OrderService.sListMap.get(orderNum);
+        if(null == sList) {//有可能传入进来的就是 orderNum
+            sList = new ArrayList<>();
+            sList.add(orderNum);
+        }
+        List<OrdersEntity> list = new ArrayList<>();
+        for(String e:sList) {
+            List<OrdersEntity> otherList = getOrdersList(e,1,Integer.MAX_VALUE).getShopList();
+            list.addAll(otherList);
+        }
+        double res = 0;
+        for(OrdersEntity entity:list){
+            res +=entity.getPrice();
+        }
+        return res;
+    }
 
     @Override
     public int payOrder(List<String> orderNum, int addressId) {
