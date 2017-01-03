@@ -141,6 +141,7 @@
                     <%--${orderEntity.price/orderEntity.amount}--%>
                     </strong></span></td>
                     <td class="gwc_list_shuliang"><span>${orderEntity.amount}</span></td>
+                        <strong type="hidden" class="zongjiaprice">${orderEntity.price}</strong>
                     <td class="gwc_list_xiaoji"><span>$<strong id="xiaoji_001" class="good_xiaojis">
                         <fmt:formatNumber value="${orderEntity.price}" maxFractionDigits="2"></fmt:formatNumber>
                     <%--${orderEntity.price}--%>
@@ -173,7 +174,7 @@
         var addressId=$('.addressSelectList:first').val();
         $(document).ready(function () {
             var total=0.0;
-            $('.good_xiaojis').each(function () {
+            $('.zongjiaprice').each(function () {
                 var price=$(this).text();
                 total+=parseFloat(price);
             });

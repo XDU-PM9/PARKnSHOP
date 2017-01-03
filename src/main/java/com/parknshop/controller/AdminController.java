@@ -1229,6 +1229,9 @@ public class AdminController {
             if(type == "Month") {
                 strDate = strDate.substring(8);
             }
+            if(type == "Year"){
+                strDate = strDate.substring(5,7);
+            }
             dateBean.setDate(strDate);
             dateBean.setEarn(bean.getPrice());
             dateBeanList.add(dateBean);
