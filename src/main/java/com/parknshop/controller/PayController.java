@@ -2,6 +2,7 @@ package com.parknshop.controller;
 
 import com.parknshop.entity.OrdersEntity;
 import com.parknshop.entity.OwnerEntity;
+import com.parknshop.service.IAdminService;
 import com.parknshop.service.IAdvertisement;
 import com.parknshop.service.IOrderService;
 import com.parknshop.service.serviceImpl.OrderService;
@@ -34,12 +35,14 @@ public class PayController {
     private final Pay pay;
     protected final IAdvertisement iAdvertisement;
 
+    private final IAdminService adminService;
     private final IOrderService orderService;
     @Autowired
-    public PayController(Pay pay, IOrderService orderService, IAdvertisement iAdvertisement) {
+    public PayController(Pay pay, IOrderService orderService, IAdvertisement iAdvertisement, IAdminService adminService) {
         this.pay = pay;
         this.orderService = orderService;
         this.iAdvertisement = iAdvertisement;
+        this.adminService = adminService;
     }
 
     @RequestMapping(value = "",method = RequestMethod.GET)
@@ -66,18 +69,23 @@ public class PayController {
         String type = req.getParameter("type");
         String typeId = req.getParameter("typeId");
         String typeString="";
+        double money = 0;
         if(null !=type && null !=typeId ) {
 
             if (IAdvertisement.AD_TYPE_SHOP == Integer.parseInt(type)) {
                 typeString = "shop";
+                money = adminService.getCommission().getShopPrice();
             } else if (IAdvertisement.AD_TYOE_GOODS == Integer.parseInt(type)) {
                 typeString = "goods";
+                money = adminService.getCommission().getGoodsPrice();
             } else {
                 typeString = "else";
             }
+        }else{
+            money = orderService.payMoney(orderNum);
         }
 
-
+        model.addAttribute("money",money);
         model.addAttribute("typeString",typeString);
         model.addAttribute("type",type);
         model.addAttribute("typeId",typeId);
