@@ -55,7 +55,7 @@ public class OwnerAnalysisController {
         }
         OwnerEntity owner = (OwnerEntity) session.getAttribute(IDefineString.SESSION_USER);
         List<CalculateDbBean> weekData =  mCalService.getWeek(owner.getOwnerId());
-        Log.debug("size:"+weekData.size());
+//        Log.debug("size:"+weekData.size());
         request.setAttribute(WEEK,weekData);
         return "analysis/week.jsp";
 
@@ -68,7 +68,7 @@ public class OwnerAnalysisController {
         }
         OwnerEntity owner = (OwnerEntity) session.getAttribute(IDefineString.SESSION_USER);
         List<CalculateDbBean>   monthData =  mCalService.getMonth(owner.getOwnerId());
-        Log.debug("size:"+monthData.size());
+//        Log.debug("size:"+monthData.size());
         request.setAttribute(MONTH,monthData);
         return "analysis/month.jsp";
 
@@ -81,7 +81,7 @@ public class OwnerAnalysisController {
         }
         OwnerEntity owner = (OwnerEntity) session.getAttribute(IDefineString.SESSION_USER);
         List<CalculateDbBean> yearData =  mCalService.getYear(owner.getOwnerId());
-        Log.debug("size:"+yearData.size());
+//        Log.debug("size:"+yearData.size());
         request.setAttribute(YEAR,yearData);
         return "analysis/year.jsp";
 

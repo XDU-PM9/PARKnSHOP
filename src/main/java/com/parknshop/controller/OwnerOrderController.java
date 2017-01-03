@@ -117,7 +117,7 @@ public class OwnerOrderController {
             dataList.add(dataBean);
         }
         response.setData(dataList);
-        Log.debug(mGson.toJson(response));
+//        Log.debug(mGson.toJson(response));
         return mGson.toJson(response);
     }
 
@@ -173,7 +173,7 @@ public class OwnerOrderController {
             dataList.add(dataBean);
         }
         response.setData(dataList);
-        Log.debug(mGson.toJson(response));
+//        Log.debug(mGson.toJson(response));
         return mGson.toJson(response);
     }
 
