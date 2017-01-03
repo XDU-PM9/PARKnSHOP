@@ -1,3 +1,4 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: Lenovo
@@ -135,9 +136,15 @@
                 <tr>
                     <%--<td class="gwc_list_pic"><a href=""><img src="${orderEntity.photo}" /></a></td>--%>
                     <td class="gwc_list_title"><a href="#">${orderEntity.goodsName}</a></td>
-                    <td class="gwc_list_danjia"><span>$<strong id="danjia_001">${orderEntity.price/orderEntity.amount}</strong></span></td>
+                    <td class="gwc_list_danjia"><span>$<strong id="danjia_001">
+                        <fmt:formatNumber value="${orderEntity.price/orderEntity.amount}" maxFractionDigits="2"></fmt:formatNumber>
+                    <%--${orderEntity.price/orderEntity.amount}--%>
+                    </strong></span></td>
                     <td class="gwc_list_shuliang"><span>${orderEntity.amount}</span></td>
-                    <td class="gwc_list_xiaoji"><span>$<strong id="xiaoji_001" class="good_xiaojis">${orderEntity.price}</strong></span></td>
+                    <td class="gwc_list_xiaoji"><span>$<strong id="xiaoji_001" class="good_xiaojis">
+                        <fmt:formatNumber value="${orderEntity.price}" maxFractionDigits="2"></fmt:formatNumber>
+                    <%--${orderEntity.price}--%>
+                    </strong></span></td>
                 </tr>
                 </c:forEach>
                 </c:if>
@@ -170,7 +177,7 @@
                 var price=$(this).text();
                 total+=parseFloat(price);
             });
-            $('#good_zongjia').html(total);
+            $('#good_zongjia').html(total.toFixed(2));
         })
         $('.addressSelectList:first').attr('checked',true);
         function setAddress(address) {

@@ -22,7 +22,7 @@ function selectAll() {
  * @param amount
  * @param goodsAmount
  */
-function amountChange(cartId, amount, goodsAmount) {
+function amountChange(cartId, amount, goodsAmount,price) {
     $.ajax({
         url: "/changeAmount",
         type: 'POST',
@@ -36,7 +36,7 @@ function amountChange(cartId, amount, goodsAmount) {
                 //     time: 400
                 // });
                 //更改成功后改变总价
-                $('#xiaoji' + cartId).html($('#danjia' + cartId).html() * amount);
+                $('#xiaoji' + cartId).html((price * amount).toFixed(2));
                 if (amount > goodsAmount) {
                     //取消选中
                     document.getElementById(cartId).checked = false;
