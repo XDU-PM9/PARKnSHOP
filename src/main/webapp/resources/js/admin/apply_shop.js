@@ -20,9 +20,11 @@ $(function () {
 })
 /*主方法*/
 function uploadApply() {
+    clearTable();
     var data={};
     data.size = 5;
     data.index = index;
+
     $.ajax({
         type:'post',
         contentType : 'application/json',

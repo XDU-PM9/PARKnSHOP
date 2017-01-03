@@ -92,8 +92,9 @@ public class AdminService  implements IAdminService{
         IBaseDao<GoodsEntity> goodsEntityIBaseDao = new BaseDao<>();
         List<GoodsEntity> list = goodsEntityIBaseDao.find(hql,param);
         for(GoodsEntity entity:list){
-            ownerService.deletGoods(entity.getGoodsId());//遍历商铺删除商品
             advertisement.cancelAdvertByName(IAdvertisement.AD_TYOE_GOODS,entity.getGoodsId());//取消商品广告位置
+            ownerService.deletGoods(entity.getGoodsId());//遍历商铺删除商品
+
         }
         return updateShopState(IOwnerService.SHOP_STATE_DELETE,shopId);
     }

@@ -133,7 +133,7 @@ public class OwnerService implements IOwnerService {
 
     @Override
     public boolean deletGoods(int goodId) {
-        advertisement.cancelGoods(goodId);//同时取消广告位置
+        advertisement.cancelAdvertByName(IAdvertisement.AD_TYOE_GOODS,goodId);//取消商品广告位置
         return updateGoodState(IGoodsBuilder.GOOD_SATE_DELETE,goodId);
     }
 
