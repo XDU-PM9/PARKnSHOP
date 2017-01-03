@@ -30,13 +30,13 @@
                 <th class="option">Option</th>
             </tr>
             <tr id="rate">
-                <td>Rate</td>
+                <td>Commission Rate</td>
             </tr>
             <tr id="shopPrice">
-                <td>shopPrice</td>
+                <td>Shop Advert Price</td>
             </tr>
             <tr id="goodsPrice">
-                <td>goodsPrice</td>
+                <td>Godds Advert Price</td>
             </tr>
             <tbody id="tableInfor">
             </tbody>
