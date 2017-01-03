@@ -1,3 +1,4 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: Lenovo
@@ -55,7 +56,7 @@
                 <%int i=0;%>
                 <c:forEach var="order" items="${orderList}">
 
-                    <tr><td colspan="5">
+                    <tr class="inforList"><td colspan="5">
                         <table class="good">
                             <thead >
                             <c:if test="${order.state==1}">
@@ -70,34 +71,34 @@
                             <th  colspan="3">
                                 <div name="asd"></div>
                                 <Script type="text/javascript" language="JavaScript">
+                                    var index = <%=i%>;
                                     function  check(d) {
                                         if(d<10)
                                             return "0"+d;
                                         else
                                             return d;
                                     }
-                                    function  getBetweenDate(d) {
+                                    function  getBetweenDate(d,index) {
                                         var date=new Date(new Date(d)-0+7*86400000);
                                         var da=new Date();
                                         if(date-da<0){
-                                            document.getElementsByName("asd")[0].value="";
+                                            document.getElementsByName("asd")[index].value="";
                                         }else{
                                             var d=(date.getDate()-da.getDate());
                                             var h=(date.getHours()-da.getHours());
                                             var m=(date.getMinutes()-da.getMinutes());
                                             var ds=(date.getSeconds()-da.getSeconds());
-                                        if(ds<0){m=m-1;ds+=60;}
-                                        if(m<0){h-=1;m+=60;}
-                                        if(h<0){d=d-1;h=h+24;}
-                                        var s=check(d)+"days:"+check(h)+":"+check(m)+":"+check(ds);
-                                        document.getElementsByName("asd")[0].innerHTML="remain "+ s;
-                                        window.setTimeout("getBetweenDate(d,index)",1000);
+                                            if(ds<0){m=m-1;ds+=60;}
+                                            if(m<0){h-=1;m+=60;}
+                                            if(h<0){d=d-1;h=h+24;}
+                                            var s=d+"days "+check(h)+"h:"+check(m)+" m";
+                                            document.getElementsByName("asd")[index].innerHTML="remain "+ s;
+                                            window.setTimeout("getBetweenDate('${order.paidTime}',index)",1000);
+                                        }
                                     }
-                                    }
-
-                                    window.setTimeout("getBetweenDate('${order.paidTime}')",1000);
+                                    getBetweenDate("${order.paidTime}",index);
                                 </Script>
-                                <%i++;%>
+
                             </th>
                             </c:if>
                             </tr>
@@ -106,9 +107,15 @@
                             <tr>
                                 <td class="dingdan_pic"><img src="${order.photo}" /></td>
                                 <td class="dingdan_title"><span>${order.goodsName}</span></td>
-                                <td class="dingdan_danjia">$<strong>${order.price/order.amount}</strong></td>
+                                <td class="dingdan_danjia">$<strong>
+                                    <fmt:formatNumber value="${order.price/order.amount}" maxFractionDigits="2"></fmt:formatNumber>
+                                <%--${order.price/order.amount}--%>
+                                </strong></td>
                                 <td class="dingdan_shuliang">${order.amount}</td>
-                                <td class="dingdan_zongjia">$<strong>${order.price}</strong><br />
+                                <td class="dingdan_zongjia">$<strong>
+                                    <fmt:formatNumber value="${order.price}" maxFractionDigits="2"></fmt:formatNumber>
+                                <%--${order.price}--%>
+                                </strong><br />
                                     <%--(免运费)--%>
                                 </td>
                                 <td class="digndan_caozuo"><span>
@@ -130,6 +137,7 @@
                             </tbody>
                         </table>
                     </td></tr>
+                    <%i++;%>
                 </c:forEach>
 
 
@@ -172,6 +180,5 @@
     <!-- 右边购物列表 End -->
 
 </div>
-
 </body>
 </html>

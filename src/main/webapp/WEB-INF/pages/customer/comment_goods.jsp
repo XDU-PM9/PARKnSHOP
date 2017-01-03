@@ -31,7 +31,7 @@
         <div class="shop_member_bd_right clearfix">
 
             <div class="shop_meber_bd_good_lists clearfix">
-                <div class="title"><h3>Personal Information</h3></div>
+                <div class="title"><h3>Comment Goods</h3></div>
                 <div class="clear"></div>
                 <dic class="shop_home_form">
                     <form action="/comment/insertComment" name="" class="shop_form" method="post">
