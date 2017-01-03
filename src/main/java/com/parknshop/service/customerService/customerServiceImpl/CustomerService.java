@@ -72,7 +72,7 @@ public class CustomerService implements ICustomerService {
     @Override
     public boolean setUserEntity(UserEntity userEntity) {
         try {
-            userEntityBaseDao.saveOrUpdate(userEntity);
+            userEntityBaseDao.update(userEntity);
             return  true;
         }catch (Exception e) {
             return false;
