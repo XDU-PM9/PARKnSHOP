@@ -150,7 +150,7 @@ function disagree() {
                     location.reload();
                 }
                 else {
-                    alert("error");
+                    window.wxc.xcConfirm('Operation Mistake, Please try again. ', window.wxc.xcConfirm.typeEnum.error);
                 }
             }
         })

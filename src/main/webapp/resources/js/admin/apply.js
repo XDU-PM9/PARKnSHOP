@@ -123,7 +123,7 @@ function agree() {
             success: function (data) {
                 var response =JSON.parse(data);
                 console.log(response);
-                if (response.error != false) {
+                if (response.error == false) {
                     location.reload();
                 }  else {
                    window.wxc.xcConfirm('Operation Mistake, Please try again. ', window.wxc.xcConfirm.typeEnum.error);
