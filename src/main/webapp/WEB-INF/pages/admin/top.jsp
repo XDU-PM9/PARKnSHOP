@@ -99,7 +99,7 @@
 
 <div id="header-div">
     <div id="logo-div" style="bgcolor:#000000;">
-        <a href="#"><img src="/resources/images/ico/banner.jpg" alt="PARKnSHOP" width="220px" height="50px"/></a>
+        <a href="/admin/jumpindex" target="_parent"><img src="/resources/images/ico/banner.jpg" alt="PARKnSHOP" width="220px" height="50px" /></a>
     </div>
     <div id="license-div" style="bgcolor:#000000;"></div>
     <div id="submenu-div">

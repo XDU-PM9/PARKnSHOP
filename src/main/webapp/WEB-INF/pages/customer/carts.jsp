@@ -75,14 +75,15 @@
                             </td>
                             <td class="gwc_list_title"><a href="/goods/detail?goodsId=${cart.goodsId}">${cart.goodsName} </a></td>
                             <td class="gwc_list_danjia"><span>$<strong
-                                    id="danjia_001">${cart.getPrice()}</strong></span></td>
+                                    id="danjia${cart.cartId}">${cart.getPrice()}</strong></span></td>
                             <td class="gwc_list_shuliang"><span>
                                 <input type="number" value="${cart.amount}" id="goods_001" name="num1" min="1"
                                        onchange="amountChange(${cart.cartId},$(this).val(),${cart.goodsAmount})"
                                        class="good_nums"/>
                                 <p>In stock：${cart.goodsAmount}</p>
+                            </span>
                             </td>
-                            <td class="gwc_list_xiaoji"><span>$<strong id="xiaoji_001"
+                            <td class="gwc_list_xiaoji"><span>$<strong id="xiaoji${cart.cartId}"
                                                                        class="good_xiaojis">${cart.getPrice()*cart.getAmount()}</strong></span>
                             </td>
                             <td class="gwc_list_caozuo"><a

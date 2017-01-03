@@ -27,7 +27,7 @@ public class BackupImpl implements DatabaseBackupService {
         System.out.println("备份文件保存路径:"+filepath);
     }
     String username = "root";
-    String password = "123456";
+    String password = "asd87060";
     
     @Override
     public  Boolean backup() {

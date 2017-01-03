@@ -4,6 +4,7 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.common.BitMatrix;
+import com.parknshop.service.baseImpl.IDefineString;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpSession;
@@ -30,6 +31,7 @@ public class Pay {
         } catch (UnknownHostException e) {
             IP = "192.168.31.62:8080";
         }
+        IP= IDefineString.HOME_ID;
     }
 
     /**
