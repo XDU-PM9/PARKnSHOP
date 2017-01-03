@@ -107,12 +107,12 @@
                             <tr>
                                 <td class="dingdan_pic"><a href="/goods/detail?goodsId=${order.getGoodsByGoodsId().getGoodsId()}"><img src="${order.photo}" /></a></td>
                                 <td class="dingdan_title"><span><a href="/goods/detail?goodsId=${order.getGoodsByGoodsId().getGoodsId()}">${order.goodsName}</a></span></td>
-                                <td class="dingdan_danjia">HK$<strong>
+                                <td class="dingdan_danjia" style="width:auto;">HK$<strong>
                                     <fmt:formatNumber value="${order.price/order.amount}" maxFractionDigits="2"></fmt:formatNumber>
                                 <%--${order.price/order.amount}--%>
                                 </strong></td>
                                 <td class="dingdan_shuliang">${order.amount}</td>
-                                <td class="dingdan_zongjia">HK$<strong>
+                                <td class="dingdan_zongjia"  style="width:auto;">HK$<strong>
                                     <fmt:formatNumber value="${order.price}" maxFractionDigits="2"></fmt:formatNumber>
                                 <%--${order.price}--%>
                                 </strong><br />
