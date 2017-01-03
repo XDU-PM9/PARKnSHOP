@@ -319,6 +319,19 @@ public class BaseDao<T> implements IBaseDao<T> {
         return rs;
     }
 
+    public int countNum(String hql,Object[] param)
+    {
+        Session session = this.getCurrentSession();
+        Query q = session.createQuery(hql);
+        if (param != null && param.length > 0) {
+            for (int i = 0; i < param.length; i++) {
+                q.setParameter(i, param[i]);
+            }
+        }
+        int hj=q.list().size();
+        session.close();
+        return  hj;
+    }
     public Long count(String hql, Object[] param) {
         Session session = this.getCurrentSession();
         Query q = session.createQuery(hql);
