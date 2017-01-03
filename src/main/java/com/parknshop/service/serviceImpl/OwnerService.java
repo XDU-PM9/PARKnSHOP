@@ -177,6 +177,8 @@ public class OwnerService implements IOwnerService {
             ShopEntity shopEntity = mDaoShop.get(ShopEntity.class,entity.getShopId());
             if(shopEntity.getState()!=SHOP_STATE_USING){
                 return null;//商品的商店为空 null
+            }else if(entity.getState() != IGoodsBuilder.GOOD_STATE_USING){
+                return null;
             }
         }
 
