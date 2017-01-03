@@ -11,7 +11,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
-    <title>Search</title>
+    <title>Search Shop</title>
     <link rel="stylesheet" href="/resources/css/base.css" type="text/css"/>
     <link rel="stylesheet" href="/resources/css/shop_common.css" type="text/css"/>
     <link rel="stylesheet" href="/resources/css/shop_header.css" type="text/css"/>

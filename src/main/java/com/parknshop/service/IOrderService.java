@@ -41,7 +41,7 @@ public interface IOrderService {
      */
     IListBean<OrdersEntity> getOrdersList(String orderNum,int page,int lines);
     List<OrdersEntity> getOrdersList(String orderNum);
-
+    int  getOrdersNum(int userId);
     /**
      * 获取所有订单
      * @param userId
