@@ -92,7 +92,10 @@ public class PayController {
             HttpServletRequest req, HttpSession session){
         String orderNum = req.getParameter("orderNum");
         List<String> sList = OrderService.sListMap.get(orderNum);
-//        sList.add(orderNum);
+        if(null == sList) {//有可能传入进来的就是 orderNum
+            sList = new ArrayList<>();
+            sList.add(orderNum);
+        }
         String msg;
         if(null == sList){
             msg = "error , i am sorry";

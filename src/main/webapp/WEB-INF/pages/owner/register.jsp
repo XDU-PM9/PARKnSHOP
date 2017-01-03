@@ -31,38 +31,32 @@
     <p>Now,you should complete the information below to register a new account.</p>
     <form name="form" method="post" action="">
         <%
-            String msg = String.valueOf(request.getParameter("msg"));
-            if (msg.equals("null")){
-                msg = "";
-            }
+            String msg = (String) request.getAttribute("msg");
         %>
-
-        <p><%=msg%></p>
         <ul class="formInfor">
             <li>
                 <input placeholder="Please input your email" name="e-mail" type="text" id="e-mail" size="18" required onblur="checkEmail()"/>
-                <a href="#" class="icon ticker"> </a>
-                <div class="clear"> </div>
             </li>
             <li>
                 <input placeholder="Username" name="username" type="text" id="username" size="18" required onblur="checkUser()"/>
-                <a href="#" class="icon ticker"> </a>
-                <div class="clear"> </div>
             </li>
             <li>
                 <input placeholder="Please set your password"name="password" type="password" id="password" size="18" onblur="checkPass()" required/>
-                <a href="#" class="icon ticker"> </a>
-                <div class="clear"> </div>
             </li>
             <li>
                 <input placeholder="Please input your password agian"name="passwordagain" type="password" id="passwordagain" size="18" onblur="checkPassAgian()" required/>
-                <a href="#" class="icon ticker"> </a>
-                <div class="clear"> </div>
             </li>
             <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i> </i>Please insure your information agian</label>
             <br>
             <input type="submit"  class="butlogin" value="Register" id="registerBtn"/>
         </ul>
+        <p style="color: red">
+            <%
+                if (msg!=null){
+                    out.print(msg);
+                }
+            %>
+        </p>
     </form>
 </div>
 <script src="/resources/libs/jquery-1.8.2.min.js"></script>

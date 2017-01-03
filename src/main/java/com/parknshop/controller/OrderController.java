@@ -84,10 +84,21 @@ public class OrderController {
     public String listCart(@RequestParam("OrdersNum") String ordersNum, Model model, ModelMap modelMap) {
         List<String> listOrderNumber =  OrderService.sListMap.get(ordersNum);
         List<OrdersEntity> ordersEntityList = new ArrayList<>();
-        for(String number:listOrderNumber){
-            List<OrdersEntity>  ordersEntities = iOrderService.getOrdersList(number);
-            ordersEntityList.addAll(ordersEntities);
+        if(null != listOrderNumber) {
+            for (String number : listOrderNumber) {
+                List<OrdersEntity> ordersEntities = iOrderService.getOrdersList(number);
+                ordersEntityList.addAll(ordersEntities);
+            }
+        }else {
+            try {
+                List<OrdersEntity> ordersEntities = iOrderService.getOrdersList(ordersNum);
+                ordersEntityList.addAll(ordersEntities);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.debug("" + "addOrderNumber error maybe it is null");
+            }
         }
+
         for (Iterator<OrdersEntity> it = ordersEntityList.iterator(); it.hasNext(); ) {
             OrdersEntity val = it.next();
             if (val.getState() != IOrderService.STATE_NOT_PAY) {
@@ -157,16 +168,17 @@ public class OrderController {
     @RequestMapping("/listOrder")
     public String listOrder(HttpSession session, Model model) {
         int page = 1;
-        int lines = 2;
+        int lines = 5;
         String pageString = request.getParameter("page");
         String linesString = request.getParameter("lines");
         try {
             page = null != pageString ? Integer.parseInt(pageString) : 1;
-            lines = null != linesString ? Integer.parseInt(linesString) : 2;
+            lines = null != linesString ? Integer.parseInt(linesString) : 5;
         } catch (NumberFormatException e) {
             Log.debug("listOrder参数转换为int异常");
         }
         int userId = getUserId(session);
+        int num=iOrderService.getOrdersNum(userId);
         IListBean<OrdersEntity> ordersList = iOrderService.getAllList(userId, page, lines);
 //        switch (type){
 //            //所有订单
@@ -179,9 +191,13 @@ public class OrderController {
 //            case "notComment":ordersList=iOrderService.getNotCommentLit(userId,page,lines);break;
 //        }
         if (ordersList.getNumer() > 0) {
+            model.addAttribute("nums",num);
             model.addAttribute("orderList", ordersList.getShopList());
             model.addAttribute("pages", ordersList.getMaxPages());
             model.addAttribute("page", ordersList.getCurrentPage());
+        }else
+        {
+            model.addAttribute("nums",num);
         }
         return "/customer/orders_center.jsp";
     }

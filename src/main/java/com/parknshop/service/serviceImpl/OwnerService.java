@@ -197,6 +197,23 @@ public class OwnerService implements IOwnerService {
         ShopDbBean shopDbBean = new ShopDbBean();
         shopDbBean.setShopEntity(shopEntity);
         shopDbBean.setPhotoEntityList(photoEntities);
+
+
+        synchronized (this){
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    ShopEntity entity = mDaoShop.get(ShopEntity.class,shopId);
+                    entity.setViews(entity.getViews()+1);
+                    try {
+                        mDaoShop.update(entity);
+                        System.out.println("view add ");
+                    } catch (Exception e) {
+                        System.out.println("view add fail");
+                    }
+                }
+            }).start();
+        }
         return shopDbBean;
     }
 

@@ -59,6 +59,12 @@ public class OwnerController {
         this.mAdverService = adService;
     }
 
+    @RequestMapping("/owner/jumpindex")
+    public String jumpindex(){
+        mUserService.loginOut();
+        return "redirect:/";
+    }
+
     @RequestMapping("/owner")
     public String dispatcher() {
         return "redirect:/owner/index";
@@ -120,6 +126,15 @@ public class OwnerController {
                 String email = request.getParameter("e-mail");
                 String username = request.getParameter("username");
                 String password = request.getParameter("password");
+                String passwordagain = request.getParameter("passwordagain");
+                if (checkEmpty(email,username,password,passwordagain)){
+                    request.setAttribute(MSG,"Fields can't be empty");
+                    return "owner/register.jsp";
+                }
+                if (!password.equals(passwordagain)){
+                    request.setAttribute(MSG,"Make sure your password are the same");
+                    return "owner/register.jsp";
+                }
                 mUserBuilder.clear();
                 mUserBuilder.setEmail(email);
                 mUserBuilder.setUserName(username);
@@ -457,7 +472,7 @@ public class OwnerController {
     public String addGoodsPost(HttpSession session,
                                @RequestParam("name") String name,
                                @RequestParam("desc") String desc,
-                               @RequestParam("price") double price,
+                               @RequestParam("price") String priceStr,
                                @RequestParam("inventory") int inventory,
                                @RequestParam("goods_type") String type,
                                @RequestParam("post_way") String postWay,
@@ -465,7 +480,15 @@ public class OwnerController {
         if (!checkLogin(session)) {
             return "redirect:/owner/login";
         }
-        System.out.println("type:" + type);
+        double price = 0.0;
+        try {
+            price = Double.parseDouble(priceStr);
+        }catch (Exception e){
+            return "owner/add_goods_fail.jsp";
+        }
+        if (price<0 || inventory<0){
+            return "owner/add_goods_fail.jsp";
+        }
         final int count = photos.length;
         String contextPath = session.getServletContext().getRealPath("/");
         String[] photoPaths = new String[count];
@@ -753,4 +776,12 @@ public class OwnerController {
         return entity;
     }
 
+    private boolean checkEmpty(String... values){
+        for (String v : values){
+            if (v==null || v.equals("")){
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -30,6 +30,7 @@
 
         <div class="shop_meber_bd_good_lists clearfix">
             <div class="title"><h3>Comment List</h3></div>
+            <c:if test="${orders.size()>0}">
             <table>
                 <thead class="tab_title">
                 <th style="width:80px;"><span>&nbsp;</span></th>
@@ -58,6 +59,18 @@
 
                 </tbody>
             </table>
+            </c:if>
+            <c:if test="${orders.size()==0}">
+                <div>
+                    <img src="/resources/images/customer/shoucang.png"/>
+                    <div  style="width: 700px;margin-left:280px;margin-top: -160px;padding-bottom:100px;margin-bottom: 100px;">
+                        <font style="font-family: 'Microsoft Yahei';font-size:24px;line-height: 48px;"> You have not produced any orders yet!<br/></font>
+                        <font  style="font-family:'Microsoft Yahei';font-size:16px;line-height: 18px;">  <a href="/"> Let's go shopping, and choose your favorite.</a>
+
+                        </font>
+                    </div>
+                </div>
+            </c:if>
         </div>
     </div>
     <!-- 右边购物列表 End -->

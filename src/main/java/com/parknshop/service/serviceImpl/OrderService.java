@@ -87,7 +87,7 @@ public class OrderService implements IOrderService {
             if(cartEntity.getAmount() > goodsEntity.getInventory() || 0  >= goodsEntity.getInventory()){
                 return null;//数量过了
             }else {
-                goodsEntity.setSales(goodsEntity.getSales()+1);
+                goodsEntity.setSales(goodsEntity.getSales()+cartEntity.getAmount());
                 goodsEntity.setInventory(goodsEntity.getInventory()-cartEntity.getAmount());
                 try {
                     goodsEntityIBaseDao.update(goodsEntity);
@@ -154,6 +154,18 @@ public class OrderService implements IOrderService {
     @Override
     public List<OrdersEntity> getOrdersList(String orderNum) {
        return getOrdersList(orderNum,1,Integer.MAX_VALUE).getShopList();
+    }
+
+    @Override
+    public int getOrdersNum(int userId) {
+        List<OrdersEntity> ordersEntityList=ordersEntityIBaseDao.find("from OrdersEntity where userId=?",new Object[]{userId});
+        if(ordersEntityList.size()>0)
+        {
+            return ordersEntityList.size();
+        }
+        else {
+            return 0;
+        }
     }
 
     @Override
