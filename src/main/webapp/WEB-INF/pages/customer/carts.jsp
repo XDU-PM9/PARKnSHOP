@@ -82,7 +82,7 @@
                             </strong></span></td>
                             <td class="gwc_list_shuliang"><span>
                                 <input type="number" value="${cart.amount}" id="goods_001" name="num1" min="1"
-                                       onchange="amountChange(${cart.cartId},$(this).val(),${cart.goodsAmount},${cart.price/cart.amount})"
+                                       onchange="amountChange(${cart.cartId},$(this).val(),${cart.goodsAmount},${cart.price})"
                                        class="good_nums"/>
                                 <p>In stock：${cart.goodsAmount}</p>
                             </span>
