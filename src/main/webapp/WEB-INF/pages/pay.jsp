@@ -10,12 +10,33 @@
 <html>
 <head>
     <title>Title</title>
+    <style>
+        H1{
+            text-align: center;
+            font-size: xx-large;
+        }
+        button{
+            width: 20%;
+            height: 60px;
+            border-radius:0.6em;
+            -webkit-border-radius:0.6em;
+            -moz-border-radius:0.6em;
+            -o-border-radius:0.6em;
+            outline: none;
+            cursor: pointer;
+            margin: 0 30%;
+            font-size: xx-large;
+            color:#4D4949;
+            background: #d0d0d0;
+            padding: 0;
+        }
+    </style>
 </head>
 <body>
 <c:if test="${empty type}">
     <H1>please pay the money</H1><br>
     <H1>orderNum:${orderNum}</H1><br>
-    <H1>addressId:${addressId}</H1><br>
+    <H1>money:${money}</H1><br>
     <form  action="/pay/f" method="get">
 
         <input  type="hidden" name="addressId" value="${addressId}">
