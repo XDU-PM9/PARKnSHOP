@@ -23,6 +23,8 @@ function selectAll() {
  * @param goodsAmount
  */
 function amountChange(cartId, amount, goodsAmount) {
+    //更改成功后改变总价
+    $('#xiaoji'+cartId).html($('#danjia'+cartId).html()*amount);
     $.ajax({
         url: "/changeAmount",
         type: 'POST',
@@ -42,7 +44,7 @@ function amountChange(cartId, amount, goodsAmount) {
                     document.getElementById(cartId).removeAttribute("disabled");
                     document.getElementById(cartId).style.cursor = "auto";
                     //更改成功后改变总价
-                    $('#xiaoji'+cartId).html($('#danjia'+cartId).html()*amount);
+                    // $('#xiaoji'+cartId).html($('#danjia'+cartId).html()*amount);
                 }
             }
         }
