@@ -32,9 +32,10 @@ function amountChange(cartId, amount, goodsAmount) {
         },
         success: function (msg) {
             if ('success' == msg) {
-                layer.msg("change success", {
-                    time: 400
-                });                //更改成功后改变总价
+                // layer.msg("change success", {
+                //     time: 400
+                // });
+                //更改成功后改变总价
                 $('#xiaoji' + cartId).html($('#danjia' + cartId).html() * amount);
                 if (amount > goodsAmount) {
                     //取消选中
