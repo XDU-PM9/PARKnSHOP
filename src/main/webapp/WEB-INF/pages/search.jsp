@@ -612,12 +612,7 @@
 <!-- List Body End -->
 
 <!-- Footer - wll - 2013/3/24 -->
-<div class="clear"></div>
-<div class="shop_footer">
-    <div class="shop_footer_copy">
-        <p>Copyright 2004-2013 itcast Inc.,All rights reserved.</p>
-    </div>
-</div>
+ <%@include file="customer/footer.jsp"%>
 <!-- Footer End -->
 
 </body>
