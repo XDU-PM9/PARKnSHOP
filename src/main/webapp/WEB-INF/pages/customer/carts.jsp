@@ -96,7 +96,8 @@
                             <td class="gwc_list_caozuo"><a
                                     href="/insertCollect?goodsId=${cart.getGoodsId()}">collect</a><a
                                     href="/removeProduct?goodsId=${cart.getCartId()}"
-                                    class="shop_good_delete">delete</a></td>
+                                    <%--class="shop_good_delete"--%>
+                            >delete</a></td>
                         </tr>
                     </c:forEach>
                     </tbody>
