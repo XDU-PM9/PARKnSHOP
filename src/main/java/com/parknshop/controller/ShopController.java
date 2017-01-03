@@ -33,6 +33,9 @@ public class ShopController {
         model.addAttribute("shopId",request.getParameter("shopId"));
         int id = Integer.parseInt(request.getParameter("shopId"));
         ShopDbBean shop = mOwnerService.getShop(id);
+        if (null == shop){
+            return "redirect:/";
+        }
         request.setAttribute(SHOP,shop);
 
         return "shop/shop.jsp";

@@ -6,6 +6,7 @@ import com.parknshop.dao.daoImpl.BaseDao;
 import com.parknshop.entity.*;
 import com.parknshop.service.*;
 import com.parknshop.service.serviceImpl.listBean.*;
+import com.parknshop.utils.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -73,7 +74,8 @@ public class AdminService  implements IAdminService{
 
     @Override
     public boolean blackShop(int shopId) {
-        advertisement.cancelShop(shopId);//同时取消商店的广告位置
+        boolean res = advertisement.cancelAdvertByName(IAdvertisement.AD_TYPE_SHOP,shopId);//同时取消商店的广告位置
+        Log.debug(" 取消 广告 ："+shopId + "  " +res);
         return updateShopState(IOwnerService.SHOP_STATE_BLAKE,shopId);
     }
 
@@ -84,13 +86,14 @@ public class AdminService  implements IAdminService{
 
     @Override
     public boolean deleteShop(int shopId) {
-        advertisement.cancelShop(shopId);//同时取消商店的广告位置
+        advertisement.cancelAdvertByName(IAdvertisement.AD_TYPE_SHOP,shopId);//同时取消商店的广告位置
         String hql = "from GoodsEntity where shopId =?";
         Object[] param ={shopId};
         IBaseDao<GoodsEntity> goodsEntityIBaseDao = new BaseDao<>();
         List<GoodsEntity> list = goodsEntityIBaseDao.find(hql,param);
         for(GoodsEntity entity:list){
             ownerService.deletGoods(entity.getGoodsId());//遍历商铺删除商品
+            advertisement.cancelAdvertByName(IAdvertisement.AD_TYOE_GOODS,entity.getGoodsId());//取消商品广告位置
         }
         return updateShopState(IOwnerService.SHOP_STATE_DELETE,shopId);
     }

@@ -115,7 +115,7 @@ function clearTable() {
 function turn() {
     $("#turnPage").click(function () {
             index = $("#gotoPage").val();
-            uploadApply();
+            uploadOrder();
         }
     )
 
@@ -130,7 +130,7 @@ function next() {
         }
         else {
             index++;
-            uploadApply();
+            uploadOrder();
         }
     })
 }
@@ -142,7 +142,7 @@ function prev() {
         }
         else{
             index--;
-            uploadApply();
+            uploadOrder();
         }
     })
 }

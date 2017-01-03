@@ -33,7 +33,10 @@
 .shop_hd_header_search_tab li{float:left; padding:7px 13px; font-weight:bold; position: relative; top:2px; cursor:pointer;}
 .shop_hd_header_search_tab li.current{background-color:#FE8502; border-radius:5px 5px 0 0; color:#fff;}
 
-.search_form{width:490px; height:30px;overflow: hidden; background:url('../images/images/hbg.png') repeat-x left -99px;}
+.search_form{
+    border-radius: 4px;
+    border-left: 5px solid #F58C04;
+    width:490px; height:30px;overflow: hidden; background:url('../images/images/hbg.png') repeat-x left -99px;}
 .search_form form{width:490px; height:30px; overflow: hidden;background:url('../images/images/hbg.png') no-repeat left -69px;}
 .search_formstyle{width:487px; height:24px; overflow: hidden;background:url('../images/images/hbg.png') no-repeat 403px -129px; padding:4px 0 3px 3px;}
 .search_form_text{width:400px; height:20px; font-size:12px; border:none; padding:2px 2px 0;font-family:yahei; color:#939393; float:left;}

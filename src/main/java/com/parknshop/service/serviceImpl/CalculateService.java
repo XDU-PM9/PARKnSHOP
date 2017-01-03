@@ -37,16 +37,16 @@ public class CalculateService implements ICalculateService {
 
 
 
-    public static final String  headHql = "select DATE_FORMAT(createTime,'%Y-%m-%d') as date,sum(price-commission) as price from orders ";
-    public static final String headHqlAdmin = "select t.day ,t.earn+t2.earn as earn  from( select DATE_FORMAT(createTime,'%Y-%m-%d') as day,sum(commission) as earn  from orders  where YEAR(createTime)=YEAR(NOW()) GROUP BY day) as t" +
-            ",(select DATE_FORMAT(startTime,'%Y-%m-%d') as day,sum(price) as earn from advert  where YEAR(startTime)=YEAR(NOW()) GROUP BY day) as t2";
-    public static final String year = " where YEAR(createTime)=YEAR(NOW()) ";
+    public static final String  headHql = "select DATE_FORMAT(paidTime,'%Y-%m-%d') as date,sum(price-commission) as price from orders ";
+//    public static final String headHqlAdmin = "select t.day ,t.earn+t2.earn as earn  from( select DATE_FORMAT(createTime,'%Y-%m-%d') as day,sum(commission) as earn  from orders  where YEAR(createTime)=YEAR(NOW()) GROUP BY day) as t" +
+//            ",(select DATE_FORMAT(paidTime,'%Y-%m-%d') as day,sum(price) as earn from advert  where YEAR(startTime)=YEAR(NOW()) GROUP BY day) as t2";
+    public static final String year = " where YEAR(paidTime)=YEAR(NOW()) ";
     public static final String yearAdmin = " where YEAR(startDate)=YEAR(NOW()) ";
-    public static final String month = " where DATE_SUB(CURDATE(), INTERVAL 30 DAY) <= date(createTime) ";
+    public static final String month = " where DATE_SUB(CURDATE(), INTERVAL 30 DAY) <= date(paidTime) ";
     public static final String monthAdmin = " where DATE_SUB(CURDATE(), INTERVAL 30 DAY) <= date(startDate) ";
-    public static final String week = " where DATE_SUB(CURDATE(), INTERVAL 7 DAY) <= date(createTime)  ";
+    public static final String week = " where DATE_SUB(CURDATE(), INTERVAL 7 DAY) <= date(paidTime)  ";
     public static final String weekAdmin = " where DATE_SUB(CURDATE(), INTERVAL 7 DAY) <= date(startDate)  ";
-    public static final String toDay =" where to_days(createTime) = to_days(now()) ";
+    public static final String toDay =" where to_days(paidTime) = to_days(now()) ";
     public static final String toDayAdmin =" where to_days(startDate) = to_days(now()) ";
     public static final String finalHql =" GROUP BY date ";
 
@@ -76,7 +76,7 @@ public class CalculateService implements ICalculateService {
     }
 
     private String createAdminHql(String orderDays,String advertDays){
-        String headHqlAdmin = "select t.day ,t.earn as earn  from( select DATE_FORMAT(createTime,'%Y-%m-%d') as day,sum(commission) as earn  from orders  " + orderDays + " and state > ?  GROUP BY day) as t" ;
+        String headHqlAdmin = "select t.day ,t.earn as earn  from( select DATE_FORMAT(paidTime,'%Y-%m-%d') as day,sum(commission) as earn  from orders  " + orderDays + " and state > ?  GROUP BY day) as t" ;
              //   ",(select DATE_FORMAT(startTime,'%Y-%m-%d') as day,sum(price) as earn from advert  " + advertDays + " and state > ?  GROUP BY day) as t2";
         return headHqlAdmin;
     }

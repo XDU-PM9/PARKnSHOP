@@ -1,3 +1,4 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: Lenovo
@@ -106,9 +107,15 @@
                             <tr>
                                 <td class="dingdan_pic"><img src="${order.photo}" /></td>
                                 <td class="dingdan_title"><span>${order.goodsName}</span></td>
-                                <td class="dingdan_danjia">$<strong>${order.price/order.amount}</strong></td>
+                                <td class="dingdan_danjia">$<strong>
+                                    <fmt:formatNumber value="${order.price/order.amount}" maxFractionDigits="2"></fmt:formatNumber>
+                                <%--${order.price/order.amount}--%>
+                                </strong></td>
                                 <td class="dingdan_shuliang">${order.amount}</td>
-                                <td class="dingdan_zongjia">$<strong>${order.price}</strong><br />
+                                <td class="dingdan_zongjia">$<strong>
+                                    <fmt:formatNumber value="${order.price}" maxFractionDigits="2"></fmt:formatNumber>
+                                <%--${order.price}--%>
+                                </strong><br />
                                     <%--(免运费)--%>
                                 </td>
                                 <td class="digndan_caozuo"><span>
