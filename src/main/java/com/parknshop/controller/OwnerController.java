@@ -672,27 +672,32 @@ public class OwnerController {
 
         GoodsEntity entity = toGoodsEntity(bean);
         int count = photos.length;
-        String contextPath = session.getServletContext().getRealPath("/");
-        String[] photoPaths = new String[count];
-        try {
-            for (int i = 0; i < count; i++) {
-                photoPaths[i] = OwnerFileSaver.saveImage(photos[i], contextPath);
-            }
-        } catch (Exception e) {
-            //服务器存储错误
-            return "owner/add_goods_fail.jsp";
-        }
-
-        IUploadPictures callback = new IUploadPictures() {
-            @Override
-            public List<String> getPicturePaths() {
-                List<String> pictureList = new ArrayList<>();
-                for (String path : photoPaths) {
-                    pictureList.add(path);
+        IUploadPictures callback = null;
+        if (count==0 || count==1 && photos[0].getOriginalFilename().equals("")){
+            callback = null;
+        }else {
+            String contextPath = session.getServletContext().getRealPath("/");
+            String[] photoPaths = new String[count];
+            try {
+                for (int i = 0; i < count; i++) {
+                    photoPaths[i] = OwnerFileSaver.saveImage(photos[i], contextPath);
                 }
-                return pictureList;
+            } catch (Exception e) {
+                //服务器存储错误
+                return "owner/add_goods_fail.jsp";
             }
-        };
+
+            callback = new IUploadPictures() {
+                @Override
+                public List<String> getPicturePaths() {
+                    List<String> pictureList = new ArrayList<>();
+                    for (String path : photoPaths) {
+                        pictureList.add(path);
+                    }
+                    return pictureList;
+                }
+            };
+        }
         mOwnerService.updateGoods(entity
                 , callback);
         return "owner/add_goods_success.jsp";

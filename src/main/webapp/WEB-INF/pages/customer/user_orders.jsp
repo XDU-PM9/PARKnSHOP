@@ -214,8 +214,8 @@
                         <c:forEach var="orders"  items="${ordersEntityList}">
                             <tr>
                                 <td class="img_link">
-                                    <a href="#" class="img"><img src="${orders.getPhoto()}" width="80" height="80"/></a>
-                                    <a href="#" class="title">${orders.getGoodsName()}</a>
+                                    <a href="/goods/detail?goodsId=${orders.getGoodsByGoodsId().getGoodsId()}" class="img"><img src="${orders.getPhoto()}" width="80" height="80"/></a>
+                                    <a href="/goods/detail?goodsId=${orders.getGoodsByGoodsId().getGoodsId()}" class="title">${orders.getGoodsName()}</a>
                                 </td>
                                 <td>${orders.getAmount()}</td>
                                 <td>

@@ -14,7 +14,7 @@
 <H1>${msg}</H1>
 
     <div class="pay_success">
-    <h2 style="color:#ee0000;font-weight:bold;font-size:28px;margin:30px auto;">Congratulations!</h2>
+    <h2 style="color:#ee0000;font-weight:bold;font-size:28px;margin:30px auto;text-align: center;">Congratulations!</h2>
     <p style="margin:30px auto;"></p>
     <p style="margin:15px auto;"></p>
     <p id="ShowDiv" style="margin:65px auto;font-size:14px;"></p>
@@ -24,12 +24,13 @@
             width:420px;
             height:280px;
             margin:100px auto;
-            border:2px #ee0000 solid;
             text-align:center;
             font-size: 18px;
             font-weight: 500;
         }
-
+        H1{
+            text-align: center;
+        }
     </style>
 
     <script language='javascript' type='text/javascript'>
