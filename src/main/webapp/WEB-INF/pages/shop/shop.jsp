@@ -34,7 +34,7 @@
     <div>
         <img src="<%out.print(logo);%>" alt="" style="display: inline; width: 50px; height: 50px; vertical-align:middle"/>
         <p style="display: inline;font-size: 150%; height: 50px; vertical-align:middle" ><%out.print(name);%></p>
-        <a href="/insertCollectShop?shopId=<%out.print(id);%>" style="display: inline; height: 50px; vertical-align:middle;margin-left: 810px">Add to favorite</a>
+        <a href="/insertCollectShop?shopId=<%out.print(id);%>" style="display: inline-block; height: 50px; vertical-align:middle;text-align: right;position: absolute;right: 11%;margin-top: 20px;">Add to favorite</a>
     </div>
 
     <div>
