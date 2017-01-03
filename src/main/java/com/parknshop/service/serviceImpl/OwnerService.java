@@ -171,6 +171,15 @@ public class OwnerService implements IOwnerService {
                 " and g.goodsId = ?";
         Object[] param = {goodsId};
         GoodsDbBean entity = goodsDbBeanIBaseDao.get(hql,param);
+        if(null == entity){
+            return null;//找不到商品 null
+        }else {
+            ShopEntity shopEntity = mDaoShop.get(ShopEntity.class,entity.getGoodsId());
+            if(shopEntity.getState()!=SHOP_STATE_USING){
+                return null;//商品的商店为空 null
+            }
+        }
+
         //数量加一
         synchronized (this){
             new Thread(new Runnable() {
