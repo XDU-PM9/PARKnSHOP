@@ -19,10 +19,6 @@
     <script type="text/javascript" src="/resources/js/jquery.js"></script>
     <script type="text/javascript" src="/resources/js/topNav.js"></script>
     <script src="/resources/js/search.js"></script>
-
-    <%@include file="customer/top.jsp"%>
-
-    <%@include file="customer/footer.jsp"%>
 </head>
 <%--页面加载完成后立即执行搜索--%>
 <body onload="firstSearch()">
@@ -30,6 +26,7 @@
 <div class="shop_hd">
     <!-- Header TopNav -->
 
+      <%@include file="customer/top.jsp"%>
 
 
     <!-- TopHeader Center -->
@@ -615,6 +612,7 @@
 <!-- List Body End -->
 
 <!-- Footer - wll - 2013/3/24 -->
+ <%@include file="customer/footer.jsp"%>
 <!-- Footer End -->
 
 </body>

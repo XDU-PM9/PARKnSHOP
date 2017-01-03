@@ -257,10 +257,10 @@ function displayCount() {
 }
 
 $(document).ready(function firstSearch() {
-    alert("enter");
+    // alert("enter");
     var type=decodeURIComponent(GetQueryString('type'));
     if(""!=type&&undefined!=type&&null!=type){
-    console.log(type);
+    // console.log(type);
         setType(null,type);
     }else {
         search();
